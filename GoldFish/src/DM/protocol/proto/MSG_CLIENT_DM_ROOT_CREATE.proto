@@ -1,0 +1,11 @@
+message MSG_CLIENT_DM_ROOT_CREATE
+{
+    optional string token = 1;
+    optional string userName = 2;
+    optional string password = 3;
+}
+
+message MSG_DM_CLIENT_ROOT_CREATE_ACK
+{
+    optional int32 statusCode = 1;
+}

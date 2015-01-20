@@ -1,0 +1,10 @@
+message MSG_CLIENT_DM_GROUP_DESTORY
+{
+    optional string token = 1;
+    optional string groupName = 2;
+}
+
+message MSG_DM_CLIENT_GROUP_DESTORY_ACK
+{
+    optional int32 statusCode = 1;
+}

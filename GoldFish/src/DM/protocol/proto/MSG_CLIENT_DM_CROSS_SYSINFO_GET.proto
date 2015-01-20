@@ -1,0 +1,16 @@
+message MSG_CLIENT_DM_CROSS_SYSINFO_GET
+{
+    optional string token = 1;
+}
+
+message MSG_DM_CLIENT_CROSS_SYSINFO_GET_ACK
+{
+    required int32 statusCode = 1;
+    message CS_SYS_INFO
+    {
+        optional string nodeStatus = 1;
+        optional uint32 core = 2;
+        optional uint32 memSize = 3;
+    }
+    repeated CS_SYS_INFO singleNodeSysInfo = 2;
+}

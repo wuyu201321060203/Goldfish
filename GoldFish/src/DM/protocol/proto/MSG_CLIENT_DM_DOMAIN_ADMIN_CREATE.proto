@@ -1,0 +1,12 @@
+message MSG_CLIENT_DM_DOMAIN_ADMIN_CREATE
+{
+    optional string token = 1;
+    optional string domainName = 2;
+    optional string userName = 3;
+    optional string password = 4;
+}
+
+message MSG_DM_CLIENT_DOMAIN_ADMIN_CREATE_ACK
+{
+    optional int32 statusCode = 1;
+}

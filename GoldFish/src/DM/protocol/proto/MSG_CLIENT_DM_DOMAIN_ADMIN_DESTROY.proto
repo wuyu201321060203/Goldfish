@@ -1,0 +1,10 @@
+message MSG_CLIENT_DM_DOMAIN_ADMIN_DESTORY
+{
+    optional string token = 1;
+    optional string userName = 2;
+}
+
+message MSG_DM_CLIENT_DOMAIN_ADMIN_DESTORY_ACK
+{
+    optional int32 statusCode = 1;
+}

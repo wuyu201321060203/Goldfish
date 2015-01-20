@@ -1,0 +1,9 @@
+message MSG_DC_DM_CONFIG_DELETE
+{
+    optional string domainName = 1;
+}
+
+message MSG_DM_DC_CONFIG_DELETE_ACK
+{
+    optional int32 statusCode = 1;
+}

@@ -1,0 +1,13 @@
+message MSG_CLIENT_DM_USER_LOG_IN
+{
+    optional string userName = 1;
+    optional string password = 2;
+}
+
+message MSG_DM_CLIENT_USER_LOG_IN_ACK
+{
+    optional int32 statusCode = 1;
+    optional string token = 2;
+    optional string DCIp = 3;
+    optional uint32 DCPort = 4;
+}

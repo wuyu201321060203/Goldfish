@@ -1,0 +1,15 @@
+message MSG_CLIENT_DM_DOMAIN_DESCRIPTION_GET
+{
+    optional string token = 1;
+}
+
+message MSG_DM_CLIENT_DOMAIN_DESCRIPTION_GET_ACK
+{
+    optional int32 statusCode = 1;
+    message DOMAIN_INFO
+    {
+        optional string name = 1;
+        optional string description = 2;
+    }
+    repeated DOMAIN_INFO domainInfo = 2;
+}

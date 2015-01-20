@@ -1,0 +1,10 @@
+message MSG_DC_DM_CONFIG_PERSISTENCE
+{
+    optional string domainName = 1;
+    repeated string raIp = 2;
+}
+
+message MSG_DM_DC_CONFIG_PERSISTENCE_ACK
+{
+    optional int32 statusCode = 1;
+}

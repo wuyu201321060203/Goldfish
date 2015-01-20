@@ -1,0 +1,12 @@
+message MSG_CLIENT_DM_GROUP_CREATE
+{
+    optional string token = 1;
+    optional string groupName = 2;
+    optional string belong2Domain = 3;
+    optional string groupDescription = 4;
+}
+
+message MSG_DM_CLIENT_GROUP_CREATE_ACK
+{
+    optional int32 statusCode = 1;
+}

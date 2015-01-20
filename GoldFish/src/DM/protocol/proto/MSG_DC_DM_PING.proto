@@ -1,0 +1,7 @@
+message MSG_DC_DM_PING
+{
+}
+
+message MSG_DM_DC_PONG
+{
+}

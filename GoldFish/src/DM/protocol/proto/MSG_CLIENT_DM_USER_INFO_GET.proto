@@ -1,0 +1,18 @@
+message MSG_CLIENT_DM_USER_INFO_GET
+{
+    optional string token = 1;
+}
+
+message MSG_DM_CLIENT_USER_INFO_GET_ACK
+{
+    optional int32 statusCode = 1;
+    message USER_INFO
+    {
+        optional string domainName = 1;
+        optional string groupName = 2;
+        optional string userName = 3;
+        optional string password = 4;
+        optional uint32 authority = 5;
+    }
+    repeated USER_INFO useInfo = 2;
+}

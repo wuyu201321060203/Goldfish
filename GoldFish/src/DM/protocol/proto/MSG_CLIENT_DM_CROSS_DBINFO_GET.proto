@@ -1,0 +1,46 @@
+message MSG_CLIENT_DM_CROSS_DBINFO_GET
+{
+optional string token = 1;
+}
+
+message MSG_DM_CLIENT_CROSS_DBINFO_GET_ACK
+{
+    optional int32 statusCode = 1;
+    message TB_INFO
+    {
+        optional string tbName = 1;
+        message COLUMN_INFO
+        {
+            enum ColumnType
+            {
+                VARCHAR = 0;
+                INT = 1;
+                DOUBLe = 2;
+                TEXT = 3;
+                BLOB = 4;
+                TIMEStamp = 5;
+            }
+            optional string columnName = 1;
+            optional ColumnType columnType = 2;
+        }
+        repeated COLUMN_INFO columnInfo = 2;
+        optional uint32 rowNum = 3;
+        optional uint32 tbSize = 4;
+    }
+    message DB_INFO
+    {
+        optional string dbName = 1;
+        repeated TB_INFO tbInfo = 2;
+    }
+    message GROUP_DB_INFO
+    {
+        optional string groupName = 1;
+        repeated DB_INFO gDbInfo = 2;
+    }
+    message DOMAIN_DB_INFO
+    {
+        optional string domainName = 1;
+        repeated GROUP_DB_INFO dDbInfo = 2;
+    }
+    optional DOMAIN_DB_INFO domainDbInfo = 2;
+}
