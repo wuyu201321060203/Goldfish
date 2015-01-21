@@ -1,41 +1,49 @@
+#include <string>
+
 #include <boost/tokenizer.hpp>
 
-#include "Config.h"
-#include "DbAcceptor.h"
+#include <DM/DbAcceptor.h>
+#include <Db/ConnectionPool.h>
+#include <Db/ResultSet.h>
+#include <mysql/MysqlConnection.h>
+
+using OOzdb::ConnectionPool;
 
 extern Initializer g_Initializer;
+extern ConnectionPool g_DbPool;
+
+using namespace muduo::net;
+using namespace muduo;
+using std::string;
 
 void DbAcceptor::onPreserve(TcpConnectionPtr const& conn,
-                MessagePtr const& msg,
-                muduo::Timestamp timeStamp)
+                            MessagePtr const& msg,
+                            Timestamp timeStamp)
 {
-    boost::shared_ptr<PreserveMsg> message =
-                                    muduo::down_pointer_cast<PreserveMsg>(msg);
-    string domain = message->domainName();
-    ConnectionPtr dbConn = SingleConnectionPool::instance()
-                                            .getConnection<MysqlConnection>();
-    PreserveACKMsg replyMsg;
-    replyMsg.set_statusCode(PRESERVE_FAIL);
+    ConfigPersistenceMsgPtr message =
+                            muduo::down_pointer_cast<ConfigPersistenceMsg>(msg);
+
+    string domain = message->domainname();
+    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConfigPersistenceACK reply;
+    reply.set_statuscode(CONFIG_PRESERVE_FAIL);
     try
     {
-        ResultPtr result = dbConn->executeQuery("select ip from DomainImportConfig where name = %s",
-            domain.c_str());
-        if(result)
+        ResultSetPtr result =
+            dbConn->executeQuery(" select id from DOMAIN_INFO where name = '%s' ",
+                                 domain.c_str() );
+        if(result->next())
         {
-            if(result->next())
+            int ipNum = message->raip_size();
+            string ip;
+            for(int i = 0 ; i != ipNum ; ++i)
             {
-                string ips = result->getStringByName(ip);
-                int ipNum = message->domainName_size();
-                for(int i = 0 ; i != ipNum ; ++i)
-                {
-                    ips += "#";
-                    ips += message->get_domainName(i);
-                }
-                dbConn->execute("update DomainImportConfig SET ip = %s where name = %s",
-                    ips , domain.c_str());
+                ip = message->raip(i);
+                dbConn->execute(
+                    "insert into IMCONFIG_INFO (domainName , raIP) \
+                     values ('%s' , '%s')" , domain , ip );
             }
-            replyMsg.set_statusCode(SUCCESS);
-            return;
+            reply.set_statuscode(SUCCESS);
         }
     }
     catch(SQLException& e)
@@ -44,7 +52,7 @@ void DbAcceptor::onPreserve(TcpConnectionPtr const& conn,
         LOG_INFO << e.getReason();
 #endif
     }
-    dbConn->send(replyMsg);
+    dbConn->send(reply);
     dbConn->close();
 }
 
@@ -52,32 +60,21 @@ void DbAcceptor::onLoad(TcpConnectionPtr const& conn,
                         MessagePtr const& msg,
                         muduo::Timestamp timeStamp)
 {
-    boost::shared_ptr<LoadMsg> message =
-                                    muduo::down_pointer_cast<LoadMsg>(msg);
-    string domain = message->domainName();
-    ConnectionPtr dbConn = SingleConnectionPool::instance()
-                                            .getConnection<MysqlConnection>();
-    LoadACKMsg replyMsg;
-    replyMsg.set_statusCode(LOAD_FAIL);
+    ConfigLookupMsgPtr message = muduo::down_pointer_cast<ConfigLookupMsg>(msg);
+    string domain = message->domainname();
+    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConfigLookupACK reply;
+    reply.set_statuscode(DOMAIN_NO_CONFIG);
     try
     {
-        ResultPtr result = dbConn->executeQuery("select ips from DomainImportConfig where name = %s",
-            domain.c_str());
-        if(result)
+        ResultSetPtr result = dbConn->executeQuery("select raIP from \
+            IMConfig_INFO where domainName = '%s' ", domain.c_str());
+        string ip;
+        while(result->next())
         {
-            string ips;
-            if(result->next())
-                ips = result->getStringByName(ip);
-            typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-            boost::char_separator<char> sep("#");
-            tokenizer tokens(s2, sep);
-            int pos = 0;
-            for(tokenizer::iterator tok_iter = tokens.begin() ;
-                tok_iter != tokens.end() ; ++tok_iter , ++pos)
-            {
-                replyMsg.set_raIp(pos);
-            }
-            replyMsg.set_statusCode = SUCCESS;
+            ip = result->getString(1);
+            reply.add_raip(ip);
+            reply.set_statuscode(SUCCESS);
         }
     }
     catch(SQLException& e)
@@ -85,8 +82,9 @@ void DbAcceptor::onLoad(TcpConnectionPtr const& conn,
 #ifdef DEBUG
         LOG_INFO << e.getReason();
 #endif
+        reply.set_statuscode(CONFIG_QUERY_FAIL);
     }
-    dbConn->send(replyMsg);
+    dbConn->send(reply);
     dbConn->close();
 }
 

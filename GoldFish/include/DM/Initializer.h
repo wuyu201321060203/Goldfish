@@ -29,7 +29,7 @@ private:
 
     ProtobufDispatcher _dispatcher;
     ProtobufCodec _codec;
-    muduo::ThreadPool _pool;
+    muduo::ThreadPool _threadPool;
     muduo::net::EventLoop _loop;
     ConfigLoader _loader;
     Options _options;

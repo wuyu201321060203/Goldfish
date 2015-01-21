@@ -44,39 +44,6 @@ int Options::getRole()
     return _role;
 }
 
-int Options::setDbUserName(string username)
-{
-    _dbUserName = username;
-    return RET_SUCCESS;
-}
-
-string Options::getDbUserName()
-{
-    return _dbUserName;
-}
-
-int Options::setDbPasswd(string passwd)
-{
-    _dbPasswd = passwd;
-    return RET_SUCCESS;
-}
-
-string Options::getDbPasswd()
-{
-    return _dbPasswd;
-}
-
-int Options::setDbInstance(string instance)
-{
-    _dbInstance = instance;
-    return RET_SUCCESS;
-}
-
-string Options::getDbInstance()
-{
-    return _dbInstance;
-}
-
 int Options::setCliPort(uint16_t port)
 {
     _cliPort = port;

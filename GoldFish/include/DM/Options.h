@@ -23,15 +23,6 @@ public:
     int setRole(int role);
     int getRole();
 
-    int setDbUserName(string username);
-    string getDbUserName();
-
-    int setDbPasswd(string passwd);
-    string getDbPasswd();
-
-    int setDbInstance(string instance);
-    string getDbInstance();
-
     int setCliPort(uint16_t port);
     uint16_t getCliPort();
 
@@ -44,9 +35,6 @@ private:
     string _rasIp;
     uint16_t _rasPort;
     int _role;
-    string _dbUserName;
-    string _dbPasswd;
-    string _dbInstance;
     uint16_t _cliPort;
     uint16_t _dcPort;
 };

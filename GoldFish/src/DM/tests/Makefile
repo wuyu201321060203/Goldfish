@@ -1,15 +1,15 @@
 MUDUO_DIRECTORY = $(HOME)/build/debug-install
 MUDUO_LIBRARY = $(MUDUO_DIRECTORY)/lib
 MUDUO_INCLUDE = $(MUDUO_DIRECTORY)/include
-OOZDB_INCLUDE = $(HOME)/gitWork/OOzdb
-DM_INCLUDE = $(HOME)/GoldFish/include
+OOZDB_INCLUDE = ../OOzdb
+DM_INCLUDE = $(HOME)/Goldfish/GoldFish/include
 # Points to the root of Google Test, relative to where this file is.
 # Remember to tweak this if you move this file.
 GTEST_DIR = $(HOME)/gtest-1.7.0
 
 # Where to find user code.
 USER_DIR = .
-DM_SRC_DIR = $(HOME)/GoldFish/src/DM
+DM_SRC_DIR = $(HOME)/Goldfish/GoldFish/src/DM
 
 CXX = g++
 LDFLAGS = -L$(MUDUO_LIBRARY) -lmuduo_net_cpp11 -lmuduo_base_cpp11 -lpthread -lrt\

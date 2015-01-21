@@ -1,7 +1,6 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <string>
 #include <boost/weak_ptr.hpp>
 #include <muduo/net/TcpConnection.h>
 #include <google/protobuf/message.h>
@@ -38,8 +37,16 @@
 typedef boost::weak_ptr<muduo::net::TcpConnection> TcpConnectionWeakPtr;
 typedef boost::shared_ptr<google::protobuf::Message> MessagePtr;
 
+/* The macro for most used return value */
 #define RET_SUCCESS 0
 #define RET_FAIL -1
+
+/* Database URL */
+
+#define DB_URL "mysql://root:123@localhost:3306/DM"
+
+/* The default number of threads */
+#define DEFAULT_THREADS 3
 
 typedef enum Role
 {
@@ -47,15 +54,36 @@ typedef enum Role
     Slave
 }Role;
 
-#define AUTHFAILED -2
-#define LOAD_FAIL -28
-#define PRESERVE_FAIL -29
-#define DELETE_FAIL -32
+/* Table of error code*/
+#define SUCCESS 0
+#define UNKNOWN_TOKEN -1
+#define AUTHFAILED_TOKEN -2
+#define EXISTED_DOMAIN -3
+#define EXISTED_GROUP -4
+#define BAD_CPU_REQUEST -5
+#define BAD_MEM_REQUEST -6
+#define BAD_EXEFILE_PATH -7
+#define UNEXISTED_DOMAIN -8
+#define UNEXISTED_GROUP -9
+#define EXISTED_USER -10
+#define BAD_USER_AUTHORITY -11
+#define UNKNOWN_SYSERROR -12
 #define TOKEN_AUTH_FAIL -13
-#define USER_NOT_EXIST -10
-
-
-#define DEFAULT_THREADS 3
+#define CRUSHED_DC -14//TODO
+#define BAD_SQLQUERY -15
+#define UNEXISTED_DBITEM -16
+#define SQL_ERROR -17
+#define UNEXISTED_RA -18
+#define READ_DB_ERROR -19
+#define FAILED_IMPORT -20
+#define RLIMIT -21
+#define INDEX_LOAD_FAIL -22
+#define CONFIG_QUERY_FAIL -28
+#define CONFIG_PRESERVE_FAIL -29
+#define UNEXISTED_USER -30
+#define DOMAIN_NO_CONFIG -31
+#define CONFIG_DELETE_FAIL -32
+#define USER_NOT_LOGIN -33
 
 /*
  * protocol macro

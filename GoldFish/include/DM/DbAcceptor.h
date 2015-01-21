@@ -7,15 +7,15 @@ class DbAcceptor : public CustomizedServiceAcceptor
 {
 public:
 
-    void onPreserve(TcpConnectionPtr const& conn,
+    void onPreserve(muduo::net::TcpConnectionPtr const& conn,
                     MessagePtr const& msg,
                     muduo::Timestamp timeStamp);
 
-    void onLoad(TcpConnectionPtr const& conn,
+    void onLoad(muduo::net::TcpConnectionPtr const& conn,
                 MessagePtr const& msg,
                 muduo::Timestamp timeStamp);
 
-    void onDelete(TcpConnectionPtr const& conn,
+    void onDelete(muduo::net::TcpConnectionPtr const& conn,
                 MessagePtr const& msg,
                 muduo::Timestamp timeStamp);
 };

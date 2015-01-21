@@ -13,8 +13,12 @@ using namespace muduo;
 using namespace muduo::net;
 
 Initializer::Initializer()
-    : _dispatcher(boost::bind(&Initializer::onUnknownMessage , this , _1 , _2 , _3)),
-      _codec(boost::bind(&ProtobufDispatcher::onProtobufMessage , _dispatcher , _1, _2 , _3))
+    : _dispatcher(
+            boost::bind(&Initializer::onUnknownMessage , this , _1 , _2 , _3)
+       ),
+      _codec(
+            boost::bind(&ProtobufDispatcher::onProtobufMessage , _dispatcher , _1, _2 , _3)
+       )
 {
 }
 
@@ -22,7 +26,7 @@ int Initializer::init(int argc , char** argv)
 {
     if(parseCommandLine(argc , argv))
     {
-        _pool.start(DEFAULT_THREADS);
+        _threadPool.start(DEFAULT_THREADS);
         _loader.setConfigFilePath(_path);
         _loader.loadConfig(_options);
         return RET_SUCCESS;
@@ -46,7 +50,7 @@ ProtobufDispatcher& Initializer::getDispatcher()
 
 ThreadPool& Initializer::getThreadPool()
 {
-    return _pool;
+    return _threadPool;
 }
 
 EventLoop& Initializer::getEventLoop()
