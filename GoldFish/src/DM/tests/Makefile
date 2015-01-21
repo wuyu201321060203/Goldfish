@@ -10,6 +10,7 @@ GTEST_DIR = $(HOME)/gtest-1.7.0
 # Where to find user code.
 USER_DIR = .
 DM_SRC_DIR = $(HOME)/Goldfish/GoldFish/src/DM
+PROTO_SRC_DIR = $(HOME)/Goldfish/GoldFish/src/protocol
 
 CXX = g++
 LDFLAGS = -L$(MUDUO_LIBRARY) -lmuduo_net_cpp11 -lmuduo_base_cpp11 -lpthread -lrt\
@@ -57,6 +58,9 @@ initializer_unittest.o : $(USER_DIR)/initializer_unittest.cc
 loader_unittest.o : $(USER_DIR)/loader_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+dbacceptor_unittest.o : $(USER_DIR)/dbacceptor_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 ConfigLoader.o : $(DM_SRC_DIR)/ConfigLoader.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -69,6 +73,21 @@ Initializer.o : $(DM_SRC_DIR)/Initializer.cc
 ProtobufCodec.o : $(DM_SRC_DIR)/ProtobufCodec.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
-dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o ConfigLoader.o Options.o\
-			  Initializer.o ProtobufCodec.o
+MSG_DC_DM_CONFIG_PERSISTENCE.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_CONFIG_PERSISTENCE.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_DC_DM_CONFIG_LOOKUP.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_CONFIG_LOOKUP.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_DC_DM_CONFIG_DELETE.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_CONFIG_DELETE.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+DbAcceptor.o : $(DM_SRC_DIR)/DbAcceptor.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_unittest.o ConfigLoader.o Options.o\
+			  Initializer.o ProtobufCodec.o Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o \
+			  MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
+			  StringBuffer.o StrOperation.o TimeOperation.o URL.o MSG_DC_DM_CONFIG_PERSISTENCE.pb.o\
+			  DbAcceptor.o MSG_DC_DM_CONFIG_LOOKUP.pb.o MSG_DC_DM_CONFIG_DELETE.pb.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

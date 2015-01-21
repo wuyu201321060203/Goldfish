@@ -1,10 +1,11 @@
 #include <string>
 
-#include <boost/tokenizer.hpp>
-
 #include <DM/DbAcceptor.h>
+#include <DM/Initializer.h>
 #include <Db/ConnectionPool.h>
 #include <Db/ResultSet.h>
+#include <Db/Connection.h>
+#include <Exception/SQLException.h>
 #include <mysql/MysqlConnection.h>
 
 using OOzdb::ConnectionPool;
@@ -14,7 +15,7 @@ extern ConnectionPool g_DbPool;
 
 using namespace muduo::net;
 using namespace muduo;
-using std::string;
+using namespace OOzdb;
 
 void DbAcceptor::onPreserve(TcpConnectionPtr const& conn,
                             MessagePtr const& msg,
@@ -23,7 +24,7 @@ void DbAcceptor::onPreserve(TcpConnectionPtr const& conn,
     ConfigPersistenceMsgPtr message =
                             muduo::down_pointer_cast<ConfigPersistenceMsg>(msg);
 
-    string domain = message->domainname();
+    std::string domain = message->domainname();
     ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
     ConfigPersistenceACK reply;
     reply.set_statuscode(CONFIG_PRESERVE_FAIL);
@@ -35,13 +36,13 @@ void DbAcceptor::onPreserve(TcpConnectionPtr const& conn,
         if(result->next())
         {
             int ipNum = message->raip_size();
-            string ip;
+            std::string ip;
             for(int i = 0 ; i != ipNum ; ++i)
             {
                 ip = message->raip(i);
                 dbConn->execute(
                     "insert into IMCONFIG_INFO (domainName , raIP) \
-                     values ('%s' , '%s')" , domain , ip );
+                     values ('%s' , '%s')" , domain.c_str() , ip.c_str() );
             }
             reply.set_statuscode(SUCCESS);
         }
@@ -52,7 +53,7 @@ void DbAcceptor::onPreserve(TcpConnectionPtr const& conn,
         LOG_INFO << e.getReason();
 #endif
     }
-    dbConn->send(reply);
+    //dbConn->send(reply);
     dbConn->close();
 }
 
@@ -61,7 +62,7 @@ void DbAcceptor::onLoad(TcpConnectionPtr const& conn,
                         muduo::Timestamp timeStamp)
 {
     ConfigLookupMsgPtr message = muduo::down_pointer_cast<ConfigLookupMsg>(msg);
-    string domain = message->domainname();
+    std::string domain = message->domainname();
     ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
     ConfigLookupACK reply;
     reply.set_statuscode(DOMAIN_NO_CONFIG);
@@ -69,7 +70,7 @@ void DbAcceptor::onLoad(TcpConnectionPtr const& conn,
     {
         ResultSetPtr result = dbConn->executeQuery("select raIP from \
             IMConfig_INFO where domainName = '%s' ", domain.c_str());
-        string ip;
+        std::string ip;
         while(result->next())
         {
             ip = result->getString(1);
@@ -84,7 +85,7 @@ void DbAcceptor::onLoad(TcpConnectionPtr const& conn,
 #endif
         reply.set_statuscode(CONFIG_QUERY_FAIL);
     }
-    dbConn->send(reply);
+    //dbConn->send(reply);
     dbConn->close();
 }
 
@@ -92,19 +93,16 @@ void DbAcceptor::onDelete(TcpConnectionPtr const& conn,
                           MessagePtr const& msg,
                           muduo::Timestamp timeStamp)
 {
-    boost::shared_ptr<DeleteMsg> message =
-        muduo::down_pointer_cast<DeleteMsg>(msg);
-    string domain = message->domainName();
-    ConnectionPtr dbConn = SingleConnectionPool::instance()
-        .getConnection<MysqlConnection>();
-    DeleteACKMsg replyMsg;
-    replyMsg.set_statusCode(DELETE_FAIL);
+    ConfigDeleteMsgPtr message = muduo::down_pointer_cast<ConfigDeleteMsg>(msg);
+    std::string domain = message->domainname();
+    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConfigDeleteACK reply;
+    reply.set_statuscode(CONFIG_DELETE_FAIL);
     try
     {
-        ResultPtr result = dbConn->executeQuery("delete from DomainImportConfig where name = %s ",
-            domain.c_str());
-        if(result)
-            replyMsg.set_statusCode = SUCCESS;
+        dbConn->execute("delete from IMCONFIG_INFO where name = '%s' ",
+                        domain.c_str());
+        reply.set_statuscode(SUCCESS);
     }
     catch(SQLException& e)
     {
@@ -112,6 +110,6 @@ void DbAcceptor::onDelete(TcpConnectionPtr const& conn,
         LOG_INFO << e.getReason();
 #endif
     }
-    dbConn->send(replyMsg);
+    //dbConn->send(reply);
     dbConn->close();
 }

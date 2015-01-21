@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PROJECT_DIR=$HOME/GoldFish
+PROJECT_DIR=$HOME/Goldfish/GoldFish
 SRC_DIR=$PROJECT_DIR/proto
 DST_DIR=.
 INCLUDE_DIR=$PROJECT_DIR/include/protocol

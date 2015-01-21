@@ -9,17 +9,17 @@ class CustomizedServiceAcceptor
 {
 public:
 
-    virtual void onPreserve(TcpConnectionPtr const& conn,
+    virtual void onPreserve(muduo::net::TcpConnectionPtr const& conn,
                             MessagePtr const& msg,
                             muduo::Timestamp timeStamp) = 0;
 
-    virtual void onLoad(TcpConnectionPtr const& conn,
+    virtual void onLoad(muduo::net::TcpConnectionPtr const& conn,
                         MessagePtr const& msg,
                         muduo::Timestamp timeStamp) = 0;
 
-    virtual void onDelete(TcpConnectionPtr const& conn,
-                        MessagePtr const& msg,
-                        muduo::Timestamp timeStamp) = 0;
+    virtual void onDelete(muduo::net::TcpConnectionPtr const& conn,
+                          MessagePtr const& msg,
+                          muduo::Timestamp timeStamp) = 0;
 };
 
 typedef boost::shared_ptr<CustomizedServiceAcceptor> CustomizedServiceAcceptorPtr;

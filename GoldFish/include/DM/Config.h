@@ -27,7 +27,7 @@
 #include <protocol/MSG_CLIENT_DM_USER_INFO_UPDATE.pb.h>
 #include <protocol/MSG_CLIENT_DM_USER_LOG_IN.pb.h>
 #include <protocol/MSG_DC_DM_CONFIG_DELETE.pb.h>
-#include <protocol/MSG_DC_DM_CONFIG_LOOPUP.pb.h>
+#include <protocol/MSG_DC_DM_CONFIG_LOOKUP.pb.h>
 #include <protocol/MSG_DC_DM_CONFIG_PERSISTENCE.pb.h>
 #include <protocol/MSG_DC_DM_PING.pb.h>
 #include <protocol/MSG_DC_DM_TOKEN_IDENTIFY.pb.h>
@@ -251,7 +251,7 @@ typedef boost::shared_ptr<ConfigPersistenceMsg> ConfigPersistenceMsgPtr;
 typedef MSG_DM_DC_CONFIG_PERSISTENCE_ACK ConfigPersistenceACK;
 typedef boost::shared_ptr<ConfigPersistenceACK> ConfigPersistenceACKPtr;
 
-typedef MSG_DC_DM_CONFIG_LOOPUP ConfigLookupMsg;
+typedef MSG_DC_DM_CONFIG_LOOKUP ConfigLookupMsg;
 typedef boost::shared_ptr<ConfigLookupMsg> ConfigLookupMsgPtr;
 
 typedef MSG_DM_DC_CONFIG_LOOKUP_ACK ConfigLookupACK;
