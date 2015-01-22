@@ -9,8 +9,15 @@
 #include <mysql/MysqlConnection.h>
 
 #include <boost/bind.hpp>
+#include <boost/any.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include <muduo/base/ThreadPool.h>
+#include <muduo/base/Mutex.h>
+
+#ifdef TEST
+#include <unistd.h>
+#endif
 
 using OOzdb::ConnectionPool;
 
@@ -26,6 +33,11 @@ extern ConfigDeleteACK tDeleteACK;
 using namespace muduo::net;
 using namespace muduo;
 using namespace OOzdb;
+using boost::any_cast;
+
+/* remember to attach a session lock for each TcpConnection*/
+
+typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
 void DbAcceptor::onPreserve(TcpConnectionPtr const& conn,
                             MessagePtr const& msg,
@@ -56,7 +68,7 @@ void DbAcceptor::doPreserve(TcpConnectionPtr const& conn,
                             Timestamp timeStamp)
 {
     ConfigPersistenceMsgPtr message =
-                            muduo::down_pointer_cast<ConfigPersistenceMsg>(msg);
+        muduo::down_pointer_cast<ConfigPersistenceMsg>(msg);
 
     std::string domain = message->domainname();
     ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
@@ -64,21 +76,25 @@ void DbAcceptor::doPreserve(TcpConnectionPtr const& conn,
     reply.set_statuscode(CONFIG_PRESERVE_FAIL);
     try
     {
-        ResultSetPtr result =
-            dbConn->executeQuery(" select id from DOMAIN_INFO where name = '%s' ",
-                                 domain.c_str() );
-        if(result->next())
+        ResultSetPtr result;
         {
-            int ipNum = message->raip_size();
-            std::string ip;
-            for(int i = 0 ; i != ipNum ; ++i)
+            MutexLockPtr* lock = any_cast<MutexLockPtr>( conn->getMutableContext() );
+            MutexLockGuard guard(**lock);
+            result = dbConn->executeQuery(" select id from DOMAIN_INFO where name = '%s' ",
+                domain.c_str() );
+            if(result->next())
             {
-                ip = message->raip(i);
-                dbConn->execute(
-                    "insert into IMCONFIG_INFO (domainName , raIP) \
-                     values ('%s' , '%s')" , domain.c_str() , ip.c_str() );
+                int ipNum = message->raip_size();
+                std::string ip;
+                for(int i = 0 ; i != ipNum ; ++i)
+                {
+                    ip = message->raip(i);
+                    dbConn->execute(
+                        "insert into IMCONFIG_INFO (domainName , raIP) \
+                        values ('%s' , '%s')" , domain.c_str() , ip.c_str() );
+                }
+                reply.set_statuscode(SUCCESS);
             }
-            reply.set_statuscode(SUCCESS);
         }
     }
     catch(SQLException& e)
@@ -108,9 +124,14 @@ void DbAcceptor::doLoad(TcpConnectionPtr const& conn,
     reply.set_statuscode(DOMAIN_NO_CONFIG);
     try
     {
-        ResultSetPtr result = dbConn->executeQuery("select raIP from \
-            IMCONFIG_INFO where domainName = '%s' ", domain.c_str());
-        std::string ip;
+        ResultSetPtr result;
+        {
+            MutexLockPtr* lock = any_cast<MutexLockPtr>( conn->getMutableContext() );
+            MutexLockGuard guard(**lock);
+            result = dbConn->executeQuery("select raIP from \
+                        IMCONFIG_INFO where domainName = '%s' ", domain.c_str());
+        }
+                std::string ip;
         while(result->next())
         {
             ip = result->getString(1);
@@ -146,8 +167,12 @@ void DbAcceptor::doDelete(TcpConnectionPtr const& conn,
     reply.set_statuscode(CONFIG_DELETE_FAIL);
     try
     {
-        dbConn->execute("delete from IMCONFIG_INFO where domainName = '%s' ",
-                        domain.c_str());
+        {
+            MutexLockPtr* lock = any_cast<MutexLockPtr>( conn->getMutableContext() );
+            MutexLockGuard guard(**lock);
+            dbConn->execute("delete from IMCONFIG_INFO where domainName = '%s' ",
+                domain.c_str());
+        }
         reply.set_statuscode(SUCCESS);
     }
     catch(SQLException& e)

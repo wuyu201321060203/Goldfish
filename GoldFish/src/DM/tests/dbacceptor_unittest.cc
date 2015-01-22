@@ -13,6 +13,9 @@
 
 #include <muduo/net/TcpConnection.h>
 #include <muduo/net/EventLoop.h>
+#include <muduo/base/Mutex.h>
+
+#include <boost/shared_ptr.hpp>
 
 #include "gtest/gtest.h"
 
@@ -27,6 +30,9 @@ ConfigPersistenceACK tPreserveACK;
 ConfigLookupACK tLookUpACK;
 ConfigDeleteACK tDeleteACK;
 
+typedef boost::shared_ptr<MutexLock> MutexLockPtr;
+MutexLockPtr mutex(new MutexLock);
+
 TEST(DbAcceptorTest , PreserveTest)
 {
     InetAddress localAddr(10);
@@ -34,6 +40,7 @@ TEST(DbAcceptorTest , PreserveTest)
     int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
     TcpConnectionPtr conn(new TcpConnection(&g_Initializer.getEventLoop(),
                             "test" , socketfd , localAddr , remoteAddr));
+    conn->setContext(mutex);
     ConfigPersistenceMsg* msg = new ConfigPersistenceMsg;
     msg->set_domainname("domain1");
     msg->add_raip("192.168.1.0");
@@ -42,6 +49,7 @@ TEST(DbAcceptorTest , PreserveTest)
     Timestamp time;
     DbAcceptor acceptor;
     acceptor.onPreserve(conn , message , time);
+    sleep(10);
     ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
     ResultSetPtr result = dbConn->executeQuery(
                 "select raIP from IMCONFIG_INFO where domainName = 'domain1'");
@@ -70,21 +78,21 @@ TEST(DbAcceptorTest , LoadTest)
     int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
     TcpConnectionPtr conn(new TcpConnection(&g_Initializer.getEventLoop(),
         "test" , socketfd , localAddr , remoteAddr));
+    conn->setContext(mutex);
     ConfigLookupMsg* msg = new ConfigLookupMsg;
     msg->set_domainname("domain1");
     MessagePtr message(msg);
     Timestamp time;
     DbAcceptor acceptor;
     acceptor.onLoad(conn , message , time);
+    sleep(10);
     int size = tLookUpACK.raip_size();
-    if(2 == size)
-    {
-        std::string ip1 = tLookUpACK.raip(0);
-        std::string ip2 = tLookUpACK.raip(1);
-        EXPECT_EQ("192.168.1.0" , ip1);
-        EXPECT_EQ("192.168.1.1" , ip2);
-        EXPECT_EQ(SUCCESS , tLookUpACK.statuscode());
-    }
+    std::cout << "size: " << size << "\n";
+    std::string ip1 = tLookUpACK.raip(0);
+    std::string ip2 = tLookUpACK.raip(1);
+    EXPECT_EQ("192.168.1.0" , ip1);
+    EXPECT_EQ("192.168.1.1" , ip2);
+    EXPECT_EQ(SUCCESS , tLookUpACK.statuscode());
 }
 
 TEST(DbAcceptorTest , DeleteTest)
@@ -94,11 +102,13 @@ TEST(DbAcceptorTest , DeleteTest)
     int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
     TcpConnectionPtr conn(new TcpConnection(&g_Initializer.getEventLoop(),
                             "test" , socketfd , localAddr , remoteAddr));
+    conn->setContext(mutex);
     ConfigDeleteMsg* msg = new ConfigDeleteMsg;
     msg->set_domainname("domain1");
     MessagePtr message(msg);
     Timestamp time;
     DbAcceptor acceptor;
     acceptor.onDelete(conn , message , time);
+    sleep(10);
     EXPECT_EQ(SUCCESS , tDeleteACK.statuscode());
 }
