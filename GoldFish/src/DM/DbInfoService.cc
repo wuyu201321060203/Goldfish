@@ -1,6 +1,10 @@
+#include <string>
+
 #include <boost/Tokenizer.hpp>
 
 #include "DbInfoService.h"
+
+using muduo::net:;TcpConnectionPtr;
 
 namespace
 {
@@ -20,14 +24,13 @@ void DbInfoService::onCrossDomainInfoQuery(TcpConnectionPtr const& conn,
                                            MessagePtr const& msg,
                                            muduo::Timestamp timeStamp)
 {
-    boost::shared_ptr<Client2DMDbInfoQueryMsg> query =
-        muduo::down_pointer_cast<Client2DMDbInfoQueryMsg>(msg);
-    string token = query->token();
+    CrossDbInfoGetMsgPtr query =  muduo::down_pointer_cast<CrossDbInfoGetMsg>(msg);
+    std::string token = query->token();
     typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
     boost::char_separator<char> sep("\r\n");
     tokenizer tokens(token, sep);
     tokenizer::iterator tok_iter = tokens.begin();
-    DM2ClientDbInfoQueryACK replyMsg;
+    CrossDbInfoGetACK reply;
     if(isRoot(*tok_iter))
     {
         _func(_dcVec);

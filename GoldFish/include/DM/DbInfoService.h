@@ -9,11 +9,11 @@ class DbInfoService : public CrossDomainInfoService
 {
 public:
 
-    virtual void onCrossDomainInfoQuery(TcpConnectionPtr const&,
+    virtual void onCrossDomainInfoQuery(muduo::net::TcpConnectionPtr const&,
                                         MessagePtr const&,
                                         muduo::Timestamp);
 
-    virtual void onCrossDomainInfoReplyFromDC(TcpConnectionPtr const&,
+    virtual void onCrossDomainInfoReplyFromDC(muduo::net::TcpConnectionPtr const&,
                                               MessagePtr const&,
                                               muduo::Timestamp);
 };

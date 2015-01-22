@@ -8,16 +8,50 @@
 #include <Exception/SQLException.h>
 #include <mysql/MysqlConnection.h>
 
+#include <boost/bind.hpp>
+
+#include <muduo/base/ThreadPool.h>
+
 using OOzdb::ConnectionPool;
 
 extern Initializer g_Initializer;
 extern ConnectionPool g_DbPool;
+
+#ifdef TEST
+extern ConfigLookupACK tLookUpACK;
+extern ConfigPersistenceACK tPreserveACK;
+extern ConfigDeleteACK tDeleteACK;
+#endif
 
 using namespace muduo::net;
 using namespace muduo;
 using namespace OOzdb;
 
 void DbAcceptor::onPreserve(TcpConnectionPtr const& conn,
+                            MessagePtr const& msg,
+                            Timestamp timeStamp)
+{
+    (g_Initializer.getThreadPool()).run( boost::bind(&DbAcceptor::doPreserve , this ,
+                                         conn , msg , timeStamp) );
+}
+
+void DbAcceptor::onLoad(TcpConnectionPtr const& conn,
+                        MessagePtr const& msg,
+                        muduo::Timestamp timeStamp)
+{
+    (g_Initializer.getThreadPool()).run( boost::bind(&DbAcceptor::doLoad , this ,
+                                         conn , msg , timeStamp) );
+}
+
+void DbAcceptor::onDelete(TcpConnectionPtr const& conn,
+                          MessagePtr const& msg,
+                          muduo::Timestamp timeStamp)
+{
+    (g_Initializer.getThreadPool()).run( boost::bind(&DbAcceptor::doDelete , this ,
+                                         conn , msg , timeStamp) );
+}
+
+void DbAcceptor::doPreserve(TcpConnectionPtr const& conn,
                             MessagePtr const& msg,
                             Timestamp timeStamp)
 {
@@ -53,11 +87,17 @@ void DbAcceptor::onPreserve(TcpConnectionPtr const& conn,
         LOG_INFO << e.getReason();
 #endif
     }
-    //dbConn->send(reply);
+#ifndef TEST
+    (g_Initializer.getCodec()).send(conn , reply);
+#endif
+
+#ifdef TEST
+    tPreserveACK = reply;
+#endif
     dbConn->close();
 }
 
-void DbAcceptor::onLoad(TcpConnectionPtr const& conn,
+void DbAcceptor::doLoad(TcpConnectionPtr const& conn,
                         MessagePtr const& msg,
                         muduo::Timestamp timeStamp)
 {
@@ -69,7 +109,7 @@ void DbAcceptor::onLoad(TcpConnectionPtr const& conn,
     try
     {
         ResultSetPtr result = dbConn->executeQuery("select raIP from \
-            IMConfig_INFO where domainName = '%s' ", domain.c_str());
+            IMCONFIG_INFO where domainName = '%s' ", domain.c_str());
         std::string ip;
         while(result->next())
         {
@@ -85,11 +125,17 @@ void DbAcceptor::onLoad(TcpConnectionPtr const& conn,
 #endif
         reply.set_statuscode(CONFIG_QUERY_FAIL);
     }
-    //dbConn->send(reply);
+#ifndef TEST
+    (g_Initializer.getCodec()).send(conn , reply);
+#endif
+
+#ifdef TEST
+    tLookUpACK = reply;
+#endif
     dbConn->close();
 }
 
-void DbAcceptor::onDelete(TcpConnectionPtr const& conn,
+void DbAcceptor::doDelete(TcpConnectionPtr const& conn,
                           MessagePtr const& msg,
                           muduo::Timestamp timeStamp)
 {
@@ -100,7 +146,7 @@ void DbAcceptor::onDelete(TcpConnectionPtr const& conn,
     reply.set_statuscode(CONFIG_DELETE_FAIL);
     try
     {
-        dbConn->execute("delete from IMCONFIG_INFO where name = '%s' ",
+        dbConn->execute("delete from IMCONFIG_INFO where domainName = '%s' ",
                         domain.c_str());
         reply.set_statuscode(SUCCESS);
     }
@@ -110,6 +156,12 @@ void DbAcceptor::onDelete(TcpConnectionPtr const& conn,
         LOG_INFO << e.getReason();
 #endif
     }
-    //dbConn->send(reply);
+#ifndef TEST
+    (g_Initializer.getCodec()).send(conn , reply);
+#endif
+
+#ifdef TEST
+    tDeleteACK = reply;
+#endif
     dbConn->close();
 }

@@ -17,11 +17,11 @@ public:
     typedef std::vector<TcpConnectionWeakPtr> TcpConnectionWeakPtrVec;
     typedef boost::function<void (TcpConnectionWeakPtrVec&)> DCListGetFunc;
 
-    virtual void onCrossDomainInfoQuery(TcpConnectionPtr const& , MessagePtr const&,
-                                muduo::Timestamp) = 0;
+    virtual void onCrossDomainInfoQuery(mduo::net::TcpConnectionPtr const&,
+                                MessagePtr const& , muduo::Timestamp) = 0;
 
-    virtual void onCrossDomainInfoReplyFromDC(TcpConnectionPtr const& , MessagePtr const&,
-                                      muduo::Timestamp) = 0;
+    virtual void onCrossDomainInfoReplyFromDC(muduo::net::TcpConnectionPtr const&,
+                                            MessagePtr const& , muduo::Timestamp) = 0;
 
     int setGetDCListFunc(DCListGetFunc const& func);
     void gcCliConn(TcpConnectionPtr const&);
