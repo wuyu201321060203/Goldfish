@@ -23,6 +23,10 @@ public:
     Token(STDSTR);
     STDSTR toString();
     int addCheckSum();
+    STDSTR getUserName();
+    STDSTR getIdentity();
+    STDSTR getDomain();
+    STDSTR getGroup();
     STDSTR getCheckSumStr();
     bool niuXThanDomainAdmin();
     bool niuXThanGroupAdmin();

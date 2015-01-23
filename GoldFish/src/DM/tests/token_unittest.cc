@@ -45,6 +45,11 @@ TEST(TokenTest , SecConstructTest)
     STDSTR result;
     EXPECT_NO_THROW({Token anotherToken(fake); result = anotherToken.toString();});
     EXPECT_EQ(fake , result);
+    Token sample(result);
+    EXPECT_EQ("ddcnmb" , sample.getUserName());
+    EXPECT_EQ("00000010" , sample.getIdentity());
+    EXPECT_EQ("domain1" , sample.getDomain());
+    EXPECT_EQ("group1" , sample.getGroup());
     STDSTR fake2("a\r\nb\r\nc\r\nd\r\ne\r\nf\r\ng\r\n");
     EXPECT_THROW(
     {

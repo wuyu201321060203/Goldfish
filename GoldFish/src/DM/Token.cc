@@ -65,6 +65,26 @@ int Token::addCheckSum()
     return RET_SUCCESS;
 }
 
+STDSTR Token::getUserName()
+{
+    return _username;
+}
+
+STDSTR Token::getIdentity()
+{
+    return ( _identity.to_string() );
+}
+
+STDSTR Token::getDomain()
+{
+    return _belong2Domain;
+}
+
+STDSTR Token::getGroup()
+{
+    return _belong2Group;
+}
+
 STDSTR Token::getCheckSumStr()
 {
     return _checkSum;
