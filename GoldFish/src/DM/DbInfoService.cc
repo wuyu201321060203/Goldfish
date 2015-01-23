@@ -26,12 +26,8 @@ void DbInfoService::onCrossDomainInfoQuery(TcpConnectionPtr const& conn,
 {
     CrossDbInfoGetMsgPtr query =  muduo::down_pointer_cast<CrossDbInfoGetMsg>(msg);
     std::string token = query->token();
-    typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-    boost::char_separator<char> sep("\r\n");
-    tokenizer tokens(token, sep);
-    tokenizer::iterator tok_iter = tokens.begin();
     CrossDbInfoGetACK reply;
-    if(isRoot(*tok_iter))
+    if()
     {
         _func(_dcVec);
         if(!_dcVec.empty())

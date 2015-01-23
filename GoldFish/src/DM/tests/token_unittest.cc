@@ -7,13 +7,16 @@
 
 #include <boost/lexical_cast.hpp>
 
+#include <stdexcept>
+
 #include "gtest/gtest.h"
 
 using namespace OOzdb;
+using std::out_of_range;
 
 extern ConnectionPool g_DbPool;
 
-TEST(TokenTest , ConstructTest)
+TEST(TokenTest , FirConstructTest)
 {
     STDSTR username("ddcnmb");
     STDSTR belong2Domain("domain1");
@@ -29,6 +32,25 @@ TEST(TokenTest , ConstructTest)
     fakeToken += token.getCheckSumStr();
     EXPECT_EQ(fakeToken , token.toString());
     dbConn->close();
+}
+
+TEST(TokenTest , SecConstructTest)
+{
+    STDSTR username("ddcnmb");
+    STDSTR belong2Domain("domain1");
+    STDSTR belong2Group("group1");
+    unsigned int identity = 0b00000010;
+    Token token(username , identity , belong2Domain , belong2Group);
+    STDSTR fake = token.toString();
+    STDSTR result;
+    EXPECT_NO_THROW({Token anotherToken(fake); result = anotherToken.toString();});
+    EXPECT_EQ(fake , result);
+    STDSTR fake2("a\r\nb\r\nc\r\nd\r\ne\r\nf\r\ng\r\n");
+    EXPECT_THROW(
+    {
+        Token wrongToken(fake2);
+    } , out_of_range
+    );
 }
 
 TEST(TokenTest , niuXThanDATest)

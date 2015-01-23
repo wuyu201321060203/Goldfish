@@ -48,6 +48,9 @@ typedef boost::shared_ptr<google::protobuf::Message> MessagePtr;
 /* The default number of threads */
 #define DEFAULT_THREADS 3
 
+/* The num of items of token*/
+#define TOKEN_ITEM_NUM 5
+
 typedef enum Role
 {
     Master = 0,

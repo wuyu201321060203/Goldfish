@@ -4,10 +4,16 @@
 #include <muduo/base/Logging.h>
 
 #include <boost/lexical_cast.hpp>
+#include<boost/tokenizer.hpp>
+
+#include <vector>
+#include <stdexcept>
 
 #include <zlib.h>
 
 using namespace muduo;
+using std::vector;
+using std::out_of_range;
 
 Token::Token(STDSTR username , ulong identity , STDSTR belong2Domain,
              STDSTR belong2Group):
@@ -22,6 +28,24 @@ Token::Token(STDSTR username , ulong identity , STDSTR belong2Domain,
 
 Token::Token(STDSTR token):_token(token)
 {
+    typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
+    boost::char_separator<char> sep("\r\n");
+    tokenizer tokens(_token, sep);
+    vector<STDSTR> temp;
+    temp.reserve(TOKEN_ITEM_NUM);
+    for(tokenizer::iterator tok_iter = tokens.begin() ; tok_iter != tokens.end();
+        ++tok_iter)
+    {
+        temp.push_back(*tok_iter);
+    }
+    if( ( temp.size() > TOKEN_ITEM_NUM) ) throw out_of_range("unknown token style");
+    int pos = 0;
+    _username = temp.at(pos++);
+    std::bitset<IDENTITY_WIDTH> muddy( temp.at(pos++) );
+    _identity = muddy;
+    _belong2Domain = temp.at(pos++);
+    _belong2Group = temp.at(pos++);
+    _checkSum = temp.at(pos++);
 }
 
 STDSTR Token::toString()
