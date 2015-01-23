@@ -33,7 +33,7 @@ ConfigDeleteACK tDeleteACK;
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 MutexLockPtr mutex(new MutexLock);
 
-TEST(DbAcceptorTest , PreserveTest)
+TEST(DbAcceptorTest , PreserveSuccessTest)
 {
     InetAddress localAddr(10);
     InetAddress remoteAddr(100);
@@ -71,7 +71,27 @@ TEST(DbAcceptorTest , PreserveTest)
     EXPECT_EQ(SUCCESS , tPreserveACK.statuscode());
 }
 
-TEST(DbAcceptorTest , LoadTest)
+TEST(DbAcceptorTest , PreserveFailTest)
+{
+    InetAddress localAddr(10);
+    InetAddress remoteAddr(100);
+    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
+    TcpConnectionPtr conn(new TcpConnection(&g_Initializer.getEventLoop(),
+                            "test" , socketfd , localAddr , remoteAddr));
+    conn->setContext(mutex);
+    ConfigPersistenceMsg* msg = new ConfigPersistenceMsg;
+    msg->set_domainname("domain2");
+    msg->add_raip("192.168.1.0");
+    msg->add_raip("192.168.1.1");
+    MessagePtr message(msg);
+    Timestamp time;
+    DbAcceptor acceptor;
+    acceptor.onPreserve(conn , message , time);
+    sleep(10);
+    EXPECT_EQ(CONFIG_PRESERVE_FAIL , tPreserveACK.statuscode());
+}
+
+TEST(DbAcceptorTest , LoadSuccessTest)
 {
     InetAddress localAddr(10);
     InetAddress remoteAddr(100);
@@ -95,7 +115,25 @@ TEST(DbAcceptorTest , LoadTest)
     EXPECT_EQ(SUCCESS , tLookUpACK.statuscode());
 }
 
-TEST(DbAcceptorTest , DeleteTest)
+TEST(DbAcceptorTest , LoadFailTest)
+{
+    InetAddress localAddr(10);
+    InetAddress remoteAddr(100);
+    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
+    TcpConnectionPtr conn(new TcpConnection(&g_Initializer.getEventLoop(),
+        "test" , socketfd , localAddr , remoteAddr));
+    conn->setContext(mutex);
+    ConfigLookupMsg* msg = new ConfigLookupMsg;
+    msg->set_domainname("domain2");
+    MessagePtr message(msg);
+    Timestamp time;
+    DbAcceptor acceptor;
+    acceptor.onLoad(conn , message , time);
+    sleep(10);
+    EXPECT_EQ(DOMAIN_NO_CONFIG , tLookUpACK.statuscode());
+}
+
+TEST(DbAcceptorTest , DeleteSuccessTest)
 {
     InetAddress localAddr(10);
     InetAddress remoteAddr(100);
@@ -111,4 +149,22 @@ TEST(DbAcceptorTest , DeleteTest)
     acceptor.onDelete(conn , message , time);
     sleep(10);
     EXPECT_EQ(SUCCESS , tDeleteACK.statuscode());
+}
+
+TEST(DbAcceptorTest , DeleteFailTest)
+{
+    InetAddress localAddr(10);
+    InetAddress remoteAddr(100);
+    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
+    TcpConnectionPtr conn(new TcpConnection(&g_Initializer.getEventLoop(),
+                            "test" , socketfd , localAddr , remoteAddr));
+    conn->setContext(mutex);
+    ConfigDeleteMsg* msg = new ConfigDeleteMsg;
+    msg->set_domainname("domain2");
+    MessagePtr message(msg);
+    Timestamp time;
+    DbAcceptor acceptor;
+    acceptor.onDelete(conn , message , time);
+    sleep(10);
+    EXPECT_EQ(DOMAIN_NO_CONFIG , tDeleteACK.statuscode());
 }
