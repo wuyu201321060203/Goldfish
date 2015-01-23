@@ -6,7 +6,9 @@
 
 #include <boost/function.hpp>
 
+#include <muduo/net/TcpConnection.h>
 #include <muduo/base/Timestamp.h>
+#include <muduo/base/Types.h>
 
 #include "Config.h"
 
@@ -17,19 +19,18 @@ public:
     typedef std::vector<TcpConnectionWeakPtr> TcpConnectionWeakPtrVec;
     typedef boost::function<void (TcpConnectionWeakPtrVec&)> DCListGetFunc;
 
-    virtual void onCrossDomainInfoQuery(mduo::net::TcpConnectionPtr const&,
+    virtual void onCrossDomainInfoQuery(muduo::net::TcpConnectionPtr const&,
                                 MessagePtr const& , muduo::Timestamp) = 0;
 
     virtual void onCrossDomainInfoReplyFromDC(muduo::net::TcpConnectionPtr const&,
                                             MessagePtr const& , muduo::Timestamp) = 0;
 
     int setGetDCListFunc(DCListGetFunc const& func);
-    void gcCliConn(TcpConnectionPtr const&);
 
 protected:
 
     TcpConnectionWeakPtrVec _dcVec;
-    typedef std::map<muduo::Timestamp , TcpConnectionWeakPtr> Time2ConnMap;
+    typedef std::map<muduo::string , TcpConnectionWeakPtr> Time2ConnMap;
     Time2ConnMap _cliMap;
     DCListGetFunc _func;
 };

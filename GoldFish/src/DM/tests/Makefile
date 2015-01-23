@@ -64,6 +64,9 @@ dbacceptor_unittest.o : $(USER_DIR)/dbacceptor_unittest.cc
 token_unittest.o : $(USER_DIR)/token_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+util_unittest.o : $(USER_DIR)/util_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 ConfigLoader.o : $(DM_SRC_DIR)/ConfigLoader.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -85,10 +88,34 @@ MSG_DC_DM_CONFIG_LOOKUP.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_CONFIG_LOOKUP.pb.cc
 MSG_DC_DM_CONFIG_DELETE.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_CONFIG_DELETE.pb.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+MSG_DM_DC_DOMAIN_DBINFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_DM_DC_DOMAIN_DBINFO_GET.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 DbAcceptor.o : $(DM_SRC_DIR)/DbAcceptor.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
 Token.o : $(DM_SRC_DIR)/Token.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+util.o : $(DM_SRC_DIR)/util.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+CrossDomainInfoService.o : $(DM_SRC_DIR)/CrossDomainInfoService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+DbInfoService.o : $(DM_SRC_DIR)/DbInfoService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+SysInfoService.o : $(DM_SRC_DIR)/SysInfoService.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
 dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_unittest.o ConfigLoader.o Options.o\
@@ -96,5 +123,7 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
 			  StringBuffer.o StrOperation.o TimeOperation.o URL.o MSG_DC_DM_CONFIG_PERSISTENCE.pb.o\
 			  DbAcceptor.o MSG_DC_DM_CONFIG_LOOKUP.pb.o MSG_DC_DM_CONFIG_DELETE.pb.o\
-			  token_unittest.o Token.o
+			  token_unittest.o Token.o util_unittest.o util.o CrossDomainInfoService.o DbInfoService.o\
+		      MSG_DM_DC_DOMAIN_DBINFO_GET.pb.o MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.o\
+			  SysInfoService.o MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.o MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

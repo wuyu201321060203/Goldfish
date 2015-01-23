@@ -9,12 +9,12 @@ class SysInfoService : public CrossDomainInfoService
 {
 public:
 
-    void onSysInfoQuery(TcpConnectionPtr const&,
-                        SysInfoMsgPtr const&,
+    void onSysInfoQuery(muduo::net::TcpConnectionPtr const&,
+                        MessagePtr const&,
                         muduo::Timestamp);
 
-    void onSysInfoReplyFromDC(TcpConnectionPtr const&,
-                              SysInfoReplyPtr const&,
+    void onSysInfoReplyFromDC(muduo::net::TcpConnectionPtr const&,
+                              MessagePtr const&,
                               muduo::Timestamp);
 };
 

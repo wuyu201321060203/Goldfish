@@ -1,10 +1,19 @@
 #include <string>
 
-#include <boost/Tokenizer.hpp>
+#include <boost/tokenizer.hpp>
 
-#include "DbInfoService.h"
+#include <DM/DbInfoService.h>
+#include <DM/Token.h>
+#include <DM/util.h>
+#include <DM/Initializer.h>
 
-using muduo::net:;TcpConnectionPtr;
+#include <muduo/base/Timestamp.h>
+#include <muduo/base/Logging.h>
+
+using muduo::net::TcpConnectionPtr;
+using muduo::Timestamp;
+
+extern Initializer g_Initializer;
 
 namespace
 {
@@ -14,7 +23,7 @@ namespace
 
         bool operator()(TcpConnectionWeakPtr conn)
         {
-            TcpConnectionPtr tmp(conn->lock);
+            TcpConnectionPtr tmp( conn.lock() );
             return tmp ? true : false;
         }
     };
@@ -22,50 +31,54 @@ namespace
 
 void DbInfoService::onCrossDomainInfoQuery(TcpConnectionPtr const& conn,
                                            MessagePtr const& msg,
-                                           muduo::Timestamp timeStamp)
+                                           Timestamp timeStamp)
 {
     CrossDbInfoGetMsgPtr query =  muduo::down_pointer_cast<CrossDbInfoGetMsg>(msg);
-    std::string token = query->token();
+    std::string fakeToken = query->token();
+    Token token(fakeToken);
     CrossDbInfoGetACK reply;
-    if()
+    if(token.niuXThanDomainAdmin())
     {
+        _dcVec.clear();
         _func(_dcVec);
         if(!_dcVec.empty())
         {
             Timestamp now = Timestamp::now();
-            TcpConnectionWeakPtr connection(conn);
-            _cliMap.insert(Time2ConnMap::value_type(now , connection));
-            DM2DCDbInfoQueryMsg newMsg;
-            newMsg.set_timestamp(now);
+            TcpConnectionWeakPtr cliConn(conn);
+            muduo::string time( now.toString() );
+            _cliMap.insert(Time2ConnMap::value_type(time , cliConn));
+            DomainDbInfoGetMsg relayMsg;
+            std::string tmp( MuduoStr2StdStr(time) );
+            relayMsg.set_timestamp(tmp);
             _dcVec.erase(remove_if(_dcVec.begin() , _dcVec.end() , HelperFuntor()));
             for(TcpConnectionWeakPtr dcConn : _dcVec)
-                dcConn->send(newMsg);
+                ( g_Initializer.getCodec() ).send(dcConn.lock() , relayMsg);//Oops!
             return;
         }
         else
-            replyMsg.set_statusCode(SUCCESS);
+            reply.set_statuscode(SUCCESS);
     }
     else
-        replyMsg.set_statusCode(AUTHFAILED);
-    conn->send(replyMsg);
+        reply.set_statuscode(PERMISSION_DENIED);
+    ( g_Initializer.getCodec() ).send(conn , reply);
 }
 
 void DbInfoService::onCrossDomainInfoReplyFromDC(TcpConnectionPtr const& conn,
                                                  MessagePtr const& msg,
-                                                 muduo::Timestamp timeStamp)
+                                                 Timestamp timeStamp)
 {
-    boost::shared_ptr<DbInfoQueryACK> Ack =
-        muduo::down_pointer_cast<DbInfoQueryACK>(msg);
-    Timestamp time = Ack->timestamp();
-    Time2ConnMap::iterator iter = _cliMap.find(time);
+    DomainDbInfoGetACKPtr dcACK = muduo::down_pointer_cast<DomainDbInfoGetACK>(msg);
+    STDSTR time = dcACK->timestamp();
+    muduo::string tmp( StdStr2MuduoStr(time) );
+    Time2ConnMap::iterator iter = _cliMap.find(tmp);
     if(iter != _cliMap.end())
     {
-        TcpConnectionPtr tmp(iter->second->lock());
+        TcpConnectionPtr tmp( (iter->second).lock() );
         if(tmp)
-            tmp->send(Ack);
+            ( g_Initializer.getCodec() ).send(tmp , *( dcACK.get() ) );
         else
             _cliMap.erase(iter);
     }
     else
-        LOG_INFO << "timestamp is unknown , there is not a corresponding user";
+        LOG_INFO << "timestamp is unknown , there is not a corresponding client";
 }

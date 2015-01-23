@@ -1,4 +1,19 @@
-#include "SysInfoService.h"
+#include <string>
+
+#include <boost/tokenizer.hpp>
+
+#include <DM/SysInfoService.h>
+#include <DM/Token.h>
+#include <DM/util.h>
+#include <DM/Initializer.h>
+
+#include <muduo/base/Timestamp.h>
+#include <muduo/base/Logging.h>
+
+using muduo::net::TcpConnectionPtr;
+using muduo::Timestamp;
+
+extern Initializer g_Initializer;
 
 namespace
 {
@@ -8,63 +23,62 @@ namespace
 
         bool operator()(TcpConnectionWeakPtr conn)
         {
-            TcpConnectionPtr tmp(conn->lock);
+            TcpConnectionPtr tmp( conn.lock() );
             return tmp ? true : false;
         }
     };
 }
 
 void SysInfoService::onSysInfoQuery(TcpConnectionPtr const& conn,
-                                    SysInfoMsgPtr const& msg,
+                                    MessagePtr const& msg,
                                     muduo::Timestamp timeStamp)//decorate TODO
 {
-    boost::shared_ptr<Client2DMSysInfoQueryMsg> query =
-        muduo::down_pointer_cast<Client2DMSysInfoQueryMsg>(msg);
-    string token = query->token();
-    typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-    boost::char_separator<char> sep("\r\n");
-    tokenizer tokens(token, sep);
-    tokenizer::iterator tok_iter = tokens.begin();
-    SysInfoQueryAck replyMsg;
-    if(isRoot(*tok_iter))
+    CrossSysInfoGetMsgPtr query =  muduo::down_pointer_cast<CrossSysInfoGetMsg>(msg);
+    std::string fakeToken = query->token();
+    Token token(fakeToken);
+    CrossSysInfoGetACK reply;
+    if(token.niuXThanDomainAdmin())
     {
+        _dcVec.clear();
         _func(_dcVec);
         if(!_dcVec.empty())
         {
             Timestamp now = Timestamp::now();
-            TcpConnectionWeakPtr connection(conn);
-            _cliMap.insert(Time2ConnMap::value_type(now , connection));
-            DM2DCDbSysQueryMsg newMsg;
-            newMsg.set_timestamp(now);
+            TcpConnectionWeakPtr cliConn(conn);
+            muduo::string time( now.toString() );
+            _cliMap.insert(Time2ConnMap::value_type(time , cliConn));
+            DomainSysInfoGetMsg relayMsg;
+            std::string tmp( MuduoStr2StdStr(time) );
+            relayMsg.set_timestamp(tmp);
             _dcVec.erase(remove_if(_dcVec.begin() , _dcVec.end() , HelperFuntor()));
             for(TcpConnectionWeakPtr dcConn : _dcVec)
-                dcConn->send(newMsg);
+                ( g_Initializer.getCodec() ).send(dcConn.lock() , relayMsg);//Oops!
             return;
         }
         else
-            replyMsg.set_statusCode(SUCCESS);
+            reply.set_statuscode(SUCCESS);
     }
     else
-        replyMsg.set_statusCode(AUTHFAILED);
-    conn->send(replyMsg);
+        reply.set_statuscode(PERMISSION_DENIED);
+    ( g_Initializer.getCodec() ).send(conn , reply);
 }
 
 void SysInfoService::onSysInfoReplyFromDC(TcpConnectionPtr const& conn,
-                                          SysInfoReplyPtr const& msg,
+                                          MessagePtr const& msg,
                                           muduo::Timestamp timeStamp)
 {
-    boost::shared_ptr<SysInfoQueryACK> Ack =
-        muduo::down_pointer_cast<SysInfoQueryACK>(msg);
-    Timestamp time = Ack->timestamp();
-    Time2ConnMap::iterator iter = _cliMap.find(time);
+    DomainSysInfoGetACKPtr dcACK = muduo::down_pointer_cast<DomainSysInfoGetACK>(msg);
+    STDSTR time = dcACK->timestamp();
+    muduo::string tmp( StdStr2MuduoStr(time) );
+    Time2ConnMap::iterator iter = _cliMap.find(tmp);
     if(iter != _cliMap.end())
     {
-        TcpConnectionPtr tmp(iter->second->lock());
+        TcpConnectionPtr tmp( (iter->second).lock() );
         if(tmp)
-            tmp->send(Ack);
+            ( g_Initializer.getCodec() ).send(tmp , *( dcACK.get() ) );
         else
             _cliMap.erase(iter);
     }
     else
-        LOG_INFO << "timestamp is unknown , there is not a corresponding user";
+        LOG_INFO << "timestamp is unknown , there is not a corresponding client";
 }

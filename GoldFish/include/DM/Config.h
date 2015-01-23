@@ -60,7 +60,7 @@ typedef enum Role
 /* Table of error code*/
 #define SUCCESS 0
 #define UNKNOWN_TOKEN -1
-#define AUTHFAILED_TOKEN -2
+#define PERMISSION_DENIED -2
 #define EXISTED_DOMAIN -3
 #define EXISTED_GROUP -4
 #define BAD_CPU_REQUEST -5
@@ -69,7 +69,7 @@ typedef enum Role
 #define UNEXISTED_DOMAIN -8
 #define UNEXISTED_GROUP -9
 #define EXISTED_USER -10
-#define BAD_USER_AUTHORITY -11
+#define BAD_USER_AUTHORITY_SET -11
 #define UNKNOWN_SYSERROR -12
 #define TOKEN_AUTH_FAIL -13
 #define CRUSHED_DC -14//TODO
