@@ -49,7 +49,7 @@ TEST(DbAcceptorTest , PreserveSuccessTest)
     Timestamp time;
     DbAcceptor acceptor;
     acceptor.onPreserve(conn , message , time);
-    sleep(10);
+    sleep(3);
     ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
     ResultSetPtr result = dbConn->executeQuery(
                 "select raIP from IMCONFIG_INFO where domainName = 'domain1'");
@@ -87,7 +87,7 @@ TEST(DbAcceptorTest , PreserveFailTest)
     Timestamp time;
     DbAcceptor acceptor;
     acceptor.onPreserve(conn , message , time);
-    sleep(10);
+    sleep(3);
     EXPECT_EQ(CONFIG_PRESERVE_FAIL , tPreserveACK.statuscode());
 }
 
@@ -105,7 +105,7 @@ TEST(DbAcceptorTest , LoadSuccessTest)
     Timestamp time;
     DbAcceptor acceptor;
     acceptor.onLoad(conn , message , time);
-    sleep(10);
+    sleep(3);
     int size = tLookUpACK.raip_size();
     std::cout << "size: " << size << "\n";
     std::string ip1 = tLookUpACK.raip(0);
@@ -129,7 +129,7 @@ TEST(DbAcceptorTest , LoadFailTest)
     Timestamp time;
     DbAcceptor acceptor;
     acceptor.onLoad(conn , message , time);
-    sleep(10);
+    sleep(3);
     EXPECT_EQ(DOMAIN_NO_CONFIG , tLookUpACK.statuscode());
 }
 
@@ -147,7 +147,7 @@ TEST(DbAcceptorTest , DeleteSuccessTest)
     Timestamp time;
     DbAcceptor acceptor;
     acceptor.onDelete(conn , message , time);
-    sleep(10);
+    sleep(3);
     EXPECT_EQ(SUCCESS , tDeleteACK.statuscode());
 }
 
@@ -165,6 +165,6 @@ TEST(DbAcceptorTest , DeleteFailTest)
     Timestamp time;
     DbAcceptor acceptor;
     acceptor.onDelete(conn , message , time);
-    sleep(10);
+    sleep(3);
     EXPECT_EQ(DOMAIN_NO_CONFIG , tDeleteACK.statuscode());
 }

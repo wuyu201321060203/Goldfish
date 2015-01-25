@@ -64,6 +64,9 @@ dbacceptor_unittest.o : $(USER_DIR)/dbacceptor_unittest.cc
 token_unittest.o : $(USER_DIR)/token_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+crossinfoservice_unittest.o : $(USER_DIR)/crossinfoservice_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 util_unittest.o : $(USER_DIR)/util_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -125,5 +128,6 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  DbAcceptor.o MSG_DC_DM_CONFIG_LOOKUP.pb.o MSG_DC_DM_CONFIG_DELETE.pb.o\
 			  token_unittest.o Token.o util_unittest.o util.o CrossDomainInfoService.o DbInfoService.o\
 		      MSG_DM_DC_DOMAIN_DBINFO_GET.pb.o MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.o\
-			  SysInfoService.o MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.o MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.o
+			  SysInfoService.o MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.o MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.o\
+			  crossinfoservice_unittest.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

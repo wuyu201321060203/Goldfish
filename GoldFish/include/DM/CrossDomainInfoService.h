@@ -20,14 +20,21 @@ public:
     typedef boost::function<void (TcpConnectionWeakPtrVec&)> DCListGetFunc;
 
     virtual void onCrossDomainInfoQuery(muduo::net::TcpConnectionPtr const&,
-                                MessagePtr const& , muduo::Timestamp) = 0;
+        MessagePtr const& , muduo::Timestamp) = 0;
 
     virtual void onCrossDomainInfoReplyFromDC(muduo::net::TcpConnectionPtr const&,
-                                            MessagePtr const& , muduo::Timestamp) = 0;
+        MessagePtr const& , muduo::Timestamp) = 0;
 
     int setGetDCListFunc(DCListGetFunc const& func);
 
 protected:
+
+    class HelperFunctor
+    {
+    public:
+
+        bool operator()(TcpConnectionWeakPtr conn);
+    };
 
     TcpConnectionWeakPtrVec _dcVec;
     typedef std::map<muduo::string , TcpConnectionWeakPtr> Time2ConnMap;

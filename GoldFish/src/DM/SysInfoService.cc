@@ -15,20 +15,6 @@ using muduo::Timestamp;
 
 extern Initializer g_Initializer;
 
-namespace
-{
-    class HelperFuntor
-    {
-    public:
-
-        bool operator()(TcpConnectionWeakPtr conn)
-        {
-            TcpConnectionPtr tmp( conn.lock() );
-            return tmp ? true : false;
-        }
-    };
-}
-
 void SysInfoService::onSysInfoQuery(TcpConnectionPtr const& conn,
                                     MessagePtr const& msg,
                                     muduo::Timestamp timeStamp)//decorate TODO
@@ -50,7 +36,7 @@ void SysInfoService::onSysInfoQuery(TcpConnectionPtr const& conn,
             DomainSysInfoGetMsg relayMsg;
             std::string tmp( MuduoStr2StdStr(time) );
             relayMsg.set_timestamp(tmp);
-            _dcVec.erase(remove_if(_dcVec.begin() , _dcVec.end() , HelperFuntor()));
+            _dcVec.erase(remove_if(_dcVec.begin() , _dcVec.end() , HelperFunctor()));
             for(TcpConnectionWeakPtr dcConn : _dcVec)
                 ( g_Initializer.getCodec() ).send(dcConn.lock() , relayMsg);//Oops!
             return;
