@@ -1,14 +1,11 @@
-In file included from crossinfoservice_unittest.cc:3:0:
-/home/wuyu/Goldfish/GoldFish/include/DM/CrossInfoService.h: In instantiation of ‘void CrossInfoService<T, U, R, Q>::onCrossInfoQuery(const TcpConnectionPtr&, const MessagePtr&, muduo::Timestamp) [with T = MSG_CLIENT_DM_CROSS_DBINFO_GET; U = MSG_DM_CLIENT_CROSS_DBINFO_GET_ACK; R = MSG_DM_DC_DOMAIN_DBINFO_GET; Q = MSG_DC_DM_DOMAIN_DBINFO_GET_ACK; muduo::net::TcpConnectionPtr = boost::shared_ptr<muduo::net::TcpConnection>; MessagePtr = boost::shared_ptr<google::protobuf::Message>]’:
-crossinfoservice_unittest.cc:52:47:   required from here
-/home/wuyu/Goldfish/GoldFish/include/DM/CrossInfoService.h:54:10: warning: unused parameter ‘timeStamp’ [-Wunused-parameter]
-/home/wuyu/Goldfish/GoldFish/include/DM/CrossInfoService.h: In instantiation of ‘void CrossInfoService<T, U, R, Q>::onCrossInfoReplyFromDC(const TcpConnectionPtr&, const MessagePtr&, muduo::Timestamp) [with T = MSG_CLIENT_DM_CROSS_DBINFO_GET; U = MSG_DM_CLIENT_CROSS_DBINFO_GET_ACK; R = MSG_DM_DC_DOMAIN_DBINFO_GET; Q = MSG_DC_DM_DOMAIN_DBINFO_GET_ACK; muduo::net::TcpConnectionPtr = boost::shared_ptr<muduo::net::TcpConnection>; MessagePtr = boost::shared_ptr<google::protobuf::Message>]’:
-crossinfoservice_unittest.cc:99:54:   required from here
-/home/wuyu/Goldfish/GoldFish/include/DM/CrossInfoService.h:101:10: warning: unused parameter ‘conn’ [-Wunused-parameter]
-/home/wuyu/Goldfish/GoldFish/include/DM/CrossInfoService.h:101:10: warning: unused parameter ‘timeStamp’ [-Wunused-parameter]
-crossinfoservice_unittest.o: In function `testSend1':
-/home/wuyu/Goldfish/GoldFish/include/DM/CrossInfoService.h:40: undefined reference to `testMap1'
-crossinfoservice_unittest.o: In function `CrossInfoServiceTest_InfoReplaySuccessTest_Test::TestBody()':
-/home/wuyu/Goldfish/GoldFish/src/DM/tests/crossinfoservice_unittest.cc:100: undefined reference to `testMap1'
-collect2: error: ld returned 1 exit status
-make: *** [dm_unittest] Error 1
+/home/wuyu/Goldfish/GoldFish/src/DM/GroupInfoService.cc:29:6: warning: unused parameter ‘time’ [-Wunused-parameter]
+/home/wuyu/Goldfish/GoldFish/src/DM/GroupInfoService.cc:52:6: warning: unused parameter ‘time’ [-Wunused-parameter]
+/home/wuyu/Goldfish/GoldFish/src/DM/GroupInfoService.cc:73:6: warning: unused parameter ‘time’ [-Wunused-parameter]
+/home/wuyu/Goldfish/GoldFish/src/DM/GroupInfoService.cc:95:6: warning: unused parameter ‘time’ [-Wunused-parameter]
+/home/wuyu/Goldfish/GoldFish/src/DM/GroupInfoService.cc: In function ‘void doDeleteGroup(const TcpConnectionPtr&, std::string)’:
+/home/wuyu/Goldfish/GoldFish/src/DM/GroupInfoService.cc:178:15: error: ‘GroupDestoryACK’ has no member named ‘set_statusCode’
+/home/wuyu/Goldfish/GoldFish/src/DM/GroupInfoService.cc: In function ‘void doUpdateGroup(const TcpConnectionPtr&, std::string, std::string)’:
+/home/wuyu/Goldfish/GoldFish/src/DM/GroupInfoService.cc:216:15: error: ‘GroupInfoUpdateACK’ has no member named ‘set_statusCode’
+/home/wuyu/Goldfish/GoldFish/src/DM/GroupInfoService.cc: In function ‘void doGetGroup(const TcpConnectionPtr&, std::string)’:
+/home/wuyu/Goldfish/GoldFish/src/DM/GroupInfoService.cc:254:15: error: ‘GroupInfoGetACK’ has no member named ‘set_statusCode’
+make: *** [GroupInfoService.o] Error 1

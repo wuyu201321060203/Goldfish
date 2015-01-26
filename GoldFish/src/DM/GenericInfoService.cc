@@ -1,24 +1,24 @@
 #include "GenericInfoService.h"
 
-void GenericInfoService::onCreateInfo(TcpConnectionPtr const&,
+void GenericInfoService::onCreateInfo(muduo::net::TcpConnectionPtr const&,
                                       MessagePtr const&,
                                       muduo::Timestamp)
 {
 }
 
-void GenericInfoService::onDeleteInfo(TcpConnectionPtr const&,
+void GenericInfoService::onDeleteInfo(muduo::net::TcpConnectionPtr const&,
                                       MessagePtr const&,
                                       muduo::Timestamp)
 {
 }
 
-void GenericInfoService::onUpdateInfo(TcpConnectionPtr const&,
+void GenericInfoService::onUpdateInfo(muduo::net::TcpConnectionPtr const&,
                                       MessagePtr const&,
                                       muduo::Timestamp)
 {
 }
 
-void GenericInfoService::onGetInfo(TcpConnectionPtr const&,
+void GenericInfoService::onGetInfo(muduo::net::TcpConnectionPtr const&,
                                    MessagePtr const&,
                                    muduo::Timestamp)
 {

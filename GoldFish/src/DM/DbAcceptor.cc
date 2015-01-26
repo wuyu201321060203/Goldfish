@@ -1,5 +1,12 @@
 #include <string>
 
+#include <boost/bind.hpp>
+#include <boost/any.hpp>
+#include <boost/shared_ptr.hpp>
+
+#include <muduo/base/ThreadPool.h>
+#include <muduo/base/Mutex.h>
+
 #include <DM/DbAcceptor.h>
 #include <DM/Initializer.h>
 #include <Db/ConnectionPool.h>
@@ -7,13 +14,6 @@
 #include <Db/Connection.h>
 #include <Exception/SQLException.h>
 #include <mysql/MysqlConnection.h>
-
-#include <boost/bind.hpp>
-#include <boost/any.hpp>
-#include <boost/shared_ptr.hpp>
-
-#include <muduo/base/ThreadPool.h>
-#include <muduo/base/Mutex.h>
 
 #ifdef TEST
 #include <unistd.h>

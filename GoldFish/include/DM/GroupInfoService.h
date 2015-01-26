@@ -1,33 +1,37 @@
 #ifndef GROUPINFOSERVICE_H
 #define GROUPINFOSERVICE_H
 
+#include <string>
+
 #include "GenericInfoService.h"
 
 class GroupInfoService : public GenericInfoService
 {
 public:
 
-    virtual void onCreateInfo(TcpConnectionPtr const&,
+    virtual void onCreateInfo(muduo::net::TcpConnectionPtr const&,
                               MessagePtr const&,
                               muduo::Timestamp);
 
-    virtual void onDeleteInfo(TcpConnectionPtr const&,
+    virtual void onDeleteInfo(muduo::net::TcpConnectionPtr const&,
                               MessagePtr const&,
                               muduo::Timestamp);
 
-    virtual void onUpdateInfo(TcpConnectionPtr const&,
+    virtual void onUpdateInfo(muduo::net::TcpConnectionPtr const&,
                               MessagePtr const&,
                               muduo::Timestamp);
 
-    virtual void onGetInfo(TcpConnectionPtr const&,
+    virtual void onGetInfo(muduo::net::TcpConnectionPtr const&,
                            MessagePtr const&,
                            muduo::Timestamp);
 private:
 
-    void doCreateGroup(TcpConnectionPtr const& , string , string , string);
-    void doDeleteGroup(TcpConnectionPtr const& , string);
-    void doUpdateGroup(TcpConnectionPtr const& , string , string);
-    void doGetGroup(TcpConnectionPtr const& , string);
+    void doCreateGroup(muduo::net::TcpConnectionPtr const& , std::string,
+                       std::string , std::string);
+    void doDeleteGroup(muduo::net::TcpConnectionPtr const& , std::string);
+    void doUpdateGroup(muduo::net::TcpConnectionPtr const& , std::string,
+                       std::string);
+    void doGetGroup(muduo::net::TcpConnectionPtr const& , std::string);
 };
 
 #endif

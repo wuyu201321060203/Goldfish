@@ -1,19 +1,21 @@
-#include "CustomizedServiceAcceptor.h"
+#include <muduo/net/TcpConnection.h>
 
-void CustomizedServiceAcceptor::onPreserve(TcpConnectionPtr const& conn,
-                                   MessagePtr const& msg,
-                                   muduo::Timestamp timeStamp)
+#include <DM/CustomizedServiceAcceptor.h>
+
+void CustomizedServiceAcceptor::onPreserve(muduo::net::TcpConnectionPtr const& conn,
+                                           MessagePtr const& msg,
+                                           muduo::Timestamp timeStamp)
 {
 }
 
-void CustomizedServiceAcceptor::onLoad(TcpConnectionPtr const& conn,
-                               MessagePtr const& msg,
-                               muduo::Timestamp timeStamp)
+void CustomizedServiceAcceptor::onLoad(muduo::net::TcpConnectionPtr const& conn,
+                                       MessagePtr const& msg,
+                                       muduo::Timestamp timeStamp)
 {
 }
 
-void CustomizedServiceAcceptor::onDelete(TcpConnectionPtr const& conn,
-                               MessagePtr const& msg,
-                               muduo::Timestamp timeStamp)
+void CustomizedServiceAcceptor::onDelete(muduo::net::TcpConnectionPtr const& conn,
+                                         MessagePtr const& msg,
+                                         muduo::Timestamp timeStamp)
 {
 }

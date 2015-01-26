@@ -22,7 +22,7 @@
 using muduo::net::TcpConnectionPtr;
 using muduo::Timestamp;
 
-extern Initializer g_Initializer;
+extern Initializer g_Initializer;//TODO change to static
 #ifdef TEST
     extern std::map<muduo::string , DomainDbInfoGetMsg> testMap;
     extern std::map<muduo::string , DomainDbInfoGetACK> testMap1;
