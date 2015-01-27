@@ -2,9 +2,6 @@
 
 #ifdef TEST
 #include <vector>
-#endif
-
-#ifdef TEST
 #include <iostream>
 #endif
 

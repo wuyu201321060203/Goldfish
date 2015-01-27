@@ -4,13 +4,6 @@
 #include <string>
 
 #include "GenericInfoService.h"
-#include "Initializer.h"
-
-#ifdef TEST
-extern GroupCreateACK testReply;
-#endif
-
-extern Initializer g_Initializer;
 
 class GroupInfoService : public GenericInfoService
 {
@@ -39,20 +32,6 @@ private:
     void doUpdateGroup(muduo::net::TcpConnectionPtr const& , std::string,
                        std::string);
     void doGetGroup(muduo::net::TcpConnectionPtr const& , std::string);
-
-    template<typename T>
-    void onTokenFailAuthFailed(muduo::net::TcpConnectionPtr const& conn)
-    {
-        T reply;
-        reply.set_statuscode(PERMISSION_DENIED);
-#ifndef TEST
-        ( g_Initializer.getCodec()  ).send(conn , reply);
-#endif
-
-#ifdef TEST
-        testReply.set_statuscode(reply.statuscode());
-#endif
-    }
 };
 
 #endif

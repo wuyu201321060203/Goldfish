@@ -105,9 +105,7 @@ void DbAcceptor::doPreserve(TcpConnectionPtr const& conn,
     }
 #ifndef TEST
     (g_Initializer.getCodec()).send(conn , reply);
-#endif
-
-#ifdef TEST
+#else
     tPreserveACK = reply;
 #endif
     dbConn->close();
@@ -148,9 +146,7 @@ void DbAcceptor::doLoad(TcpConnectionPtr const& conn,
     }
 #ifndef TEST
     (g_Initializer.getCodec()).send(conn , reply);
-#endif
-
-#ifdef TEST
+#else
     tLookUpACK = reply;
 #endif
     dbConn->close();
@@ -190,9 +186,7 @@ void DbAcceptor::doDelete(TcpConnectionPtr const& conn,
     }
 #ifndef TEST
     (g_Initializer.getCodec()).send(conn , reply);
-#endif
-
-#ifdef TEST
+#else
     tDeleteACK = reply;
 #endif
     dbConn->close();

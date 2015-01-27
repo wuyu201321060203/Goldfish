@@ -1,31 +1,34 @@
+#include <string>
+
 #include "UserInfoService.h"
 
-//token decode
-//protobuf optional how to deal
+using namespace muduo;
+using namespace muduo::net;
 
 void UserInfoService::onCreateInfo(TcpConnectionPtr const& conn,
                                    MessagePtr const& msg,
-                                   muduo::Timestamp)
+                                   Timestamp)
 {
-    boost::shared_ptr<CreateUserMsg> query = muduo::down_cast<CreateUserMsg>(msg);
-    string tmp = msg->token();//decode
+    UserCreateMsgPtr query = muduo::down_pointer_cast<UserCreateMsg>(msg);
+    std::string tmp = query->token();
     Token token(tmp);
-    if(token.niuXThanUser())
+    if(token.niuXThanCommonUser())
     {
-        (g_Initializer.getThreadPool()).run(boost::bind(&doCreateUser , conn,
-            domainName , groupName , userName , passwd , identity));
+        std::string domainName = query->domainname();
+        std::string groupName = query->groupname();
+        std::string userName = query->username();
+        std::string passwd = query->passwd();
+        int authority = query->authority();
+        (g_Initializer.getThreadPool()).run(boost::bind(&UserInfoService::doCreateUser,
+            this , conn , domainName , groupName , userName , passwd , authority));
     }
     else
-    {
-        CreateUserACK reply;
-        reply.set_statusCode();
-        conn->send(reply);
-    }
+        onTokenFailAuthFailed<UserCreateACK>(conn);
 }
 
 void UserInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
                                    MessagePtr const& msg,
-                                   muduo::Timestamp)
+                                   Timestamp)
 {
     boost::shared_ptr<DeleteUserMsg> query = muduo::down_cast<DeleteUserMsg>(msg);
     string tmp = msg->token();
@@ -45,7 +48,7 @@ void UserInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
 
 void UserInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
                                    MessagePtr const& msg,
-                                   muduo::Timestamp)
+                                   Timestamp)
 {
     boost::shared_ptr<UpdateUserMsg> query = muduo::down_cast<UpdateUserMsg>(msg);
     string tmp = msg->token();
@@ -71,7 +74,7 @@ void UserInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
 
 void UserInfoService::onGetInfo(TcpConnectionPtr const& conn,
                                 MessagePtr const& msg,
-                                muduo::Timestamp)
+                                Timestamp)
 {
     boost::shared_ptr<GetUserInfoMsg> query = muduo::down_cast<GetUserInfoMsg>(msg);
     string userName = msg->userName();
@@ -79,9 +82,9 @@ void UserInfoService::onGetInfo(TcpConnectionPtr const& conn,
         userName));
 }
 
-void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , string domainName,
-                                   string groupName , string userName,
-                                   string passwd , string authority)
+void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , std::string domainName,
+                                   std::string groupName , std::string userName,
+                                   std::string passwd , std::string authority)
 {
     ConnectionPtr dbConn = SingleConnectionPool::instance().
                                     getConnection<MysqlConnection>();

@@ -24,12 +24,11 @@ using muduo::Timestamp;
 
 extern Initializer g_Initializer;//TODO change to static
 #ifdef TEST
-    extern std::map<muduo::string , DomainDbInfoGetMsg> testMap;
-    extern std::map<muduo::string , DomainDbInfoGetACK> testMap1;
-    extern std::string time1;
-#endif
 
-#ifdef TEST
+extern std::map<muduo::string , DomainDbInfoGetMsg> testMap;
+extern std::map<muduo::string , DomainDbInfoGetACK> testMap1;
+extern std::string time1;
+
 static void testSend(TcpConnectionPtr const& conn , DomainDbInfoGetMsg const& msg)
 {
     testMap[conn->name()] = msg;
@@ -82,9 +81,7 @@ public:
                 {
 #ifndef TEST
                     ( g_Initializer.getCodec() ).send(dcConn.lock() , relayMsg);//Oops!
-#endif
-
-#ifdef TEST
+#else
                     testSend(dcConn.lock() , relayMsg);
 #endif
                 }
@@ -112,8 +109,7 @@ public:
             if(tmp)
 #ifndef TEST
                 ( g_Initializer.getCodec() ).send(tmp , *dcACK );
-#endif
-#ifdef TEST
+#else
                 testSend1(tmp , *dcACK);
 #endif
             else

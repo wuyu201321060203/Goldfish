@@ -8,19 +8,19 @@ class USERInfoService : public GenericInfoService
 {
 public:
 
-    virtual void onCreateInfo(TcpConnectionPtr const&,
+    virtual void onCreateInfo(muduo::net::TcpConnectionPtr const&,
                               MessagePtr const&,
                               muduo::Timestamp);
 
-    virtual void onDeleteInfo(TcpConnectionPtr const&,
+    virtual void onDeleteInfo(muduo::net::TcpConnectionPtr const&,
                               MessagePtr const&,
                               muduo::Timestamp);
 
-    virtual void onUpdateInfo(TcpConnectionPtr const&,
+    virtual void onUpdateInfo(muduo::net::TcpConnectionPtr const&,
                               MessagePtr const&,
                               muduo::Timestamp);
 
-    virtual void onGetInfo(TcpConnectionPtr const&,
+    virtual void onGetInfo(muduo::net::TcpConnectionPtr const&,
                            MessagePtr const&,
                            muduo::Timestamp);
 };
