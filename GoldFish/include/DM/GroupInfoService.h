@@ -4,6 +4,9 @@
 #include <string>
 
 #include "GenericInfoService.h"
+#include "Initializer.h"
+
+extern Initializer g_Initializer;
 
 class GroupInfoService : public GenericInfoService
 {
@@ -32,6 +35,14 @@ private:
     void doUpdateGroup(muduo::net::TcpConnectionPtr const& , std::string,
                        std::string);
     void doGetGroup(muduo::net::TcpConnectionPtr const& , std::string);
+
+    template<typename T>
+    void onTokenFailAuthFailed(muduo::net::TcpConnectionPtr const& conn)
+    {
+        T reply;
+        reply.set_statuscode(PERMISSION_DENIED);
+        ( g_Initializer.getCodec()  ).send(conn , reply);
+    }
 };
 
 #endif

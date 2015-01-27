@@ -24,7 +24,7 @@ using namespace muduo::net;
 using namespace OOzdb;
 
 extern Initializer g_Initializer;
-OOzdb::ConnectionPool g_DbPool("mysql://root:123@localhost:3306/DM");
+extern OOzdb::ConnectionPool g_DbPool;
 
 ConfigPersistenceACK tPreserveACK;
 ConfigLookupACK tLookUpACK;
@@ -107,7 +107,6 @@ TEST(DbAcceptorTest , LoadSuccessTest)
     acceptor.onLoad(conn , message , time);
     sleep(3);
     int size = tLookUpACK.raip_size();
-    std::cout << "size: " << size << "\n";
     std::string ip1 = tLookUpACK.raip(0);
     std::string ip2 = tLookUpACK.raip(1);
     EXPECT_EQ("192.168.1.0" , ip1);

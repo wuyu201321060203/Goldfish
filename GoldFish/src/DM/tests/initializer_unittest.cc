@@ -1,10 +1,14 @@
 #include <string.h>
 
 #include <DM/Initializer.h>
+#include <Db/ConnectionPool.h>
+#include <Db/ResultSet.h>
+#include <mysql/MysqlConnection.h>
 
 #include "gtest/gtest.h"
 
 Initializer g_Initializer;
+OOzdb::ConnectionPool g_DbPool("mysql://root:123@localhost:3306/DM");
 
 TEST(InitializerTest , INITTest)
 {

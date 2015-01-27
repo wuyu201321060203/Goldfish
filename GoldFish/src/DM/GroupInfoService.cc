@@ -1,5 +1,9 @@
 #include <string>
 
+#ifdef TEST
+#include <iostream>
+#endif
+
 #include <boost/any.hpp>
 
 #include <muduo/base/Logging.h>
@@ -8,7 +12,6 @@
 #include <muduo/base/ThreadPool.h>
 
 #include <DM/GroupInfoService.h>
-#include <DM/Initializer.h>
 #include <DM/Token.h>
 
 #include <Db/ResultSet.h>
@@ -21,7 +24,7 @@ using namespace muduo::net;
 using namespace OOzdb;
 using boost::any_cast;
 
-extern Initializer g_Initializer;
+//extern Initializer g_Initializer;
 extern ConnectionPool g_DbPool;
 
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
@@ -43,9 +46,12 @@ void GroupInfoService::onCreateInfo(TcpConnectionPtr const& conn,
     }
     else
     {
+        /*
         GroupCreateACK reply;
         reply.set_statuscode(PERMISSION_DENIED);
         ( g_Initializer.getCodec() ).send(conn , reply);
+        */
+        onTokenFailAuthFailed<GroupCreateACK>(conn);
     }
 }
 
@@ -64,9 +70,12 @@ void GroupInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
     }
     else
     {
+        /*
         GroupDestoryACK reply;
         reply.set_statuscode(PERMISSION_DENIED);
         ( g_Initializer.getCodec() ).send(conn , reply);
+        */
+        onTokenFailAuthFailed<GroupDestoryACK>(conn);
     }
 }
 
@@ -86,9 +95,12 @@ void GroupInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
     }
     else
     {
+        /*
         GroupInfoUpdateACK reply;
         reply.set_statuscode(PERMISSION_DENIED);
         ( g_Initializer.getCodec() ).send(conn , reply);
+        */
+        onTokenFailAuthFailed<GroupInfoUpdateACK>(conn);
     }
 }
 
@@ -107,40 +119,55 @@ void GroupInfoService::onGetInfo(TcpConnectionPtr const& conn,
     }
     else
     {
+        /*
         GroupInfoGetACK reply;
         reply.set_statuscode(PERMISSION_DENIED);
         ( g_Initializer.getCodec() ).send(conn , reply);
+        */
+        onTokenFailAuthFailed<GroupInfoGetACK>(conn);
     }
 }
 
 void GroupInfoService::doCreateGroup(TcpConnectionPtr const& conn , std::string groupName,
-                   std::string domain , std::string description)
+                                     std::string domain , std::string description)
 {
     ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
     ResultSetPtr result;
     GroupCreateACK reply;
+    try
     {
-        MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-        MutexLockGuard guard(**lock);
-        result = dbConn->executeQuery("select id from DOMAIN_INFO\
-                                        where name = '%s' " , domain.c_str());
-        if( result->next() )
         {
-            result = dbConn->executeQuery("select id from GROUP_INFO where name = %s",
-                                                groupName.c_str());
-            if( !result->next() )
+            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
+            MutexLockGuard guard(**lock);
+            result = dbConn->executeQuery("select id from DOMAIN_INFO\
+                                    where name = '%s' " , domain.c_str());
+            if( result->next() )
             {
-                dbConn->execute("inert into GROUP_INFO(name , description , belong2Domain)\
-                                        values('%s' , '%s' , '%s')" , groupName.c_str(),
-                                        description.c_str() , domain.c_str());//lazy to write try-catch
+                int domainID = result->getInt(1);
+                result = dbConn->executeQuery("select id from GROUP_INFO where name = '%s' ",
+                                                    groupName.c_str());
+                if( !result->next() )
+                {
+                    dbConn->execute("insert into GROUP_INFO(name , description , belong2Domain)\
+                        values('%s' , '%s' , '%d')" , groupName.c_str(),
+                        description.c_str() , domainID);
 
-                reply.set_statuscode(SUCCESS);
+                    reply.set_statuscode(SUCCESS);
+                }
+                else
+                    reply.set_statuscode(EXISTED_GROUP);
             }
             else
-                reply.set_statuscode(EXISTED_GROUP);
+                reply.set_statuscode(UNEXISTED_DOMAIN);
         }
-        else
-            reply.set_statuscode(UNEXISTED_DOMAIN);
+    }
+    catch(SQLException const& e)
+    {
+#ifdef TEST
+        std::cout << e.getReason() << "\n";
+#endif
+
+        reply.set_statuscode(UNKNOWN_SYSERROR);
     }
     dbConn->close();
 #ifndef TEST
@@ -223,28 +250,37 @@ void GroupInfoService::doUpdateGroup(TcpConnectionPtr const& conn , std::string 
 
 void GroupInfoService::doGetGroup(TcpConnectionPtr const& conn , std::string groupName)
 {
+    typedef MSG_DM_CLIENT_GROUP_DESCRIPTION_GET_ACK_GROUP_INFO GroupInfo;
     ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
     GroupInfoGetACK reply;
+    reply.set_statuscode(UNEXISTED_GROUP);
     ResultSetPtr result;
+    std::string sqlQuery;
+    std::string groupDescription;
+    std::string groupNameAlias;
+    if(groupName != "*")
+    {
+        std::string prefix("select name , description from GROUP_INFO where name = ' ");
+        sqlQuery = prefix + groupName + "'";
+    }
+    else
+        sqlQuery = "select name , description from GROUP_INFO";
     try
     {
         {
             MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
             MutexLockGuard guard(**lock);
-            result = dbConn->executeQuery("select id , description from GROUP_INFO\
-                                            where name = '%s' " , groupName.c_str());
+            result = dbConn->executeQuery(sqlQuery.c_str());
         }
-        if(result->next())
+        while(result->next())
         {
-            std::string groupDescription = result->getString(2);
+            groupNameAlias = result->getString(1);
+            groupDescription = result->getString(2);
             reply.set_statuscode(SUCCESS);
-            typedef MSG_DM_CLIENT_GROUP_DESCRIPTION_GET_ACK_GROUP_INFO GroupInfo;
             GroupInfo* info = reply.add_groupinfo();
-            info->set_name(groupName);
+            info->set_name(groupNameAlias);
             info->set_description(groupDescription);
         }
-        else
-            reply.set_statuscode(UNEXISTED_GROUP);
     }
     catch(SQLException const& e)
     {

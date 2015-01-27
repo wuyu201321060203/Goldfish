@@ -70,6 +70,9 @@ crossinfoservice_unittest.o : $(USER_DIR)/crossinfoservice_unittest.cc
 util_unittest.o : $(USER_DIR)/util_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+groupinfoservice_unittest.o : $(USER_DIR)/groupinfoservice_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 ConfigLoader.o : $(DM_SRC_DIR)/ConfigLoader.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -127,7 +130,6 @@ util.o : $(DM_SRC_DIR)/util.cc
 GroupInfoService.o : $(DM_SRC_DIR)/GroupInfoService.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
-
 dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_unittest.o ConfigLoader.o Options.o\
 			  Initializer.o ProtobufCodec.o Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o \
 			  MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
@@ -136,7 +138,7 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  token_unittest.o Token.o util_unittest.o util.o \
 		      MSG_DM_DC_DOMAIN_DBINFO_GET.pb.o MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.o\
 			  MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.o MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.o\
-			  crossinfoservice_unittest.o MSG_CLIENT_DM_GROUP_CREATE.pb.o\
-			  MSG_CLIENT_DM_GROUP_DESCRIPTION_GET.pb.o MSG_CLIENT_DM_GROUP_DESCRIPTION_UPDATE.pb.o\
-			  MSG_CLIENT_DM_GROUP_DESTROY.pb.o GroupInfoService.o
+			  MSG_CLIENT_DM_GROUP_CREATE.pb.o MSG_CLIENT_DM_GROUP_DESCRIPTION_GET.pb.o\
+			  MSG_CLIENT_DM_GROUP_DESCRIPTION_UPDATE.pb.o MSG_CLIENT_DM_GROUP_DESTROY.pb.o\
+			  GroupInfoService.o groupinfoservice_unittest.o crossinfoservice_unittest.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

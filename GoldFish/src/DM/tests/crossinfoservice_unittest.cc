@@ -7,6 +7,7 @@
 #include <boost/bind.hpp>
 #include <map>
 #include <string>
+#include <unistd.h>
 
 std::map<muduo::string , DomainDbInfoGetMsg> testMap;
 std::map<muduo::string , DomainDbInfoGetACK> testMap1;
@@ -87,13 +88,16 @@ TEST(CrossInfoServiceTest , InfoReplySuccessTest)
     Timestamp time;
     waiter.onCrossInfoQuery(conn3 , msg , time);
     std::string timeConn3 = time1;
+    sleep(3);
     waiter.onCrossInfoQuery(conn4 , msg , time);
     std::string timeConn4 = time1;
     Time2ConnMap& clients = waiter.getCliMap();
     TcpConnectionPtr cli1 = clients[StdStr2MuduoStr(timeConn3)].lock();
     TcpConnectionPtr cli2 = clients[StdStr2MuduoStr(timeConn4)].lock();
-    EXPECT_EQ(conn3->name() , cli1->name());
-    EXPECT_EQ(conn4->name() , cli2->name());
+    muduo::string cli1Name = cli1->name();
+    muduo::string cli2Name = cli2->name();
+    EXPECT_EQ(conn3->name() , cli1Name);
+    EXPECT_EQ(conn4->name() , cli2Name);
     DomainDbInfoGetACK* ackMsg = new DomainDbInfoGetACK;
     ackMsg->set_timestamp(timeConn3);
     MessagePtr msg1(ackMsg);
