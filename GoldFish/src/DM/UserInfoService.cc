@@ -1,24 +1,41 @@
 #include <string>
 
-#include "UserInfoService.h"
+#include <boost/any.hpp>
+#include <muduo/base/Logging.h>
+#include <muduo/base/Types.h>
+#include <muduo/base/Mutex.h>
+#include <muduo/base/ThreadPool.h>
+
+#include <DM/UserInfoService.h>
+#include <DM/Token.h>
+
+#include <Db/ResultSet.h>
+#include <Db/ConnectionPool.h>
+#include <mysql/MysqlConnection.h>
+#include <Exception/SQLException.h>
 
 using namespace muduo;
 using namespace muduo::net;
+using namespace OOzdb;
+using boost::any_cast;
+
+extern ConnectionPool g_DbPool;
+typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
 void UserInfoService::onCreateInfo(TcpConnectionPtr const& conn,
                                    MessagePtr const& msg,
                                    Timestamp)
 {
     UserCreateMsgPtr query = muduo::down_pointer_cast<UserCreateMsg>(msg);
-    std::string tmp = query->token();
+    STDSTR tmp = query->token();
     Token token(tmp);
     if(token.niuXThanCommonUser())
     {
-        std::string domainName = query->domainname();
-        std::string groupName = query->groupname();
-        std::string userName = query->username();
-        std::string passwd = query->passwd();
-        int authority = query->authority();
+        STDSTR domainName = query->domainname();
+        STDSTR groupName = query->groupname();
+        STDSTR userName = query->username();
+        STDSTR passwd = query->passwd();
+        ulong authority = query->authority();
         (g_Initializer.getThreadPool()).run(boost::bind(&UserInfoService::doCreateUser,
             this , conn , domainName , groupName , userName , passwd , authority));
     }
@@ -30,64 +47,48 @@ void UserInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
                                    MessagePtr const& msg,
                                    Timestamp)
 {
-    boost::shared_ptr<DeleteUserMsg> query = muduo::down_cast<DeleteUserMsg>(msg);
-    string tmp = msg->token();
+    UserDestroyMsgPtr query = muduo::down_pointer_cast<UserDestroyMsg>(msg);
+    STDSTR tmp = query->token();
     Token token(tmp);
-    if(token.niuXThanUser())
+    if(token.niuXThanCommonUser())
     {
-        (g_Initializer.getThreadPool()).run(boost::bind(&doDeleteUser , conn,
-            userName));
+        (g_Initializer.getThreadPool()).run(boost::bind(&UserInfoService::doDeleteUser,
+            this , conn , userName));
     }
     else
-    {
-        DeleteUserACK reply;
-        reply.set_statusCode();
-        conn->send(reply);
-    }
+        onTokenFailAuthFailed<UserDestroyACK>(conn);
 }
 
 void UserInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
                                    MessagePtr const& msg,
                                    Timestamp)
 {
-    boost::shared_ptr<UpdateUserMsg> query = muduo::down_cast<UpdateUserMsg>(msg);
-    string tmp = msg->token();
+    UserInfoUpdateMsgPtr query = muduo::down_pointer_cast<UserInfoUpdateMsg>(msg);
+    STDSTR tmp = query->token();
     Token token(tmp);
-    if(token.niuXThanGroupAdmin())
-    {
-        string oldUserName = msg->oldUserName();
-        string newUserName = msg->newUserName();
-        string domainName = msg->domainName();
-        string groupName = msg->groupName();
-        string passwd = msg->passwd();
-        int32_t authority = msg->authority();
-        (g_Initializer.getThreadPool()).run(boost::bind(&doUpdateGroup , conn,
-            oldUserName , newUserName , domainName , groupName , passwd , authority));
-    }
-    else
-    {
-        UpdateUserACK reply;
-        reply.set_statusCode();
-        conn->send(reply);
-    }
+    STDSTR userName = token.getUserName();
+    STDSTR passwd = query->password();
+    (g_Initializer.getThreadPool()).run(boost::bind(&UserInfoService::doUpdateGroup,
+        this , conn , userName , passwd));
 }
 
 void UserInfoService::onGetInfo(TcpConnectionPtr const& conn,
                                 MessagePtr const& msg,
                                 Timestamp)
 {
-    boost::shared_ptr<GetUserInfoMsg> query = muduo::down_cast<GetUserInfoMsg>(msg);
-    string userName = msg->userName();
-    (g_Initializer.getThreadPool()).run(boost::bind(&doGetUserInfo , conn,
-        userName));
+    UserInfoGetMsgPtr query = muduo::down_pointer_cast<UserInfoGetMsg>(msg);
+    STDSTR tmp = query->token();
+    Token token(tmp);
+    STDSTR userName = token.getUserName();
+    (g_Initializer.getThreadPool()).run(boost::bind(&UserInfoService::doGetUserInfo,
+                                        this , conn , userName));
 }
 
-void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , std::string domainName,
-                                   std::string groupName , std::string userName,
-                                   std::string passwd , std::string authority)
+void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , STDSTR domainName,
+                                   STDSTR groupName , std::string userName,
+                                   STDSTR passwd , ulong authority)
 {
-    ConnectionPtr dbConn = SingleConnectionPool::instance().
-                                    getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
     ResultPtr result = dbConn->executeQuery("select id from Domain where name = %s",
                                             domainName);
     CreateUserAck reply;
@@ -114,7 +115,7 @@ void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , std::string do
     conn->send(reply);
 }
 
-void UserInfoService::doDeleteUser(TcpConnectionPtr const& conn , string userName)
+void UserInfoService::doDeleteUser(TcpConnectionPtr const& conn , STDSTR userName)
 {
     ConnectionPtr dbConn = SingleConnectionPool::instance().
         getConnection<MysqlConnection>();
@@ -137,9 +138,8 @@ void UserInfoService::doDeleteUser(TcpConnectionPtr const& conn , string userNam
     conn->send(reply);
 }
 
-void UserInfoService::doUpdateUser(TcpConnectionPtr const& conn , string oldUserName,
-                   string newUserName , string domain , string group,
-                   string passwd , int authority)
+void UserInfoService::doUpdateUser(TcpConnectionPtr const& conn , STDSTR userName,
+                                   STDSTR passwd)
 {
     ConnectionPtr dbConn = SingleConnectionPool::instance().
         getConnection<MysqlConnection>();

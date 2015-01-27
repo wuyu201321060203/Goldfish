@@ -1,26 +1,24 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <string>
+
 #include <boost/weak_ptr.hpp>
+
 #include <muduo/net/TcpConnection.h>
+
 #include <google/protobuf/message.h>
 
 #include <protocol/MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.h>
 #include <protocol/MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.h>
-#include <protocol/MSG_CLIENT_DM_DOMAIN_ADMIN_CREATE.pb.h>
-#include <protocol/MSG_CLIENT_DM_DOMAIN_ADMIN_DESTROY.pb.h>
 #include <protocol/MSG_CLIENT_DM_DOMAIN_CREATE.pb.h>
 #include <protocol/MSG_CLIENT_DM_DOMAIN_DESCRIPTION_GET.pb.h>
 #include <protocol/MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE.pb.h>
 #include <protocol/MSG_CLIENT_DM_DOMAIN_DESTROY.pb.h>
-#include <protocol/MSG_CLIENT_DM_GROUP_ADMIN_CREATE.pb.h>
-#include <protocol/MSG_CLIENT_DM_GROUP_ADMIN_DESTROY.pb.h>
 #include <protocol/MSG_CLIENT_DM_GROUP_CREATE.pb.h>
 #include <protocol/MSG_CLIENT_DM_GROUP_DESCRIPTION_GET.pb.h>
 #include <protocol/MSG_CLIENT_DM_GROUP_DESCRIPTION_UPDATE.pb.h>
 #include <protocol/MSG_CLIENT_DM_GROUP_DESTROY.pb.h>
-#include <protocol/MSG_CLIENT_DM_ROOT_CREATE.pb.h>
-#include <protocol/MSG_CLIENT_DM_ROOT_DESTROY.pb.h>
 #include <protocol/MSG_CLIENT_DM_USER_CREATE.pb.h>
 #include <protocol/MSG_CLIENT_DM_USER_DESTROY.pb.h>
 #include <protocol/MSG_CLIENT_DM_USER_INFO_GET.pb.h>
@@ -50,6 +48,9 @@ typedef boost::shared_ptr<google::protobuf::Message> MessagePtr;
 
 /* The num of items of token*/
 #define TOKEN_ITEM_NUM 5
+
+typedef std::string STDSTR;
+typedef unsigned long ulong;
 
 typedef enum Role
 {
@@ -158,47 +159,11 @@ typedef boost::shared_ptr<UserCreateMsg> UserCreateMsgPtr;
 typedef MSG_DM_CLIENT_USER_CREATE_ACK UserCreateACK;
 typedef boost::shared_ptr<UserCreateACK> UserCreateACKPtr;
 
-typedef MSG_CLIENT_DM_GROUP_ADMIN_CREATE GroupAdminCreateMsg;
-typedef boost::shared_ptr<GroupAdminCreateMsg> GroupAdminCreateMsgPtr;
-
-typedef MSG_DM_CLIENT_GROUP_ADMIN_CREATE_ACK GroupAdminCreateACK;
-typedef boost::shared_ptr<GroupAdminCreateACK> GroupAdminCreateACKPtr;
-
-typedef MSG_CLIENT_DM_DOMAIN_ADMIN_CREATE DomainAdminCreateMsg;
-typedef boost::shared_ptr<DomainAdminCreateMsg> DomainAdminCreateMsgPtr;
-
-typedef MSG_DM_CLIENT_DOMAIN_ADMIN_CREATE_ACK DomainAdminCreateACK;
-typedef boost::shared_ptr<DomainAdminCreateACK> DomainAdminCreateACKPtr;
-
-typedef MSG_CLIENT_DM_ROOT_CREATE RootCreateMsg;
-typedef boost::shared_ptr<RootCreateMsg> RootCreateMsgPtr;
-
-typedef MSG_DM_CLIENT_ROOT_CREATE_ACK RootCreateACK;
-typedef boost::shared_ptr<RootCreateMsg> RootCreateACKPtr;
-
 typedef MSG_CLIENT_DM_USER_DESTROY UserDestroyMsg;
 typedef boost::shared_ptr<UserDestroyMsg> UserDestroyMsgPtr;
 
 typedef MSG_DM_CLIENT_USER_DESTROY_ACK UserDestroyACK;
 typedef boost::shared_ptr<UserDestroyACK> UserDestroyACKPtr;
-
-typedef MSG_CLIENT_DM_GROUP_ADMIN_DESTROY GroupAdminDestroyMsg;
-typedef boost::shared_ptr<GroupAdminDestroyMsg> GroupAdminDestroyMsgPtr;
-
-typedef MSG_DM_CLIENT_GROUP_ADMIN_DESTROY_ACK GroupAdminDestroyACK;
-typedef boost::shared_ptr<GroupAdminDestroyACK> GroupAdminDestroyACKPtr;
-
-typedef MSG_CLIENT_DM_DOMAIN_ADMIN_DESTROY DomainAdminDestroyMsg;
-typedef boost::shared_ptr<DomainAdminDestroyMsg> DomainAdminDestroyMsgPtr;
-
-typedef MSG_DM_CLIENT_DOMAIN_ADMIN_DESTROY_ACK DomainAdminDestroyACK;
-typedef boost::shared_ptr<DomainAdminDestroyACK> DomainAdminDestroyACKPtr;
-
-typedef MSG_CLIENT_DM_ROOT_DESTROY RootDestroyMsg;
-typedef boost::shared_ptr<RootDestroyMsg> RootDestroyMsgPtr;
-
-typedef MSG_DM_CLIENT_ROOT_DESTROY_ACK RootDestroyACK;
-typedef boost::shared_ptr<RootDestroyACK> RootDestroyACKPtr;
 
 typedef MSG_CLIENT_DM_USER_INFO_UPDATE UserInfoUpdateMsg;
 typedef boost::shared_ptr<UserInfoUpdateMsg> UserInfoUpdateMsgPtr;

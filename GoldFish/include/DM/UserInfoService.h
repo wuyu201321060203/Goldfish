@@ -23,6 +23,16 @@ public:
     virtual void onGetInfo(muduo::net::TcpConnectionPtr const&,
                            MessagePtr const&,
                            muduo::Timestamp);
+private:
+
+    void doCreateUser(TcpConnectionPtr const& , STDSTR , STDSTR , STDSTR , STDSTR,
+                                       ulong);
+
+    void doDeleteUser(TcpConnectionPtr const& , STDSTR);
+
+    void doUpdateUser(TcpConnectionPtr const& , STDSTR , STDSTR);
+
+    void doGetUserInfo(TcpConnectionPtr const& , STDSTR);
 };
 
 #endif
