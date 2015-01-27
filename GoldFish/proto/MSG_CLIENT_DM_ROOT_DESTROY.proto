@@ -1,10 +1,10 @@
-message MSG_CLIENT_DM_ROOT_DESTORY
+message MSG_CLIENT_DM_ROOT_DESTROY
 {
     optional string token = 1;
     optional string userName = 2;
 }
 
-message MSG_DM_CLIENT_ROOT_DESTORY_ACK
+message MSG_DM_CLIENT_ROOT_DESTROY_ACK
 {
     optional int32 statusCode = 1;
 }

@@ -15,12 +15,12 @@
 
 namespace {
 
-const ::google::protobuf::Descriptor* MSG_CLIENT_DM_DOMAIN_DESTORY_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* MSG_CLIENT_DM_DOMAIN_DESTROY_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  MSG_CLIENT_DM_DOMAIN_DESTORY_reflection_ = NULL;
-const ::google::protobuf::Descriptor* MSG_DM_CLIENT_DOMAIN_DESTORY_ACK_descriptor_ = NULL;
+  MSG_CLIENT_DM_DOMAIN_DESTROY_reflection_ = NULL;
+const ::google::protobuf::Descriptor* MSG_DM_CLIENT_DOMAIN_DESTROY_ACK_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  MSG_DM_CLIENT_DOMAIN_DESTORY_ACK_reflection_ = NULL;
+  MSG_DM_CLIENT_DOMAIN_DESTROY_ACK_reflection_ = NULL;
 
 }  // namespace
 
@@ -31,37 +31,37 @@ void protobuf_AssignDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fDESTROY_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "MSG_CLIENT_DM_DOMAIN_DESTROY.proto");
   GOOGLE_CHECK(file != NULL);
-  MSG_CLIENT_DM_DOMAIN_DESTORY_descriptor_ = file->message_type(0);
-  static const int MSG_CLIENT_DM_DOMAIN_DESTORY_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_DESTORY, token_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_DESTORY, domainname_),
+  MSG_CLIENT_DM_DOMAIN_DESTROY_descriptor_ = file->message_type(0);
+  static const int MSG_CLIENT_DM_DOMAIN_DESTROY_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_DESTROY, token_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_DESTROY, domainname_),
   };
-  MSG_CLIENT_DM_DOMAIN_DESTORY_reflection_ =
+  MSG_CLIENT_DM_DOMAIN_DESTROY_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      MSG_CLIENT_DM_DOMAIN_DESTORY_descriptor_,
-      MSG_CLIENT_DM_DOMAIN_DESTORY::default_instance_,
-      MSG_CLIENT_DM_DOMAIN_DESTORY_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_DESTORY, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_DESTORY, _unknown_fields_),
+      MSG_CLIENT_DM_DOMAIN_DESTROY_descriptor_,
+      MSG_CLIENT_DM_DOMAIN_DESTROY::default_instance_,
+      MSG_CLIENT_DM_DOMAIN_DESTROY_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_DESTROY, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_DESTROY, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(MSG_CLIENT_DM_DOMAIN_DESTORY));
-  MSG_DM_CLIENT_DOMAIN_DESTORY_ACK_descriptor_ = file->message_type(1);
-  static const int MSG_DM_CLIENT_DOMAIN_DESTORY_ACK_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_CLIENT_DOMAIN_DESTORY_ACK, statuscode_),
+      sizeof(MSG_CLIENT_DM_DOMAIN_DESTROY));
+  MSG_DM_CLIENT_DOMAIN_DESTROY_ACK_descriptor_ = file->message_type(1);
+  static const int MSG_DM_CLIENT_DOMAIN_DESTROY_ACK_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_CLIENT_DOMAIN_DESTROY_ACK, statuscode_),
   };
-  MSG_DM_CLIENT_DOMAIN_DESTORY_ACK_reflection_ =
+  MSG_DM_CLIENT_DOMAIN_DESTROY_ACK_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      MSG_DM_CLIENT_DOMAIN_DESTORY_ACK_descriptor_,
-      MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::default_instance_,
-      MSG_DM_CLIENT_DOMAIN_DESTORY_ACK_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_CLIENT_DOMAIN_DESTORY_ACK, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_CLIENT_DOMAIN_DESTORY_ACK, _unknown_fields_),
+      MSG_DM_CLIENT_DOMAIN_DESTROY_ACK_descriptor_,
+      MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::default_instance_,
+      MSG_DM_CLIENT_DOMAIN_DESTROY_ACK_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_CLIENT_DOMAIN_DESTROY_ACK, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_CLIENT_DOMAIN_DESTROY_ACK, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(MSG_DM_CLIENT_DOMAIN_DESTORY_ACK));
+      sizeof(MSG_DM_CLIENT_DOMAIN_DESTROY_ACK));
 }
 
 namespace {
@@ -75,18 +75,18 @@ inline void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    MSG_CLIENT_DM_DOMAIN_DESTORY_descriptor_, &MSG_CLIENT_DM_DOMAIN_DESTORY::default_instance());
+    MSG_CLIENT_DM_DOMAIN_DESTROY_descriptor_, &MSG_CLIENT_DM_DOMAIN_DESTROY::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    MSG_DM_CLIENT_DOMAIN_DESTORY_ACK_descriptor_, &MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::default_instance());
+    MSG_DM_CLIENT_DOMAIN_DESTROY_ACK_descriptor_, &MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_MSG_5fCLIENT_5fDM_5fDOMAIN_5fDESTROY_2eproto() {
-  delete MSG_CLIENT_DM_DOMAIN_DESTORY::default_instance_;
-  delete MSG_CLIENT_DM_DOMAIN_DESTORY_reflection_;
-  delete MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::default_instance_;
-  delete MSG_DM_CLIENT_DOMAIN_DESTORY_ACK_reflection_;
+  delete MSG_CLIENT_DM_DOMAIN_DESTROY::default_instance_;
+  delete MSG_CLIENT_DM_DOMAIN_DESTROY_reflection_;
+  delete MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::default_instance_;
+  delete MSG_DM_CLIENT_DOMAIN_DESTROY_ACK_reflection_;
 }
 
 void protobuf_AddDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fDESTROY_2eproto() {
@@ -97,15 +97,15 @@ void protobuf_AddDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fDESTROY_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\"MSG_CLIENT_DM_DOMAIN_DESTROY.proto\"A\n\034"
-    "MSG_CLIENT_DM_DOMAIN_DESTORY\022\r\n\005token\030\001 "
+    "MSG_CLIENT_DM_DOMAIN_DESTROY\022\r\n\005token\030\001 "
     "\001(\t\022\022\n\ndomainName\030\002 \001(\t\"6\n MSG_DM_CLIENT"
-    "_DOMAIN_DESTORY_ACK\022\022\n\nstatusCode\030\001 \001(\005", 159);
+    "_DOMAIN_DESTROY_ACK\022\022\n\nstatusCode\030\001 \001(\005", 159);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MSG_CLIENT_DM_DOMAIN_DESTROY.proto", &protobuf_RegisterTypes);
-  MSG_CLIENT_DM_DOMAIN_DESTORY::default_instance_ = new MSG_CLIENT_DM_DOMAIN_DESTORY();
-  MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::default_instance_ = new MSG_DM_CLIENT_DOMAIN_DESTORY_ACK();
-  MSG_CLIENT_DM_DOMAIN_DESTORY::default_instance_->InitAsDefaultInstance();
-  MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::default_instance_->InitAsDefaultInstance();
+  MSG_CLIENT_DM_DOMAIN_DESTROY::default_instance_ = new MSG_CLIENT_DM_DOMAIN_DESTROY();
+  MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::default_instance_ = new MSG_DM_CLIENT_DOMAIN_DESTROY_ACK();
+  MSG_CLIENT_DM_DOMAIN_DESTROY::default_instance_->InitAsDefaultInstance();
+  MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_MSG_5fCLIENT_5fDM_5fDOMAIN_5fDESTROY_2eproto);
 }
 
@@ -120,36 +120,36 @@ struct StaticDescriptorInitializer_MSG_5fCLIENT_5fDM_5fDOMAIN_5fDESTROY_2eproto 
 // ===================================================================
 
 #ifndef _MSC_VER
-const int MSG_CLIENT_DM_DOMAIN_DESTORY::kTokenFieldNumber;
-const int MSG_CLIENT_DM_DOMAIN_DESTORY::kDomainNameFieldNumber;
+const int MSG_CLIENT_DM_DOMAIN_DESTROY::kTokenFieldNumber;
+const int MSG_CLIENT_DM_DOMAIN_DESTROY::kDomainNameFieldNumber;
 #endif  // !_MSC_VER
 
-MSG_CLIENT_DM_DOMAIN_DESTORY::MSG_CLIENT_DM_DOMAIN_DESTORY()
+MSG_CLIENT_DM_DOMAIN_DESTROY::MSG_CLIENT_DM_DOMAIN_DESTROY()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void MSG_CLIENT_DM_DOMAIN_DESTORY::InitAsDefaultInstance() {
+void MSG_CLIENT_DM_DOMAIN_DESTROY::InitAsDefaultInstance() {
 }
 
-MSG_CLIENT_DM_DOMAIN_DESTORY::MSG_CLIENT_DM_DOMAIN_DESTORY(const MSG_CLIENT_DM_DOMAIN_DESTORY& from)
+MSG_CLIENT_DM_DOMAIN_DESTROY::MSG_CLIENT_DM_DOMAIN_DESTROY(const MSG_CLIENT_DM_DOMAIN_DESTROY& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void MSG_CLIENT_DM_DOMAIN_DESTORY::SharedCtor() {
+void MSG_CLIENT_DM_DOMAIN_DESTROY::SharedCtor() {
   _cached_size_ = 0;
   token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   domainname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-MSG_CLIENT_DM_DOMAIN_DESTORY::~MSG_CLIENT_DM_DOMAIN_DESTORY() {
+MSG_CLIENT_DM_DOMAIN_DESTROY::~MSG_CLIENT_DM_DOMAIN_DESTROY() {
   SharedDtor();
 }
 
-void MSG_CLIENT_DM_DOMAIN_DESTORY::SharedDtor() {
+void MSG_CLIENT_DM_DOMAIN_DESTROY::SharedDtor() {
   if (token_ != &::google::protobuf::internal::kEmptyString) {
     delete token_;
   }
@@ -160,27 +160,27 @@ void MSG_CLIENT_DM_DOMAIN_DESTORY::SharedDtor() {
   }
 }
 
-void MSG_CLIENT_DM_DOMAIN_DESTORY::SetCachedSize(int size) const {
+void MSG_CLIENT_DM_DOMAIN_DESTROY::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* MSG_CLIENT_DM_DOMAIN_DESTORY::descriptor() {
+const ::google::protobuf::Descriptor* MSG_CLIENT_DM_DOMAIN_DESTROY::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return MSG_CLIENT_DM_DOMAIN_DESTORY_descriptor_;
+  return MSG_CLIENT_DM_DOMAIN_DESTROY_descriptor_;
 }
 
-const MSG_CLIENT_DM_DOMAIN_DESTORY& MSG_CLIENT_DM_DOMAIN_DESTORY::default_instance() {
+const MSG_CLIENT_DM_DOMAIN_DESTROY& MSG_CLIENT_DM_DOMAIN_DESTROY::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fDESTROY_2eproto();  return *default_instance_;
 }
 
-MSG_CLIENT_DM_DOMAIN_DESTORY* MSG_CLIENT_DM_DOMAIN_DESTORY::default_instance_ = NULL;
+MSG_CLIENT_DM_DOMAIN_DESTROY* MSG_CLIENT_DM_DOMAIN_DESTROY::default_instance_ = NULL;
 
-MSG_CLIENT_DM_DOMAIN_DESTORY* MSG_CLIENT_DM_DOMAIN_DESTORY::New() const {
-  return new MSG_CLIENT_DM_DOMAIN_DESTORY;
+MSG_CLIENT_DM_DOMAIN_DESTROY* MSG_CLIENT_DM_DOMAIN_DESTROY::New() const {
+  return new MSG_CLIENT_DM_DOMAIN_DESTROY;
 }
 
-void MSG_CLIENT_DM_DOMAIN_DESTORY::Clear() {
+void MSG_CLIENT_DM_DOMAIN_DESTROY::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (has_token()) {
       if (token_ != &::google::protobuf::internal::kEmptyString) {
@@ -197,7 +197,7 @@ void MSG_CLIENT_DM_DOMAIN_DESTORY::Clear() {
   mutable_unknown_fields()->Clear();
 }
 
-bool MSG_CLIENT_DM_DOMAIN_DESTORY::MergePartialFromCodedStream(
+bool MSG_CLIENT_DM_DOMAIN_DESTROY::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
@@ -252,7 +252,7 @@ bool MSG_CLIENT_DM_DOMAIN_DESTORY::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void MSG_CLIENT_DM_DOMAIN_DESTORY::SerializeWithCachedSizes(
+void MSG_CLIENT_DM_DOMAIN_DESTROY::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // optional string token = 1;
   if (has_token()) {
@@ -278,7 +278,7 @@ void MSG_CLIENT_DM_DOMAIN_DESTORY::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* MSG_CLIENT_DM_DOMAIN_DESTORY::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* MSG_CLIENT_DM_DOMAIN_DESTROY::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // optional string token = 1;
   if (has_token()) {
@@ -307,7 +307,7 @@ void MSG_CLIENT_DM_DOMAIN_DESTORY::SerializeWithCachedSizes(
   return target;
 }
 
-int MSG_CLIENT_DM_DOMAIN_DESTORY::ByteSize() const {
+int MSG_CLIENT_DM_DOMAIN_DESTROY::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
@@ -337,10 +337,10 @@ int MSG_CLIENT_DM_DOMAIN_DESTORY::ByteSize() const {
   return total_size;
 }
 
-void MSG_CLIENT_DM_DOMAIN_DESTORY::MergeFrom(const ::google::protobuf::Message& from) {
+void MSG_CLIENT_DM_DOMAIN_DESTROY::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const MSG_CLIENT_DM_DOMAIN_DESTORY* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const MSG_CLIENT_DM_DOMAIN_DESTORY*>(
+  const MSG_CLIENT_DM_DOMAIN_DESTROY* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const MSG_CLIENT_DM_DOMAIN_DESTROY*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -349,7 +349,7 @@ void MSG_CLIENT_DM_DOMAIN_DESTORY::MergeFrom(const ::google::protobuf::Message& 
   }
 }
 
-void MSG_CLIENT_DM_DOMAIN_DESTORY::MergeFrom(const MSG_CLIENT_DM_DOMAIN_DESTORY& from) {
+void MSG_CLIENT_DM_DOMAIN_DESTROY::MergeFrom(const MSG_CLIENT_DM_DOMAIN_DESTROY& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_token()) {
@@ -362,24 +362,24 @@ void MSG_CLIENT_DM_DOMAIN_DESTORY::MergeFrom(const MSG_CLIENT_DM_DOMAIN_DESTORY&
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void MSG_CLIENT_DM_DOMAIN_DESTORY::CopyFrom(const ::google::protobuf::Message& from) {
+void MSG_CLIENT_DM_DOMAIN_DESTROY::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void MSG_CLIENT_DM_DOMAIN_DESTORY::CopyFrom(const MSG_CLIENT_DM_DOMAIN_DESTORY& from) {
+void MSG_CLIENT_DM_DOMAIN_DESTROY::CopyFrom(const MSG_CLIENT_DM_DOMAIN_DESTROY& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool MSG_CLIENT_DM_DOMAIN_DESTORY::IsInitialized() const {
+bool MSG_CLIENT_DM_DOMAIN_DESTROY::IsInitialized() const {
   
   return true;
 }
 
-void MSG_CLIENT_DM_DOMAIN_DESTORY::Swap(MSG_CLIENT_DM_DOMAIN_DESTORY* other) {
+void MSG_CLIENT_DM_DOMAIN_DESTROY::Swap(MSG_CLIENT_DM_DOMAIN_DESTROY* other) {
   if (other != this) {
     std::swap(token_, other->token_);
     std::swap(domainname_, other->domainname_);
@@ -389,11 +389,11 @@ void MSG_CLIENT_DM_DOMAIN_DESTORY::Swap(MSG_CLIENT_DM_DOMAIN_DESTORY* other) {
   }
 }
 
-::google::protobuf::Metadata MSG_CLIENT_DM_DOMAIN_DESTORY::GetMetadata() const {
+::google::protobuf::Metadata MSG_CLIENT_DM_DOMAIN_DESTROY::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = MSG_CLIENT_DM_DOMAIN_DESTORY_descriptor_;
-  metadata.reflection = MSG_CLIENT_DM_DOMAIN_DESTORY_reflection_;
+  metadata.descriptor = MSG_CLIENT_DM_DOMAIN_DESTROY_descriptor_;
+  metadata.reflection = MSG_CLIENT_DM_DOMAIN_DESTROY_reflection_;
   return metadata;
 }
 
@@ -401,59 +401,59 @@ void MSG_CLIENT_DM_DOMAIN_DESTORY::Swap(MSG_CLIENT_DM_DOMAIN_DESTORY* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::kStatusCodeFieldNumber;
+const int MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::kStatusCodeFieldNumber;
 #endif  // !_MSC_VER
 
-MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::MSG_DM_CLIENT_DOMAIN_DESTORY_ACK()
+MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::MSG_DM_CLIENT_DOMAIN_DESTROY_ACK()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::InitAsDefaultInstance() {
+void MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::InitAsDefaultInstance() {
 }
 
-MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::MSG_DM_CLIENT_DOMAIN_DESTORY_ACK(const MSG_DM_CLIENT_DOMAIN_DESTORY_ACK& from)
+MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::MSG_DM_CLIENT_DOMAIN_DESTROY_ACK(const MSG_DM_CLIENT_DOMAIN_DESTROY_ACK& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::SharedCtor() {
+void MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::SharedCtor() {
   _cached_size_ = 0;
   statuscode_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::~MSG_DM_CLIENT_DOMAIN_DESTORY_ACK() {
+MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::~MSG_DM_CLIENT_DOMAIN_DESTROY_ACK() {
   SharedDtor();
 }
 
-void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::SharedDtor() {
+void MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::SharedDtor() {
   if (this != default_instance_) {
   }
 }
 
-void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::SetCachedSize(int size) const {
+void MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::descriptor() {
+const ::google::protobuf::Descriptor* MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return MSG_DM_CLIENT_DOMAIN_DESTORY_ACK_descriptor_;
+  return MSG_DM_CLIENT_DOMAIN_DESTROY_ACK_descriptor_;
 }
 
-const MSG_DM_CLIENT_DOMAIN_DESTORY_ACK& MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::default_instance() {
+const MSG_DM_CLIENT_DOMAIN_DESTROY_ACK& MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fDESTROY_2eproto();  return *default_instance_;
 }
 
-MSG_DM_CLIENT_DOMAIN_DESTORY_ACK* MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::default_instance_ = NULL;
+MSG_DM_CLIENT_DOMAIN_DESTROY_ACK* MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::default_instance_ = NULL;
 
-MSG_DM_CLIENT_DOMAIN_DESTORY_ACK* MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::New() const {
-  return new MSG_DM_CLIENT_DOMAIN_DESTORY_ACK;
+MSG_DM_CLIENT_DOMAIN_DESTROY_ACK* MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::New() const {
+  return new MSG_DM_CLIENT_DOMAIN_DESTROY_ACK;
 }
 
-void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::Clear() {
+void MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     statuscode_ = 0;
   }
@@ -461,7 +461,7 @@ void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::Clear() {
   mutable_unknown_fields()->Clear();
 }
 
-bool MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::MergePartialFromCodedStream(
+bool MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
@@ -498,7 +498,7 @@ bool MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::SerializeWithCachedSizes(
+void MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // optional int32 statusCode = 1;
   if (has_statuscode()) {
@@ -511,7 +511,7 @@ void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // optional int32 statusCode = 1;
   if (has_statuscode()) {
@@ -525,7 +525,7 @@ void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::SerializeWithCachedSizes(
   return target;
 }
 
-int MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::ByteSize() const {
+int MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
@@ -548,10 +548,10 @@ int MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::ByteSize() const {
   return total_size;
 }
 
-void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::MergeFrom(const ::google::protobuf::Message& from) {
+void MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const MSG_DM_CLIENT_DOMAIN_DESTORY_ACK* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const MSG_DM_CLIENT_DOMAIN_DESTORY_ACK*>(
+  const MSG_DM_CLIENT_DOMAIN_DESTROY_ACK* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const MSG_DM_CLIENT_DOMAIN_DESTROY_ACK*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -560,7 +560,7 @@ void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::MergeFrom(const ::google::protobuf::Messa
   }
 }
 
-void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::MergeFrom(const MSG_DM_CLIENT_DOMAIN_DESTORY_ACK& from) {
+void MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::MergeFrom(const MSG_DM_CLIENT_DOMAIN_DESTROY_ACK& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_statuscode()) {
@@ -570,24 +570,24 @@ void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::MergeFrom(const MSG_DM_CLIENT_DOMAIN_DEST
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::CopyFrom(const ::google::protobuf::Message& from) {
+void MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::CopyFrom(const MSG_DM_CLIENT_DOMAIN_DESTORY_ACK& from) {
+void MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::CopyFrom(const MSG_DM_CLIENT_DOMAIN_DESTROY_ACK& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::IsInitialized() const {
+bool MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::IsInitialized() const {
   
   return true;
 }
 
-void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::Swap(MSG_DM_CLIENT_DOMAIN_DESTORY_ACK* other) {
+void MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::Swap(MSG_DM_CLIENT_DOMAIN_DESTROY_ACK* other) {
   if (other != this) {
     std::swap(statuscode_, other->statuscode_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
@@ -596,11 +596,11 @@ void MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::Swap(MSG_DM_CLIENT_DOMAIN_DESTORY_ACK* ot
   }
 }
 
-::google::protobuf::Metadata MSG_DM_CLIENT_DOMAIN_DESTORY_ACK::GetMetadata() const {
+::google::protobuf::Metadata MSG_DM_CLIENT_DOMAIN_DESTROY_ACK::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = MSG_DM_CLIENT_DOMAIN_DESTORY_ACK_descriptor_;
-  metadata.reflection = MSG_DM_CLIENT_DOMAIN_DESTORY_ACK_reflection_;
+  metadata.descriptor = MSG_DM_CLIENT_DOMAIN_DESTROY_ACK_descriptor_;
+  metadata.reflection = MSG_DM_CLIENT_DOMAIN_DESTROY_ACK_reflection_;
   return metadata;
 }
 

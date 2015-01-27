@@ -104,17 +104,17 @@ typedef boost::shared_ptr<GroupCreateMsg> GroupCreateMsgPtr;
 typedef MSG_DM_CLIENT_GROUP_CREATE_ACK GroupCreateACK;
 typedef boost::shared_ptr<GroupCreateACK>  GroupCreateACKPtr;
 
-typedef MSG_CLIENT_DM_DOMAIN_DESTORY DomainDestoryMsg;
-typedef boost::shared_ptr<DomainDestoryMsg> DomainDestoryMsgPtr;
+typedef MSG_CLIENT_DM_DOMAIN_DESTROY DomainDestroyMsg;
+typedef boost::shared_ptr<DomainDestroyMsg> DomainDestroyMsgPtr;
 
-typedef MSG_DM_CLIENT_DOMAIN_DESTORY_ACK DomainDestroyACK;
-typedef boost::shared_ptr<DomainDestroyACK> DomainDestoryACKPtr;
+typedef MSG_DM_CLIENT_DOMAIN_DESTROY_ACK DomainDestroyACK;
+typedef boost::shared_ptr<DomainDestroyACK> DomainDestroyACKPtr;
 
-typedef MSG_CLIENT_DM_GROUP_DESTORY GroupDestoryMsg;
-typedef boost::shared_ptr<GroupDestoryMsg> GroupDestoryMsgPtr;
+typedef MSG_CLIENT_DM_GROUP_DESTROY GroupDestroyMsg;
+typedef boost::shared_ptr<GroupDestroyMsg> GroupDestroyMsgPtr;
 
-typedef MSG_DM_CLIENT_GROUP_DESTORY_ACK GroupDestoryACK;
-typedef boost::shared_ptr<GroupDestoryACK> GroupDestoryACKPtr;
+typedef MSG_DM_CLIENT_GROUP_DESTROY_ACK GroupDestroyACK;
+typedef boost::shared_ptr<GroupDestroyACK> GroupDestroyACKPtr;
 
 typedef MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE DomainInfoUpdateMsg;
 typedef boost::shared_ptr<DomainInfoUpdateMsg> DomainInfoUpdateMsgPtr;
@@ -176,29 +176,29 @@ typedef boost::shared_ptr<RootCreateMsg> RootCreateMsgPtr;
 typedef MSG_DM_CLIENT_ROOT_CREATE_ACK RootCreateACK;
 typedef boost::shared_ptr<RootCreateMsg> RootCreateACKPtr;
 
-typedef MSG_CLIENT_DM_USER_DESTORY UserDestoryMsg;
-typedef boost::shared_ptr<UserDestoryMsg> UserDestoryMsgPtr;
+typedef MSG_CLIENT_DM_USER_DESTROY UserDestroyMsg;
+typedef boost::shared_ptr<UserDestroyMsg> UserDestroyMsgPtr;
 
-typedef MSG_DM_CLIENT_USER_DESTORY_ACK UserDestoryACK;
-typedef boost::shared_ptr<UserDestoryACK> UserDestoryACKPtr;
+typedef MSG_DM_CLIENT_USER_DESTROY_ACK UserDestroyACK;
+typedef boost::shared_ptr<UserDestroyACK> UserDestroyACKPtr;
 
-typedef MSG_CLIENT_DM_GROUP_ADMIN_DESTORY GroupAdminDestoryMsg;
-typedef boost::shared_ptr<GroupAdminDestoryMsg> GroupAdminDestoryMsgPtr;
+typedef MSG_CLIENT_DM_GROUP_ADMIN_DESTROY GroupAdminDestroyMsg;
+typedef boost::shared_ptr<GroupAdminDestroyMsg> GroupAdminDestroyMsgPtr;
 
-typedef MSG_DM_CLIENT_GROUP_ADMIN_DESTORY_ACK GroupAdminDestoryACK;
-typedef boost::shared_ptr<GroupAdminDestoryACK> GroupAdminDestoryACKPtr;
+typedef MSG_DM_CLIENT_GROUP_ADMIN_DESTROY_ACK GroupAdminDestroyACK;
+typedef boost::shared_ptr<GroupAdminDestroyACK> GroupAdminDestroyACKPtr;
 
-typedef MSG_CLIENT_DM_DOMAIN_ADMIN_DESTORY DomainAdminDestoryMsg;
-typedef boost::shared_ptr<DomainAdminDestoryMsg> DomainAdminDestoryMsgPtr;
+typedef MSG_CLIENT_DM_DOMAIN_ADMIN_DESTROY DomainAdminDestroyMsg;
+typedef boost::shared_ptr<DomainAdminDestroyMsg> DomainAdminDestroyMsgPtr;
 
-typedef MSG_DM_CLIENT_DOMAIN_ADMIN_DESTORY_ACK DomainAdminDestoryACK;
-typedef boost::shared_ptr<DomainAdminDestoryACK> DomainAdminDestoryACKPtr;
+typedef MSG_DM_CLIENT_DOMAIN_ADMIN_DESTROY_ACK DomainAdminDestroyACK;
+typedef boost::shared_ptr<DomainAdminDestroyACK> DomainAdminDestroyACKPtr;
 
-typedef MSG_CLIENT_DM_ROOT_DESTORY RootDestoryMsg;
-typedef boost::shared_ptr<RootDestoryMsg> RootDestoryMsgPtr;
+typedef MSG_CLIENT_DM_ROOT_DESTROY RootDestroyMsg;
+typedef boost::shared_ptr<RootDestroyMsg> RootDestroyMsgPtr;
 
-typedef MSG_DM_CLIENT_ROOT_DESTORY_ACK RootDestoryACK;
-typedef boost::shared_ptr<RootDestoryACK> RootDestoryACKPtr;
+typedef MSG_DM_CLIENT_ROOT_DESTROY_ACK RootDestroyACK;
+typedef boost::shared_ptr<RootDestroyACK> RootDestroyACKPtr;
 
 typedef MSG_CLIENT_DM_USER_INFO_UPDATE UserInfoUpdateMsg;
 typedef boost::shared_ptr<UserInfoUpdateMsg> UserInfoUpdateMsgPtr;

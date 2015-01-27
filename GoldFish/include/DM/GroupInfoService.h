@@ -6,6 +6,10 @@
 #include "GenericInfoService.h"
 #include "Initializer.h"
 
+#ifdef TEST
+extern GroupCreateACK testReply;
+#endif
+
 extern Initializer g_Initializer;
 
 class GroupInfoService : public GenericInfoService
@@ -41,7 +45,13 @@ private:
     {
         T reply;
         reply.set_statuscode(PERMISSION_DENIED);
+#ifndef TEST
         ( g_Initializer.getCodec()  ).send(conn , reply);
+#endif
+
+#ifdef TEST
+        testReply.set_statuscode(reply.statuscode());
+#endif
     }
 };
 

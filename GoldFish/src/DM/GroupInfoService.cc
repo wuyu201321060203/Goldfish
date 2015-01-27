@@ -1,6 +1,10 @@
 #include <string>
 
 #ifdef TEST
+#include <vector>
+#endif
+
+#ifdef TEST
 #include <iostream>
 #endif
 
@@ -29,6 +33,11 @@ extern ConnectionPool g_DbPool;
 
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
+#ifdef TEST
+typedef MSG_DM_CLIENT_GROUP_DESCRIPTION_GET_ACK_GROUP_INFO GroupInfoType;
+extern std::vector<GroupInfoType> testArray;
+#endif
+
 void GroupInfoService::onCreateInfo(TcpConnectionPtr const& conn,
                                     MessagePtr const& msg,
                                     Timestamp time)
@@ -45,21 +54,14 @@ void GroupInfoService::onCreateInfo(TcpConnectionPtr const& conn,
                         this , conn , groupName , belong2Domain , description) );
     }
     else
-    {
-        /*
-        GroupCreateACK reply;
-        reply.set_statuscode(PERMISSION_DENIED);
-        ( g_Initializer.getCodec() ).send(conn , reply);
-        */
         onTokenFailAuthFailed<GroupCreateACK>(conn);
-    }
 }
 
 void GroupInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
                                     MessagePtr const& msg,
                                     Timestamp time)
 {
-    GroupDestoryMsgPtr query = muduo::down_pointer_cast<GroupDestoryMsg>(msg);
+    GroupDestroyMsgPtr query = muduo::down_pointer_cast<GroupDestroyMsg>(msg);
     std::string tmp = query->token();
     Token token(tmp);
     if(token.niuXThanGroupAdmin())
@@ -69,14 +71,7 @@ void GroupInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
             this , conn , groupName));
     }
     else
-    {
-        /*
-        GroupDestoryACK reply;
-        reply.set_statuscode(PERMISSION_DENIED);
-        ( g_Initializer.getCodec() ).send(conn , reply);
-        */
-        onTokenFailAuthFailed<GroupDestoryACK>(conn);
-    }
+        onTokenFailAuthFailed<GroupDestroyACK>(conn);
 }
 
 void GroupInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
@@ -94,14 +89,7 @@ void GroupInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
             this , conn , groupName , description));
     }
     else
-    {
-        /*
-        GroupInfoUpdateACK reply;
-        reply.set_statuscode(PERMISSION_DENIED);
-        ( g_Initializer.getCodec() ).send(conn , reply);
-        */
         onTokenFailAuthFailed<GroupInfoUpdateACK>(conn);
-    }
 }
 
 void GroupInfoService::onGetInfo(TcpConnectionPtr const& conn,
@@ -111,21 +99,9 @@ void GroupInfoService::onGetInfo(TcpConnectionPtr const& conn,
     GroupInfoGetMsgPtr query = muduo::down_pointer_cast<GroupInfoGetMsg>(msg);
     std::string tmp = query->token();
     Token token(tmp);
-    if(token.niuXThanGroupAdmin())
-    {
-        std::string groupName = token.getGroup();
-        (g_Initializer.getThreadPool()).run(boost::bind(&GroupInfoService::doGetGroup,
-                                            this , conn , groupName));
-    }
-    else
-    {
-        /*
-        GroupInfoGetACK reply;
-        reply.set_statuscode(PERMISSION_DENIED);
-        ( g_Initializer.getCodec() ).send(conn , reply);
-        */
-        onTokenFailAuthFailed<GroupInfoGetACK>(conn);
-    }
+    std::string groupName = token.getGroup();
+    (g_Initializer.getThreadPool()).run(boost::bind(&GroupInfoService::doGetGroup,
+        this , conn , groupName));
 }
 
 void GroupInfoService::doCreateGroup(TcpConnectionPtr const& conn , std::string groupName,
@@ -178,7 +154,7 @@ void GroupInfoService::doCreateGroup(TcpConnectionPtr const& conn , std::string 
 void GroupInfoService::doDeleteGroup(TcpConnectionPtr const& conn , std::string groupName)
 {
     ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
-    GroupDestoryACK reply;
+    GroupDestroyACK reply;
     ResultSetPtr result;
     try
     {
@@ -260,7 +236,7 @@ void GroupInfoService::doGetGroup(TcpConnectionPtr const& conn , std::string gro
     std::string groupNameAlias;
     if(groupName != "*")
     {
-        std::string prefix("select name , description from GROUP_INFO where name = ' ");
+        std::string prefix("select name , description from GROUP_INFO where name = '");
         sqlQuery = prefix + groupName + "'";
     }
     else
@@ -280,6 +256,10 @@ void GroupInfoService::doGetGroup(TcpConnectionPtr const& conn , std::string gro
             GroupInfo* info = reply.add_groupinfo();
             info->set_name(groupNameAlias);
             info->set_description(groupDescription);
+#ifdef TEST
+            testArray.push_back(*info);
+#endif
+
         }
     }
     catch(SQLException const& e)

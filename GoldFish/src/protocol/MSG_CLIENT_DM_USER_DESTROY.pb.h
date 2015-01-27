@@ -30,19 +30,19 @@ void  protobuf_AddDesc_MSG_5fCLIENT_5fDM_5fUSER_5fDESTROY_2eproto();
 void protobuf_AssignDesc_MSG_5fCLIENT_5fDM_5fUSER_5fDESTROY_2eproto();
 void protobuf_ShutdownFile_MSG_5fCLIENT_5fDM_5fUSER_5fDESTROY_2eproto();
 
-class MSG_CLIENT_DM_USER_DESTORY;
-class MSG_DM_CLIENT_USER_DESTORY_ACK;
+class MSG_CLIENT_DM_USER_DESTROY;
+class MSG_DM_CLIENT_USER_DESTROY_ACK;
 
 // ===================================================================
 
-class MSG_CLIENT_DM_USER_DESTORY : public ::google::protobuf::Message {
+class MSG_CLIENT_DM_USER_DESTROY : public ::google::protobuf::Message {
  public:
-  MSG_CLIENT_DM_USER_DESTORY();
-  virtual ~MSG_CLIENT_DM_USER_DESTORY();
+  MSG_CLIENT_DM_USER_DESTROY();
+  virtual ~MSG_CLIENT_DM_USER_DESTROY();
   
-  MSG_CLIENT_DM_USER_DESTORY(const MSG_CLIENT_DM_USER_DESTORY& from);
+  MSG_CLIENT_DM_USER_DESTROY(const MSG_CLIENT_DM_USER_DESTROY& from);
   
-  inline MSG_CLIENT_DM_USER_DESTORY& operator=(const MSG_CLIENT_DM_USER_DESTORY& from) {
+  inline MSG_CLIENT_DM_USER_DESTROY& operator=(const MSG_CLIENT_DM_USER_DESTROY& from) {
     CopyFrom(from);
     return *this;
   }
@@ -56,17 +56,17 @@ class MSG_CLIENT_DM_USER_DESTORY : public ::google::protobuf::Message {
   }
   
   static const ::google::protobuf::Descriptor* descriptor();
-  static const MSG_CLIENT_DM_USER_DESTORY& default_instance();
+  static const MSG_CLIENT_DM_USER_DESTROY& default_instance();
   
-  void Swap(MSG_CLIENT_DM_USER_DESTORY* other);
+  void Swap(MSG_CLIENT_DM_USER_DESTROY* other);
   
   // implements Message ----------------------------------------------
   
-  MSG_CLIENT_DM_USER_DESTORY* New() const;
+  MSG_CLIENT_DM_USER_DESTROY* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const MSG_CLIENT_DM_USER_DESTORY& from);
-  void MergeFrom(const MSG_CLIENT_DM_USER_DESTORY& from);
+  void CopyFrom(const MSG_CLIENT_DM_USER_DESTROY& from);
+  void MergeFrom(const MSG_CLIENT_DM_USER_DESTROY& from);
   void Clear();
   bool IsInitialized() const;
   
@@ -111,7 +111,7 @@ class MSG_CLIENT_DM_USER_DESTORY : public ::google::protobuf::Message {
   inline ::std::string* mutable_username();
   inline ::std::string* release_username();
   
-  // @@protoc_insertion_point(class_scope:MSG_CLIENT_DM_USER_DESTORY)
+  // @@protoc_insertion_point(class_scope:MSG_CLIENT_DM_USER_DESTROY)
  private:
   inline void set_has_token();
   inline void clear_has_token();
@@ -131,18 +131,18 @@ class MSG_CLIENT_DM_USER_DESTORY : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_MSG_5fCLIENT_5fDM_5fUSER_5fDESTROY_2eproto();
   
   void InitAsDefaultInstance();
-  static MSG_CLIENT_DM_USER_DESTORY* default_instance_;
+  static MSG_CLIENT_DM_USER_DESTROY* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class MSG_DM_CLIENT_USER_DESTORY_ACK : public ::google::protobuf::Message {
+class MSG_DM_CLIENT_USER_DESTROY_ACK : public ::google::protobuf::Message {
  public:
-  MSG_DM_CLIENT_USER_DESTORY_ACK();
-  virtual ~MSG_DM_CLIENT_USER_DESTORY_ACK();
+  MSG_DM_CLIENT_USER_DESTROY_ACK();
+  virtual ~MSG_DM_CLIENT_USER_DESTROY_ACK();
   
-  MSG_DM_CLIENT_USER_DESTORY_ACK(const MSG_DM_CLIENT_USER_DESTORY_ACK& from);
+  MSG_DM_CLIENT_USER_DESTROY_ACK(const MSG_DM_CLIENT_USER_DESTROY_ACK& from);
   
-  inline MSG_DM_CLIENT_USER_DESTORY_ACK& operator=(const MSG_DM_CLIENT_USER_DESTORY_ACK& from) {
+  inline MSG_DM_CLIENT_USER_DESTROY_ACK& operator=(const MSG_DM_CLIENT_USER_DESTROY_ACK& from) {
     CopyFrom(from);
     return *this;
   }
@@ -156,17 +156,17 @@ class MSG_DM_CLIENT_USER_DESTORY_ACK : public ::google::protobuf::Message {
   }
   
   static const ::google::protobuf::Descriptor* descriptor();
-  static const MSG_DM_CLIENT_USER_DESTORY_ACK& default_instance();
+  static const MSG_DM_CLIENT_USER_DESTROY_ACK& default_instance();
   
-  void Swap(MSG_DM_CLIENT_USER_DESTORY_ACK* other);
+  void Swap(MSG_DM_CLIENT_USER_DESTROY_ACK* other);
   
   // implements Message ----------------------------------------------
   
-  MSG_DM_CLIENT_USER_DESTORY_ACK* New() const;
+  MSG_DM_CLIENT_USER_DESTROY_ACK* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const MSG_DM_CLIENT_USER_DESTORY_ACK& from);
-  void MergeFrom(const MSG_DM_CLIENT_USER_DESTORY_ACK& from);
+  void CopyFrom(const MSG_DM_CLIENT_USER_DESTROY_ACK& from);
+  void MergeFrom(const MSG_DM_CLIENT_USER_DESTROY_ACK& from);
   void Clear();
   bool IsInitialized() const;
   
@@ -196,7 +196,7 @@ class MSG_DM_CLIENT_USER_DESTORY_ACK : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 statuscode() const;
   inline void set_statuscode(::google::protobuf::int32 value);
   
-  // @@protoc_insertion_point(class_scope:MSG_DM_CLIENT_USER_DESTORY_ACK)
+  // @@protoc_insertion_point(class_scope:MSG_DM_CLIENT_USER_DESTROY_ACK)
  private:
   inline void set_has_statuscode();
   inline void clear_has_statuscode();
@@ -213,63 +213,63 @@ class MSG_DM_CLIENT_USER_DESTORY_ACK : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_MSG_5fCLIENT_5fDM_5fUSER_5fDESTROY_2eproto();
   
   void InitAsDefaultInstance();
-  static MSG_DM_CLIENT_USER_DESTORY_ACK* default_instance_;
+  static MSG_DM_CLIENT_USER_DESTROY_ACK* default_instance_;
 };
 // ===================================================================
 
 
 // ===================================================================
 
-// MSG_CLIENT_DM_USER_DESTORY
+// MSG_CLIENT_DM_USER_DESTROY
 
 // optional string token = 1;
-inline bool MSG_CLIENT_DM_USER_DESTORY::has_token() const {
+inline bool MSG_CLIENT_DM_USER_DESTROY::has_token() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void MSG_CLIENT_DM_USER_DESTORY::set_has_token() {
+inline void MSG_CLIENT_DM_USER_DESTROY::set_has_token() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void MSG_CLIENT_DM_USER_DESTORY::clear_has_token() {
+inline void MSG_CLIENT_DM_USER_DESTROY::clear_has_token() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void MSG_CLIENT_DM_USER_DESTORY::clear_token() {
+inline void MSG_CLIENT_DM_USER_DESTROY::clear_token() {
   if (token_ != &::google::protobuf::internal::kEmptyString) {
     token_->clear();
   }
   clear_has_token();
 }
-inline const ::std::string& MSG_CLIENT_DM_USER_DESTORY::token() const {
+inline const ::std::string& MSG_CLIENT_DM_USER_DESTROY::token() const {
   return *token_;
 }
-inline void MSG_CLIENT_DM_USER_DESTORY::set_token(const ::std::string& value) {
+inline void MSG_CLIENT_DM_USER_DESTROY::set_token(const ::std::string& value) {
   set_has_token();
   if (token_ == &::google::protobuf::internal::kEmptyString) {
     token_ = new ::std::string;
   }
   token_->assign(value);
 }
-inline void MSG_CLIENT_DM_USER_DESTORY::set_token(const char* value) {
+inline void MSG_CLIENT_DM_USER_DESTROY::set_token(const char* value) {
   set_has_token();
   if (token_ == &::google::protobuf::internal::kEmptyString) {
     token_ = new ::std::string;
   }
   token_->assign(value);
 }
-inline void MSG_CLIENT_DM_USER_DESTORY::set_token(const char* value, size_t size) {
+inline void MSG_CLIENT_DM_USER_DESTROY::set_token(const char* value, size_t size) {
   set_has_token();
   if (token_ == &::google::protobuf::internal::kEmptyString) {
     token_ = new ::std::string;
   }
   token_->assign(reinterpret_cast<const char*>(value), size);
 }
-inline ::std::string* MSG_CLIENT_DM_USER_DESTORY::mutable_token() {
+inline ::std::string* MSG_CLIENT_DM_USER_DESTROY::mutable_token() {
   set_has_token();
   if (token_ == &::google::protobuf::internal::kEmptyString) {
     token_ = new ::std::string;
   }
   return token_;
 }
-inline ::std::string* MSG_CLIENT_DM_USER_DESTORY::release_token() {
+inline ::std::string* MSG_CLIENT_DM_USER_DESTROY::release_token() {
   clear_has_token();
   if (token_ == &::google::protobuf::internal::kEmptyString) {
     return NULL;
@@ -281,53 +281,53 @@ inline ::std::string* MSG_CLIENT_DM_USER_DESTORY::release_token() {
 }
 
 // optional string userName = 2;
-inline bool MSG_CLIENT_DM_USER_DESTORY::has_username() const {
+inline bool MSG_CLIENT_DM_USER_DESTROY::has_username() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void MSG_CLIENT_DM_USER_DESTORY::set_has_username() {
+inline void MSG_CLIENT_DM_USER_DESTROY::set_has_username() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void MSG_CLIENT_DM_USER_DESTORY::clear_has_username() {
+inline void MSG_CLIENT_DM_USER_DESTROY::clear_has_username() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void MSG_CLIENT_DM_USER_DESTORY::clear_username() {
+inline void MSG_CLIENT_DM_USER_DESTROY::clear_username() {
   if (username_ != &::google::protobuf::internal::kEmptyString) {
     username_->clear();
   }
   clear_has_username();
 }
-inline const ::std::string& MSG_CLIENT_DM_USER_DESTORY::username() const {
+inline const ::std::string& MSG_CLIENT_DM_USER_DESTROY::username() const {
   return *username_;
 }
-inline void MSG_CLIENT_DM_USER_DESTORY::set_username(const ::std::string& value) {
+inline void MSG_CLIENT_DM_USER_DESTROY::set_username(const ::std::string& value) {
   set_has_username();
   if (username_ == &::google::protobuf::internal::kEmptyString) {
     username_ = new ::std::string;
   }
   username_->assign(value);
 }
-inline void MSG_CLIENT_DM_USER_DESTORY::set_username(const char* value) {
+inline void MSG_CLIENT_DM_USER_DESTROY::set_username(const char* value) {
   set_has_username();
   if (username_ == &::google::protobuf::internal::kEmptyString) {
     username_ = new ::std::string;
   }
   username_->assign(value);
 }
-inline void MSG_CLIENT_DM_USER_DESTORY::set_username(const char* value, size_t size) {
+inline void MSG_CLIENT_DM_USER_DESTROY::set_username(const char* value, size_t size) {
   set_has_username();
   if (username_ == &::google::protobuf::internal::kEmptyString) {
     username_ = new ::std::string;
   }
   username_->assign(reinterpret_cast<const char*>(value), size);
 }
-inline ::std::string* MSG_CLIENT_DM_USER_DESTORY::mutable_username() {
+inline ::std::string* MSG_CLIENT_DM_USER_DESTROY::mutable_username() {
   set_has_username();
   if (username_ == &::google::protobuf::internal::kEmptyString) {
     username_ = new ::std::string;
   }
   return username_;
 }
-inline ::std::string* MSG_CLIENT_DM_USER_DESTORY::release_username() {
+inline ::std::string* MSG_CLIENT_DM_USER_DESTROY::release_username() {
   clear_has_username();
   if (username_ == &::google::protobuf::internal::kEmptyString) {
     return NULL;
@@ -340,26 +340,26 @@ inline ::std::string* MSG_CLIENT_DM_USER_DESTORY::release_username() {
 
 // -------------------------------------------------------------------
 
-// MSG_DM_CLIENT_USER_DESTORY_ACK
+// MSG_DM_CLIENT_USER_DESTROY_ACK
 
 // optional int32 statusCode = 1;
-inline bool MSG_DM_CLIENT_USER_DESTORY_ACK::has_statuscode() const {
+inline bool MSG_DM_CLIENT_USER_DESTROY_ACK::has_statuscode() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void MSG_DM_CLIENT_USER_DESTORY_ACK::set_has_statuscode() {
+inline void MSG_DM_CLIENT_USER_DESTROY_ACK::set_has_statuscode() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void MSG_DM_CLIENT_USER_DESTORY_ACK::clear_has_statuscode() {
+inline void MSG_DM_CLIENT_USER_DESTROY_ACK::clear_has_statuscode() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void MSG_DM_CLIENT_USER_DESTORY_ACK::clear_statuscode() {
+inline void MSG_DM_CLIENT_USER_DESTROY_ACK::clear_statuscode() {
   statuscode_ = 0;
   clear_has_statuscode();
 }
-inline ::google::protobuf::int32 MSG_DM_CLIENT_USER_DESTORY_ACK::statuscode() const {
+inline ::google::protobuf::int32 MSG_DM_CLIENT_USER_DESTROY_ACK::statuscode() const {
   return statuscode_;
 }
-inline void MSG_DM_CLIENT_USER_DESTORY_ACK::set_statuscode(::google::protobuf::int32 value) {
+inline void MSG_DM_CLIENT_USER_DESTROY_ACK::set_statuscode(::google::protobuf::int32 value) {
   set_has_statuscode();
   statuscode_ = value;
 }
