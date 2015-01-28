@@ -1,10 +1,13 @@
 #ifndef USERINFOSERVICE_H
 #define USERINFOSERVICE_H
 
-#include "GenericInfoService.h"
-#include "UserManager.h"
+#include <muduo/net/TcpConnection.h>
 
-class USERInfoService : public GenericInfoService
+#include "GenericInfoService.h"
+//#include "UserManager.h"
+#include "Token.h"
+
+class UserInfoService : public GenericInfoService
 {
 public:
 
@@ -25,14 +28,14 @@ public:
                            muduo::Timestamp);
 private:
 
-    void doCreateUser(TcpConnectionPtr const& , STDSTR , STDSTR , STDSTR , STDSTR,
-                                       ulong);
+    void doCreateUser(muduo::net::TcpConnectionPtr const& , STDSTR , STDSTR,
+                      STDSTR , STDSTR , ulong);
 
-    void doDeleteUser(TcpConnectionPtr const& , STDSTR);
+    void doDeleteUser(muduo::net::TcpConnectionPtr const& , STDSTR);
 
-    void doUpdateUser(TcpConnectionPtr const& , STDSTR , STDSTR);
+    void doUpdateUser(muduo::net::TcpConnectionPtr const& , STDSTR , STDSTR);
 
-    void doGetUserInfo(TcpConnectionPtr const& , STDSTR);
+    void doGetUserInfo(muduo::net::TcpConnectionPtr const& , Token);
 };
 
 #endif

@@ -323,17 +323,17 @@ class MSG_DM_CLIENT_USER_INFO_GET_ACK : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 statuscode() const;
   inline void set_statuscode(::google::protobuf::int32 value);
   
-  // repeated .MSG_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO useInfo = 2;
-  inline int useinfo_size() const;
-  inline void clear_useinfo();
-  static const int kUseInfoFieldNumber = 2;
-  inline const ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO& useinfo(int index) const;
-  inline ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO* mutable_useinfo(int index);
-  inline ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO* add_useinfo();
+  // repeated .MSG_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO userInfo = 2;
+  inline int userinfo_size() const;
+  inline void clear_userinfo();
+  static const int kUserInfoFieldNumber = 2;
+  inline const ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO& userinfo(int index) const;
+  inline ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO* mutable_userinfo(int index);
+  inline ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO* add_userinfo();
   inline const ::google::protobuf::RepeatedPtrField< ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO >&
-      useinfo() const;
+      userinfo() const;
   inline ::google::protobuf::RepeatedPtrField< ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO >*
-      mutable_useinfo();
+      mutable_userinfo();
   
   // @@protoc_insertion_point(class_scope:MSG_DM_CLIENT_USER_INFO_GET_ACK)
  private:
@@ -342,7 +342,7 @@ class MSG_DM_CLIENT_USER_INFO_GET_ACK : public ::google::protobuf::Message {
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::google::protobuf::RepeatedPtrField< ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO > useinfo_;
+  ::google::protobuf::RepeatedPtrField< ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO > userinfo_;
   ::google::protobuf::int32 statuscode_;
   
   mutable int _cached_size_;
@@ -704,29 +704,29 @@ inline void MSG_DM_CLIENT_USER_INFO_GET_ACK::set_statuscode(::google::protobuf::
   statuscode_ = value;
 }
 
-// repeated .MSG_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO useInfo = 2;
-inline int MSG_DM_CLIENT_USER_INFO_GET_ACK::useinfo_size() const {
-  return useinfo_.size();
+// repeated .MSG_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO userInfo = 2;
+inline int MSG_DM_CLIENT_USER_INFO_GET_ACK::userinfo_size() const {
+  return userinfo_.size();
 }
-inline void MSG_DM_CLIENT_USER_INFO_GET_ACK::clear_useinfo() {
-  useinfo_.Clear();
+inline void MSG_DM_CLIENT_USER_INFO_GET_ACK::clear_userinfo() {
+  userinfo_.Clear();
 }
-inline const ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO& MSG_DM_CLIENT_USER_INFO_GET_ACK::useinfo(int index) const {
-  return useinfo_.Get(index);
+inline const ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO& MSG_DM_CLIENT_USER_INFO_GET_ACK::userinfo(int index) const {
+  return userinfo_.Get(index);
 }
-inline ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO* MSG_DM_CLIENT_USER_INFO_GET_ACK::mutable_useinfo(int index) {
-  return useinfo_.Mutable(index);
+inline ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO* MSG_DM_CLIENT_USER_INFO_GET_ACK::mutable_userinfo(int index) {
+  return userinfo_.Mutable(index);
 }
-inline ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO* MSG_DM_CLIENT_USER_INFO_GET_ACK::add_useinfo() {
-  return useinfo_.Add();
+inline ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO* MSG_DM_CLIENT_USER_INFO_GET_ACK::add_userinfo() {
+  return userinfo_.Add();
 }
 inline const ::google::protobuf::RepeatedPtrField< ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO >&
-MSG_DM_CLIENT_USER_INFO_GET_ACK::useinfo() const {
-  return useinfo_;
+MSG_DM_CLIENT_USER_INFO_GET_ACK::userinfo() const {
+  return userinfo_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO >*
-MSG_DM_CLIENT_USER_INFO_GET_ACK::mutable_useinfo() {
-  return &useinfo_;
+MSG_DM_CLIENT_USER_INFO_GET_ACK::mutable_userinfo() {
+  return &userinfo_;
 }
 
 

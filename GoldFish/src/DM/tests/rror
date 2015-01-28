@@ -1,0 +1,43 @@
+In file included from /home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:9:0:
+/home/wuyu/Goldfish/GoldFish/include/DM/UserInfoService.h:31:23: error: ‘TcpConnectionPtr’ has not been declared
+/home/wuyu/Goldfish/GoldFish/include/DM/UserInfoService.h:34:23: error: ‘TcpConnectionPtr’ has not been declared
+/home/wuyu/Goldfish/GoldFish/include/DM/UserInfoService.h:36:23: error: ‘TcpConnectionPtr’ has not been declared
+/home/wuyu/Goldfish/GoldFish/include/DM/UserInfoService.h:38:24: error: ‘TcpConnectionPtr’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:26:6: error: ‘UserInfoService’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc: In function ‘void onCreateInfo(const TcpConnectionPtr&, const MessagePtr&, muduo::Timestamp)’:
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:38:32: error: ‘class MSG_CLIENT_DM_USER_CREATE’ has no member named ‘passwd’
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:40:58: error: ‘UserInfoService’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:41:13: error: invalid use of ‘this’ in non-member function
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:44:9: error: ‘onTokenFailAuthFailed’ was not declared in this scope
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:44:44: error: expected primary-expression before ‘>’ token
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc: At global scope:
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:47:6: error: ‘UserInfoService’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc: In function ‘void onDeleteInfo(const TcpConnectionPtr&, const MessagePtr&, muduo::Timestamp)’:
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:57:58: error: ‘UserInfoService’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:58:13: error: invalid use of ‘this’ in non-member function
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:61:9: error: ‘onTokenFailAuthFailed’ was not declared in this scope
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:61:45: error: expected primary-expression before ‘>’ token
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc: At global scope:
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:64:6: error: ‘UserInfoService’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc: In function ‘void onUpdateInfo(const TcpConnectionPtr&, const MessagePtr&, muduo::Timestamp)’:
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:73:54: error: ‘UserInfoService’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:74:9: error: invalid use of ‘this’ in non-member function
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc: At global scope:
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:77:6: error: ‘UserInfoService’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc: In function ‘void onGetInfo(const TcpConnectionPtr&, const MessagePtr&, muduo::Timestamp)’:
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:84:54: error: ‘UserInfoService’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:85:41: error: invalid use of ‘this’ in non-member function
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc: At global scope:
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:88:6: error: ‘UserInfoService’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc: In function ‘void doCreateUser(const TcpConnectionPtr&, STDSTR, STDSTR, std::string, STDSTR, ulong)’:
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:113:70: warning: format ‘%d’ expects argument of type ‘int’, but argument 7 has type ‘ulong {aka long unsigned int}’ [-Wformat]
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc: At global scope:
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:136:6: error: ‘UserInfoService’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:171:6: error: ‘UserInfoService’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:207:6: error: ‘UserInfoService’ has not been declared
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc: In function ‘void doGetUserInfo(const TcpConnectionPtr&, Token)’:
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:253:59: warning: format not a string literal and no format arguments [-Wformat-security]
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:264:30: error: ‘UserInfoUpdateACK’ has no member named ‘add_userinfo’
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:282:23: error: ‘UserInfo’ has no member named ‘set_identity’
+/home/wuyu/Goldfish/GoldFish/src/DM/UserInfoService.cc:259:20: warning: unused variable ‘identity’ [-Wunused-variable]
+make: *** [UserInfoService.o] Error 1

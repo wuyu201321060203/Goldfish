@@ -52,7 +52,7 @@ void protobuf_AssignDesc_MSG_5fCLIENT_5fDM_5fUSER_5fINFO_5fGET_2eproto() {
   MSG_DM_CLIENT_USER_INFO_GET_ACK_descriptor_ = file->message_type(1);
   static const int MSG_DM_CLIENT_USER_INFO_GET_ACK_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_CLIENT_USER_INFO_GET_ACK, statuscode_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_CLIENT_USER_INFO_GET_ACK, useinfo_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_CLIENT_USER_INFO_GET_ACK, userinfo_),
   };
   MSG_DM_CLIENT_USER_INFO_GET_ACK_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -124,12 +124,12 @@ void protobuf_AddDesc_MSG_5fCLIENT_5fDM_5fUSER_5fINFO_5fGET_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n!MSG_CLIENT_DM_USER_INFO_GET.proto\",\n\033M"
     "SG_CLIENT_DM_USER_INFO_GET\022\r\n\005token\030\001 \001("
-    "\t\"\335\001\n\037MSG_DM_CLIENT_USER_INFO_GET_ACK\022\022\n"
-    "\nstatusCode\030\001 \001(\005\022;\n\007useInfo\030\002 \003(\0132*.MSG"
-    "_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO\032i"
-    "\n\tUSER_INFO\022\022\n\ndomainName\030\001 \001(\t\022\021\n\tgroup"
-    "Name\030\002 \001(\t\022\020\n\010userName\030\003 \001(\t\022\020\n\010password"
-    "\030\004 \001(\t\022\021\n\tauthority\030\005 \001(\r", 305);
+    "\t\"\336\001\n\037MSG_DM_CLIENT_USER_INFO_GET_ACK\022\022\n"
+    "\nstatusCode\030\001 \001(\005\022<\n\010userInfo\030\002 \003(\0132*.MS"
+    "G_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO\032"
+    "i\n\tUSER_INFO\022\022\n\ndomainName\030\001 \001(\t\022\021\n\tgrou"
+    "pName\030\002 \001(\t\022\020\n\010userName\030\003 \001(\t\022\020\n\010passwor"
+    "d\030\004 \001(\t\022\021\n\tauthority\030\005 \001(\r", 306);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MSG_CLIENT_DM_USER_INFO_GET.proto", &protobuf_RegisterTypes);
   MSG_CLIENT_DM_USER_INFO_GET::default_instance_ = new MSG_CLIENT_DM_USER_INFO_GET();
@@ -812,7 +812,7 @@ void MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO::Swap(MSG_DM_CLIENT_USER_INFO_GET
 
 #ifndef _MSC_VER
 const int MSG_DM_CLIENT_USER_INFO_GET_ACK::kStatusCodeFieldNumber;
-const int MSG_DM_CLIENT_USER_INFO_GET_ACK::kUseInfoFieldNumber;
+const int MSG_DM_CLIENT_USER_INFO_GET_ACK::kUserInfoFieldNumber;
 #endif  // !_MSC_VER
 
 MSG_DM_CLIENT_USER_INFO_GET_ACK::MSG_DM_CLIENT_USER_INFO_GET_ACK()
@@ -868,7 +868,7 @@ void MSG_DM_CLIENT_USER_INFO_GET_ACK::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     statuscode_ = 0;
   }
-  useinfo_.Clear();
+  userinfo_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -890,21 +890,21 @@ bool MSG_DM_CLIENT_USER_INFO_GET_ACK::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_useInfo;
+        if (input->ExpectTag(18)) goto parse_userInfo;
         break;
       }
       
-      // repeated .MSG_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO useInfo = 2;
+      // repeated .MSG_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO userInfo = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_useInfo:
+         parse_userInfo:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_useinfo()));
+                input, add_userinfo()));
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_useInfo;
+        if (input->ExpectTag(18)) goto parse_userInfo;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -932,10 +932,10 @@ void MSG_DM_CLIENT_USER_INFO_GET_ACK::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->statuscode(), output);
   }
   
-  // repeated .MSG_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO useInfo = 2;
-  for (int i = 0; i < this->useinfo_size(); i++) {
+  // repeated .MSG_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO userInfo = 2;
+  for (int i = 0; i < this->userinfo_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->useinfo(i), output);
+      2, this->userinfo(i), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -951,11 +951,11 @@ void MSG_DM_CLIENT_USER_INFO_GET_ACK::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->statuscode(), target);
   }
   
-  // repeated .MSG_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO useInfo = 2;
-  for (int i = 0; i < this->useinfo_size(); i++) {
+  // repeated .MSG_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO userInfo = 2;
+  for (int i = 0; i < this->userinfo_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        2, this->useinfo(i), target);
+        2, this->userinfo(i), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -977,12 +977,12 @@ int MSG_DM_CLIENT_USER_INFO_GET_ACK::ByteSize() const {
     }
     
   }
-  // repeated .MSG_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO useInfo = 2;
-  total_size += 1 * this->useinfo_size();
-  for (int i = 0; i < this->useinfo_size(); i++) {
+  // repeated .MSG_DM_CLIENT_USER_INFO_GET_ACK.USER_INFO userInfo = 2;
+  total_size += 1 * this->userinfo_size();
+  for (int i = 0; i < this->userinfo_size(); i++) {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->useinfo(i));
+        this->userinfo(i));
   }
   
   if (!unknown_fields().empty()) {
@@ -1010,7 +1010,7 @@ void MSG_DM_CLIENT_USER_INFO_GET_ACK::MergeFrom(const ::google::protobuf::Messag
 
 void MSG_DM_CLIENT_USER_INFO_GET_ACK::MergeFrom(const MSG_DM_CLIENT_USER_INFO_GET_ACK& from) {
   GOOGLE_CHECK_NE(&from, this);
-  useinfo_.MergeFrom(from.useinfo_);
+  userinfo_.MergeFrom(from.userinfo_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_statuscode()) {
       set_statuscode(from.statuscode());
@@ -1039,7 +1039,7 @@ bool MSG_DM_CLIENT_USER_INFO_GET_ACK::IsInitialized() const {
 void MSG_DM_CLIENT_USER_INFO_GET_ACK::Swap(MSG_DM_CLIENT_USER_INFO_GET_ACK* other) {
   if (other != this) {
     std::swap(statuscode_, other->statuscode_);
-    useinfo_.Swap(&other->useinfo_);
+    userinfo_.Swap(&other->userinfo_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

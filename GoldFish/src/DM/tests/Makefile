@@ -118,6 +118,18 @@ MSG_CLIENT_DM_GROUP_DESCRIPTION_UPDATE.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_GRO
 MSG_CLIENT_DM_GROUP_DESTROY.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_GROUP_DESTROY.pb.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+MSG_CLIENT_DM_USER_CREATE.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_USER_CREATE.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_CLIENT_DM_USER_DESTROY.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_USER_DESTROY.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_CLIENT_DM_USER_INFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_USER_INFO_GET.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_CLIENT_DM_USER_INFO_UPDATE.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_USER_INFO_UPDATE.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 DbAcceptor.o : $(DM_SRC_DIR)/DbAcceptor.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -130,6 +142,9 @@ util.o : $(DM_SRC_DIR)/util.cc
 GroupInfoService.o : $(DM_SRC_DIR)/GroupInfoService.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+UserInfoService.o : $(DM_SRC_DIR)/UserInfoService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_unittest.o ConfigLoader.o Options.o\
 			  Initializer.o ProtobufCodec.o Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o \
 			  MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
@@ -140,5 +155,7 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.o MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.o\
 			  MSG_CLIENT_DM_GROUP_CREATE.pb.o MSG_CLIENT_DM_GROUP_DESCRIPTION_GET.pb.o\
 			  MSG_CLIENT_DM_GROUP_DESCRIPTION_UPDATE.pb.o MSG_CLIENT_DM_GROUP_DESTROY.pb.o\
-			  GroupInfoService.o groupinfoservice_unittest.o crossinfoservice_unittest.o
+			  GroupInfoService.o groupinfoservice_unittest.o crossinfoservice_unittest.o\
+			  UserInfoService.o MSG_CLIENT_DM_USER_CREATE.pb.o MSG_CLIENT_DM_USER_DESTROY.pb.o\
+			  MSG_CLIENT_DM_USER_INFO_GET.pb.o MSG_CLIENT_DM_USER_INFO_UPDATE.pb.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)
