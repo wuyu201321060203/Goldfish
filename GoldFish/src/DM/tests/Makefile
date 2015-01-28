@@ -73,6 +73,9 @@ util_unittest.o : $(USER_DIR)/util_unittest.cc
 groupinfoservice_unittest.o : $(USER_DIR)/groupinfoservice_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+userinfoservice_unittest.o : $(USER_DIR)/userinfoservice_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 ConfigLoader.o : $(DM_SRC_DIR)/ConfigLoader.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -157,5 +160,6 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  MSG_CLIENT_DM_GROUP_DESCRIPTION_UPDATE.pb.o MSG_CLIENT_DM_GROUP_DESTROY.pb.o\
 			  GroupInfoService.o groupinfoservice_unittest.o crossinfoservice_unittest.o\
 			  UserInfoService.o MSG_CLIENT_DM_USER_CREATE.pb.o MSG_CLIENT_DM_USER_DESTROY.pb.o\
-			  MSG_CLIENT_DM_USER_INFO_GET.pb.o MSG_CLIENT_DM_USER_INFO_UPDATE.pb.o
+			  MSG_CLIENT_DM_USER_INFO_GET.pb.o MSG_CLIENT_DM_USER_INFO_UPDATE.pb.o\
+			  userinfoservice_unittest.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

@@ -97,7 +97,7 @@ void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , STDSTR domainN
         {
             MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
             MutexLockGuard guard(**lock);
-            result = dbConn->executeQuery("select id from DOMAIN_INFO\
+            result = dbConn->executeQuery("select id from DOMAIN_INFO \
                                     where name = '%s'" , domainName.c_str());
             if(result->next())
             {
@@ -108,7 +108,7 @@ void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , STDSTR domainN
                 {
                     int groupID = result->getInt(1);
                     dbConn->execute("insert into USER_INFO(belong2Domain , belong2Group\
-                        name , passwd , identity) values('%d' , '%d' , '%s',\
+                        , name , passwd , identity) values('%d' , '%d' , '%s',\
                         '%s' , '%d')" , domainID , groupID,
                         userName.c_str() , passwd.c_str() , authority);
                     reply.set_statuscode(SUCCESS);
