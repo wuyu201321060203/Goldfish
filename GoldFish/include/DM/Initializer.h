@@ -2,6 +2,7 @@
 #define INITIALIZER_H
 
 #include <string>
+#include <map>
 
 #include <muduo/net/EventLoop.h>
 #include <muduo/base/ThreadPool.h>
@@ -24,6 +25,9 @@ public:
     muduo::ThreadPool& getThreadPool();
     muduo::net::EventLoop& getEventLoop();
     Options& getOptions();
+    uint32_t getCmdByTypename(std::string const&);
+    std::string getTypenameByCmd(uint32_t);
+    void registeRASMsg(uint32_t const& , std::string const&);
 
 private:
 
@@ -34,11 +38,16 @@ private:
     ConfigLoader _loader;
     Options _options;
     std::string _path;
+    typedef std::map<uint32_t , std::string> Cmd2TypeNameMap;
+    Cmd2TypeNameMap _cmd2TypeName;
+    typedef std::map<std::string , uint32_t> TypeName2CmdMap;
+    TypeName2CmdMap _typeName2Cmd;
 
 private:
 
     void onUnknownMessage(muduo::net::TcpConnectionPtr const& , MessagePtr const&,
                           muduo::Timestamp);
+
     inline bool parseCommandLine(int  , char**);
 
 };

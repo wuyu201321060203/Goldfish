@@ -23,6 +23,9 @@ extern ConnectionPool g_DbPool;
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 extern MutexLockPtr mutex;
 
+typedef MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO UserInfo;
+std::vector<UserInfo> testArray1;
+
 TEST(UserInfoServiceTest , CreateInfoSuccessTest)
 {
     InetAddress localAddr(10);
@@ -63,6 +66,97 @@ TEST(UserInfoServiceTest , CreateInfoSuccessTest)
     EXPECT_EQ("ddsb" , testPasswd);
     EXPECT_EQ(8 , testIdentity);
 }
+
+TEST(UserInfoServiceTest , GetSingleInfoSuccessTest)
+{
+    InetAddress localAddr(10);
+    InetAddress remoteAddr(100);
+    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
+    TcpConnectionPtr conn( new TcpConnection(&g_Initializer.getEventLoop(),
+                                "conn" , socketfd , localAddr , remoteAddr) );
+    conn->setContext(mutex);
+    STDSTR username("ddcnmb");
+    STDSTR userBelong2Domain("domain1");
+    STDSTR userBelong2Group("group1");
+    unsigned int identity = 0b00001000;
+    Token token(username , identity , userBelong2Domain , userBelong2Group);
+    UserInfoGetMsg* tmp =  new UserInfoGetMsg;
+    tmp->set_token(token.toString());
+    MessagePtr msg(tmp);
+    Timestamp time;
+    UserInfoService waiter;
+    waiter.onGetInfo(conn , msg , time);
+    sleep(3);
+    EXPECT_EQ("domain1" , testArray1[0].domainname());
+    EXPECT_EQ("group1" , testArray1[0].groupname());
+    EXPECT_EQ("ddcnmb" , testArray1[0].username());
+    EXPECT_EQ("ddcnmb" , testArray1[0].password());
+    EXPECT_EQ(2 , testArray1[0].authority());
+}
+
+TEST(UserInfoServiceTest , GetNoSingleInfoSuccessTest)
+{
+    testArray1.clear();
+    InetAddress localAddr(10);
+    InetAddress remoteAddr(100);
+    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
+    TcpConnectionPtr conn( new TcpConnection(&g_Initializer.getEventLoop(),
+                                "conn" , socketfd , localAddr , remoteAddr) );
+    conn->setContext(mutex);
+    STDSTR username("ddcnmb");
+    STDSTR userBelong2Domain("domain1");
+    STDSTR userBelong2Group("*");
+    unsigned int identity = 0b00000010;
+    Token token(username , identity , userBelong2Domain , userBelong2Group);
+    UserInfoGetMsg* tmp =  new UserInfoGetMsg;
+    tmp->set_token(token.toString());
+    MessagePtr msg(tmp);
+    Timestamp time;
+    UserInfoService waiter;
+    waiter.onGetInfo(conn , msg , time);
+    sleep(3);
+    EXPECT_EQ("domain1" , testArray1[0].domainname());
+    EXPECT_EQ("group1" , testArray1[0].groupname());
+    EXPECT_EQ("ddcnmb" , testArray1[0].username());
+    EXPECT_EQ("ddcnmb" , testArray1[0].password());
+    EXPECT_EQ(2 , testArray1[0].authority());
+    EXPECT_EQ("domain1" , testArray1[1].domainname());
+    EXPECT_EQ("group1" , testArray1[1].groupname());
+    EXPECT_EQ("ddsb" , testArray1[1].username());
+    EXPECT_EQ("ddsb" , testArray1[1].password());
+    EXPECT_EQ(8 , testArray1[1].authority());
+}
+
+TEST(UserInfoServiceTest , UpdateInfoSuccessTest)
+{
+    InetAddress localAddr(10);
+    InetAddress remoteAddr(100);
+    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
+    TcpConnectionPtr conn( new TcpConnection(&g_Initializer.getEventLoop(),
+                                "conn" , socketfd , localAddr , remoteAddr) );
+    conn->setContext(mutex);
+    STDSTR username("ddcnmb");
+    STDSTR userBelong2Domain("domain1");
+    STDSTR userBelong2Group("group1");
+    unsigned int identity = 0b00001001;
+    Token token(username , identity , userBelong2Domain , userBelong2Group);
+    UserInfoUpdateMsg* tmp =  new UserInfoUpdateMsg;
+    tmp->set_token(token.toString());
+    tmp->set_password("ddsb");
+    MessagePtr msg(tmp);
+    Timestamp time;
+    UserInfoService waiter;
+    waiter.onUpdateInfo(conn , msg , time);
+    sleep(3);
+    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ResultSetPtr result = dbConn->executeQuery("select passwd from USER_INFO\
+         where name = 'ddcnmb'");
+    STDSTR testPasswd("xx");
+    if(result->next())
+        testPasswd = result->getString(1);
+    EXPECT_EQ("ddsb" , testPasswd);
+}
+
 /*
 TEST(GroupInfoServiceTest , CreateInfoFailTest)
 {
@@ -90,95 +184,6 @@ TEST(GroupInfoServiceTest , CreateInfoFailTest)
     GroupInfoService waiter;
     waiter.onCreateInfo(conn , msg , time);
     EXPECT_EQ(PERMISSION_DENIED , testReply.statuscode());
-}
-
-TEST(GroupInfoServiceTest , UpdateInfoSuccessTest)
-{
-    InetAddress localAddr(10);
-    InetAddress remoteAddr(100);
-    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
-    TcpConnectionPtr conn( new TcpConnection(&g_Initializer.getEventLoop(),
-                                "conn" , socketfd , localAddr , remoteAddr) );
-    conn->setContext(mutex);
-    STDSTR groupName("group2");
-    STDSTR description("group2new");
-    STDSTR username("ddcnmb");
-    STDSTR userBelong2Domain("*");
-    STDSTR userBelong2Group("*");
-    unsigned int identity = 0b00000000;
-    Token token(username , identity , userBelong2Domain , userBelong2Group);
-    GroupInfoUpdateMsg* tmp =  new GroupInfoUpdateMsg;
-    tmp->set_token(token.toString());
-    tmp->set_groupname(groupName);
-    tmp->set_groupdescription(description);
-    MessagePtr msg(tmp);
-    Timestamp time;
-    GroupInfoService waiter;
-    waiter.onUpdateInfo(conn , msg , time);
-    sleep(3);
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
-    ResultSetPtr result = dbConn->executeQuery("select description , belong2Domain\
-                            from GROUP_INFO where name = 'group2'");
-    STDSTR testDes;
-    int testbelong2Domain;
-    if(result->next())
-    {
-        testDes = result->getString(1);
-        testbelong2Domain = result->getInt(2);
-    }
-    EXPECT_EQ("group2new" , testDes);
-    EXPECT_EQ(1 , testbelong2Domain);
-}
-
-TEST(GroupInfoServiceTest , GetSingleInfoSuccessTest)
-{
-    InetAddress localAddr(10);
-    InetAddress remoteAddr(100);
-    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
-    TcpConnectionPtr conn( new TcpConnection(&g_Initializer.getEventLoop(),
-                                "conn" , socketfd , localAddr , remoteAddr) );
-    conn->setContext(mutex);
-    STDSTR username("ddcnmb");
-    STDSTR userBelong2Domain("domain1");
-    STDSTR userBelong2Group("group1");
-    unsigned int identity = 0b00001000;
-    Token token(username , identity , userBelong2Domain , userBelong2Group);
-    GroupInfoGetMsg* tmp =  new GroupInfoGetMsg;
-    tmp->set_token(token.toString());
-    MessagePtr msg(tmp);
-    Timestamp time;
-    GroupInfoService waiter;
-    waiter.onGetInfo(conn , msg , time);
-    sleep(3);
-    EXPECT_EQ("group1" , testArray[0].name());
-    EXPECT_EQ("group1" , testArray[0].description());
-}
-
-TEST(GroupInfoServiceTest , GetNoSingleInfoSuccessTest)
-{
-    testArray.clear();
-    InetAddress localAddr(10);
-    InetAddress remoteAddr(100);
-    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
-    TcpConnectionPtr conn( new TcpConnection(&g_Initializer.getEventLoop(),
-                                "conn" , socketfd , localAddr , remoteAddr) );
-    conn->setContext(mutex);
-    STDSTR username("ddcnmb");
-    STDSTR userBelong2Domain("domain1");
-    STDSTR userBelong2Group("*");
-    unsigned int identity = 0b00001000;
-    Token token(username , identity , userBelong2Domain , userBelong2Group);
-    GroupInfoGetMsg* tmp =  new GroupInfoGetMsg;
-    tmp->set_token(token.toString());
-    MessagePtr msg(tmp);
-    Timestamp time;
-    GroupInfoService waiter;
-    waiter.onGetInfo(conn , msg , time);
-    sleep(3);
-    EXPECT_EQ("group1" , testArray[0].name());
-    EXPECT_EQ("group1" , testArray[0].description());
-    EXPECT_EQ("group2" , testArray[1].name());
-    EXPECT_EQ("group2new" , testArray[1].description());
 }
 */
 

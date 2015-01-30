@@ -1,6 +1,12 @@
 #include <string>
 
+#ifdef TEST
+#include <vector>
+#endif
+
 #include <boost/any.hpp>
+#include <boost/lexical_cast.hpp>
+
 #include <muduo/base/Logging.h>
 #include <muduo/base/Types.h>
 #include <muduo/base/Mutex.h>
@@ -22,6 +28,11 @@ using boost::any_cast;
 
 extern ConnectionPool g_DbPool;
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
+
+#ifdef TEST
+typedef MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO UserInfo;
+extern std::vector<UserInfo> testArray1;
+#endif
 
 void UserInfoService::onCreateInfo(TcpConnectionPtr const& conn,
                                    MessagePtr const& msg,
@@ -183,7 +194,7 @@ void UserInfoService::doUpdateUser(TcpConnectionPtr const& conn , STDSTR userNam
                 where name = '%s'" , userName.c_str());
             if(result->next())
             {
-                dbConn->executeQuery("update USER_INFO set passwd = '%s' where name = '%s'",
+                dbConn->execute("update USER_INFO set passwd = '%s' where name = '%s'",
                     passwd.c_str() , userName.c_str());
                 reply.set_statuscode(SUCCESS);
             }
@@ -208,10 +219,10 @@ void UserInfoService::doGetUserInfo(TcpConnectionPtr const& conn , Token token)
 {
     typedef MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO UserInfo;
     ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn1 = g_DbPool.getConnection<MysqlConnection>();
     ResultSetPtr result;
     UserInfoGetACK reply;
-    STDSTR prefix("select passwd , belong2Domain , belong2Group , identity\
-                    from USER_INFO");
+    STDSTR prefix("select passwd , belong2Domain , belong2Group , identity , name from USER_INFO ");
     STDSTR sqlQuery(prefix);
 
     try
@@ -224,7 +235,8 @@ void UserInfoService::doGetUserInfo(TcpConnectionPtr const& conn , Token token)
             result = dbConn->executeQuery("select id from DOMAIN_INFO where name = '%s'",
                                             (token.getDomain()).c_str());
             if(result->next())
-                sqlQuery += ( " where belong2Domain = " + result->getInt(1) );
+                sqlQuery += ( " where belong2Domain = " +
+                                    boost::lexical_cast<STDSTR>( result->getInt(1) ) );
             else
                 THROW(SQLException , "illegal token with a unexisted domain");
         }
@@ -233,7 +245,8 @@ void UserInfoService::doGetUserInfo(TcpConnectionPtr const& conn , Token token)
             result = dbConn->executeQuery("select id from GROUP_INFO where name = '%s'",
                                             (token.getGroup()).c_str());
             if(result->next())
-                sqlQuery += ( " where belong2Group = " + result->getInt(1) );
+                sqlQuery += ( " where belong2Group = " +
+                    boost::lexical_cast<STDSTR>( result->getInt(1) ) );
             else
                 THROW(SQLException , "illegal token with a unexisted group");
         }
@@ -242,7 +255,7 @@ void UserInfoService::doGetUserInfo(TcpConnectionPtr const& conn , Token token)
             result = dbConn->executeQuery("select id from USER_INFO where name = '%s'",
                                                 (token.getUserName()).c_str());
             if(result->next())
-                sqlQuery += ( " where name = " + token.getUserName() );//no measure to deal the same name
+                sqlQuery += ( " where name = '" + token.getUserName() +"'" );//no measure to deal the same name
             else
                 THROW(SQLException , "illegal token with a unexisted user");
 
@@ -254,32 +267,36 @@ void UserInfoService::doGetUserInfo(TcpConnectionPtr const& conn , Token token)
             UserInfo* info = NULL;
             STDSTR domainName;
             STDSTR groupName;
-            STDSTR userName(token.getUserName());
-            STDSTR password;
-            ulong  identity;
+            int tmpDomainID;
+            int tmpGroupID;
             ResultSetPtr tmp;
-            while(result->next())
+            while( result->next() )
             {
                 reply.set_statuscode(SUCCESS);
-                info = reply.add_userinfo();
-                tmp = dbConn->executeQuery("select name from DOMAIN_INFo where id = '%d'",
-                                            result->getInt(2));
+                tmpDomainID = result->getInt(2);
+                tmpGroupID = result->getInt(3);
+                tmp = dbConn1->executeQuery("select name from DOMAIN_INFO where id = '%d'",
+                                            tmpDomainID);
                 if(tmp->next())
                     domainName = tmp->getString(1);
                 else
                     THROW(SQLException , "unexisted domain");
-                tmp = dbConn->executeQuery("select name from GROUP_INFo where id = '%d'",
-                                            result->getInt(3));
+                tmp = dbConn1->executeQuery("select name from GROUP_INFO where id = '%d'",
+                                            tmpGroupID);
                 if(tmp->next())
                     groupName = tmp->getString(1);
                 else
                     THROW(SQLException , "unexisted group");
 
+                info = reply.add_userinfo();
                 info->set_domainname(domainName);
                 info->set_groupname(groupName);
-                info->set_username(userName);
+                info->set_username(result->getString(5));
                 info->set_password(result->getString(1));
                 info->set_authority(result->getInt(4));
+#ifdef TEST
+                testArray1.push_back(*info);
+#endif
             }
         }
     }
@@ -291,6 +308,7 @@ void UserInfoService::doGetUserInfo(TcpConnectionPtr const& conn , Token token)
         reply.set_statuscode(UNKNOWN_SYSERROR);
     }
     dbConn->close();
+    dbConn1->close();
 #ifndef TEST
     ( g_Initializer.getCodec() ).send(conn , reply);
 #endif

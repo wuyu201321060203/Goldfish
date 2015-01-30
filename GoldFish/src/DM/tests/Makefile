@@ -76,6 +76,9 @@ groupinfoservice_unittest.o : $(USER_DIR)/groupinfoservice_unittest.cc
 userinfoservice_unittest.o : $(USER_DIR)/userinfoservice_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+rascodec_unittest.o : $(USER_DIR)/rascodec_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 ConfigLoader.o : $(DM_SRC_DIR)/ConfigLoader.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -148,6 +151,9 @@ GroupInfoService.o : $(DM_SRC_DIR)/GroupInfoService.cc
 UserInfoService.o : $(DM_SRC_DIR)/UserInfoService.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+ProtobufRASCodec.o : $(DM_SRC_DIR)/ProtobufRASCodec.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_unittest.o ConfigLoader.o Options.o\
 			  Initializer.o ProtobufCodec.o Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o \
 			  MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
@@ -161,5 +167,5 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  GroupInfoService.o groupinfoservice_unittest.o crossinfoservice_unittest.o\
 			  UserInfoService.o MSG_CLIENT_DM_USER_CREATE.pb.o MSG_CLIENT_DM_USER_DESTROY.pb.o\
 			  MSG_CLIENT_DM_USER_INFO_GET.pb.o MSG_CLIENT_DM_USER_INFO_UPDATE.pb.o\
-			  userinfoservice_unittest.o
+			  userinfoservice_unittest.o ProtobufRASCodec.o rascodec_unittest.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

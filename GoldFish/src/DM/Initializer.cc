@@ -63,6 +63,22 @@ Options& Initializer::getOptions()
     return _options;
 }
 
+uint32_t Initializer::getCmdByTypename(STDSTR const& typeName)
+{
+    return _typeName2Cmd[typeName];
+}
+
+STDSTR Initializer::getTypenameByCmd(uint32_t cmd)
+{
+    return _cmd2TypeName[cmd];
+}
+
+void Initializer::registeRASMsg(uint32_t const& cmd , STDSTR const& typeName)
+{
+    _cmd2TypeName.insert(Cmd2TypeNameMap::value_type(cmd , typeName));
+    _typeName2Cmd.insert(TypeName2CmdMap::value_type(typeName , cmd));
+}
+
 void Initializer::onUnknownMessage(TcpConnectionPtr const& conn , MessagePtr const& msg,
                                    Timestamp receiveTime)
 {

@@ -1,5 +1,13 @@
 #!/bin/sh
 
+HOSTNAME="127.0.0.1"
+PORT="3306"
+USERNAME="root"
+PASSWORD="123"
+DBNAME="DM"
+
+mysql -h${HOSTNAME} -P${PORT} -u${USERNAME} -p${PASSWORD} ${DBNAME} -e "${trail1}"
+
 mysql -e "create database DM"
 
 mysql -e "create table IMCONFIG_INFO(id int not null auto_increment , domainName varchar(50) not null , raIP varchar(30) not null , primary key(id));"
