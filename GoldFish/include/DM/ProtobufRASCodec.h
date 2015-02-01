@@ -62,23 +62,17 @@ public:
                    muduo::Timestamp receiveTime);
 
     void send(muduo::net::TcpConnectionPtr const& conn,
-              google::protobuf::Message const& message,
-              uint32_t error,
-              uint32_t para1,
-              uint32_t para2)
+              google::protobuf::Message const& message)
     {
         muduo::net::Buffer buf;
-        fillEmptyBuffer(&buf, message , error , para1 , para2);
+        fillEmptyBuffer(&buf, message);
         conn->send(&buf);
     }
 
     static muduo::string const& errorCodeToString(ErrorCode errorCode);
 
     static void fillEmptyBuffer(muduo::net::Buffer* buf,
-                                google::protobuf::Message const& message,
-                                uint32_t error,
-                                uint32_t para1,
-                                uint32_t para2);
+                                google::protobuf::Message const& message);
 
     static google::protobuf::Message* createMessage(std::string const& type_name);
     static MessagePtr parse(char const* buf, int len, uint32_t cmd , ErrorCode* errorCode);

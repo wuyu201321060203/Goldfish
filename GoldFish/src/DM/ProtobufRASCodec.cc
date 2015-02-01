@@ -16,10 +16,7 @@ using namespace muduo::net;
 extern Initializer g_Initializer;//TODO
 
 void ProtobufRASCodec::fillEmptyBuffer(Buffer* buf,
-                                       google::protobuf::Message const& message,
-                                       uint32_t error,
-                                       uint32_t para1,
-                                       uint32_t para2)
+                                       google::protobuf::Message const& message)
 {
     assert(buf->readableBytes() == 0);
     std::string const& typeName = message.GetTypeName();
@@ -29,6 +26,9 @@ void ProtobufRASCodec::fillEmptyBuffer(Buffer* buf,
         InitializationErrorMessage("serialize", message);
     int byte_size = message.ByteSize();
     uint32_t len = byte_size;
+    uint32_t error = -1;
+    uint32_t para1 = -1;
+    uint32_t para2 = -1;
     buf->appendInt32(len);
     buf->appendInt32(error);
     buf->appendInt32(para1);

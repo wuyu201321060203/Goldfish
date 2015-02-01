@@ -44,10 +44,7 @@ TEST(RASProtobufCodecTest , PraseTest)
     msg1.set_username("c");
     UserCreateACK msg2;
     msg2.set_statuscode(-5);
-    uint32_t error = 10;
-    uint32_t para1 = 11;
-    uint32_t para2 = 12;
-    ProtobufRASCodec::fillEmptyBuffer(&buf , msg1 , error , para1 , para2);
+    ProtobufRASCodec::fillEmptyBuffer(&buf , msg1);
     Timestamp time;
     codec.onMessage(conn , &buf , time);
     UserCreateMsgPtr result = muduo::down_pointer_cast<UserCreateMsg>(g_msg);
@@ -55,7 +52,7 @@ TEST(RASProtobufCodecTest , PraseTest)
     EXPECT_EQ("b" , result->domainname());
     EXPECT_EQ("c" , result->username());
     Buffer buf1;
-    ProtobufRASCodec::fillEmptyBuffer(&buf1 , msg2 , error , para1 , para2);
+    ProtobufRASCodec::fillEmptyBuffer(&buf1 , msg2);
     codec.onMessage(conn , &buf1 , time);
     UserCreateACKPtr result1 = muduo::down_pointer_cast<UserCreateACK>(g_msg);
     EXPECT_EQ(-5 , result1->statuscode());
