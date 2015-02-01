@@ -65,27 +65,27 @@ int Token::addCheckSum()
     return RET_SUCCESS;
 }
 
-STDSTR Token::getUserName()
+STDSTR Token::getUserName() const
 {
     return _username;
 }
 
-STDSTR Token::getIdentity()
+STDSTR Token::getIdentity() const
 {
     return ( _identity.to_string() );
 }
 
-STDSTR Token::getDomain()
+STDSTR Token::getDomain() const
 {
     return _belong2Domain;
 }
 
-STDSTR Token::getGroup()
+STDSTR Token::getGroup() const
 {
     return _belong2Group;
 }
 
-STDSTR Token::getCheckSumStr()
+STDSTR Token::getCheckSumStr() const
 {
     return _checkSum;
 }
@@ -103,4 +103,15 @@ bool Token::niuXThanGroupAdmin()
 bool Token::niuXThanCommonUser()
 {
     return !( ( _identity.to_ulong() ) & (USER_IMPORT_AUTH) );
+}
+
+bool Token::operator==(Token const& rhs)
+{
+    return ( (_username == rhs.getUserName()) && (_identity == rhs.getRawIdentity()) &&
+            (_belong2Domain == rhs.getDomain()) && (_belong2Group == rhs.getGroup()) );
+}
+
+std::bitset<IDENTITY_WIDTH> Token::getRawIdentity() const
+{
+    return _identity;
 }

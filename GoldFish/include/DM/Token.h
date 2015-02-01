@@ -23,14 +23,15 @@ public:
     Token(STDSTR);
     STDSTR toString();
     int addCheckSum();
-    STDSTR getUserName();
-    STDSTR getIdentity();
-    STDSTR getDomain();
-    STDSTR getGroup();
-    STDSTR getCheckSumStr();
+    STDSTR getUserName() const;
+    STDSTR getIdentity() const;
+    STDSTR getDomain() const;
+    STDSTR getGroup() const;
+    STDSTR getCheckSumStr() const;
     bool niuXThanDomainAdmin();
     bool niuXThanGroupAdmin();
     bool niuXThanCommonUser();
+    bool operator==(Token const&);
 
 private:
 
@@ -40,6 +41,8 @@ private:
     STDSTR _belong2Group;
     STDSTR const _delimiter;
     STDSTR _checkSum;
+
+    std::bitset<IDENTITY_WIDTH> getRawIdentity() const;
 
 private:
 

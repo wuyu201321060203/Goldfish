@@ -1,104 +1,117 @@
-#include <boost/bind.hpp>
+#include <muduo/base/Logging.h>
 
-#include "UserManager.h"
+#include <Exception/Exception.h>
+#include <Exception/SQLException.h>
+#include <Db/ConnectionPool.h>
+#include <mysql/MysqlConnection.h>
+
+#include <DM/UserManager.h>
+#include <DM/Config.h>
+#include <Dm/Initializer.h>
+
 
 extern Initializer g_Initializer;
 
-UserManager::UserManager(CryptographicService* server):_edServer(server)
-{
-}
+using namespace muduo;
+using namespace muduo::net;
+using namespace OOzdb;
 
 void UserManager::onUserLogin(TcpConnectionPtr const& conn,
                               MessagePtr const& msg,
                               muduo::Timestamp)
 {
-    boost::shared_ptr<UserLoginMsg> query = muduo::down_cast<UserLoginMsg>(msg);
-    string username = query->userName();
-    string passwd = query->password();
-    (g_Initializer.getThreadPool()).run(boost::bind(&verifyIdentity , conn ,
+    UserLoginMsgPtr query = muduo::down_pointer_cast<UserLoginMsg>(msg);
+    STDSTR username = query->username();
+    STDSTR passwd = query->password();
+    (g_Initializer.getThreadPool()).run(boost::bind(&verifyIdentity , conn,
                                         username , passwd));
 }
 
-void UserManager::verifyEncryptedToken(TcpConnectionPtr const& conn,
-                          MessagePtr const& msg,
-                          muduo::Timestamp)
+void UserManager::onVerifyEncryptedToken(TcpConnectionPtr const& conn,
+                                         MessagePtr const& msg,
+                                         muduo::Timestamp)
 {
-    boost::shared_ptr<TokenVerifyMsg> query = muduo::down_cast<TokenVerifyMsg>(msg);
-    Token token = query->token();
-    _edServer->decode(token);
-    TokenVec::iterator iter = _rawTokenList.find(token);
-    TokenVerifyACKMsg replyMsg;
+    TokenIdentifyMsgPtr query = muduo::down_pointer_cast<TokenIdentifyMsg>(msg);
+    STDSTR tmp = query->encryptedtoken();
+    Token encryptedToken(tmp);
+    //decode
+    TokenVec::iterator iter = _rawTokenList.find(rawToken);//TODO
+    TokenIdentifyACK reply;
     if(iter != _rawTokenList.end())
-        replyMsg.set_statusCode(SUCCESS);
+        reply.set_statuscode(SUCCESS);
     else
-        replyMsg.set_statusCode(TOKEN_AUTH_FAIL);
-    conn->send(replyMsg);
+        reply.set_statuscode(TOKEN_AUTH_FAIL);
+#ifdef TEST
+    (g_Initializer.getCodec()).send(conn , reply);
+#endif
 }
 
-Token UserManager::createEncryptedToken(string identity , string belong2Group,
-                                        int import , int lookup)
+STDSTR UserManager::createEncryptedToken(STDSTR username , ulong identity,
+                                        STDSTR belong2Domain , STDSTR belong2Group)
 {
-    Token rawToken = createRawToken(identity , belong2Group , import , lookup);
-    if(encryptRawToken(token))
-        return token;
+    Token rawToken(username , identity , belong2Domain , belong2Group);
+    STDSTR encryptedTokenStr;
+    if( encryptRawToken( token.toString() , encryptedTokenStr ) )//TODO
+        return encryptedTokenStr;
     else
         LOG_INFO << "create encrypted token failed";
-
 }
 
-Token UserManager::createRawToken(string identity,
-                            string belong2Group,
-                            int import,
-                            int lookup)
+void UserManager::verifyIdentity(TcpConnectionPtr const& conn , STDSTR name,
+                                 STDSTR passwd)
 {
-    Token token(identity + "\r\n" + belong2Group + "\r\n" + import +"\r\n" +
-        lookup + "\r\n");
-
-    int32_t checkSum = static_cast<int32_t>(
-        ::adler32(1,
-        reinterpret_cast<const Bytef*>(token.c_str()),
-        static_cast<int>(toke.size())));
-    string checkSumStr = boost::lexical_cast<string>(checkSum);
-    token += checkSum;
-    return token;
-}
-
-int UserManager::encryptRawToken(Token& token)
-{
-    if(_edServer->encrypt(token))
-        return SUCCESS;
-    else
-        return FAIL;
-}
-
-void UserManager::verifyIdentity(TcpConnectionPtr const& conn , string name,
-                                 string passwd)
-{
-    ConnectionPtr dbConn = SingleConnectionPool::instance().
-                           getConnection<MysqlConnection>();
-    ResultPtr result = dbConn->executeQuery(
-        "select domain from User where name = %s and passwd = %s" , name , passwd);
-
-    UserLoginACK replyMsg;
-    if(result)
+    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    UserLoginACK reply;
+    try
     {
-       replyMsg.set_statusCode(SUCCESS);
-       if(result->next())
-           string domain = result->getString(1);
-       result = dbConn->executeQuery(
-                        "select ip , port from Domain where name = %s" , domain);
-       if(result->next())
-       {
-           string ip = result->getString(1);
-           string port = result->getString(2);
-           replyMsg.set_DCIp(ip);
-           replyMsg.set_DCPort(port);
-           Token token = _edServer.createEncryptedToken();
-           replyMsg.set_token(token);
-       }
+        ResultSetPtr result = dbConn->executeQuery("select name , identity , belong2Domain , \
+            belong2Group from USER_INFO where name = '%s' and passwd = '%s'",
+            name.c_str() , passwd.c_str());
+        if(result->next())
+        {
+            STDSTR username = result->getString(1);
+            ulong authority = result->getInt(2);
+            int belong2Domain = result->getInt(3);
+            int belong2Group = result->getInt(4);
+            STDSTR domainName;
+            STDSTR groupName;
+            result = dbConn->executeQuery("select name from GROUP_INFO where id = '%d'",
+                                            belong2Group);
+            if(result->next())
+            {
+                groupName = result->getString(1);
+                result = dbConn->executeQuery("select name, IP, Port from DOMAIN_INFO \
+                    where id = '%d'" , belong2Domain);
+                if(result->next())
+                {
+                    domainName = result->getString(1);
+                    STDSTR ip = result->getString(2);
+                    int port = result->getInt(3);
+                    STDSTR tokenStr = createEncryptedToken(username , authority,
+                        domainName , groupName);
+                    reply.set_token(tokenStr);
+                    reply.set_dcip(ip);
+                    reply.set_dcport(port);
+                    reply.set_statuscode(SUCCESS);
+                }
+                else
+                    THROW(SQLException , "Unexisted domain");
+            }
+            else
+                THROW(SQLException , "Unexisted group");
+        }
+        else
+            reply.set_statuscode(UNEXISTED_USER);
     }
-    else
-       replyMsg.set_statusCode(USER_NOT_EXIST);
+    catch(SQLException const& e)
+    {
+#ifdef DEBUG
+        LOG_INFO << "query error in user login" << groupName;
+#endif
+        reply.set_statuscode(UNKNOWN_SYSERROR);
+    }
     dbConn->close();
-    conn->send(replyMsg);
+#ifndef TEST
+    ( g_Initializer.getCodec() ).send(conn , reply);
+#endif
 }
