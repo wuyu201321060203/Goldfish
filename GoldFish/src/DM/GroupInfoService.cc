@@ -25,9 +25,6 @@ using namespace muduo::net;
 using namespace OOzdb;
 using boost::any_cast;
 
-//extern Initializer g_Initializer;
-extern ConnectionPool g_DbPool;
-
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
 #ifdef TEST
@@ -104,7 +101,7 @@ void GroupInfoService::onGetInfo(TcpConnectionPtr const& conn,
 void GroupInfoService::doCreateGroup(TcpConnectionPtr const& conn , std::string groupName,
                                      std::string domain , std::string description)
 {
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
     ResultSetPtr result;
     GroupCreateACK reply;
     try
@@ -150,7 +147,7 @@ void GroupInfoService::doCreateGroup(TcpConnectionPtr const& conn , std::string 
 
 void GroupInfoService::doDeleteGroup(TcpConnectionPtr const& conn , std::string groupName)
 {
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
     GroupDestroyACK reply;
     ResultSetPtr result;
     try
@@ -187,7 +184,7 @@ void GroupInfoService::doDeleteGroup(TcpConnectionPtr const& conn , std::string 
 void GroupInfoService::doUpdateGroup(TcpConnectionPtr const& conn , std::string groupName,
                    std::string description)
 {
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     GroupInfoUpdateACK reply;
     ResultSetPtr result;
     try
@@ -224,7 +221,7 @@ void GroupInfoService::doUpdateGroup(TcpConnectionPtr const& conn , std::string 
 void GroupInfoService::doGetGroup(TcpConnectionPtr const& conn , std::string groupName)
 {
     typedef MSG_DM_CLIENT_GROUP_DESCRIPTION_GET_ACK_GROUP_INFO GroupInfo;
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
     GroupInfoGetACK reply;
     reply.set_statuscode(UNEXISTED_GROUP);
     ResultSetPtr result;

@@ -9,7 +9,6 @@
 
 #include <DM/DbAcceptor.h>
 #include <DM/Initializer.h>
-#include <Db/ConnectionPool.h>
 #include <Db/ResultSet.h>
 #include <Db/Connection.h>
 #include <Exception/SQLException.h>
@@ -21,8 +20,6 @@
 
 using OOzdb::ConnectionPool;
 
-//extern Initializer g_Initializer;
-extern ConnectionPool g_DbPool;
 
 #ifdef TEST
 extern ConfigLookupACK tLookUpACK;
@@ -71,7 +68,7 @@ void DbAcceptor::doPreserve(TcpConnectionPtr const& conn,
         muduo::down_pointer_cast<ConfigPersistenceMsg>(msg);
 
     std::string domain = message->domainname();
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = ( Initializer::getDbPool() ).getConnection<MysqlConnection>();
     ConfigPersistenceACK reply;
     reply.set_statuscode(CONFIG_PRESERVE_FAIL);
     try
@@ -117,7 +114,7 @@ void DbAcceptor::doLoad(TcpConnectionPtr const& conn,
 {
     ConfigLookupMsgPtr message = muduo::down_pointer_cast<ConfigLookupMsg>(msg);
     std::string domain = message->domainname();
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     ConfigLookupACK reply;
     reply.set_statuscode(DOMAIN_NO_CONFIG);
     try
@@ -158,7 +155,7 @@ void DbAcceptor::doDelete(TcpConnectionPtr const& conn,
 {
     ConfigDeleteMsgPtr message = muduo::down_pointer_cast<ConfigDeleteMsg>(msg);
     std::string domain = message->domainname();
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
     ConfigDeleteACK reply;
     reply.set_statuscode(DOMAIN_NO_CONFIG);
     try

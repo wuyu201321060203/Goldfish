@@ -13,8 +13,6 @@
 using muduo::net::TcpConnectionPtr;
 using muduo::Timestamp;
 
-//extern Initializer g_Initializer;
-
 void DbInfoService::onCrossDomainInfoQuery(TcpConnectionPtr const& conn,
                                            MessagePtr const& msg,
                                            Timestamp timeStamp)

@@ -13,8 +13,6 @@
 using muduo::net::TcpConnectionPtr;
 using muduo::Timestamp;
 
-//extern Initializer g_Initializer;
-
 void SysInfoService::onSysInfoQuery(TcpConnectionPtr const& conn,
                                     MessagePtr const& msg,
                                     muduo::Timestamp timeStamp)//decorate TODO

@@ -13,8 +13,6 @@
 using namespace muduo;
 using namespace muduo::net;
 
-//extern Initializer g_Initializer;TODO
-
 void ProtobufRASCodec::fillEmptyBuffer(Buffer* buf,
                                        google::protobuf::Message const& message)
 {

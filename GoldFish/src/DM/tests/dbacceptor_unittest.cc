@@ -24,7 +24,7 @@ using namespace muduo::net;
 using namespace OOzdb;
 
 //extern Initializer g_Initializer;
-extern OOzdb::ConnectionPool g_DbPool;
+//extern OOzdb::ConnectionPool Initializer::getDbPool();
 
 ConfigPersistenceACK tPreserveACK;
 ConfigLookupACK tLookUpACK;
@@ -50,7 +50,7 @@ TEST(DbAcceptorTest , PreserveSuccessTest)
     DbAcceptor acceptor;
     acceptor.onPreserve(conn , message , time);
     sleep(3);
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     ResultSetPtr result = dbConn->executeQuery(
                 "select raIP from IMCONFIG_INFO where domainName = 'domain1'");
     std::string ip1("192.168.1.0");

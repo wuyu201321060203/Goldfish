@@ -26,7 +26,6 @@ using namespace muduo::net;
 using namespace OOzdb;
 using boost::any_cast;
 
-extern ConnectionPool g_DbPool;
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
 #ifdef TEST
@@ -100,7 +99,7 @@ void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , STDSTR domainN
                                    STDSTR groupName , std::string userName,
                                    STDSTR passwd , ulong authority)
 {
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     ResultSetPtr result;
     UserCreateACK reply;
     try
@@ -146,7 +145,7 @@ void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , STDSTR domainN
 
 void UserInfoService::doDeleteUser(TcpConnectionPtr const& conn , STDSTR userName)
 {
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     ResultSetPtr result;
     UserDestroyACK reply;
     try
@@ -182,7 +181,7 @@ void UserInfoService::doDeleteUser(TcpConnectionPtr const& conn , STDSTR userNam
 void UserInfoService::doUpdateUser(TcpConnectionPtr const& conn , STDSTR userName,
                                    STDSTR passwd)
 {
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     ResultSetPtr result;
     UserInfoUpdateACK reply;
     try
@@ -218,8 +217,8 @@ void UserInfoService::doUpdateUser(TcpConnectionPtr const& conn , STDSTR userNam
 void UserInfoService::doGetUserInfo(TcpConnectionPtr const& conn , Token token)
 {
     typedef MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO UserInfo;
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
-    ConnectionPtr dbConn1 = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
+    ConnectionPtr dbConn1 = Initializer::getDbPool().getConnection<MysqlConnection>();
     ResultSetPtr result;
     UserInfoGetACK reply;
     STDSTR prefix("select passwd , belong2Domain , belong2Group , identity , name from USER_INFO ");

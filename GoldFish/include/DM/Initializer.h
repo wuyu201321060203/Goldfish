@@ -13,6 +13,7 @@
 #include "ProtobufDispatcher.h"
 #include "ConfigLoader.h"
 #include "Options.h"
+#include <Db/ConnectionPool.h>
 
 typedef std::map<uint32_t , std::string> Cmd2TypeNameMap;
 typedef std::map<std::string , uint32_t> TypeName2CmdMap;
@@ -30,6 +31,7 @@ public:
     static uint32_t getCmdByTypename(std::string const&);
     static std::string getTypenameByCmd(uint32_t);
     static void registeRASMsg(uint32_t const& , std::string const&);
+    static OOzdb::ConnectionPool& getDbPool();
 
 private:
 
@@ -42,6 +44,7 @@ private:
     static std::string _path;
     static Cmd2TypeNameMap _cmd2TypeName;
     static TypeName2CmdMap _typeName2Cmd;
+    static OOzdb::ConnectionPool _dbPool;
 
 private:
 

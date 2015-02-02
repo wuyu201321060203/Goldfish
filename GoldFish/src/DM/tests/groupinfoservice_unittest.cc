@@ -19,7 +19,7 @@ using namespace muduo;
 using namespace muduo::net;
 using namespace OOzdb;
 
-extern ConnectionPool g_DbPool;
+//extern ConnectionPool Initializer::getDbPool();
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 extern MutexLockPtr mutex;
 
@@ -54,7 +54,7 @@ TEST(GroupInfoServiceTest , CreateInfoSuccessTest)
     GroupInfoService waiter;
     waiter.onCreateInfo(conn , msg , time);
     sleep(3);
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     ResultSetPtr result = dbConn->executeQuery("select description , belong2Domain\
                             from GROUP_INFO where name = 'group2'");
     sleep(3);
@@ -121,7 +121,7 @@ TEST(GroupInfoServiceTest , UpdateInfoSuccessTest)
     GroupInfoService waiter;
     waiter.onUpdateInfo(conn , msg , time);
     sleep(3);
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     ResultSetPtr result = dbConn->executeQuery("select description , belong2Domain\
                             from GROUP_INFO where name = 'group2'");
     STDSTR testDes;
@@ -208,7 +208,7 @@ TEST(GroupInfoServiceTest , DeleteInfoSuccessTest)
     GroupInfoService waiter;
     waiter.onDeleteInfo(conn , msg , time);
     sleep(3);
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     ResultSetPtr result = dbConn->executeQuery("select description\
                             from GROUP_INFO where name = 'group2'");
     STDSTR testDes("haha");

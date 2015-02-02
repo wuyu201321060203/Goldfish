@@ -1,4 +1,5 @@
 #include <DM/Token.h>
+#include <DM/Initializer.h>
 #include <Db/ConnectionPool.h>
 #include <Db/ResultSet.h>
 #include <mysql/MysqlConnection.h>
@@ -14,14 +15,14 @@
 using namespace OOzdb;
 using std::out_of_range;
 
-extern ConnectionPool g_DbPool;
+//extern ConnectionPool Initializer::getDbPool();
 
 TEST(TokenTest , FirConstructTest)
 {
     STDSTR username("ddcnmb");
     STDSTR belong2Domain("domain1");
     STDSTR belong2Group("group1");
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     ResultSetPtr result = dbConn->executeQuery(
         "select identity from USER_INFO where name = 'ddcnmb'");
     unsigned int identity = 0b11111111;
