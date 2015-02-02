@@ -8,6 +8,7 @@
 #include <muduo/base/Timestamp.h>
 
 #include "Token.h"
+#include "Config.h"
 
 class UserManager
 {

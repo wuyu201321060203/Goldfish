@@ -7,14 +7,15 @@
 
 #include <DM/UserManager.h>
 #include <DM/Config.h>
-#include <Dm/Initializer.h>
-
-
-//extern Initializer g_Initializer;
+#include <DM/Initializer.h>
 
 using namespace muduo;
 using namespace muduo::net;
 using namespace OOzdb;
+
+#ifdef TEST
+extern UserLoginACK testLogin;
+#endif
 
 void UserManager::onUserLogin(TcpConnectionPtr const& conn,
                               MessagePtr const& msg,
@@ -27,6 +28,7 @@ void UserManager::onUserLogin(TcpConnectionPtr const& conn,
                                         username , passwd));
 }
 
+/*
 void UserManager::onVerifyEncryptedToken(TcpConnectionPtr const& conn,
                                          MessagePtr const& msg,
                                          muduo::Timestamp)
@@ -56,16 +58,17 @@ STDSTR UserManager::createEncryptedToken(STDSTR username , ulong identity,
     else
         LOG_INFO << "create encrypted token failed";
 }
+*/
 
 void UserManager::verifyIdentity(TcpConnectionPtr const& conn , STDSTR name,
                                  STDSTR passwd)
 {
-    ConnectionPtr dbConn = g_DbPool.getConnection<MysqlConnection>();
+    ConnectionPtr dbConn = ( Initializer::getDbPool() ).getConnection<MysqlConnection>();
     UserLoginACK reply;
     try
     {
-        ResultSetPtr result = dbConn->executeQuery("select name , identity , belong2Domain , \
-            belong2Group from USER_INFO where name = '%s' and passwd = '%s'",
+        ResultSetPtr result = dbConn->executeQuery("select name, identity, belong2Domain, \
+            belong2Group from USER_INFO where name = '%s' and passwd = '%s'" ,
             name.c_str() , passwd.c_str());
         if(result->next())
         {
@@ -87,8 +90,11 @@ void UserManager::verifyIdentity(TcpConnectionPtr const& conn , STDSTR name,
                     domainName = result->getString(1);
                     STDSTR ip = result->getString(2);
                     int port = result->getInt(3);
+                    /*
                     STDSTR tokenStr = createEncryptedToken(username , authority,
                         domainName , groupName);
+                        */
+                    STDSTR tokenStr("helloworld");
                     reply.set_token(tokenStr);
                     reply.set_dcip(ip);
                     reply.set_dcport(port);
@@ -110,7 +116,10 @@ void UserManager::verifyIdentity(TcpConnectionPtr const& conn , STDSTR name,
 #endif
         reply.set_statuscode(UNKNOWN_SYSERROR);
     }
-    dbConn->close();
+#ifdef TEST
+    testLogin = reply;
+#endif
+   dbConn->close();
 #ifndef TEST
     ( Initializer::getCodec() ).send(conn , reply);
 #endif
