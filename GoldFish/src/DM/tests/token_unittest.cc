@@ -123,3 +123,20 @@ TEST(TokenTest , niuXThanUserTest)
     Token token4(username , identity , belong2Domain , belong2Group);
     EXPECT_TRUE(false == token4.niuXThanCommonUser());
 }
+
+TEST(TokenTest , equalTest)
+{
+    STDSTR username1("ddcnmb");
+    STDSTR belong2Domain1("domain1");
+    STDSTR belong2Group1("group1");
+    unsigned int identity1 = 0b00000000;
+    Token token1(username1 , identity1 , belong2Domain1 , belong2Group1);
+    Token token2(username1 , identity1 , belong2Domain1 , belong2Group1);
+    EXPECT_TRUE(true == (token1 == token2));
+    unsigned int identity2 = 0b00000001;
+    Token token3(username1 , identity2 , belong2Domain1 , belong2Group1);
+    EXPECT_TRUE(false == (token1 == token3));
+    STDSTR username2("ddsb");
+    Token token4(username2 , identity1 , belong2Domain1 , belong2Group1);
+    EXPECT_TRUE(false == (token1 == token4));
+}

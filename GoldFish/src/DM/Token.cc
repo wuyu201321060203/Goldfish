@@ -4,7 +4,7 @@
 #include <muduo/base/Logging.h>
 
 #include <boost/lexical_cast.hpp>
-#include<boost/tokenizer.hpp>
+#include <boost/tokenizer.hpp>
 
 #include <vector>
 #include <stdexcept>
@@ -107,11 +107,6 @@ bool Token::niuXThanCommonUser()
 
 bool Token::operator==(Token const& rhs)
 {
-    return ( (_username == rhs.getUserName()) && (_identity == rhs.getRawIdentity()) &&
+    return ( (_username == rhs.getUserName()) && (_identity.to_string() == rhs.getIdentity()) &&
             (_belong2Domain == rhs.getDomain()) && (_belong2Group == rhs.getGroup()) );
-}
-
-std::bitset<IDENTITY_WIDTH> Token::getRawIdentity() const
-{
-    return _identity;
 }

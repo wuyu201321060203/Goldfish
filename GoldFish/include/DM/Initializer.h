@@ -14,41 +14,41 @@
 #include "ConfigLoader.h"
 #include "Options.h"
 
+typedef std::map<uint32_t , std::string> Cmd2TypeNameMap;
+typedef std::map<std::string , uint32_t> TypeName2CmdMap;
+
 class Initializer
 {
 public:
 
-    Initializer();
-    int init(int , char**);
-    ProtobufCodec& getCodec();
-    ProtobufDispatcher& getDispatcher();
-    muduo::ThreadPool& getThreadPool();
-    muduo::net::EventLoop& getEventLoop();
-    Options& getOptions();
-    uint32_t getCmdByTypename(std::string const&);
-    std::string getTypenameByCmd(uint32_t);
-    void registeRASMsg(uint32_t const& , std::string const&);
+    static int init(int , char**);
+    static ProtobufCodec& getCodec();
+    static ProtobufDispatcher& getDispatcher();
+    static muduo::ThreadPool& getThreadPool();
+    static muduo::net::EventLoop& getEventLoop();
+    static Options& getOptions();
+    static uint32_t getCmdByTypename(std::string const&);
+    static std::string getTypenameByCmd(uint32_t);
+    static void registeRASMsg(uint32_t const& , std::string const&);
 
 private:
 
-    ProtobufDispatcher _dispatcher;
-    ProtobufCodec _codec;
-    muduo::ThreadPool _threadPool;
-    muduo::net::EventLoop _loop;
-    ConfigLoader _loader;
-    Options _options;
-    std::string _path;
-    typedef std::map<uint32_t , std::string> Cmd2TypeNameMap;
-    Cmd2TypeNameMap _cmd2TypeName;
-    typedef std::map<std::string , uint32_t> TypeName2CmdMap;
-    TypeName2CmdMap _typeName2Cmd;
+    static ProtobufDispatcher _dispatcher;
+    static ProtobufCodec _codec;
+    static muduo::ThreadPool _threadPool;
+    static muduo::net::EventLoop _loop;
+    static ConfigLoader _loader;
+    static Options _options;
+    static std::string _path;
+    static Cmd2TypeNameMap _cmd2TypeName;
+    static TypeName2CmdMap _typeName2Cmd;
 
 private:
 
-    void onUnknownMessage(muduo::net::TcpConnectionPtr const& , MessagePtr const&,
+    static void onUnknownMessage(muduo::net::TcpConnectionPtr const& , MessagePtr const&,
                           muduo::Timestamp);
 
-    inline bool parseCommandLine(int  , char**);
+    static bool parseCommandLine(int  , char**);
 
 };
 

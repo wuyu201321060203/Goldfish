@@ -13,14 +13,14 @@
 using namespace muduo;
 using namespace muduo::net;
 
-extern Initializer g_Initializer;//TODO
+//extern Initializer g_Initializer;TODO
 
 void ProtobufRASCodec::fillEmptyBuffer(Buffer* buf,
                                        google::protobuf::Message const& message)
 {
     assert(buf->readableBytes() == 0);
     std::string const& typeName = message.GetTypeName();
-    uint32_t cmd = g_Initializer.getCmdByTypename(typeName);
+    uint32_t cmd = Initializer::getCmdByTypename(typeName);
     buf->appendInt32(cmd);
     GOOGLE_DCHECK(message.IsInitialized()) <<
         InitializationErrorMessage("serialize", message);
@@ -142,7 +142,7 @@ MessagePtr ProtobufRASCodec::parse(char const* buf , int len , uint32_t cmd,
                                    ErrorCode* error)
 {
     MessagePtr message;
-    std::string typeName = g_Initializer.getTypenameByCmd(cmd);//TODO
+    std::string typeName = Initializer::getTypenameByCmd(cmd);//TODO
     message.reset(createMessage(typeName));
     if(message)
     {

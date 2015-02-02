@@ -48,7 +48,7 @@ void UserInfoService::onCreateInfo(TcpConnectionPtr const& conn,
         STDSTR userName = query->username();
         STDSTR passwd = query->password();
         ulong authority = query->authority();
-        (g_Initializer.getThreadPool()).run(boost::bind(&UserInfoService::doCreateUser,
+        (Initializer::getThreadPool()).run(boost::bind(&UserInfoService::doCreateUser,
             this , conn , domainName , groupName , userName , passwd , authority));
     }
     else
@@ -65,7 +65,7 @@ void UserInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
     if(token.niuXThanCommonUser())
     {
         STDSTR userName = query->username();
-        (g_Initializer.getThreadPool()).run(boost::bind(&UserInfoService::doDeleteUser,
+        (Initializer::getThreadPool()).run(boost::bind(&UserInfoService::doDeleteUser,
             this , conn , userName));
     }
     else
@@ -81,7 +81,7 @@ void UserInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
     Token token(tmp);
     STDSTR userName = token.getUserName();
     STDSTR passwd = query->password();
-    (g_Initializer.getThreadPool()).run(boost::bind(&UserInfoService::doUpdateUser,
+    (Initializer::getThreadPool()).run(boost::bind(&UserInfoService::doUpdateUser,
         this , conn , userName , passwd));
 }
 
@@ -92,7 +92,7 @@ void UserInfoService::onGetInfo(TcpConnectionPtr const& conn,
     UserInfoGetMsgPtr query = muduo::down_pointer_cast<UserInfoGetMsg>(msg);
     STDSTR tmp = query->token();
     Token token(tmp);
-    (g_Initializer.getThreadPool()).run(boost::bind(&UserInfoService::doGetUserInfo,
+    (Initializer::getThreadPool()).run(boost::bind(&UserInfoService::doGetUserInfo,
                                         this , conn , token));
 }
 
@@ -140,7 +140,7 @@ void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , STDSTR domainN
     }
     dbConn->close();
 #ifndef TEST
-    ( g_Initializer.getCodec() ).send(conn , reply);
+    ( Initializer::getCodec() ).send(conn , reply);
 #endif
 }
 
@@ -175,7 +175,7 @@ void UserInfoService::doDeleteUser(TcpConnectionPtr const& conn , STDSTR userNam
     }
     dbConn->close();
 #ifndef TEST
-    ( g_Initializer.getCodec() ).send(conn , reply);
+    ( Initializer::getCodec() ).send(conn , reply);
 #endif
 }
 
@@ -211,7 +211,7 @@ void UserInfoService::doUpdateUser(TcpConnectionPtr const& conn , STDSTR userNam
     }
     dbConn->close();
 #ifndef TEST
-    ( g_Initializer.getCodec() ).send(conn , reply);
+    ( Initializer::getCodec() ).send(conn , reply);
 #endif
 }
 
@@ -310,6 +310,6 @@ void UserInfoService::doGetUserInfo(TcpConnectionPtr const& conn , Token token)
     dbConn->close();
     dbConn1->close();
 #ifndef TEST
-    ( g_Initializer.getCodec() ).send(conn , reply);
+    ( Initializer::getCodec() ).send(conn , reply);
 #endif
 }

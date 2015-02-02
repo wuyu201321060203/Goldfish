@@ -23,7 +23,7 @@ using namespace muduo;
 using namespace muduo::net;
 using namespace OOzdb;
 
-extern Initializer g_Initializer;
+//extern Initializer g_Initializer;
 extern OOzdb::ConnectionPool g_DbPool;
 
 ConfigPersistenceACK tPreserveACK;
@@ -38,7 +38,7 @@ TEST(DbAcceptorTest , PreserveSuccessTest)
     InetAddress localAddr(10);
     InetAddress remoteAddr(100);
     int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
-    TcpConnectionPtr conn(new TcpConnection(&g_Initializer.getEventLoop(),
+    TcpConnectionPtr conn(new TcpConnection(&Initializer::getEventLoop(),
                             "test" , socketfd , localAddr , remoteAddr));
     conn->setContext(mutex);
     ConfigPersistenceMsg* msg = new ConfigPersistenceMsg;
@@ -76,7 +76,7 @@ TEST(DbAcceptorTest , PreserveFailTest)
     InetAddress localAddr(10);
     InetAddress remoteAddr(100);
     int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
-    TcpConnectionPtr conn(new TcpConnection(&g_Initializer.getEventLoop(),
+    TcpConnectionPtr conn(new TcpConnection(&Initializer::getEventLoop(),
                             "test" , socketfd , localAddr , remoteAddr));
     conn->setContext(mutex);
     ConfigPersistenceMsg* msg = new ConfigPersistenceMsg;
@@ -96,7 +96,7 @@ TEST(DbAcceptorTest , LoadSuccessTest)
     InetAddress localAddr(10);
     InetAddress remoteAddr(100);
     int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
-    TcpConnectionPtr conn(new TcpConnection(&g_Initializer.getEventLoop(),
+    TcpConnectionPtr conn(new TcpConnection(&Initializer::getEventLoop(),
         "test" , socketfd , localAddr , remoteAddr));
     conn->setContext(mutex);
     ConfigLookupMsg* msg = new ConfigLookupMsg;
@@ -119,7 +119,7 @@ TEST(DbAcceptorTest , LoadFailTest)
     InetAddress localAddr(10);
     InetAddress remoteAddr(100);
     int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
-    TcpConnectionPtr conn(new TcpConnection(&g_Initializer.getEventLoop(),
+    TcpConnectionPtr conn(new TcpConnection(&Initializer::getEventLoop(),
         "test" , socketfd , localAddr , remoteAddr));
     conn->setContext(mutex);
     ConfigLookupMsg* msg = new ConfigLookupMsg;
@@ -137,7 +137,7 @@ TEST(DbAcceptorTest , DeleteSuccessTest)
     InetAddress localAddr(10);
     InetAddress remoteAddr(100);
     int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
-    TcpConnectionPtr conn(new TcpConnection(&g_Initializer.getEventLoop(),
+    TcpConnectionPtr conn(new TcpConnection(&Initializer::getEventLoop(),
                             "test" , socketfd , localAddr , remoteAddr));
     conn->setContext(mutex);
     ConfigDeleteMsg* msg = new ConfigDeleteMsg;
@@ -155,7 +155,7 @@ TEST(DbAcceptorTest , DeleteFailTest)
     InetAddress localAddr(10);
     InetAddress remoteAddr(100);
     int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
-    TcpConnectionPtr conn(new TcpConnection(&g_Initializer.getEventLoop(),
+    TcpConnectionPtr conn(new TcpConnection(&Initializer::getEventLoop(),
                             "test" , socketfd , localAddr , remoteAddr));
     conn->setContext(mutex);
     ConfigDeleteMsg* msg = new ConfigDeleteMsg;

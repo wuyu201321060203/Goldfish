@@ -47,7 +47,7 @@ void GroupInfoService::onCreateInfo(TcpConnectionPtr const& conn,
         std::string groupName = query->groupname();
         std::string belong2Domain = query->belong2domain();
         std::string description = query->groupdescription();
-        ( g_Initializer.getThreadPool() ).run( boost::bind(&GroupInfoService::doCreateGroup,
+        ( Initializer::getThreadPool() ).run( boost::bind(&GroupInfoService::doCreateGroup,
                         this , conn , groupName , belong2Domain , description) );
     }
     else
@@ -64,7 +64,7 @@ void GroupInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
     if(token.niuXThanGroupAdmin())
     {
         std::string groupName = query->groupname();
-        (g_Initializer.getThreadPool()).run(boost::bind(&GroupInfoService::doDeleteGroup,
+        (Initializer::getThreadPool()).run(boost::bind(&GroupInfoService::doDeleteGroup,
             this , conn , groupName));
     }
     else
@@ -82,7 +82,7 @@ void GroupInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
     {
         std::string groupName = query->groupname();
         std::string description = query->groupdescription();
-        (g_Initializer.getThreadPool()).run(boost::bind(&GroupInfoService::doUpdateGroup,
+        (Initializer::getThreadPool()).run(boost::bind(&GroupInfoService::doUpdateGroup,
             this , conn , groupName , description));
     }
     else
@@ -97,7 +97,7 @@ void GroupInfoService::onGetInfo(TcpConnectionPtr const& conn,
     std::string tmp = query->token();
     Token token(tmp);
     std::string groupName = token.getGroup();
-    (g_Initializer.getThreadPool()).run(boost::bind(&GroupInfoService::doGetGroup,
+    (Initializer::getThreadPool()).run(boost::bind(&GroupInfoService::doGetGroup,
         this , conn , groupName));
 }
 
@@ -144,7 +144,7 @@ void GroupInfoService::doCreateGroup(TcpConnectionPtr const& conn , std::string 
     }
     dbConn->close();
 #ifndef TEST
-    ( g_Initializer.getCodec() ).send(conn , reply);
+    ( Initializer::getCodec() ).send(conn , reply);
 #endif
 }
 
@@ -180,7 +180,7 @@ void GroupInfoService::doDeleteGroup(TcpConnectionPtr const& conn , std::string 
     }
     dbConn->close();
 #ifndef TEST
-    ( g_Initializer.getCodec() ).send(conn , reply);
+    ( Initializer::getCodec() ).send(conn , reply);
 #endif
 }
 
@@ -217,7 +217,7 @@ void GroupInfoService::doUpdateGroup(TcpConnectionPtr const& conn , std::string 
     }
     dbConn->close();
 #ifndef TEST
-    ( g_Initializer.getCodec() ).send(conn , reply);
+    ( Initializer::getCodec() ).send(conn , reply);
 #endif
 }
 
@@ -268,6 +268,6 @@ void GroupInfoService::doGetGroup(TcpConnectionPtr const& conn , std::string gro
     }
     dbConn->close();
 #ifndef TEST
-    ( g_Initializer.getCodec() ).send(conn , reply);
+    ( Initializer::getCodec() ).send(conn , reply);
 #endif
 }

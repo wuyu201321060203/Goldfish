@@ -21,7 +21,7 @@
 
 using OOzdb::ConnectionPool;
 
-extern Initializer g_Initializer;
+//extern Initializer g_Initializer;
 extern ConnectionPool g_DbPool;
 
 #ifdef TEST
@@ -43,7 +43,7 @@ void DbAcceptor::onPreserve(TcpConnectionPtr const& conn,
                             MessagePtr const& msg,
                             Timestamp timeStamp)
 {
-    (g_Initializer.getThreadPool()).run( boost::bind(&DbAcceptor::doPreserve , this ,
+    (Initializer::getThreadPool()).run( boost::bind(&DbAcceptor::doPreserve , this ,
                                          conn , msg , timeStamp) );
 }
 
@@ -51,7 +51,7 @@ void DbAcceptor::onLoad(TcpConnectionPtr const& conn,
                         MessagePtr const& msg,
                         muduo::Timestamp timeStamp)
 {
-    (g_Initializer.getThreadPool()).run( boost::bind(&DbAcceptor::doLoad , this ,
+    (Initializer::getThreadPool()).run( boost::bind(&DbAcceptor::doLoad , this ,
                                          conn , msg , timeStamp) );
 }
 
@@ -59,7 +59,7 @@ void DbAcceptor::onDelete(TcpConnectionPtr const& conn,
                           MessagePtr const& msg,
                           muduo::Timestamp timeStamp)
 {
-    (g_Initializer.getThreadPool()).run( boost::bind(&DbAcceptor::doDelete , this ,
+    (Initializer::getThreadPool()).run( boost::bind(&DbAcceptor::doDelete , this ,
                                          conn , msg , timeStamp) );
 }
 
@@ -104,7 +104,7 @@ void DbAcceptor::doPreserve(TcpConnectionPtr const& conn,
 #endif
     }
 #ifndef TEST
-    (g_Initializer.getCodec()).send(conn , reply);
+    (Initializer::getCodec()).send(conn , reply);
 #else
     tPreserveACK = reply;
 #endif
@@ -145,7 +145,7 @@ void DbAcceptor::doLoad(TcpConnectionPtr const& conn,
         reply.set_statuscode(CONFIG_QUERY_FAIL);
     }
 #ifndef TEST
-    (g_Initializer.getCodec()).send(conn , reply);
+    (Initializer::getCodec()).send(conn , reply);
 #else
     tLookUpACK = reply;
 #endif
@@ -185,7 +185,7 @@ void DbAcceptor::doDelete(TcpConnectionPtr const& conn,
 #endif
     }
 #ifndef TEST
-    (g_Initializer.getCodec()).send(conn , reply);
+    (Initializer::getCodec()).send(conn , reply);
 #else
     tDeleteACK = reply;
 #endif

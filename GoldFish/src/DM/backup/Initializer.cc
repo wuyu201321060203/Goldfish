@@ -12,19 +12,15 @@ namespace po = boost::program_options;
 using namespace muduo;
 using namespace muduo::net;
 
-ProtobufDispatcher Initializer::_dispatcher(
-            boost::bind(&Initializer::onUnknownMessage , _1 , _2 , _3));
-
-ProtobufCodec Initializer::_codec(
-            boost::bind(&ProtobufDispatcher::onProtobufMessage , _dispatcher , _1, _2 , _3));
-
-muduo::ThreadPool Initializer::_threadPool;
-muduo::net::EventLoop Initializer::_loop;
-ConfigLoader Initializer::_loader;
-Options Initializer::_options;
-std::string Initializer::_path;
-Cmd2TypeNameMap Initializer::_cmd2TypeName;
-TypeName2CmdMap Initializer::_typeName2Cmd;
+Initializer::Initializer()
+    : _dispatcher(
+            boost::bind(&Initializer::onUnknownMessage , this , _1 , _2 , _3)
+       ),
+      _codec(
+            boost::bind(&ProtobufDispatcher::onProtobufMessage , _dispatcher , _1, _2 , _3)
+       )
+{
+}
 
 int Initializer::init(int argc , char** argv)
 {

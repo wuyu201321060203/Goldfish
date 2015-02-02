@@ -10,7 +10,7 @@
 #include <Dm/Initializer.h>
 
 
-extern Initializer g_Initializer;
+//extern Initializer g_Initializer;
 
 using namespace muduo;
 using namespace muduo::net;
@@ -23,7 +23,7 @@ void UserManager::onUserLogin(TcpConnectionPtr const& conn,
     UserLoginMsgPtr query = muduo::down_pointer_cast<UserLoginMsg>(msg);
     STDSTR username = query->username();
     STDSTR passwd = query->password();
-    (g_Initializer.getThreadPool()).run(boost::bind(&verifyIdentity , conn,
+    (Initializer::getThreadPool()).run(boost::bind(&verifyIdentity , conn,
                                         username , passwd));
 }
 
@@ -34,7 +34,7 @@ void UserManager::onVerifyEncryptedToken(TcpConnectionPtr const& conn,
     TokenIdentifyMsgPtr query = muduo::down_pointer_cast<TokenIdentifyMsg>(msg);
     STDSTR tmp = query->encryptedtoken();
     Token encryptedToken(tmp);
-    //decode
+    //(g_Initializer.getDecoder())
     TokenVec::iterator iter = _rawTokenList.find(rawToken);//TODO
     TokenIdentifyACK reply;
     if(iter != _rawTokenList.end())
@@ -42,7 +42,7 @@ void UserManager::onVerifyEncryptedToken(TcpConnectionPtr const& conn,
     else
         reply.set_statuscode(TOKEN_AUTH_FAIL);
 #ifdef TEST
-    (g_Initializer.getCodec()).send(conn , reply);
+    (Initializer::getCodec()).send(conn , reply);
 #endif
 }
 
@@ -112,6 +112,6 @@ void UserManager::verifyIdentity(TcpConnectionPtr const& conn , STDSTR name,
     }
     dbConn->close();
 #ifndef TEST
-    ( g_Initializer.getCodec() ).send(conn , reply);
+    ( Initializer::getCodec() ).send(conn , reply);
 #endif
 }

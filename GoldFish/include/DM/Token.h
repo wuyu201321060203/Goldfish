@@ -42,8 +42,6 @@ private:
     STDSTR const _delimiter;
     STDSTR _checkSum;
 
-    std::bitset<IDENTITY_WIDTH> getRawIdentity() const;
-
 private:
 
     STDSTR _token;

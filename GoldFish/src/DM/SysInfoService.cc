@@ -13,7 +13,7 @@
 using muduo::net::TcpConnectionPtr;
 using muduo::Timestamp;
 
-extern Initializer g_Initializer;
+//extern Initializer g_Initializer;
 
 void SysInfoService::onSysInfoQuery(TcpConnectionPtr const& conn,
                                     MessagePtr const& msg,
@@ -38,7 +38,7 @@ void SysInfoService::onSysInfoQuery(TcpConnectionPtr const& conn,
             relayMsg.set_timestamp(tmp);
             _dcVec.erase(remove_if(_dcVec.begin() , _dcVec.end() , HelperFunctor()));
             for(TcpConnectionWeakPtr dcConn : _dcVec)
-                ( g_Initializer.getCodec() ).send(dcConn.lock() , relayMsg);//Oops!
+                ( Initializer::getCodec() ).send(dcConn.lock() , relayMsg);//Oops!
             return;
         }
         else
@@ -46,7 +46,7 @@ void SysInfoService::onSysInfoQuery(TcpConnectionPtr const& conn,
     }
     else
         reply.set_statuscode(PERMISSION_DENIED);
-    ( g_Initializer.getCodec() ).send(conn , reply);
+    ( Initializer::getCodec() ).send(conn , reply);
 }
 
 void SysInfoService::onSysInfoReplyFromDC(TcpConnectionPtr const& conn,
@@ -61,7 +61,7 @@ void SysInfoService::onSysInfoReplyFromDC(TcpConnectionPtr const& conn,
     {
         TcpConnectionPtr tmp( (iter->second).lock() );
         if(tmp)
-            ( g_Initializer.getCodec() ).send(tmp , *( dcACK.get() ) );
+            ( Initializer::getCodec() ).send(tmp , *( dcACK.get() ) );
         else
             _cliMap.erase(iter);
     }
