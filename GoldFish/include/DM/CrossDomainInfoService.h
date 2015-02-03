@@ -16,7 +16,6 @@ class CrossDomainInfoService
 {
 public:
 
-    typedef std::vector<TcpConnectionWeakPtr> TcpConnectionWeakPtrVec;
     typedef boost::function<void (TcpConnectionWeakPtrVec&)> DCListGetFunc;
 
     virtual void onCrossDomainInfoQuery(muduo::net::TcpConnectionPtr const&,

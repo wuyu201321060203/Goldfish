@@ -2,6 +2,7 @@
 #define CONFIG_H
 
 #include <string>
+#include <vector>
 
 #include <boost/weak_ptr.hpp>
 
@@ -33,6 +34,7 @@
 #include <protocol/MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.h>
 
 typedef boost::weak_ptr<muduo::net::TcpConnection> TcpConnectionWeakPtr;
+typedef std::vector<TcpConnectionWeakPtr> TcpConnectionWeakPtrVec;
 typedef boost::shared_ptr<google::protobuf::Message> MessagePtr;
 
 /* The macro for most used return value */
