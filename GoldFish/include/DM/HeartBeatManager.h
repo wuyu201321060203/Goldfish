@@ -6,11 +6,12 @@
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/function.hpp>
+#include <boost/bind.hpp>
 
 #include <muduo/base/Timestamp.h>
 #include <muduo/net/TimerId.h>
 #include <muduo/net/EventLoop.h>
-#include <muduo/base/Singleton.h>
+#include <muduo/base/Logging.h>
 
 #include <DM/Config.h>
 #include <DM/Initializer.h>
@@ -60,7 +61,8 @@ public:
                 _callback();
                 _manager->deleteTimerTask(_conn);
             }
-            _taskID = getTimerTask(_timeInterval);
+            else
+                _taskID = getTimerTask(_timeInterval);
         }
 
         void resetTimeout()
