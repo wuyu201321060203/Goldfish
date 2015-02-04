@@ -60,6 +60,11 @@ typedef enum Role
     Slave
 }Role;
 
+#define DES_KEY "01234567899876543210"//must shorter than 24
+#define LEN_OF_KEY 24
+#define ENCODE 0
+#define DECODE 1
+
 /* Table of error code*/
 #define SUCCESS 0
 #define UNKNOWN_TOKEN -1

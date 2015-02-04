@@ -14,7 +14,7 @@ PROTO_SRC_DIR = $(HOME)/Goldfish/GoldFish/src/protocol
 
 CXX = g++
 LDFLAGS = -L$(MUDUO_LIBRARY) -lmuduo_net_cpp11 -lmuduo_base_cpp11 -lpthread -lrt\
-		  -lmysqlclient -llua5.1 -ldl -lboost_program_options -lprotobuf
+		  -lmysqlclient -llua5.1 -ldl -lboost_program_options -lprotobuf -lcrypto
 
 # Flags passed to the preprocessor.
 # Set Google Test's header directory as a system directory, such that
@@ -83,6 +83,9 @@ usermanager_unittest.o : $(USER_DIR)/usermanager_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
 heartbeatmanager_unittest.o : $(USER_DIR)/heartbeatmanager_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+desecbservice_unittest.o : $(USER_DIR)/desecbservice_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
 ConfigLoader.o : $(DM_SRC_DIR)/ConfigLoader.cc
@@ -166,6 +169,12 @@ ProtobufRASCodec.o : $(DM_SRC_DIR)/ProtobufRASCodec.cc
 UserManager.o : $(DM_SRC_DIR)/UserManager.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+DesEcbService.o : $(DM_SRC_DIR)/DesEcbService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+CryptographicService.o : $(DM_SRC_DIR)/CryptographicService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_unittest.o ConfigLoader.o Options.o\
 			  Initializer.o ProtobufCodec.o Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o \
 			  MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
@@ -181,5 +190,6 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  MSG_CLIENT_DM_USER_INFO_GET.pb.o MSG_CLIENT_DM_USER_INFO_UPDATE.pb.o\
 			  userinfoservice_unittest.o ProtobufRASCodec.o rascodec_unittest.o\
 			  UserManager.o MSG_CLIENT_DM_USER_LOG_IN.pb.o usermanager_unittest.o\
-			  heartbeatmanager_unittest.o
+			  heartbeatmanager_unittest.o CryptographicService.o DesEcbService.o\
+			  desecbservice_unittest.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

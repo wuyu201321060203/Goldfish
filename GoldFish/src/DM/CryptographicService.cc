@@ -1,9 +1,9 @@
-#include "CryptographicService.h"
+#include <DM/CryptographicService.h>
 
-Token CryptographicService::encrypt(Token token)
+STDSTR CryptographicService::encrypt(STDSTR const& tokenStr)
 {
 }
 
-Token CryptographicService::decode(Token token)
+STDSTR CryptographicService::decode(STDSTR const& tokenStr)
 {
 }

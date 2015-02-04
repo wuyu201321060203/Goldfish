@@ -7,8 +7,8 @@ class CryptographicService
 {
 public:
 
-    virtual int encrypt(Token&) = 0;
-    virtual int decode(Token&) = 0;
+    virtual STDSTR encrypt(STDSTR const&) = 0;
+    virtual STDSTR decode(STDSTR const&) = 0;
 };
 
 #endif
