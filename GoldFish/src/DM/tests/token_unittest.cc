@@ -30,7 +30,7 @@ TEST(TokenTest , FirConstructTest)
         identity = result->getInt(1);
     Token token(username , identity , belong2Domain , belong2Group);
     STDSTR fakeToken("ddcnmb\r\n00000010\r\ndomain1\r\ngroup1\r\n");
-    fakeToken += token.getCheckSumStr();
+    fakeToken += (token.getCheckSumStr() + "\r\n");
     EXPECT_EQ(fakeToken , token.toString());
     dbConn->close();
 }
@@ -59,6 +59,24 @@ TEST(TokenTest , SecConstructTest)
     );
 }
 
+TEST(TokenTest , AnotherSecConstructTest)
+{
+    STDSTR username("ddcnmb");
+    STDSTR belong2Domain("domain1");
+    STDSTR belong2Group("group1");
+    unsigned int identity = 0b00000010;
+    Token token(username , identity , belong2Domain , belong2Group);
+    STDSTR fake = token.toString() + "abc";
+    STDSTR result;
+    EXPECT_NO_THROW({Token anotherToken(fake); result = anotherToken.toString();});
+    EXPECT_EQ(fake , result);
+    Token sample(result);
+    EXPECT_EQ("ddcnmb" , sample.getUserName());
+    EXPECT_EQ("00000010" , sample.getIdentity());
+    EXPECT_EQ("domain1" , sample.getDomain());
+    EXPECT_EQ("group1" , sample.getGroup());
+}
+
 TEST(TokenTest , niuXThanDATest)
 {
     STDSTR username("ddcnmb");
@@ -78,6 +96,23 @@ TEST(TokenTest , niuXThanDATest)
     EXPECT_TRUE(false == token3.niuXThanDomainAdmin());
     identity = 0b00001001;
     Token token4(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(false == token4.niuXThanDomainAdmin());
+}
+
+TEST(TokenTest , AnotherNiuXThanDATest)
+{
+    STDSTR username("ddcnmb");
+    STDSTR belong2Domain("domain1");
+    STDSTR belong2Group("group1");
+    Token token("ddcnmb\r\n00000000\r\ndomain1\r\ngroup1\r\nabc\r\nefg");
+    EXPECT_TRUE(true == token.niuXThanDomainAdmin());
+    Token token1("ddcnmb\r\n00000010\r\ndomain1\r\ngroup1\r\nabc\r\nefg");
+    EXPECT_TRUE(false == token1.niuXThanDomainAdmin());
+    Token token2("ddcnmb\r\n00000100\r\ndomain1\r\ngroup1\r\nabc\r\nefg");
+    EXPECT_TRUE(false == token2.niuXThanDomainAdmin());
+    Token token3("ddcnmb\r\n00001000\r\ndomain1\r\ngroup1\r\nabc\r\nefg");
+    EXPECT_TRUE(false == token3.niuXThanDomainAdmin());
+    Token token4("ddcnmb\r\n00001001\r\ndomain1\r\ngroup1\r\nabc\r\nefg");
     EXPECT_TRUE(false == token4.niuXThanDomainAdmin());
 }
 

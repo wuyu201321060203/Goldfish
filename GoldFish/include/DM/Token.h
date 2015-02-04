@@ -22,7 +22,6 @@ public:
     Token(STDSTR , unsigned long , STDSTR , STDSTR);
     Token(STDSTR);
     STDSTR toString();
-    int addCheckSum();
     STDSTR getUserName() const;
     STDSTR getIdentity() const;
     STDSTR getDomain() const;
@@ -41,10 +40,11 @@ private:
     STDSTR _belong2Group;
     STDSTR const _delimiter;
     STDSTR _checkSum;
+    STDSTR _token;
 
 private:
 
-    STDSTR _token;
+    int addCheckSum();
 };
 
 #endif

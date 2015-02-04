@@ -32,12 +32,14 @@ Token::Token(STDSTR token):_token(token)
     boost::char_separator<char> sep("\r\n");
     tokenizer tokens(_token, sep);
     vector<STDSTR> temp;
-    temp.reserve(TOKEN_ITEM_NUM);
+    temp.reserve(TOKEN_ITEM_NUM + 1);
     for(tokenizer::iterator tok_iter = tokens.begin() ; tok_iter != tokens.end();
         ++tok_iter)
     {
         temp.push_back(*tok_iter);
     }
+    if(temp.size() == TOKEN_ITEM_NUM + 1)
+        temp.pop_back();
     if( ( temp.size() > TOKEN_ITEM_NUM) ) throw out_of_range("unknown token style");
     int pos = 0;
     _username = temp.at(pos++);
@@ -51,18 +53,6 @@ Token::Token(STDSTR token):_token(token)
 STDSTR Token::toString()
 {
     return _token;
-}
-
-int Token::addCheckSum()
-{
-    int32_t checkSum = static_cast<int32_t>(
-        ::adler32(1,
-        reinterpret_cast<const Bytef*>(_token.c_str()),
-        static_cast<int>(_token.size())));
-    STDSTR checkSumStr = boost::lexical_cast<STDSTR>(checkSum);
-    _checkSum = checkSumStr;
-    _token += checkSumStr;
-    return RET_SUCCESS;
 }
 
 STDSTR Token::getUserName() const
@@ -109,4 +99,16 @@ bool Token::operator==(Token const& rhs)
 {
     return ( (_username == rhs.getUserName()) && (_identity.to_string() == rhs.getIdentity()) &&
             (_belong2Domain == rhs.getDomain()) && (_belong2Group == rhs.getGroup()) );
+}
+
+int Token::addCheckSum()
+{
+    int32_t checkSum = static_cast<int32_t>(
+        ::adler32(1,
+        reinterpret_cast<const Bytef*>(_token.c_str()),
+        static_cast<int>(_token.size())));
+    STDSTR checkSumStr = boost::lexical_cast<STDSTR>(checkSum);
+    _checkSum = checkSumStr;
+    _token += (checkSumStr + _delimiter);
+    return RET_SUCCESS;
 }
