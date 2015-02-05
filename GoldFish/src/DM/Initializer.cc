@@ -21,13 +21,36 @@ ProtobufCodec Initializer::_codec(
             boost::bind(&ProtobufDispatcher::onProtobufMessage , _dispatcher , _1, _2 , _3));
 
 muduo::ThreadPool Initializer::_threadPool;
+
 muduo::net::EventLoop Initializer::_loop;
+
 ConfigLoader Initializer::_loader;
+
 Options Initializer::_options;
+
 std::string Initializer::_path;
+
 Cmd2TypeNameMap Initializer::_cmd2TypeName;
+
 TypeName2CmdMap Initializer::_typeName2Cmd;
+
 ConnectionPool Initializer::_dbPool("mysql://root:123@localhost:3306/DM");
+
+uint32_t Initializer::_frameworkID = 0;
+
+uint32_t Initializer::_frameworkInstanceID = 0;
+
+std::string Initializer::_dockerTag;
+
+std::string Initializer::_execFilePathList;
+
+uint16_t Initializer::_cliPort = 0;
+
+uint16_t Initializer::_dcPort = 0;
+
+std::string Initializer::_rcIP;
+
+uint16_t Initializer::_rcPort = 0;
 
 int Initializer::init(int argc , char** argv)
 {
@@ -89,6 +112,86 @@ void Initializer::registeRASMsg(uint32_t const& cmd , STDSTR const& typeName)
 ConnectionPool& Initializer::getDbPool()
 {
     return _dbPool;
+}
+
+void Initializer::setFrameworkID(uint32_t id)
+{
+    _frameworkID = id;
+}
+
+uint32_t Initializer::getFrameworkID()
+{
+    return _frameworkID;
+}
+
+void Initializer::setFrameworkInstanceID(uint32_t id)
+{
+    _frameworkInstanceID = id;
+}
+
+uint32_t Initializer::getFrameworkInstanceID()
+{
+    return _frameworkInstanceID;
+}
+
+void Initializer::setDockerTag(std::string tag)
+{
+    _dockerTag = tag;
+}
+
+std::string Initializer::getDockerTag()
+{
+    return _dockerTag;
+}
+
+void Initializer::setExecFilePathList(std::string path)
+{
+    _execFilePathList = path;
+}
+
+std::string Initializer::getExecFilePathList()
+{
+    return _execFilePathList;
+}
+
+void Initializer::setCliPort(uint16_t port)
+{
+    _cliPort = port;
+}
+
+uint16_t Initializer::getCliPort()
+{
+    return _cliPort;
+}
+
+void Initializer::setDCPort(uint16_t port)
+{
+    _dcPort = port;
+}
+
+uint16_t Initializer::getDCPort()
+{
+    return _dcPort;
+}
+
+void Initializer::setRCIP(std::string ip)
+{
+    _rcIP = ip;
+}
+
+std::string Initializer::getRCIP()
+{
+    return _rcIP;
+}
+
+void Initializer::setRCPort(uint16_t port)
+{
+    _rcPort = port;
+}
+
+uint16_t Initializer::getRCPort()
+{
+    return _rcPort;
 }
 
 void Initializer::onUnknownMessage(TcpConnectionPtr const& conn , MessagePtr const& msg,

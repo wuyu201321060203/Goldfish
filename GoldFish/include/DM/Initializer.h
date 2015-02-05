@@ -33,6 +33,30 @@ public:
     static void registeRASMsg(uint32_t const& , std::string const&);
     static OOzdb::ConnectionPool& getDbPool();
 
+    static void setFrameworkID(uint32_t);
+    static uint32_t getFrameworkID();
+
+    static void setFrameworkInstanceID(uint32_t);
+    static uint32_t getFrameworkInstanceID();
+
+    static void setDockerTag(std::string);
+    static std::string getDockerTag();
+
+    static void setExecFilePathList(std::string);
+    static std::string getExecFilePathList();
+
+    static void setCliPort(uint16_t);
+    static uint16_t getCliPort();
+
+    static void setDCPort(uint16_t);
+    static uint16_t getDCPort();
+
+    static void setRCIP(std::string);
+    static std::string getRCIP();
+
+    static void setRCPort(uint16_t);
+    static uint16_t getRCPort();
+
 private:
 
     static ProtobufDispatcher _dispatcher;
@@ -45,6 +69,14 @@ private:
     static Cmd2TypeNameMap _cmd2TypeName;
     static TypeName2CmdMap _typeName2Cmd;
     static OOzdb::ConnectionPool _dbPool;
+    static uint32_t _frameworkID;
+    static uint32_t _frameworkInstanceID;
+    static std::string _dockerTag;
+    static std::string _execFilePathList;
+    static uint16_t _cliPort;
+    static uint16_t _dcPort;
+    static std::string _rcIP;
+    static uint16_t _rcPort;
 
 private:
 

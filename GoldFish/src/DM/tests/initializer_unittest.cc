@@ -13,7 +13,7 @@ TEST(InitializerTest , InitTest)
 {
     char* config[2] = {"test" , "-c /home/wuyu/Goldfish/GoldFish/src/DM/tests/test.lua"};
     EXPECT_EQ(0 , Initializer::init(2 , config) );
-    EXPECT_EQ(45678 , (Initializer::getOptions()).getDCPort());
+    EXPECT_EQ(0 , (Initializer::getOptions()).getRole());
 }
 
 TEST(InitializerTest , registeMsgTest)

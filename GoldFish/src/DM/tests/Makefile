@@ -175,6 +175,9 @@ DesEcbService.o : $(DM_SRC_DIR)/DesEcbService.cc
 CryptographicService.o : $(DM_SRC_DIR)/CryptographicService.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+ResourceManager.o : $(DM_SRC_DIR)/ResourceManager.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_unittest.o ConfigLoader.o Options.o\
 			  Initializer.o ProtobufCodec.o Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o \
 			  MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
@@ -191,5 +194,5 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  userinfoservice_unittest.o ProtobufRASCodec.o rascodec_unittest.o\
 			  UserManager.o MSG_CLIENT_DM_USER_LOG_IN.pb.o usermanager_unittest.o\
 			  heartbeatmanager_unittest.o CryptographicService.o DesEcbService.o\
-			  desecbservice_unittest.o
+			  desecbservice_unittest.o ResourceManager.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)
