@@ -37,6 +37,8 @@ typedef boost::weak_ptr<muduo::net::TcpConnection> TcpConnectionWeakPtr;
 typedef std::vector<TcpConnectionWeakPtr> TcpConnectionWeakPtrVec;
 typedef boost::shared_ptr<google::protobuf::Message> MessagePtr;
 
+#define CONFIG_FILE_PATH "/home/wuyu/Goldfish/GoldFish/src/DM/DMConfig.lua"
+
 /* The macro for most used return value */
 #define RET_SUCCESS 0
 #define RET_FAIL -1

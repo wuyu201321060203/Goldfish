@@ -2,6 +2,7 @@
 
 #include <boost/bind.hpp>
 #include <boost/program_options.hpp>
+#include <boost/lexical_cast.hpp>
 
 #include <muduo/base/Logging.h>
 
@@ -54,7 +55,7 @@ uint16_t Initializer::_rcPort = 0;
 
 int Initializer::init(int argc , char** argv)
 {
-    if(parseCommandLine(argc , argv))
+    if(parseCommandLineDull(argc , argv))
     {
         _threadPool.start(DEFAULT_THREADS);
         _loader.setConfigFilePath(_path);
@@ -114,19 +115,9 @@ ConnectionPool& Initializer::getDbPool()
     return _dbPool;
 }
 
-void Initializer::setFrameworkID(uint32_t id)
-{
-    _frameworkID = id;
-}
-
 uint32_t Initializer::getFrameworkID()
 {
     return _frameworkID;
-}
-
-void Initializer::setFrameworkInstanceID(uint32_t id)
-{
-    _frameworkInstanceID = id;
 }
 
 uint32_t Initializer::getFrameworkInstanceID()
@@ -134,19 +125,9 @@ uint32_t Initializer::getFrameworkInstanceID()
     return _frameworkInstanceID;
 }
 
-void Initializer::setDockerTag(std::string tag)
-{
-    _dockerTag = tag;
-}
-
 std::string Initializer::getDockerTag()
 {
     return _dockerTag;
-}
-
-void Initializer::setExecFilePathList(std::string path)
-{
-    _execFilePathList = path;
 }
 
 std::string Initializer::getExecFilePathList()
@@ -154,19 +135,9 @@ std::string Initializer::getExecFilePathList()
     return _execFilePathList;
 }
 
-void Initializer::setCliPort(uint16_t port)
-{
-    _cliPort = port;
-}
-
 uint16_t Initializer::getCliPort()
 {
     return _cliPort;
-}
-
-void Initializer::setDCPort(uint16_t port)
-{
-    _dcPort = port;
 }
 
 uint16_t Initializer::getDCPort()
@@ -174,19 +145,9 @@ uint16_t Initializer::getDCPort()
     return _dcPort;
 }
 
-void Initializer::setRCIP(std::string ip)
-{
-    _rcIP = ip;
-}
-
 std::string Initializer::getRCIP()
 {
     return _rcIP;
-}
-
-void Initializer::setRCPort(uint16_t port)
-{
-    _rcPort = port;
 }
 
 uint16_t Initializer::getRCPort()
@@ -217,5 +178,27 @@ bool Initializer::parseCommandLine(int argc , char* argv[])
         std::cout << desc << "\n";
         return false;
     }
+    return true;
+}
+
+bool Initializer::parseCommandLineDull(int argc , char* argv[])
+{
+    _path = CONFIG_FILE_PATH;
+    STDSTR frameworkID(argv[1]);
+    STDSTR frameworkInstanceID(argv[2]);
+    STDSTR dockerTag(argv[3]);
+    STDSTR execFilePathList(argv[4]);
+    STDSTR cliPort(argv[5]);
+    STDSTR dcPort(argv[6]);
+    STDSTR rcIP(argv[7]);
+    STDSTR rcPort(argv[8]);
+    _frameworkID = boost::lexical_cast<uint32_t>(frameworkID);
+    _frameworkInstanceID = boost::lexical_cast<uint32_t>(frameworkInstanceID);
+    _dockerTag = dockerTag;
+    _execFilePathList = execFilePathList;
+    _cliPort = boost::lexical_cast<uint16_t>(cliPort);
+    _dcPort = boost::lexical_cast<uint16_t>(dcPort);
+    _rcIP = rcIP;
+    _rcPort = boost::lexical_cast<uint16_t>(rcPort);
     return true;
 }

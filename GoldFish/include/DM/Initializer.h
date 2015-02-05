@@ -33,28 +33,20 @@ public:
     static void registeRASMsg(uint32_t const& , std::string const&);
     static OOzdb::ConnectionPool& getDbPool();
 
-    static void setFrameworkID(uint32_t);
     static uint32_t getFrameworkID();
 
-    static void setFrameworkInstanceID(uint32_t);
     static uint32_t getFrameworkInstanceID();
 
-    static void setDockerTag(std::string);
     static std::string getDockerTag();
 
-    static void setExecFilePathList(std::string);
     static std::string getExecFilePathList();
 
-    static void setCliPort(uint16_t);
     static uint16_t getCliPort();
 
-    static void setDCPort(uint16_t);
     static uint16_t getDCPort();
 
-    static void setRCIP(std::string);
     static std::string getRCIP();
 
-    static void setRCPort(uint16_t);
     static uint16_t getRCPort();
 
 private:
@@ -84,6 +76,7 @@ private:
                           muduo::Timestamp);
 
     static bool parseCommandLine(int  , char**);
+    static bool parseCommandLineDull(int  , char**);
 
 };
 
