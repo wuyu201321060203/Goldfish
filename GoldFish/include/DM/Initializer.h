@@ -15,6 +15,8 @@
 #include "Options.h"
 #include <Db/ConnectionPool.h>
 
+class HeartBeatManager;
+
 typedef std::map<uint32_t , std::string> Cmd2TypeNameMap;
 typedef std::map<std::string , uint32_t> TypeName2CmdMap;
 
@@ -32,6 +34,7 @@ public:
     static std::string getTypenameByCmd(uint32_t);
     static void registeRASMsg(uint32_t const& , std::string const&);
     static OOzdb::ConnectionPool& getDbPool();
+    static HeartBeatManager& getHeartBeatManager();
 
     static uint32_t getFrameworkID();
 
@@ -49,6 +52,10 @@ public:
 
     static uint16_t getRCPort();
 
+    static std::string getDMIP();
+
+    static uint16_t getDMPort();
+
 private:
 
     static ProtobufDispatcher _dispatcher;
@@ -61,6 +68,7 @@ private:
     static Cmd2TypeNameMap _cmd2TypeName;
     static TypeName2CmdMap _typeName2Cmd;
     static OOzdb::ConnectionPool _dbPool;
+    static HeartBeatManager _heartbeatManager;
     static uint32_t _frameworkID;
     static uint32_t _frameworkInstanceID;
     static std::string _dockerTag;
@@ -69,6 +77,8 @@ private:
     static uint16_t _dcPort;
     static std::string _rcIP;
     static uint16_t _rcPort;
+    static std::string _dmIP;
+    static uint16_t _dmPort;
 
 private:
 

@@ -32,10 +32,15 @@
 #include <protocol/MSG_DC_DM_TOKEN_IDENTIFY.pb.h>
 #include <protocol/MSG_DM_DC_DOMAIN_DBINFO_GET.pb.h>
 #include <protocol/MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.h>
+#include <protocol/ALProtocol.pb.h>
+#include <protocol/FwmNcProtocol.pb.h>
+#include <protocol/FwmRcProtocol.pb.h>
 
 typedef boost::weak_ptr<muduo::net::TcpConnection> TcpConnectionWeakPtr;
 typedef std::vector<TcpConnectionWeakPtr> TcpConnectionWeakPtrVec;
 typedef boost::shared_ptr<google::protobuf::Message> MessagePtr;
+
+#define MODULE_NAME "DM"
 
 #define CONFIG_FILE_PATH "/home/wuyu/Goldfish/GoldFish/src/DM/DMConfig.lua"
 

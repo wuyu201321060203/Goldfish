@@ -8,6 +8,7 @@
 
 #include <DM/Config.h>
 #include <DM/Initializer.h>
+#include <DM/HeartBeatManager.h>
 
 namespace po = boost::program_options;
 
@@ -35,7 +36,9 @@ Cmd2TypeNameMap Initializer::_cmd2TypeName;
 
 TypeName2CmdMap Initializer::_typeName2Cmd;
 
-ConnectionPool Initializer::_dbPool("mysql://root:123@localhost:3306/DM");
+ConnectionPool Initializer::_dbPool(DB_URL);
+
+HeartBeatManager Initializer::_heartbeatManager;
 
 uint32_t Initializer::_frameworkID = 0;
 
@@ -52,6 +55,10 @@ uint16_t Initializer::_dcPort = 0;
 std::string Initializer::_rcIP;
 
 uint16_t Initializer::_rcPort = 0;
+
+std::string Initializer::_dmIP;
+
+uint16_t Initializer::_dmPort = 0;
 
 int Initializer::init(int argc , char** argv)
 {
@@ -115,6 +122,11 @@ ConnectionPool& Initializer::getDbPool()
     return _dbPool;
 }
 
+HeartBeatManager& Initializer::getHeartBeatManager()
+{
+    return _heartbeatManager;
+}
+
 uint32_t Initializer::getFrameworkID()
 {
     return _frameworkID;
@@ -155,6 +167,16 @@ uint16_t Initializer::getRCPort()
     return _rcPort;
 }
 
+std::string Initializer::getDMIP()
+{
+    return _dmIP;
+}
+
+uint16_t Initializer::getDMPort()
+{
+    return _dmPort;
+}
+
 void Initializer::onUnknownMessage(TcpConnectionPtr const& conn , MessagePtr const& msg,
                                    Timestamp receiveTime)
 {
@@ -192,6 +214,8 @@ bool Initializer::parseCommandLineDull(int argc , char* argv[])
     STDSTR dcPort(argv[6]);
     STDSTR rcIP(argv[7]);
     STDSTR rcPort(argv[8]);
+    STDSTR dmIP(argv[9]);
+    STDSTR dmPort(argv[10]);
     _frameworkID = boost::lexical_cast<uint32_t>(frameworkID);
     _frameworkInstanceID = boost::lexical_cast<uint32_t>(frameworkInstanceID);
     _dockerTag = dockerTag;
@@ -200,5 +224,7 @@ bool Initializer::parseCommandLineDull(int argc , char* argv[])
     _dcPort = boost::lexical_cast<uint16_t>(dcPort);
     _rcIP = rcIP;
     _rcPort = boost::lexical_cast<uint16_t>(rcPort);
+    _dmIP = dmIP;
+    _dmPort = boost::lexical_cast<uint16_t>(dmPort);
     return true;
 }

@@ -122,12 +122,12 @@ class MSG_CLIENT_DM_DOMAIN_CREATE : public ::google::protobuf::Message {
   inline ::std::string* mutable_domaindescription();
   inline ::std::string* release_domaindescription();
   
-  // optional uint32 coreNum = 4;
+  // optional double coreNum = 4;
   inline bool has_corenum() const;
   inline void clear_corenum();
   static const int kCoreNumFieldNumber = 4;
-  inline ::google::protobuf::uint32 corenum() const;
-  inline void set_corenum(::google::protobuf::uint32 value);
+  inline double corenum() const;
+  inline void set_corenum(double value);
   
   // optional uint32 memSize = 5;
   inline bool has_memsize() const;
@@ -135,22 +135,6 @@ class MSG_CLIENT_DM_DOMAIN_CREATE : public ::google::protobuf::Message {
   static const int kMemSizeFieldNumber = 5;
   inline ::google::protobuf::uint32 memsize() const;
   inline void set_memsize(::google::protobuf::uint32 value);
-  
-  // repeated string filePath = 6;
-  inline int filepath_size() const;
-  inline void clear_filepath();
-  static const int kFilePathFieldNumber = 6;
-  inline const ::std::string& filepath(int index) const;
-  inline ::std::string* mutable_filepath(int index);
-  inline void set_filepath(int index, const ::std::string& value);
-  inline void set_filepath(int index, const char* value);
-  inline void set_filepath(int index, const char* value, size_t size);
-  inline ::std::string* add_filepath();
-  inline void add_filepath(const ::std::string& value);
-  inline void add_filepath(const char* value);
-  inline void add_filepath(const char* value, size_t size);
-  inline const ::google::protobuf::RepeatedPtrField< ::std::string>& filepath() const;
-  inline ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_filepath();
   
   // @@protoc_insertion_point(class_scope:MSG_CLIENT_DM_DOMAIN_CREATE)
  private:
@@ -170,12 +154,11 @@ class MSG_CLIENT_DM_DOMAIN_CREATE : public ::google::protobuf::Message {
   ::std::string* token_;
   ::std::string* domainname_;
   ::std::string* domaindescription_;
-  ::google::protobuf::uint32 corenum_;
+  double corenum_;
   ::google::protobuf::uint32 memsize_;
-  ::google::protobuf::RepeatedPtrField< ::std::string> filepath_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
   
   friend void  protobuf_AddDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fCREATE_2eproto();
   friend void protobuf_AssignDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fCREATE_2eproto();
@@ -447,7 +430,7 @@ inline ::std::string* MSG_CLIENT_DM_DOMAIN_CREATE::release_domaindescription() {
   }
 }
 
-// optional uint32 coreNum = 4;
+// optional double coreNum = 4;
 inline bool MSG_CLIENT_DM_DOMAIN_CREATE::has_corenum() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
@@ -458,13 +441,13 @@ inline void MSG_CLIENT_DM_DOMAIN_CREATE::clear_has_corenum() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline void MSG_CLIENT_DM_DOMAIN_CREATE::clear_corenum() {
-  corenum_ = 0u;
+  corenum_ = 0;
   clear_has_corenum();
 }
-inline ::google::protobuf::uint32 MSG_CLIENT_DM_DOMAIN_CREATE::corenum() const {
+inline double MSG_CLIENT_DM_DOMAIN_CREATE::corenum() const {
   return corenum_;
 }
-inline void MSG_CLIENT_DM_DOMAIN_CREATE::set_corenum(::google::protobuf::uint32 value) {
+inline void MSG_CLIENT_DM_DOMAIN_CREATE::set_corenum(double value) {
   set_has_corenum();
   corenum_ = value;
 }
@@ -489,50 +472,6 @@ inline ::google::protobuf::uint32 MSG_CLIENT_DM_DOMAIN_CREATE::memsize() const {
 inline void MSG_CLIENT_DM_DOMAIN_CREATE::set_memsize(::google::protobuf::uint32 value) {
   set_has_memsize();
   memsize_ = value;
-}
-
-// repeated string filePath = 6;
-inline int MSG_CLIENT_DM_DOMAIN_CREATE::filepath_size() const {
-  return filepath_.size();
-}
-inline void MSG_CLIENT_DM_DOMAIN_CREATE::clear_filepath() {
-  filepath_.Clear();
-}
-inline const ::std::string& MSG_CLIENT_DM_DOMAIN_CREATE::filepath(int index) const {
-  return filepath_.Get(index);
-}
-inline ::std::string* MSG_CLIENT_DM_DOMAIN_CREATE::mutable_filepath(int index) {
-  return filepath_.Mutable(index);
-}
-inline void MSG_CLIENT_DM_DOMAIN_CREATE::set_filepath(int index, const ::std::string& value) {
-  filepath_.Mutable(index)->assign(value);
-}
-inline void MSG_CLIENT_DM_DOMAIN_CREATE::set_filepath(int index, const char* value) {
-  filepath_.Mutable(index)->assign(value);
-}
-inline void MSG_CLIENT_DM_DOMAIN_CREATE::set_filepath(int index, const char* value, size_t size) {
-  filepath_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* MSG_CLIENT_DM_DOMAIN_CREATE::add_filepath() {
-  return filepath_.Add();
-}
-inline void MSG_CLIENT_DM_DOMAIN_CREATE::add_filepath(const ::std::string& value) {
-  filepath_.Add()->assign(value);
-}
-inline void MSG_CLIENT_DM_DOMAIN_CREATE::add_filepath(const char* value) {
-  filepath_.Add()->assign(value);
-}
-inline void MSG_CLIENT_DM_DOMAIN_CREATE::add_filepath(const char* value, size_t size) {
-  filepath_.Add()->assign(reinterpret_cast<const char*>(value), size);
-}
-inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
-MSG_CLIENT_DM_DOMAIN_CREATE::filepath() const {
-  return filepath_;
-}
-inline ::google::protobuf::RepeatedPtrField< ::std::string>*
-MSG_CLIENT_DM_DOMAIN_CREATE::mutable_filepath() {
-  return &filepath_;
 }
 
 // -------------------------------------------------------------------

@@ -1,0 +1,133 @@
+package FwmRcProto;
+
+message GpuResourceInfo
+{
+    required string gpu_name = 1;//GPU名
+    optional uint32 gpu_mem_size = 2; //GPU内存大小
+}
+
+message ResourceInfo
+{
+    required double cpu_num = 1; //逻辑cpu个数
+    required uint32 cpu_mem_size = 2; //内存大小，单位为MB
+    optional uint32 gpu_num = 3; // 物理GPU个数
+    repeated GpuResourceInfo gpu_resource_info = 4;//GPU资源信息（其中查询资源类消息才带有此字段）
+}
+
+message FrameworkInstanceInfo
+{
+    required uint32 framework_id = 1; //框架ID
+    required uint32 framework_instance_id = 2; //框架实例ID
+}
+
+message NetAddress
+{
+    required string ip = 1;//ip地址
+    optional uint32 port = 2;//端口号
+}
+
+message AddressResourceInfo
+{
+    required FrameworkInstanceInfo framework_instance_info = 1;//框架实例信息
+    optional string ip = 2;//资源所在机器IP
+    optional ResourceInfo resource_info = 3;//资源量
+}
+
+message FWMasterInfo
+{
+    required string module_name = 1;//模块名
+    optional string FW_master_ip = 2;//FW Master所在机器的IP
+}
+
+message FWMRCRegister
+{
+    required FrameworkInstanceInfo framework_instance_info = 1;//框架实例信息
+    optional FWMasterInfo framework_master_info = 2;//FW Master的信息
+    optional NetAddress data_search_entry = 3;//业务数据查询的入口（包含IP和PORT）
+}
+
+message FWMRCRegisterACK
+{
+    required int32 statuscode = 1;
+}
+
+message EachMachineResourceInfo
+{
+    required string ip = 1;//机器IP
+    optional ResourceInfo resource_info = 2;//资源信息
+}
+
+message RequestSlaveResource
+{
+    required FrameworkInstanceInfo framework_instance_info = 1;//框架实例信息
+    optional string module_name = 2;//模块名
+    repeated EachMachineResourceInfo each_resource_info = 3;//每台机器分别的资源量
+}
+
+message EachNCResourceAddress
+{
+    required NetAddress NC_net_address = 1;//启动模块所在的NC的ip和port
+    optional ResourceInfo resource_info = 2;//在该NC上申请到的资源量
+}
+
+message RespondRequestSlaveResource
+{
+    repeated EachNCResourceAddress address_resource_info = 1;//每个模块所在NC的地址以及在该NC上的资源申请量
+}
+
+//MSG_FWM_RC_SEND_SUCCESS_SLAVE_INFOMATION
+message EachSlaveInfo
+{
+    required FrameworkInstanceInfo framework_instance_info = 1;//FWMaster框架实例的信息
+    optional string framework_slave_ip = 2;//所在机器的IP地址
+    optional uint32 framework_slave_PID = 3;//slave的进程号
+}
+
+message SuccessSlaveInfo
+{
+    repeated EachSlaveInfo success_slave_info = 1;//每个成功启动的FW slave所在的框架实例ID,所在机器的IP和进程号
+}
+
+//MSG_FWM_RC_REQUEST_TASK_RESOURCE
+
+message RequestTaskResource
+{
+    repeated AddressResourceInfo task_resource_info = 1;//各个作业所在的框架实例信息，所在机器以及分别的资源量
+}
+
+//MSG_FWM_RC_REQUEST_TASK_RESOURCE_ACK
+message ResourceAddress
+{
+    required NetAddress NC_net_address = 1;//资源所在机器的NC的IP和PORT
+    optional FrameworkInstanceInfo framework_instance_info = 2;//框架实例信息
+}
+
+message RespondRequestTaskResource
+{
+    repeated ResourceAddress resource_address = 1;//资源所在各个机器的NC的IP和PORT，和框架实例ID
+}
+
+//MSG_FWM_RC_RETURN_TASK_RESOURCE
+message ReturnTaskResource
+{
+    repeated AddressResourceInfo task_resource_info = 1;//各个作业所在的框架实例信息，所在机器以及分别的资源量
+}
+
+//MSG_FWM_RC_SEND_HEARTBEAT
+//负载为FrameworkInstanceInfo
+
+//MSG_FWM_RC_STOP_MODULE
+message IPProcessInfo
+{
+required string ip = 1; //IP地址
+optional uint32 process_id = 2; //进程号
+}
+message StopModuleInfo
+{
+    required FrameworkInstanceInfo framework_Instance = 1; //框架ID和框架实例ID
+    repeated IPProcessInfo ip_process = 2; //IP地址和进程号
+}
+
+//MSG_FWM_NC_CLOSE_FRAMEWORK
+//负载为FrameworkInstanceInfo
+

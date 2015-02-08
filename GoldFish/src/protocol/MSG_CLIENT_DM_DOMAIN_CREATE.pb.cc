@@ -32,13 +32,12 @@ void protobuf_AssignDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fCREATE_2eproto() {
       "MSG_CLIENT_DM_DOMAIN_CREATE.proto");
   GOOGLE_CHECK(file != NULL);
   MSG_CLIENT_DM_DOMAIN_CREATE_descriptor_ = file->message_type(0);
-  static const int MSG_CLIENT_DM_DOMAIN_CREATE_offsets_[6] = {
+  static const int MSG_CLIENT_DM_DOMAIN_CREATE_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_CREATE, token_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_CREATE, domainname_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_CREATE, domaindescription_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_CREATE, corenum_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_CREATE, memsize_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_CREATE, filepath_),
   };
   MSG_CLIENT_DM_DOMAIN_CREATE_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -100,12 +99,12 @@ void protobuf_AddDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fCREATE_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n!MSG_CLIENT_DM_DOMAIN_CREATE.proto\"\217\001\n\033"
-    "MSG_CLIENT_DM_DOMAIN_CREATE\022\r\n\005token\030\001 \001"
-    "(\t\022\022\n\ndomainName\030\002 \001(\t\022\031\n\021domainDescript"
-    "ion\030\003 \001(\t\022\017\n\007coreNum\030\004 \001(\r\022\017\n\007memSize\030\005 "
-    "\001(\r\022\020\n\010filePath\030\006 \003(\t\"5\n\037MSG_DM_CLIENT_D"
-    "OMAIN_CREATE_ACK\022\022\n\nstatusCode\030\001 \001(\005", 236);
+    "\n!MSG_CLIENT_DM_DOMAIN_CREATE.proto\"}\n\033M"
+    "SG_CLIENT_DM_DOMAIN_CREATE\022\r\n\005token\030\001 \001("
+    "\t\022\022\n\ndomainName\030\002 \001(\t\022\031\n\021domainDescripti"
+    "on\030\003 \001(\t\022\017\n\007coreNum\030\004 \001(\001\022\017\n\007memSize\030\005 \001"
+    "(\r\"5\n\037MSG_DM_CLIENT_DOMAIN_CREATE_ACK\022\022\n"
+    "\nstatusCode\030\001 \001(\005", 217);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MSG_CLIENT_DM_DOMAIN_CREATE.proto", &protobuf_RegisterTypes);
   MSG_CLIENT_DM_DOMAIN_CREATE::default_instance_ = new MSG_CLIENT_DM_DOMAIN_CREATE();
@@ -131,7 +130,6 @@ const int MSG_CLIENT_DM_DOMAIN_CREATE::kDomainNameFieldNumber;
 const int MSG_CLIENT_DM_DOMAIN_CREATE::kDomainDescriptionFieldNumber;
 const int MSG_CLIENT_DM_DOMAIN_CREATE::kCoreNumFieldNumber;
 const int MSG_CLIENT_DM_DOMAIN_CREATE::kMemSizeFieldNumber;
-const int MSG_CLIENT_DM_DOMAIN_CREATE::kFilePathFieldNumber;
 #endif  // !_MSC_VER
 
 MSG_CLIENT_DM_DOMAIN_CREATE::MSG_CLIENT_DM_DOMAIN_CREATE()
@@ -153,7 +151,7 @@ void MSG_CLIENT_DM_DOMAIN_CREATE::SharedCtor() {
   token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   domainname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   domaindescription_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  corenum_ = 0u;
+  corenum_ = 0;
   memsize_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -213,10 +211,9 @@ void MSG_CLIENT_DM_DOMAIN_CREATE::Clear() {
         domaindescription_->clear();
       }
     }
-    corenum_ = 0u;
+    corenum_ = 0;
     memsize_ = 0u;
   }
-  filepath_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -273,17 +270,17 @@ bool MSG_CLIENT_DM_DOMAIN_CREATE::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(32)) goto parse_coreNum;
+        if (input->ExpectTag(33)) goto parse_coreNum;
         break;
       }
       
-      // optional uint32 coreNum = 4;
+      // optional double coreNum = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
          parse_coreNum:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, &corenum_)));
           set_has_corenum();
         } else {
@@ -305,24 +302,6 @@ bool MSG_CLIENT_DM_DOMAIN_CREATE::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(50)) goto parse_filePath;
-        break;
-      }
-      
-      // repeated string filePath = 6;
-      case 6: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_filePath:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->add_filepath()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->filepath(0).data(), this->filepath(0).length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(50)) goto parse_filePath;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -372,23 +351,14 @@ void MSG_CLIENT_DM_DOMAIN_CREATE::SerializeWithCachedSizes(
       3, this->domaindescription(), output);
   }
   
-  // optional uint32 coreNum = 4;
+  // optional double coreNum = 4;
   if (has_corenum()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->corenum(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->corenum(), output);
   }
   
   // optional uint32 memSize = 5;
   if (has_memsize()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(5, this->memsize(), output);
-  }
-  
-  // repeated string filePath = 6;
-  for (int i = 0; i < this->filepath_size(); i++) {
-  ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-    this->filepath(i).data(), this->filepath(i).length(),
-    ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      6, this->filepath(i), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -429,23 +399,14 @@ void MSG_CLIENT_DM_DOMAIN_CREATE::SerializeWithCachedSizes(
         3, this->domaindescription(), target);
   }
   
-  // optional uint32 coreNum = 4;
+  // optional double coreNum = 4;
   if (has_corenum()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->corenum(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->corenum(), target);
   }
   
   // optional uint32 memSize = 5;
   if (has_memsize()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(5, this->memsize(), target);
-  }
-  
-  // repeated string filePath = 6;
-  for (int i = 0; i < this->filepath_size(); i++) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->filepath(i).data(), this->filepath(i).length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteStringToArray(6, this->filepath(i), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -480,11 +441,9 @@ int MSG_CLIENT_DM_DOMAIN_CREATE::ByteSize() const {
           this->domaindescription());
     }
     
-    // optional uint32 coreNum = 4;
+    // optional double coreNum = 4;
     if (has_corenum()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->corenum());
+      total_size += 1 + 8;
     }
     
     // optional uint32 memSize = 5;
@@ -495,13 +454,6 @@ int MSG_CLIENT_DM_DOMAIN_CREATE::ByteSize() const {
     }
     
   }
-  // repeated string filePath = 6;
-  total_size += 1 * this->filepath_size();
-  for (int i = 0; i < this->filepath_size(); i++) {
-    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
-      this->filepath(i));
-  }
-  
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -527,7 +479,6 @@ void MSG_CLIENT_DM_DOMAIN_CREATE::MergeFrom(const ::google::protobuf::Message& f
 
 void MSG_CLIENT_DM_DOMAIN_CREATE::MergeFrom(const MSG_CLIENT_DM_DOMAIN_CREATE& from) {
   GOOGLE_CHECK_NE(&from, this);
-  filepath_.MergeFrom(from.filepath_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_token()) {
       set_token(from.token());
@@ -572,7 +523,6 @@ void MSG_CLIENT_DM_DOMAIN_CREATE::Swap(MSG_CLIENT_DM_DOMAIN_CREATE* other) {
     std::swap(domaindescription_, other->domaindescription_);
     std::swap(corenum_, other->corenum_);
     std::swap(memsize_, other->memsize_);
-    filepath_.Swap(&other->filepath_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
