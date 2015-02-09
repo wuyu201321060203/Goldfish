@@ -102,6 +102,8 @@ typedef enum Role
 #define DOMAIN_NO_CONFIG -31
 #define CONFIG_DELETE_FAIL -32
 #define USER_NOT_LOGIN -33
+#define RESOURCE_APPLY_FAIL -34
+#define RESOURCE_REVOKE_FAIL -35
 
 /*
  * protocol macro
@@ -214,18 +216,6 @@ typedef boost::shared_ptr<DomainDbInfoGetMsg> DomainDbInfoGetMsgPtr;
 
 typedef MSG_DC_DM_DOMAIN_DBINFO_GET_ACK DomainDbInfoGetACK;
 typedef boost::shared_ptr<DomainDbInfoGetACK> DomainDbInfoGetACKPtr;
-
-/*
-typedef MSG_DM_RSA_DOMAIN_RESOURCE_APPLY DomainResourceApplyMsg;
-typedef boost::shared_ptr<DomainResourceApplyMsg> DomainResourceApplyMsgPtr;
-*/
-//ACK
-
-/*
-typedef MSG_DM_RSA_DOMAIN_RESOURCE_REVOKE DomainResourceRevokeMsg;
-typedef boost::shared_ptr<DomainResourceRevokeMsg> DomainResourceRevokeMsgPtr;
-*/
-//ACK
 
 typedef MSG_DC_DM_CONFIG_PERSISTENCE ConfigPersistenceMsg;
 typedef boost::shared_ptr<ConfigPersistenceMsg> ConfigPersistenceMsgPtr;

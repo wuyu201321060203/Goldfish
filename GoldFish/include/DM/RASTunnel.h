@@ -39,12 +39,24 @@ public:
 
 private:
 
+    struct DomainInfoCache
+    {
+        std::string _domainName;
+        std::string _domainDescription;
+        double _cpuNum;
+        uint32_t _cpuMemSize;
+        std::string _ip;
+        uint32_t _port;
+    };
+
+private:
+
     muduo::net::TcpClient _rasMasterClient;
-    std::vector<TcpClientPtr> _rasSlaveClientVec;
-    std::vector<TcpConnectionWeakPtr> _cliConnVec;
+    std::vector<TcpConnectionWeakPtr> _cliConnApplyVec;
+    std::vector<TcpConnectionWeakPtr> _cliConnRevokeVec;
     int _status;
     ProtobufRASCodec _rasCodec;
-    bool _waiting4NcReply;
+    std::vector<DomainInfoCache> _cacheVec;
 
 private:
 
