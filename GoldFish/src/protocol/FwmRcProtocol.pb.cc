@@ -17,66 +17,66 @@ namespace FwmRcProto {
 
 namespace {
 
+const ::google::protobuf::Descriptor* FrameworkInstanceInfo_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  FrameworkInstanceInfo_reflection_ = NULL;
 const ::google::protobuf::Descriptor* GpuResourceInfo_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   GpuResourceInfo_reflection_ = NULL;
 const ::google::protobuf::Descriptor* ResourceInfo_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   ResourceInfo_reflection_ = NULL;
-const ::google::protobuf::Descriptor* FrameworkInstanceInfo_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* EachModuleRequestOrReturnResourceInfo_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  FrameworkInstanceInfo_reflection_ = NULL;
+  EachModuleRequestOrReturnResourceInfo_reflection_ = NULL;
 const ::google::protobuf::Descriptor* NetAddress_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   NetAddress_reflection_ = NULL;
-const ::google::protobuf::Descriptor* AddressResourceInfo_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* Register_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  AddressResourceInfo_reflection_ = NULL;
-const ::google::protobuf::Descriptor* FWMasterInfo_descriptor_ = NULL;
+  Register_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RegisterAck_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  FWMasterInfo_reflection_ = NULL;
-const ::google::protobuf::Descriptor* FWMRCRegister_descriptor_ = NULL;
+  RegisterAck_reflection_ = NULL;
+const ::google::protobuf::Descriptor* EachModuleResourceInfo_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  FWMRCRegister_reflection_ = NULL;
-const ::google::protobuf::Descriptor* FWMRCRegisterACK_descriptor_ = NULL;
+  EachModuleResourceInfo_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RequestStartSlave_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  FWMRCRegisterACK_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EachMachineResourceInfo_descriptor_ = NULL;
+  RequestStartSlave_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RequestStartSlaveAck_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  EachMachineResourceInfo_reflection_ = NULL;
-const ::google::protobuf::Descriptor* RequestSlaveResource_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  RequestSlaveResource_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EachNCResourceAddress_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EachNCResourceAddress_reflection_ = NULL;
-const ::google::protobuf::Descriptor* RespondRequestSlaveResource_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  RespondRequestSlaveResource_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EachSlaveInfo_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EachSlaveInfo_reflection_ = NULL;
-const ::google::protobuf::Descriptor* SuccessSlaveInfo_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  SuccessSlaveInfo_reflection_ = NULL;
+  RequestStartSlaveAck_reflection_ = NULL;
 const ::google::protobuf::Descriptor* RequestTaskResource_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   RequestTaskResource_reflection_ = NULL;
-const ::google::protobuf::Descriptor* ResourceAddress_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* RequestTaskResourceAck_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  ResourceAddress_reflection_ = NULL;
-const ::google::protobuf::Descriptor* RespondRequestTaskResource_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  RespondRequestTaskResource_reflection_ = NULL;
+  RequestTaskResourceAck_reflection_ = NULL;
 const ::google::protobuf::Descriptor* ReturnTaskResource_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   ReturnTaskResource_reflection_ = NULL;
-const ::google::protobuf::Descriptor* IPProcessInfo_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* ReturnTaskResourceAck_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  IPProcessInfo_reflection_ = NULL;
-const ::google::protobuf::Descriptor* StopModuleInfo_descriptor_ = NULL;
+  ReturnTaskResourceAck_reflection_ = NULL;
+const ::google::protobuf::Descriptor* StopModule_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  StopModuleInfo_reflection_ = NULL;
+  StopModule_reflection_ = NULL;
+const ::google::protobuf::Descriptor* StopModuleAck_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  StopModuleAck_reflection_ = NULL;
+const ::google::protobuf::Descriptor* HeartBeatInfo_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  HeartBeatInfo_reflection_ = NULL;
+const ::google::protobuf::Descriptor* HeartBeatInfoAck_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  HeartBeatInfoAck_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CloseFrameworkInstanceInfo_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CloseFrameworkInstanceInfo_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CloseFrameworkInstanceInfoAck_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CloseFrameworkInstanceInfoAck_reflection_ = NULL;
 
 }  // namespace
 
@@ -87,7 +87,23 @@ void protobuf_AssignDesc_FwmRcProtocol_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "FwmRcProtocol.proto");
   GOOGLE_CHECK(file != NULL);
-  GpuResourceInfo_descriptor_ = file->message_type(0);
+  FrameworkInstanceInfo_descriptor_ = file->message_type(0);
+  static const int FrameworkInstanceInfo_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FrameworkInstanceInfo, framework_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FrameworkInstanceInfo, framework_instance_id_),
+  };
+  FrameworkInstanceInfo_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      FrameworkInstanceInfo_descriptor_,
+      FrameworkInstanceInfo::default_instance_,
+      FrameworkInstanceInfo_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FrameworkInstanceInfo, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FrameworkInstanceInfo, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(FrameworkInstanceInfo));
+  GpuResourceInfo_descriptor_ = file->message_type(1);
   static const int GpuResourceInfo_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GpuResourceInfo, gpu_name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GpuResourceInfo, gpu_mem_size_),
@@ -103,7 +119,7 @@ void protobuf_AssignDesc_FwmRcProtocol_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(GpuResourceInfo));
-  ResourceInfo_descriptor_ = file->message_type(1);
+  ResourceInfo_descriptor_ = file->message_type(2);
   static const int ResourceInfo_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResourceInfo, cpu_num_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResourceInfo, cpu_mem_size_),
@@ -121,23 +137,23 @@ void protobuf_AssignDesc_FwmRcProtocol_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResourceInfo));
-  FrameworkInstanceInfo_descriptor_ = file->message_type(2);
-  static const int FrameworkInstanceInfo_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FrameworkInstanceInfo, framework_id_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FrameworkInstanceInfo, framework_instance_id_),
+  EachModuleRequestOrReturnResourceInfo_descriptor_ = file->message_type(3);
+  static const int EachModuleRequestOrReturnResourceInfo_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleRequestOrReturnResourceInfo, resource_request_or_return_to_module_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleRequestOrReturnResourceInfo, resource_info_),
   };
-  FrameworkInstanceInfo_reflection_ =
+  EachModuleRequestOrReturnResourceInfo_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      FrameworkInstanceInfo_descriptor_,
-      FrameworkInstanceInfo::default_instance_,
-      FrameworkInstanceInfo_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FrameworkInstanceInfo, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FrameworkInstanceInfo, _unknown_fields_),
+      EachModuleRequestOrReturnResourceInfo_descriptor_,
+      EachModuleRequestOrReturnResourceInfo::default_instance_,
+      EachModuleRequestOrReturnResourceInfo_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleRequestOrReturnResourceInfo, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleRequestOrReturnResourceInfo, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(FrameworkInstanceInfo));
-  NetAddress_descriptor_ = file->message_type(3);
+      sizeof(EachModuleRequestOrReturnResourceInfo));
+  NetAddress_descriptor_ = file->message_type(4);
   static const int NetAddress_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NetAddress, ip_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NetAddress, port_),
@@ -153,170 +169,94 @@ void protobuf_AssignDesc_FwmRcProtocol_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(NetAddress));
-  AddressResourceInfo_descriptor_ = file->message_type(4);
-  static const int AddressResourceInfo_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddressResourceInfo, framework_instance_info_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddressResourceInfo, ip_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddressResourceInfo, resource_info_),
+  Register_descriptor_ = file->message_type(5);
+  static const int Register_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Register, framework_instance_info_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Register, self_module_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Register, data_search_entry_),
   };
-  AddressResourceInfo_reflection_ =
+  Register_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      AddressResourceInfo_descriptor_,
-      AddressResourceInfo::default_instance_,
-      AddressResourceInfo_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddressResourceInfo, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddressResourceInfo, _unknown_fields_),
+      Register_descriptor_,
+      Register::default_instance_,
+      Register_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Register, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Register, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(AddressResourceInfo));
-  FWMasterInfo_descriptor_ = file->message_type(5);
-  static const int FWMasterInfo_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FWMasterInfo, module_name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FWMasterInfo, fw_master_ip_),
+      sizeof(Register));
+  RegisterAck_descriptor_ = file->message_type(6);
+  static const int RegisterAck_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterAck, statuscode_),
   };
-  FWMasterInfo_reflection_ =
+  RegisterAck_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      FWMasterInfo_descriptor_,
-      FWMasterInfo::default_instance_,
-      FWMasterInfo_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FWMasterInfo, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FWMasterInfo, _unknown_fields_),
+      RegisterAck_descriptor_,
+      RegisterAck::default_instance_,
+      RegisterAck_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterAck, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterAck, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(FWMasterInfo));
-  FWMRCRegister_descriptor_ = file->message_type(6);
-  static const int FWMRCRegister_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FWMRCRegister, framework_instance_info_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FWMRCRegister, framework_master_info_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FWMRCRegister, data_search_entry_),
+      sizeof(RegisterAck));
+  EachModuleResourceInfo_descriptor_ = file->message_type(7);
+  static const int EachModuleResourceInfo_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleResourceInfo, ip_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleResourceInfo, resource_info_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleResourceInfo, listen_port_num_),
   };
-  FWMRCRegister_reflection_ =
+  EachModuleResourceInfo_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      FWMRCRegister_descriptor_,
-      FWMRCRegister::default_instance_,
-      FWMRCRegister_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FWMRCRegister, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FWMRCRegister, _unknown_fields_),
+      EachModuleResourceInfo_descriptor_,
+      EachModuleResourceInfo::default_instance_,
+      EachModuleResourceInfo_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleResourceInfo, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleResourceInfo, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(FWMRCRegister));
-  FWMRCRegisterACK_descriptor_ = file->message_type(7);
-  static const int FWMRCRegisterACK_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FWMRCRegisterACK, statuscode_),
+      sizeof(EachModuleResourceInfo));
+  RequestStartSlave_descriptor_ = file->message_type(8);
+  static const int RequestStartSlave_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestStartSlave, framework_instance_info_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestStartSlave, self_module_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestStartSlave, start_module_resource_info_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestStartSlave, fwm_net_address_),
   };
-  FWMRCRegisterACK_reflection_ =
+  RequestStartSlave_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      FWMRCRegisterACK_descriptor_,
-      FWMRCRegisterACK::default_instance_,
-      FWMRCRegisterACK_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FWMRCRegisterACK, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FWMRCRegisterACK, _unknown_fields_),
+      RequestStartSlave_descriptor_,
+      RequestStartSlave::default_instance_,
+      RequestStartSlave_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestStartSlave, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestStartSlave, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(FWMRCRegisterACK));
-  EachMachineResourceInfo_descriptor_ = file->message_type(8);
-  static const int EachMachineResourceInfo_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachMachineResourceInfo, ip_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachMachineResourceInfo, resource_info_),
+      sizeof(RequestStartSlave));
+  RequestStartSlaveAck_descriptor_ = file->message_type(9);
+  static const int RequestStartSlaveAck_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestStartSlaveAck, statuscode_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestStartSlaveAck, module_id_),
   };
-  EachMachineResourceInfo_reflection_ =
+  RequestStartSlaveAck_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      EachMachineResourceInfo_descriptor_,
-      EachMachineResourceInfo::default_instance_,
-      EachMachineResourceInfo_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachMachineResourceInfo, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachMachineResourceInfo, _unknown_fields_),
+      RequestStartSlaveAck_descriptor_,
+      RequestStartSlaveAck::default_instance_,
+      RequestStartSlaveAck_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestStartSlaveAck, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestStartSlaveAck, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(EachMachineResourceInfo));
-  RequestSlaveResource_descriptor_ = file->message_type(9);
-  static const int RequestSlaveResource_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestSlaveResource, framework_instance_info_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestSlaveResource, module_name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestSlaveResource, each_resource_info_),
-  };
-  RequestSlaveResource_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      RequestSlaveResource_descriptor_,
-      RequestSlaveResource::default_instance_,
-      RequestSlaveResource_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestSlaveResource, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestSlaveResource, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(RequestSlaveResource));
-  EachNCResourceAddress_descriptor_ = file->message_type(10);
-  static const int EachNCResourceAddress_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachNCResourceAddress, nc_net_address_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachNCResourceAddress, resource_info_),
-  };
-  EachNCResourceAddress_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      EachNCResourceAddress_descriptor_,
-      EachNCResourceAddress::default_instance_,
-      EachNCResourceAddress_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachNCResourceAddress, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachNCResourceAddress, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(EachNCResourceAddress));
-  RespondRequestSlaveResource_descriptor_ = file->message_type(11);
-  static const int RespondRequestSlaveResource_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RespondRequestSlaveResource, address_resource_info_),
-  };
-  RespondRequestSlaveResource_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      RespondRequestSlaveResource_descriptor_,
-      RespondRequestSlaveResource::default_instance_,
-      RespondRequestSlaveResource_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RespondRequestSlaveResource, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RespondRequestSlaveResource, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(RespondRequestSlaveResource));
-  EachSlaveInfo_descriptor_ = file->message_type(12);
-  static const int EachSlaveInfo_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachSlaveInfo, framework_instance_info_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachSlaveInfo, framework_slave_ip_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachSlaveInfo, framework_slave_pid_),
-  };
-  EachSlaveInfo_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      EachSlaveInfo_descriptor_,
-      EachSlaveInfo::default_instance_,
-      EachSlaveInfo_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachSlaveInfo, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachSlaveInfo, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(EachSlaveInfo));
-  SuccessSlaveInfo_descriptor_ = file->message_type(13);
-  static const int SuccessSlaveInfo_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SuccessSlaveInfo, success_slave_info_),
-  };
-  SuccessSlaveInfo_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      SuccessSlaveInfo_descriptor_,
-      SuccessSlaveInfo::default_instance_,
-      SuccessSlaveInfo_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SuccessSlaveInfo, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SuccessSlaveInfo, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(SuccessSlaveInfo));
-  RequestTaskResource_descriptor_ = file->message_type(14);
-  static const int RequestTaskResource_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestTaskResource, task_resource_info_),
+      sizeof(RequestStartSlaveAck));
+  RequestTaskResource_descriptor_ = file->message_type(10);
+  static const int RequestTaskResource_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestTaskResource, framework_instance_info_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestTaskResource, self_module_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestTaskResource, module_add_resource_info_),
   };
   RequestTaskResource_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -329,40 +269,27 @@ void protobuf_AssignDesc_FwmRcProtocol_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(RequestTaskResource));
-  ResourceAddress_descriptor_ = file->message_type(15);
-  static const int ResourceAddress_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResourceAddress, nc_net_address_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResourceAddress, framework_instance_info_),
+  RequestTaskResourceAck_descriptor_ = file->message_type(11);
+  static const int RequestTaskResourceAck_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestTaskResourceAck, statuscode_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestTaskResourceAck, exceed_module_id_),
   };
-  ResourceAddress_reflection_ =
+  RequestTaskResourceAck_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      ResourceAddress_descriptor_,
-      ResourceAddress::default_instance_,
-      ResourceAddress_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResourceAddress, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResourceAddress, _unknown_fields_),
+      RequestTaskResourceAck_descriptor_,
+      RequestTaskResourceAck::default_instance_,
+      RequestTaskResourceAck_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestTaskResourceAck, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RequestTaskResourceAck, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(ResourceAddress));
-  RespondRequestTaskResource_descriptor_ = file->message_type(16);
-  static const int RespondRequestTaskResource_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RespondRequestTaskResource, resource_address_),
-  };
-  RespondRequestTaskResource_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      RespondRequestTaskResource_descriptor_,
-      RespondRequestTaskResource::default_instance_,
-      RespondRequestTaskResource_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RespondRequestTaskResource, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RespondRequestTaskResource, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(RespondRequestTaskResource));
-  ReturnTaskResource_descriptor_ = file->message_type(17);
-  static const int ReturnTaskResource_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReturnTaskResource, task_resource_info_),
+      sizeof(RequestTaskResourceAck));
+  ReturnTaskResource_descriptor_ = file->message_type(12);
+  static const int ReturnTaskResource_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReturnTaskResource, framework_instance_info_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReturnTaskResource, self_module_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReturnTaskResource, module_return_resource_info_),
   };
   ReturnTaskResource_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -375,38 +302,116 @@ void protobuf_AssignDesc_FwmRcProtocol_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ReturnTaskResource));
-  IPProcessInfo_descriptor_ = file->message_type(18);
-  static const int IPProcessInfo_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IPProcessInfo, ip_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IPProcessInfo, process_id_),
+  ReturnTaskResourceAck_descriptor_ = file->message_type(13);
+  static const int ReturnTaskResourceAck_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReturnTaskResourceAck, statuscode_),
   };
-  IPProcessInfo_reflection_ =
+  ReturnTaskResourceAck_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      IPProcessInfo_descriptor_,
-      IPProcessInfo::default_instance_,
-      IPProcessInfo_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IPProcessInfo, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IPProcessInfo, _unknown_fields_),
+      ReturnTaskResourceAck_descriptor_,
+      ReturnTaskResourceAck::default_instance_,
+      ReturnTaskResourceAck_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReturnTaskResourceAck, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReturnTaskResourceAck, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(IPProcessInfo));
-  StopModuleInfo_descriptor_ = file->message_type(19);
-  static const int StopModuleInfo_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModuleInfo, framework_instance_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModuleInfo, ip_process_),
+      sizeof(ReturnTaskResourceAck));
+  StopModule_descriptor_ = file->message_type(14);
+  static const int StopModule_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModule, framework_instance_info_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModule, self_module_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModule, stop_module_id_),
   };
-  StopModuleInfo_reflection_ =
+  StopModule_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      StopModuleInfo_descriptor_,
-      StopModuleInfo::default_instance_,
-      StopModuleInfo_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModuleInfo, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModuleInfo, _unknown_fields_),
+      StopModule_descriptor_,
+      StopModule::default_instance_,
+      StopModule_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModule, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModule, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(StopModuleInfo));
+      sizeof(StopModule));
+  StopModuleAck_descriptor_ = file->message_type(15);
+  static const int StopModuleAck_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModuleAck, statuscode_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModuleAck, stop_module_id_),
+  };
+  StopModuleAck_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      StopModuleAck_descriptor_,
+      StopModuleAck::default_instance_,
+      StopModuleAck_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModuleAck, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StopModuleAck, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(StopModuleAck));
+  HeartBeatInfo_descriptor_ = file->message_type(16);
+  static const int HeartBeatInfo_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HeartBeatInfo, framework_instance_info_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HeartBeatInfo, self_module_id_),
+  };
+  HeartBeatInfo_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      HeartBeatInfo_descriptor_,
+      HeartBeatInfo::default_instance_,
+      HeartBeatInfo_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HeartBeatInfo, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HeartBeatInfo, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(HeartBeatInfo));
+  HeartBeatInfoAck_descriptor_ = file->message_type(17);
+  static const int HeartBeatInfoAck_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HeartBeatInfoAck, statuscode_),
+  };
+  HeartBeatInfoAck_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      HeartBeatInfoAck_descriptor_,
+      HeartBeatInfoAck::default_instance_,
+      HeartBeatInfoAck_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HeartBeatInfoAck, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HeartBeatInfoAck, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(HeartBeatInfoAck));
+  CloseFrameworkInstanceInfo_descriptor_ = file->message_type(18);
+  static const int CloseFrameworkInstanceInfo_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloseFrameworkInstanceInfo, framework_instance_info_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloseFrameworkInstanceInfo, self_module_id_),
+  };
+  CloseFrameworkInstanceInfo_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CloseFrameworkInstanceInfo_descriptor_,
+      CloseFrameworkInstanceInfo::default_instance_,
+      CloseFrameworkInstanceInfo_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloseFrameworkInstanceInfo, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloseFrameworkInstanceInfo, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CloseFrameworkInstanceInfo));
+  CloseFrameworkInstanceInfoAck_descriptor_ = file->message_type(19);
+  static const int CloseFrameworkInstanceInfoAck_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloseFrameworkInstanceInfoAck, statuscode_),
+  };
+  CloseFrameworkInstanceInfoAck_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CloseFrameworkInstanceInfoAck_descriptor_,
+      CloseFrameworkInstanceInfoAck::default_instance_,
+      CloseFrameworkInstanceInfoAck_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloseFrameworkInstanceInfoAck, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloseFrameworkInstanceInfoAck, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CloseFrameworkInstanceInfoAck));
 }
 
 namespace {
@@ -420,90 +425,90 @@ inline void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    FrameworkInstanceInfo_descriptor_, &FrameworkInstanceInfo::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     GpuResourceInfo_descriptor_, &GpuResourceInfo::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ResourceInfo_descriptor_, &ResourceInfo::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    FrameworkInstanceInfo_descriptor_, &FrameworkInstanceInfo::default_instance());
+    EachModuleRequestOrReturnResourceInfo_descriptor_, &EachModuleRequestOrReturnResourceInfo::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     NetAddress_descriptor_, &NetAddress::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    AddressResourceInfo_descriptor_, &AddressResourceInfo::default_instance());
+    Register_descriptor_, &Register::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    FWMasterInfo_descriptor_, &FWMasterInfo::default_instance());
+    RegisterAck_descriptor_, &RegisterAck::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    FWMRCRegister_descriptor_, &FWMRCRegister::default_instance());
+    EachModuleResourceInfo_descriptor_, &EachModuleResourceInfo::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    FWMRCRegisterACK_descriptor_, &FWMRCRegisterACK::default_instance());
+    RequestStartSlave_descriptor_, &RequestStartSlave::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    EachMachineResourceInfo_descriptor_, &EachMachineResourceInfo::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    RequestSlaveResource_descriptor_, &RequestSlaveResource::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    EachNCResourceAddress_descriptor_, &EachNCResourceAddress::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    RespondRequestSlaveResource_descriptor_, &RespondRequestSlaveResource::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    EachSlaveInfo_descriptor_, &EachSlaveInfo::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    SuccessSlaveInfo_descriptor_, &SuccessSlaveInfo::default_instance());
+    RequestStartSlaveAck_descriptor_, &RequestStartSlaveAck::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     RequestTaskResource_descriptor_, &RequestTaskResource::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    ResourceAddress_descriptor_, &ResourceAddress::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    RespondRequestTaskResource_descriptor_, &RespondRequestTaskResource::default_instance());
+    RequestTaskResourceAck_descriptor_, &RequestTaskResourceAck::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ReturnTaskResource_descriptor_, &ReturnTaskResource::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    IPProcessInfo_descriptor_, &IPProcessInfo::default_instance());
+    ReturnTaskResourceAck_descriptor_, &ReturnTaskResourceAck::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    StopModuleInfo_descriptor_, &StopModuleInfo::default_instance());
+    StopModule_descriptor_, &StopModule::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    StopModuleAck_descriptor_, &StopModuleAck::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    HeartBeatInfo_descriptor_, &HeartBeatInfo::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    HeartBeatInfoAck_descriptor_, &HeartBeatInfoAck::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CloseFrameworkInstanceInfo_descriptor_, &CloseFrameworkInstanceInfo::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CloseFrameworkInstanceInfoAck_descriptor_, &CloseFrameworkInstanceInfoAck::default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_FwmRcProtocol_2eproto() {
+  delete FrameworkInstanceInfo::default_instance_;
+  delete FrameworkInstanceInfo_reflection_;
   delete GpuResourceInfo::default_instance_;
   delete GpuResourceInfo_reflection_;
   delete ResourceInfo::default_instance_;
   delete ResourceInfo_reflection_;
-  delete FrameworkInstanceInfo::default_instance_;
-  delete FrameworkInstanceInfo_reflection_;
+  delete EachModuleRequestOrReturnResourceInfo::default_instance_;
+  delete EachModuleRequestOrReturnResourceInfo_reflection_;
   delete NetAddress::default_instance_;
   delete NetAddress_reflection_;
-  delete AddressResourceInfo::default_instance_;
-  delete AddressResourceInfo_reflection_;
-  delete FWMasterInfo::default_instance_;
-  delete FWMasterInfo_reflection_;
-  delete FWMRCRegister::default_instance_;
-  delete FWMRCRegister_reflection_;
-  delete FWMRCRegisterACK::default_instance_;
-  delete FWMRCRegisterACK_reflection_;
-  delete EachMachineResourceInfo::default_instance_;
-  delete EachMachineResourceInfo_reflection_;
-  delete RequestSlaveResource::default_instance_;
-  delete RequestSlaveResource_reflection_;
-  delete EachNCResourceAddress::default_instance_;
-  delete EachNCResourceAddress_reflection_;
-  delete RespondRequestSlaveResource::default_instance_;
-  delete RespondRequestSlaveResource_reflection_;
-  delete EachSlaveInfo::default_instance_;
-  delete EachSlaveInfo_reflection_;
-  delete SuccessSlaveInfo::default_instance_;
-  delete SuccessSlaveInfo_reflection_;
+  delete Register::default_instance_;
+  delete Register_reflection_;
+  delete RegisterAck::default_instance_;
+  delete RegisterAck_reflection_;
+  delete EachModuleResourceInfo::default_instance_;
+  delete EachModuleResourceInfo_reflection_;
+  delete RequestStartSlave::default_instance_;
+  delete RequestStartSlave_reflection_;
+  delete RequestStartSlaveAck::default_instance_;
+  delete RequestStartSlaveAck_reflection_;
   delete RequestTaskResource::default_instance_;
   delete RequestTaskResource_reflection_;
-  delete ResourceAddress::default_instance_;
-  delete ResourceAddress_reflection_;
-  delete RespondRequestTaskResource::default_instance_;
-  delete RespondRequestTaskResource_reflection_;
+  delete RequestTaskResourceAck::default_instance_;
+  delete RequestTaskResourceAck_reflection_;
   delete ReturnTaskResource::default_instance_;
   delete ReturnTaskResource_reflection_;
-  delete IPProcessInfo::default_instance_;
-  delete IPProcessInfo_reflection_;
-  delete StopModuleInfo::default_instance_;
-  delete StopModuleInfo_reflection_;
+  delete ReturnTaskResourceAck::default_instance_;
+  delete ReturnTaskResourceAck_reflection_;
+  delete StopModule::default_instance_;
+  delete StopModule_reflection_;
+  delete StopModuleAck::default_instance_;
+  delete StopModuleAck_reflection_;
+  delete HeartBeatInfo::default_instance_;
+  delete HeartBeatInfo_reflection_;
+  delete HeartBeatInfoAck::default_instance_;
+  delete HeartBeatInfoAck_reflection_;
+  delete CloseFrameworkInstanceInfo::default_instance_;
+  delete CloseFrameworkInstanceInfo_reflection_;
+  delete CloseFrameworkInstanceInfoAck::default_instance_;
+  delete CloseFrameworkInstanceInfoAck_reflection_;
 }
 
 void protobuf_AddDesc_FwmRcProtocol_2eproto() {
@@ -513,100 +518,101 @@ void protobuf_AddDesc_FwmRcProtocol_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\023FwmRcProtocol.proto\022\nFwmRcProto\"9\n\017Gpu"
-    "ResourceInfo\022\020\n\010gpu_name\030\001 \002(\t\022\024\n\014gpu_me"
-    "m_size\030\002 \001(\r\"~\n\014ResourceInfo\022\017\n\007cpu_num\030"
-    "\001 \002(\001\022\024\n\014cpu_mem_size\030\002 \002(\r\022\017\n\007gpu_num\030\003"
-    " \001(\r\0226\n\021gpu_resource_info\030\004 \003(\0132\033.FwmRcP"
-    "roto.GpuResourceInfo\"L\n\025FrameworkInstanc"
-    "eInfo\022\024\n\014framework_id\030\001 \002(\r\022\035\n\025framework"
-    "_instance_id\030\002 \002(\r\"&\n\nNetAddress\022\n\n\002ip\030\001"
-    " \002(\t\022\014\n\004port\030\002 \001(\r\"\226\001\n\023AddressResourceIn"
-    "fo\022B\n\027framework_instance_info\030\001 \002(\0132!.Fw"
-    "mRcProto.FrameworkInstanceInfo\022\n\n\002ip\030\002 \001"
-    "(\t\022/\n\rresource_info\030\003 \001(\0132\030.FwmRcProto.R"
-    "esourceInfo\"9\n\014FWMasterInfo\022\023\n\013module_na"
-    "me\030\001 \002(\t\022\024\n\014FW_master_ip\030\002 \001(\t\"\277\001\n\rFWMRC"
-    "Register\022B\n\027framework_instance_info\030\001 \002("
-    "\0132!.FwmRcProto.FrameworkInstanceInfo\0227\n\025"
-    "framework_master_info\030\002 \001(\0132\030.FwmRcProto"
-    ".FWMasterInfo\0221\n\021data_search_entry\030\003 \001(\013"
-    "2\026.FwmRcProto.NetAddress\"&\n\020FWMRCRegiste"
-    "rACK\022\022\n\nstatuscode\030\001 \002(\005\"V\n\027EachMachineR"
-    "esourceInfo\022\n\n\002ip\030\001 \002(\t\022/\n\rresource_info"
-    "\030\002 \001(\0132\030.FwmRcProto.ResourceInfo\"\260\001\n\024Req"
-    "uestSlaveResource\022B\n\027framework_instance_"
-    "info\030\001 \002(\0132!.FwmRcProto.FrameworkInstanc"
-    "eInfo\022\023\n\013module_name\030\002 \001(\t\022\?\n\022each_resou"
-    "rce_info\030\003 \003(\0132#.FwmRcProto.EachMachineR"
-    "esourceInfo\"x\n\025EachNCResourceAddress\022.\n\016"
-    "NC_net_address\030\001 \002(\0132\026.FwmRcProto.NetAdd"
-    "ress\022/\n\rresource_info\030\002 \001(\0132\030.FwmRcProto"
-    ".ResourceInfo\"_\n\033RespondRequestSlaveReso"
-    "urce\022@\n\025address_resource_info\030\001 \003(\0132!.Fw"
-    "mRcProto.EachNCResourceAddress\"\214\001\n\rEachS"
-    "laveInfo\022B\n\027framework_instance_info\030\001 \002("
-    "\0132!.FwmRcProto.FrameworkInstanceInfo\022\032\n\022"
-    "framework_slave_ip\030\002 \001(\t\022\033\n\023framework_sl"
-    "ave_PID\030\003 \001(\r\"I\n\020SuccessSlaveInfo\0225\n\022suc"
-    "cess_slave_info\030\001 \003(\0132\031.FwmRcProto.EachS"
-    "laveInfo\"R\n\023RequestTaskResource\022;\n\022task_"
-    "resource_info\030\001 \003(\0132\037.FwmRcProto.Address"
-    "ResourceInfo\"\205\001\n\017ResourceAddress\022.\n\016NC_n"
-    "et_address\030\001 \002(\0132\026.FwmRcProto.NetAddress"
-    "\022B\n\027framework_instance_info\030\002 \001(\0132!.FwmR"
-    "cProto.FrameworkInstanceInfo\"S\n\032RespondR"
-    "equestTaskResource\0225\n\020resource_address\030\001"
-    " \003(\0132\033.FwmRcProto.ResourceAddress\"Q\n\022Ret"
-    "urnTaskResource\022;\n\022task_resource_info\030\001 "
-    "\003(\0132\037.FwmRcProto.AddressResourceInfo\"/\n\r"
-    "IPProcessInfo\022\n\n\002ip\030\001 \002(\t\022\022\n\nprocess_id\030"
-    "\002 \001(\r\"~\n\016StopModuleInfo\022=\n\022framework_Ins"
-    "tance\030\001 \002(\0132!.FwmRcProto.FrameworkInstan"
-    "ceInfo\022-\n\nip_process\030\002 \003(\0132\031.FwmRcProto."
-    "IPProcessInfo", 2053);
+    "\n\023FwmRcProtocol.proto\022\nFwmRcProto\"L\n\025Fra"
+    "meworkInstanceInfo\022\024\n\014framework_id\030\001 \002(\r"
+    "\022\035\n\025framework_instance_id\030\002 \002(\r\"9\n\017GpuRe"
+    "sourceInfo\022\020\n\010gpu_name\030\001 \002(\t\022\024\n\014gpu_mem_"
+    "size\030\002 \001(\r\"~\n\014ResourceInfo\022\017\n\007cpu_num\030\001 "
+    "\002(\001\022\024\n\014cpu_mem_size\030\002 \002(\r\022\017\n\007gpu_num\030\003 \001"
+    "(\r\0226\n\021gpu_resource_info\030\004 \003(\0132\033.FwmRcPro"
+    "to.GpuResourceInfo\"\211\001\n%EachModuleRequest"
+    "OrReturnResourceInfo\022/\n\'resource_request"
+    "_or_return_to_module_id\030\001 \002(\r\022/\n\rresourc"
+    "e_info\030\002 \001(\0132\030.FwmRcProto.ResourceInfo\"&"
+    "\n\nNetAddress\022\n\n\002ip\030\001 \002(\t\022\014\n\004port\030\002 \001(\r\"\231"
+    "\001\n\010Register\022B\n\027framework_instance_info\030\001"
+    " \002(\0132!.FwmRcProto.FrameworkInstanceInfo\022"
+    "\026\n\016self_module_id\030\002 \002(\r\0221\n\021data_search_e"
+    "ntry\030\003 \001(\0132\026.FwmRcProto.NetAddress\"!\n\013Re"
+    "gisterAck\022\022\n\nstatuscode\030\001 \002(\005\"n\n\026EachMod"
+    "uleResourceInfo\022\n\n\002ip\030\001 \002(\t\022/\n\rresource_"
+    "info\030\002 \001(\0132\030.FwmRcProto.ResourceInfo\022\027\n\017"
+    "listen_port_num\030\003 \001(\r\"\350\001\n\021RequestStartSl"
+    "ave\022B\n\027framework_instance_info\030\001 \002(\0132!.F"
+    "wmRcProto.FrameworkInstanceInfo\022\026\n\016self_"
+    "module_id\030\002 \002(\r\022F\n\032start_module_resource"
+    "_info\030\003 \003(\0132\".FwmRcProto.EachModuleResou"
+    "rceInfo\022/\n\017FWM_net_address\030\004 \001(\0132\026.FwmRc"
+    "Proto.NetAddress\"=\n\024RequestStartSlaveAck"
+    "\022\022\n\nstatuscode\030\001 \002(\005\022\021\n\tmodule_id\030\002 \003(\r\""
+    "\306\001\n\023RequestTaskResource\022B\n\027framework_ins"
+    "tance_info\030\001 \002(\0132!.FwmRcProto.FrameworkI"
+    "nstanceInfo\022\026\n\016self_module_id\030\002 \002(\r\022S\n\030m"
+    "odule_add_resource_info\030\003 \003(\01321.FwmRcPro"
+    "to.EachModuleRequestOrReturnResourceInfo"
+    "\"F\n\026RequestTaskResourceAck\022\022\n\nstatuscode"
+    "\030\001 \002(\005\022\030\n\020exceed_module_id\030\002 \003(\r\"\310\001\n\022Ret"
+    "urnTaskResource\022B\n\027framework_instance_in"
+    "fo\030\001 \002(\0132!.FwmRcProto.FrameworkInstanceI"
+    "nfo\022\026\n\016self_module_id\030\002 \002(\r\022V\n\033module_re"
+    "turn_resource_info\030\003 \003(\01321.FwmRcProto.Ea"
+    "chModuleRequestOrReturnResourceInfo\"+\n\025R"
+    "eturnTaskResourceAck\022\022\n\nstatuscode\030\001 \002(\005"
+    "\"\200\001\n\nStopModule\022B\n\027framework_instance_in"
+    "fo\030\001 \002(\0132!.FwmRcProto.FrameworkInstanceI"
+    "nfo\022\026\n\016self_module_id\030\002 \002(\r\022\026\n\016stop_modu"
+    "le_id\030\003 \003(\r\";\n\rStopModuleAck\022\022\n\nstatusco"
+    "de\030\001 \002(\005\022\026\n\016stop_module_id\030\002 \003(\r\"k\n\rHear"
+    "tBeatInfo\022B\n\027framework_instance_info\030\001 \002"
+    "(\0132!.FwmRcProto.FrameworkInstanceInfo\022\026\n"
+    "\016self_module_id\030\002 \002(\r\"&\n\020HeartBeatInfoAc"
+    "k\022\022\n\nstatuscode\030\001 \002(\005\"x\n\032CloseFrameworkI"
+    "nstanceInfo\022B\n\027framework_instance_info\030\001"
+    " \002(\0132!.FwmRcProto.FrameworkInstanceInfo\022"
+    "\026\n\016self_module_id\030\002 \002(\r\"3\n\035CloseFramewor"
+    "kInstanceInfoAck\022\022\n\nstatuscode\030\001 \002(\005", 2116);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "FwmRcProtocol.proto", &protobuf_RegisterTypes);
+  FrameworkInstanceInfo::default_instance_ = new FrameworkInstanceInfo();
   GpuResourceInfo::default_instance_ = new GpuResourceInfo();
   ResourceInfo::default_instance_ = new ResourceInfo();
-  FrameworkInstanceInfo::default_instance_ = new FrameworkInstanceInfo();
+  EachModuleRequestOrReturnResourceInfo::default_instance_ = new EachModuleRequestOrReturnResourceInfo();
   NetAddress::default_instance_ = new NetAddress();
-  AddressResourceInfo::default_instance_ = new AddressResourceInfo();
-  FWMasterInfo::default_instance_ = new FWMasterInfo();
-  FWMRCRegister::default_instance_ = new FWMRCRegister();
-  FWMRCRegisterACK::default_instance_ = new FWMRCRegisterACK();
-  EachMachineResourceInfo::default_instance_ = new EachMachineResourceInfo();
-  RequestSlaveResource::default_instance_ = new RequestSlaveResource();
-  EachNCResourceAddress::default_instance_ = new EachNCResourceAddress();
-  RespondRequestSlaveResource::default_instance_ = new RespondRequestSlaveResource();
-  EachSlaveInfo::default_instance_ = new EachSlaveInfo();
-  SuccessSlaveInfo::default_instance_ = new SuccessSlaveInfo();
+  Register::default_instance_ = new Register();
+  RegisterAck::default_instance_ = new RegisterAck();
+  EachModuleResourceInfo::default_instance_ = new EachModuleResourceInfo();
+  RequestStartSlave::default_instance_ = new RequestStartSlave();
+  RequestStartSlaveAck::default_instance_ = new RequestStartSlaveAck();
   RequestTaskResource::default_instance_ = new RequestTaskResource();
-  ResourceAddress::default_instance_ = new ResourceAddress();
-  RespondRequestTaskResource::default_instance_ = new RespondRequestTaskResource();
+  RequestTaskResourceAck::default_instance_ = new RequestTaskResourceAck();
   ReturnTaskResource::default_instance_ = new ReturnTaskResource();
-  IPProcessInfo::default_instance_ = new IPProcessInfo();
-  StopModuleInfo::default_instance_ = new StopModuleInfo();
+  ReturnTaskResourceAck::default_instance_ = new ReturnTaskResourceAck();
+  StopModule::default_instance_ = new StopModule();
+  StopModuleAck::default_instance_ = new StopModuleAck();
+  HeartBeatInfo::default_instance_ = new HeartBeatInfo();
+  HeartBeatInfoAck::default_instance_ = new HeartBeatInfoAck();
+  CloseFrameworkInstanceInfo::default_instance_ = new CloseFrameworkInstanceInfo();
+  CloseFrameworkInstanceInfoAck::default_instance_ = new CloseFrameworkInstanceInfoAck();
+  FrameworkInstanceInfo::default_instance_->InitAsDefaultInstance();
   GpuResourceInfo::default_instance_->InitAsDefaultInstance();
   ResourceInfo::default_instance_->InitAsDefaultInstance();
-  FrameworkInstanceInfo::default_instance_->InitAsDefaultInstance();
+  EachModuleRequestOrReturnResourceInfo::default_instance_->InitAsDefaultInstance();
   NetAddress::default_instance_->InitAsDefaultInstance();
-  AddressResourceInfo::default_instance_->InitAsDefaultInstance();
-  FWMasterInfo::default_instance_->InitAsDefaultInstance();
-  FWMRCRegister::default_instance_->InitAsDefaultInstance();
-  FWMRCRegisterACK::default_instance_->InitAsDefaultInstance();
-  EachMachineResourceInfo::default_instance_->InitAsDefaultInstance();
-  RequestSlaveResource::default_instance_->InitAsDefaultInstance();
-  EachNCResourceAddress::default_instance_->InitAsDefaultInstance();
-  RespondRequestSlaveResource::default_instance_->InitAsDefaultInstance();
-  EachSlaveInfo::default_instance_->InitAsDefaultInstance();
-  SuccessSlaveInfo::default_instance_->InitAsDefaultInstance();
+  Register::default_instance_->InitAsDefaultInstance();
+  RegisterAck::default_instance_->InitAsDefaultInstance();
+  EachModuleResourceInfo::default_instance_->InitAsDefaultInstance();
+  RequestStartSlave::default_instance_->InitAsDefaultInstance();
+  RequestStartSlaveAck::default_instance_->InitAsDefaultInstance();
   RequestTaskResource::default_instance_->InitAsDefaultInstance();
-  ResourceAddress::default_instance_->InitAsDefaultInstance();
-  RespondRequestTaskResource::default_instance_->InitAsDefaultInstance();
+  RequestTaskResourceAck::default_instance_->InitAsDefaultInstance();
   ReturnTaskResource::default_instance_->InitAsDefaultInstance();
-  IPProcessInfo::default_instance_->InitAsDefaultInstance();
-  StopModuleInfo::default_instance_->InitAsDefaultInstance();
+  ReturnTaskResourceAck::default_instance_->InitAsDefaultInstance();
+  StopModule::default_instance_->InitAsDefaultInstance();
+  StopModuleAck::default_instance_->InitAsDefaultInstance();
+  HeartBeatInfo::default_instance_->InitAsDefaultInstance();
+  HeartBeatInfoAck::default_instance_->InitAsDefaultInstance();
+  CloseFrameworkInstanceInfo::default_instance_->InitAsDefaultInstance();
+  CloseFrameworkInstanceInfoAck::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_FwmRcProtocol_2eproto);
 }
 
@@ -616,6 +622,254 @@ struct StaticDescriptorInitializer_FwmRcProtocol_2eproto {
     protobuf_AddDesc_FwmRcProtocol_2eproto();
   }
 } static_descriptor_initializer_FwmRcProtocol_2eproto_;
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int FrameworkInstanceInfo::kFrameworkIdFieldNumber;
+const int FrameworkInstanceInfo::kFrameworkInstanceIdFieldNumber;
+#endif  // !_MSC_VER
+
+FrameworkInstanceInfo::FrameworkInstanceInfo()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void FrameworkInstanceInfo::InitAsDefaultInstance() {
+}
+
+FrameworkInstanceInfo::FrameworkInstanceInfo(const FrameworkInstanceInfo& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void FrameworkInstanceInfo::SharedCtor() {
+  _cached_size_ = 0;
+  framework_id_ = 0u;
+  framework_instance_id_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+FrameworkInstanceInfo::~FrameworkInstanceInfo() {
+  SharedDtor();
+}
+
+void FrameworkInstanceInfo::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void FrameworkInstanceInfo::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* FrameworkInstanceInfo::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return FrameworkInstanceInfo_descriptor_;
+}
+
+const FrameworkInstanceInfo& FrameworkInstanceInfo::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
+}
+
+FrameworkInstanceInfo* FrameworkInstanceInfo::default_instance_ = NULL;
+
+FrameworkInstanceInfo* FrameworkInstanceInfo::New() const {
+  return new FrameworkInstanceInfo;
+}
+
+void FrameworkInstanceInfo::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    framework_id_ = 0u;
+    framework_instance_id_ = 0u;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool FrameworkInstanceInfo::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required uint32 framework_id = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &framework_id_)));
+          set_has_framework_id();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_framework_instance_id;
+        break;
+      }
+      
+      // required uint32 framework_instance_id = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_framework_instance_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &framework_instance_id_)));
+          set_has_framework_instance_id();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void FrameworkInstanceInfo::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required uint32 framework_id = 1;
+  if (has_framework_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->framework_id(), output);
+  }
+  
+  // required uint32 framework_instance_id = 2;
+  if (has_framework_instance_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->framework_instance_id(), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* FrameworkInstanceInfo::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required uint32 framework_id = 1;
+  if (has_framework_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->framework_id(), target);
+  }
+  
+  // required uint32 framework_instance_id = 2;
+  if (has_framework_instance_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->framework_instance_id(), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int FrameworkInstanceInfo::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required uint32 framework_id = 1;
+    if (has_framework_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->framework_id());
+    }
+    
+    // required uint32 framework_instance_id = 2;
+    if (has_framework_instance_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->framework_instance_id());
+    }
+    
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void FrameworkInstanceInfo::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const FrameworkInstanceInfo* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const FrameworkInstanceInfo*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void FrameworkInstanceInfo::MergeFrom(const FrameworkInstanceInfo& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_framework_id()) {
+      set_framework_id(from.framework_id());
+    }
+    if (from.has_framework_instance_id()) {
+      set_framework_instance_id(from.framework_instance_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void FrameworkInstanceInfo::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void FrameworkInstanceInfo::CopyFrom(const FrameworkInstanceInfo& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FrameworkInstanceInfo::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  
+  return true;
+}
+
+void FrameworkInstanceInfo::Swap(FrameworkInstanceInfo* other) {
+  if (other != this) {
+    std::swap(framework_id_, other->framework_id_);
+    std::swap(framework_instance_id_, other->framework_instance_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata FrameworkInstanceInfo::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = FrameworkInstanceInfo_descriptor_;
+  metadata.reflection = FrameworkInstanceInfo_reflection_;
+  return metadata;
+}
 
 
 // ===================================================================
@@ -1215,99 +1469,101 @@ void ResourceInfo::Swap(ResourceInfo* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int FrameworkInstanceInfo::kFrameworkIdFieldNumber;
-const int FrameworkInstanceInfo::kFrameworkInstanceIdFieldNumber;
+const int EachModuleRequestOrReturnResourceInfo::kResourceRequestOrReturnToModuleIdFieldNumber;
+const int EachModuleRequestOrReturnResourceInfo::kResourceInfoFieldNumber;
 #endif  // !_MSC_VER
 
-FrameworkInstanceInfo::FrameworkInstanceInfo()
+EachModuleRequestOrReturnResourceInfo::EachModuleRequestOrReturnResourceInfo()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void FrameworkInstanceInfo::InitAsDefaultInstance() {
+void EachModuleRequestOrReturnResourceInfo::InitAsDefaultInstance() {
+  resource_info_ = const_cast< ::FwmRcProto::ResourceInfo*>(&::FwmRcProto::ResourceInfo::default_instance());
 }
 
-FrameworkInstanceInfo::FrameworkInstanceInfo(const FrameworkInstanceInfo& from)
+EachModuleRequestOrReturnResourceInfo::EachModuleRequestOrReturnResourceInfo(const EachModuleRequestOrReturnResourceInfo& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void FrameworkInstanceInfo::SharedCtor() {
+void EachModuleRequestOrReturnResourceInfo::SharedCtor() {
   _cached_size_ = 0;
-  framework_id_ = 0u;
-  framework_instance_id_ = 0u;
+  resource_request_or_return_to_module_id_ = 0u;
+  resource_info_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-FrameworkInstanceInfo::~FrameworkInstanceInfo() {
+EachModuleRequestOrReturnResourceInfo::~EachModuleRequestOrReturnResourceInfo() {
   SharedDtor();
 }
 
-void FrameworkInstanceInfo::SharedDtor() {
+void EachModuleRequestOrReturnResourceInfo::SharedDtor() {
   if (this != default_instance_) {
+    delete resource_info_;
   }
 }
 
-void FrameworkInstanceInfo::SetCachedSize(int size) const {
+void EachModuleRequestOrReturnResourceInfo::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* FrameworkInstanceInfo::descriptor() {
+const ::google::protobuf::Descriptor* EachModuleRequestOrReturnResourceInfo::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return FrameworkInstanceInfo_descriptor_;
+  return EachModuleRequestOrReturnResourceInfo_descriptor_;
 }
 
-const FrameworkInstanceInfo& FrameworkInstanceInfo::default_instance() {
+const EachModuleRequestOrReturnResourceInfo& EachModuleRequestOrReturnResourceInfo::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
 }
 
-FrameworkInstanceInfo* FrameworkInstanceInfo::default_instance_ = NULL;
+EachModuleRequestOrReturnResourceInfo* EachModuleRequestOrReturnResourceInfo::default_instance_ = NULL;
 
-FrameworkInstanceInfo* FrameworkInstanceInfo::New() const {
-  return new FrameworkInstanceInfo;
+EachModuleRequestOrReturnResourceInfo* EachModuleRequestOrReturnResourceInfo::New() const {
+  return new EachModuleRequestOrReturnResourceInfo;
 }
 
-void FrameworkInstanceInfo::Clear() {
+void EachModuleRequestOrReturnResourceInfo::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    framework_id_ = 0u;
-    framework_instance_id_ = 0u;
+    resource_request_or_return_to_module_id_ = 0u;
+    if (has_resource_info()) {
+      if (resource_info_ != NULL) resource_info_->::FwmRcProto::ResourceInfo::Clear();
+    }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
-bool FrameworkInstanceInfo::MergePartialFromCodedStream(
+bool EachModuleRequestOrReturnResourceInfo::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 framework_id = 1;
+      // required uint32 resource_request_or_return_to_module_id = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &framework_id_)));
-          set_has_framework_id();
+                 input, &resource_request_or_return_to_module_id_)));
+          set_has_resource_request_or_return_to_module_id();
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(16)) goto parse_framework_instance_id;
+        if (input->ExpectTag(18)) goto parse_resource_info;
         break;
       }
       
-      // required uint32 framework_instance_id = 2;
+      // optional .FwmRcProto.ResourceInfo resource_info = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_framework_instance_id:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &framework_instance_id_)));
-          set_has_framework_instance_id();
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_resource_info:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_resource_info()));
         } else {
           goto handle_uninterpreted;
         }
@@ -1331,16 +1587,17 @@ bool FrameworkInstanceInfo::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void FrameworkInstanceInfo::SerializeWithCachedSizes(
+void EachModuleRequestOrReturnResourceInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required uint32 framework_id = 1;
-  if (has_framework_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->framework_id(), output);
+  // required uint32 resource_request_or_return_to_module_id = 1;
+  if (has_resource_request_or_return_to_module_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->resource_request_or_return_to_module_id(), output);
   }
   
-  // required uint32 framework_instance_id = 2;
-  if (has_framework_instance_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->framework_instance_id(), output);
+  // optional .FwmRcProto.ResourceInfo resource_info = 2;
+  if (has_resource_info()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->resource_info(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -1349,16 +1606,18 @@ void FrameworkInstanceInfo::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* FrameworkInstanceInfo::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* EachModuleRequestOrReturnResourceInfo::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required uint32 framework_id = 1;
-  if (has_framework_id()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->framework_id(), target);
+  // required uint32 resource_request_or_return_to_module_id = 1;
+  if (has_resource_request_or_return_to_module_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->resource_request_or_return_to_module_id(), target);
   }
   
-  // required uint32 framework_instance_id = 2;
-  if (has_framework_instance_id()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->framework_instance_id(), target);
+  // optional .FwmRcProto.ResourceInfo resource_info = 2;
+  if (has_resource_info()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->resource_info(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -1368,22 +1627,22 @@ void FrameworkInstanceInfo::SerializeWithCachedSizes(
   return target;
 }
 
-int FrameworkInstanceInfo::ByteSize() const {
+int EachModuleRequestOrReturnResourceInfo::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 framework_id = 1;
-    if (has_framework_id()) {
+    // required uint32 resource_request_or_return_to_module_id = 1;
+    if (has_resource_request_or_return_to_module_id()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->framework_id());
+          this->resource_request_or_return_to_module_id());
     }
     
-    // required uint32 framework_instance_id = 2;
-    if (has_framework_instance_id()) {
+    // optional .FwmRcProto.ResourceInfo resource_info = 2;
+    if (has_resource_info()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->framework_instance_id());
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->resource_info());
     }
     
   }
@@ -1398,10 +1657,10 @@ int FrameworkInstanceInfo::ByteSize() const {
   return total_size;
 }
 
-void FrameworkInstanceInfo::MergeFrom(const ::google::protobuf::Message& from) {
+void EachModuleRequestOrReturnResourceInfo::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const FrameworkInstanceInfo* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const FrameworkInstanceInfo*>(
+  const EachModuleRequestOrReturnResourceInfo* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const EachModuleRequestOrReturnResourceInfo*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -1410,52 +1669,55 @@ void FrameworkInstanceInfo::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void FrameworkInstanceInfo::MergeFrom(const FrameworkInstanceInfo& from) {
+void EachModuleRequestOrReturnResourceInfo::MergeFrom(const EachModuleRequestOrReturnResourceInfo& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_framework_id()) {
-      set_framework_id(from.framework_id());
+    if (from.has_resource_request_or_return_to_module_id()) {
+      set_resource_request_or_return_to_module_id(from.resource_request_or_return_to_module_id());
     }
-    if (from.has_framework_instance_id()) {
-      set_framework_instance_id(from.framework_instance_id());
+    if (from.has_resource_info()) {
+      mutable_resource_info()->::FwmRcProto::ResourceInfo::MergeFrom(from.resource_info());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void FrameworkInstanceInfo::CopyFrom(const ::google::protobuf::Message& from) {
+void EachModuleRequestOrReturnResourceInfo::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void FrameworkInstanceInfo::CopyFrom(const FrameworkInstanceInfo& from) {
+void EachModuleRequestOrReturnResourceInfo::CopyFrom(const EachModuleRequestOrReturnResourceInfo& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool FrameworkInstanceInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+bool EachModuleRequestOrReturnResourceInfo::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   
+  if (has_resource_info()) {
+    if (!this->resource_info().IsInitialized()) return false;
+  }
   return true;
 }
 
-void FrameworkInstanceInfo::Swap(FrameworkInstanceInfo* other) {
+void EachModuleRequestOrReturnResourceInfo::Swap(EachModuleRequestOrReturnResourceInfo* other) {
   if (other != this) {
-    std::swap(framework_id_, other->framework_id_);
-    std::swap(framework_instance_id_, other->framework_instance_id_);
+    std::swap(resource_request_or_return_to_module_id_, other->resource_request_or_return_to_module_id_);
+    std::swap(resource_info_, other->resource_info_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata FrameworkInstanceInfo::GetMetadata() const {
+::google::protobuf::Metadata EachModuleRequestOrReturnResourceInfo::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = FrameworkInstanceInfo_descriptor_;
-  metadata.reflection = FrameworkInstanceInfo_reflection_;
+  metadata.descriptor = EachModuleRequestOrReturnResourceInfo_descriptor_;
+  metadata.reflection = EachModuleRequestOrReturnResourceInfo_reflection_;
   return metadata;
 }
 
@@ -1728,679 +1990,72 @@ void NetAddress::Swap(NetAddress* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int AddressResourceInfo::kFrameworkInstanceInfoFieldNumber;
-const int AddressResourceInfo::kIpFieldNumber;
-const int AddressResourceInfo::kResourceInfoFieldNumber;
+const int Register::kFrameworkInstanceInfoFieldNumber;
+const int Register::kSelfModuleIdFieldNumber;
+const int Register::kDataSearchEntryFieldNumber;
 #endif  // !_MSC_VER
 
-AddressResourceInfo::AddressResourceInfo()
+Register::Register()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void AddressResourceInfo::InitAsDefaultInstance() {
+void Register::InitAsDefaultInstance() {
   framework_instance_info_ = const_cast< ::FwmRcProto::FrameworkInstanceInfo*>(&::FwmRcProto::FrameworkInstanceInfo::default_instance());
-  resource_info_ = const_cast< ::FwmRcProto::ResourceInfo*>(&::FwmRcProto::ResourceInfo::default_instance());
-}
-
-AddressResourceInfo::AddressResourceInfo(const AddressResourceInfo& from)
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void AddressResourceInfo::SharedCtor() {
-  _cached_size_ = 0;
-  framework_instance_info_ = NULL;
-  ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  resource_info_ = NULL;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-AddressResourceInfo::~AddressResourceInfo() {
-  SharedDtor();
-}
-
-void AddressResourceInfo::SharedDtor() {
-  if (ip_ != &::google::protobuf::internal::kEmptyString) {
-    delete ip_;
-  }
-  if (this != default_instance_) {
-    delete framework_instance_info_;
-    delete resource_info_;
-  }
-}
-
-void AddressResourceInfo::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* AddressResourceInfo::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return AddressResourceInfo_descriptor_;
-}
-
-const AddressResourceInfo& AddressResourceInfo::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
-}
-
-AddressResourceInfo* AddressResourceInfo::default_instance_ = NULL;
-
-AddressResourceInfo* AddressResourceInfo::New() const {
-  return new AddressResourceInfo;
-}
-
-void AddressResourceInfo::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (has_framework_instance_info()) {
-      if (framework_instance_info_ != NULL) framework_instance_info_->::FwmRcProto::FrameworkInstanceInfo::Clear();
-    }
-    if (has_ip()) {
-      if (ip_ != &::google::protobuf::internal::kEmptyString) {
-        ip_->clear();
-      }
-    }
-    if (has_resource_info()) {
-      if (resource_info_ != NULL) resource_info_->::FwmRcProto::ResourceInfo::Clear();
-    }
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
-}
-
-bool AddressResourceInfo::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_framework_instance_info()));
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(18)) goto parse_ip;
-        break;
-      }
-      
-      // optional string ip = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_ip:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_ip()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->ip().data(), this->ip().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(26)) goto parse_resource_info;
-        break;
-      }
-      
-      // optional .FwmRcProto.ResourceInfo resource_info = 3;
-      case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_resource_info:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_resource_info()));
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-      
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void AddressResourceInfo::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
-  if (has_framework_instance_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->framework_instance_info(), output);
-  }
-  
-  // optional string ip = 2;
-  if (has_ip()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->ip().data(), this->ip().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      2, this->ip(), output);
-  }
-  
-  // optional .FwmRcProto.ResourceInfo resource_info = 3;
-  if (has_resource_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, this->resource_info(), output);
-  }
-  
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* AddressResourceInfo::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
-  if (has_framework_instance_info()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, this->framework_instance_info(), target);
-  }
-  
-  // optional string ip = 2;
-  if (has_ip()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->ip().data(), this->ip().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->ip(), target);
-  }
-  
-  // optional .FwmRcProto.ResourceInfo resource_info = 3;
-  if (has_resource_info()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, this->resource_info(), target);
-  }
-  
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
-}
-
-int AddressResourceInfo::ByteSize() const {
-  int total_size = 0;
-  
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
-    if (has_framework_instance_info()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->framework_instance_info());
-    }
-    
-    // optional string ip = 2;
-    if (has_ip()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->ip());
-    }
-    
-    // optional .FwmRcProto.ResourceInfo resource_info = 3;
-    if (has_resource_info()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->resource_info());
-    }
-    
-  }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void AddressResourceInfo::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const AddressResourceInfo* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const AddressResourceInfo*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void AddressResourceInfo::MergeFrom(const AddressResourceInfo& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_framework_instance_info()) {
-      mutable_framework_instance_info()->::FwmRcProto::FrameworkInstanceInfo::MergeFrom(from.framework_instance_info());
-    }
-    if (from.has_ip()) {
-      set_ip(from.ip());
-    }
-    if (from.has_resource_info()) {
-      mutable_resource_info()->::FwmRcProto::ResourceInfo::MergeFrom(from.resource_info());
-    }
-  }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void AddressResourceInfo::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void AddressResourceInfo::CopyFrom(const AddressResourceInfo& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool AddressResourceInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-  
-  if (has_framework_instance_info()) {
-    if (!this->framework_instance_info().IsInitialized()) return false;
-  }
-  if (has_resource_info()) {
-    if (!this->resource_info().IsInitialized()) return false;
-  }
-  return true;
-}
-
-void AddressResourceInfo::Swap(AddressResourceInfo* other) {
-  if (other != this) {
-    std::swap(framework_instance_info_, other->framework_instance_info_);
-    std::swap(ip_, other->ip_);
-    std::swap(resource_info_, other->resource_info_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::google::protobuf::Metadata AddressResourceInfo::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = AddressResourceInfo_descriptor_;
-  metadata.reflection = AddressResourceInfo_reflection_;
-  return metadata;
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int FWMasterInfo::kModuleNameFieldNumber;
-const int FWMasterInfo::kFWMasterIpFieldNumber;
-#endif  // !_MSC_VER
-
-FWMasterInfo::FWMasterInfo()
-  : ::google::protobuf::Message() {
-  SharedCtor();
-}
-
-void FWMasterInfo::InitAsDefaultInstance() {
-}
-
-FWMasterInfo::FWMasterInfo(const FWMasterInfo& from)
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void FWMasterInfo::SharedCtor() {
-  _cached_size_ = 0;
-  module_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  fw_master_ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-FWMasterInfo::~FWMasterInfo() {
-  SharedDtor();
-}
-
-void FWMasterInfo::SharedDtor() {
-  if (module_name_ != &::google::protobuf::internal::kEmptyString) {
-    delete module_name_;
-  }
-  if (fw_master_ip_ != &::google::protobuf::internal::kEmptyString) {
-    delete fw_master_ip_;
-  }
-  if (this != default_instance_) {
-  }
-}
-
-void FWMasterInfo::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* FWMasterInfo::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return FWMasterInfo_descriptor_;
-}
-
-const FWMasterInfo& FWMasterInfo::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
-}
-
-FWMasterInfo* FWMasterInfo::default_instance_ = NULL;
-
-FWMasterInfo* FWMasterInfo::New() const {
-  return new FWMasterInfo;
-}
-
-void FWMasterInfo::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (has_module_name()) {
-      if (module_name_ != &::google::protobuf::internal::kEmptyString) {
-        module_name_->clear();
-      }
-    }
-    if (has_fw_master_ip()) {
-      if (fw_master_ip_ != &::google::protobuf::internal::kEmptyString) {
-        fw_master_ip_->clear();
-      }
-    }
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
-}
-
-bool FWMasterInfo::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required string module_name = 1;
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_module_name()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->module_name().data(), this->module_name().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(18)) goto parse_FW_master_ip;
-        break;
-      }
-      
-      // optional string FW_master_ip = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_FW_master_ip:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_fw_master_ip()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->fw_master_ip().data(), this->fw_master_ip().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-      
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void FWMasterInfo::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // required string module_name = 1;
-  if (has_module_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->module_name().data(), this->module_name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      1, this->module_name(), output);
-  }
-  
-  // optional string FW_master_ip = 2;
-  if (has_fw_master_ip()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->fw_master_ip().data(), this->fw_master_ip().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      2, this->fw_master_ip(), output);
-  }
-  
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* FWMasterInfo::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required string module_name = 1;
-  if (has_module_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->module_name().data(), this->module_name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->module_name(), target);
-  }
-  
-  // optional string FW_master_ip = 2;
-  if (has_fw_master_ip()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->fw_master_ip().data(), this->fw_master_ip().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->fw_master_ip(), target);
-  }
-  
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
-}
-
-int FWMasterInfo::ByteSize() const {
-  int total_size = 0;
-  
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required string module_name = 1;
-    if (has_module_name()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->module_name());
-    }
-    
-    // optional string FW_master_ip = 2;
-    if (has_fw_master_ip()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->fw_master_ip());
-    }
-    
-  }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void FWMasterInfo::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const FWMasterInfo* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const FWMasterInfo*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void FWMasterInfo::MergeFrom(const FWMasterInfo& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_module_name()) {
-      set_module_name(from.module_name());
-    }
-    if (from.has_fw_master_ip()) {
-      set_fw_master_ip(from.fw_master_ip());
-    }
-  }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void FWMasterInfo::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void FWMasterInfo::CopyFrom(const FWMasterInfo& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool FWMasterInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-  
-  return true;
-}
-
-void FWMasterInfo::Swap(FWMasterInfo* other) {
-  if (other != this) {
-    std::swap(module_name_, other->module_name_);
-    std::swap(fw_master_ip_, other->fw_master_ip_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::google::protobuf::Metadata FWMasterInfo::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = FWMasterInfo_descriptor_;
-  metadata.reflection = FWMasterInfo_reflection_;
-  return metadata;
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int FWMRCRegister::kFrameworkInstanceInfoFieldNumber;
-const int FWMRCRegister::kFrameworkMasterInfoFieldNumber;
-const int FWMRCRegister::kDataSearchEntryFieldNumber;
-#endif  // !_MSC_VER
-
-FWMRCRegister::FWMRCRegister()
-  : ::google::protobuf::Message() {
-  SharedCtor();
-}
-
-void FWMRCRegister::InitAsDefaultInstance() {
-  framework_instance_info_ = const_cast< ::FwmRcProto::FrameworkInstanceInfo*>(&::FwmRcProto::FrameworkInstanceInfo::default_instance());
-  framework_master_info_ = const_cast< ::FwmRcProto::FWMasterInfo*>(&::FwmRcProto::FWMasterInfo::default_instance());
   data_search_entry_ = const_cast< ::FwmRcProto::NetAddress*>(&::FwmRcProto::NetAddress::default_instance());
 }
 
-FWMRCRegister::FWMRCRegister(const FWMRCRegister& from)
+Register::Register(const Register& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void FWMRCRegister::SharedCtor() {
+void Register::SharedCtor() {
   _cached_size_ = 0;
   framework_instance_info_ = NULL;
-  framework_master_info_ = NULL;
+  self_module_id_ = 0u;
   data_search_entry_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-FWMRCRegister::~FWMRCRegister() {
+Register::~Register() {
   SharedDtor();
 }
 
-void FWMRCRegister::SharedDtor() {
+void Register::SharedDtor() {
   if (this != default_instance_) {
     delete framework_instance_info_;
-    delete framework_master_info_;
     delete data_search_entry_;
   }
 }
 
-void FWMRCRegister::SetCachedSize(int size) const {
+void Register::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* FWMRCRegister::descriptor() {
+const ::google::protobuf::Descriptor* Register::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return FWMRCRegister_descriptor_;
+  return Register_descriptor_;
 }
 
-const FWMRCRegister& FWMRCRegister::default_instance() {
+const Register& Register::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
 }
 
-FWMRCRegister* FWMRCRegister::default_instance_ = NULL;
+Register* Register::default_instance_ = NULL;
 
-FWMRCRegister* FWMRCRegister::New() const {
-  return new FWMRCRegister;
+Register* Register::New() const {
+  return new Register;
 }
 
-void FWMRCRegister::Clear() {
+void Register::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (has_framework_instance_info()) {
       if (framework_instance_info_ != NULL) framework_instance_info_->::FwmRcProto::FrameworkInstanceInfo::Clear();
     }
-    if (has_framework_master_info()) {
-      if (framework_master_info_ != NULL) framework_master_info_->::FwmRcProto::FWMasterInfo::Clear();
-    }
+    self_module_id_ = 0u;
     if (has_data_search_entry()) {
       if (data_search_entry_ != NULL) data_search_entry_->::FwmRcProto::NetAddress::Clear();
     }
@@ -2409,7 +2064,7 @@ void FWMRCRegister::Clear() {
   mutable_unknown_fields()->Clear();
 }
 
-bool FWMRCRegister::MergePartialFromCodedStream(
+bool Register::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
@@ -2424,17 +2079,19 @@ bool FWMRCRegister::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_framework_master_info;
+        if (input->ExpectTag(16)) goto parse_self_module_id;
         break;
       }
       
-      // optional .FwmRcProto.FWMasterInfo framework_master_info = 2;
+      // required uint32 self_module_id = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_framework_master_info:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_framework_master_info()));
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_self_module_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &self_module_id_)));
+          set_has_self_module_id();
         } else {
           goto handle_uninterpreted;
         }
@@ -2472,7 +2129,7 @@ bool FWMRCRegister::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void FWMRCRegister::SerializeWithCachedSizes(
+void Register::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
   if (has_framework_instance_info()) {
@@ -2480,10 +2137,9 @@ void FWMRCRegister::SerializeWithCachedSizes(
       1, this->framework_instance_info(), output);
   }
   
-  // optional .FwmRcProto.FWMasterInfo framework_master_info = 2;
-  if (has_framework_master_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->framework_master_info(), output);
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->self_module_id(), output);
   }
   
   // optional .FwmRcProto.NetAddress data_search_entry = 3;
@@ -2498,7 +2154,7 @@ void FWMRCRegister::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* FWMRCRegister::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* Register::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
   if (has_framework_instance_info()) {
@@ -2507,11 +2163,9 @@ void FWMRCRegister::SerializeWithCachedSizes(
         1, this->framework_instance_info(), target);
   }
   
-  // optional .FwmRcProto.FWMasterInfo framework_master_info = 2;
-  if (has_framework_master_info()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->framework_master_info(), target);
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->self_module_id(), target);
   }
   
   // optional .FwmRcProto.NetAddress data_search_entry = 3;
@@ -2528,7 +2182,7 @@ void FWMRCRegister::SerializeWithCachedSizes(
   return target;
 }
 
-int FWMRCRegister::ByteSize() const {
+int Register::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
@@ -2539,11 +2193,11 @@ int FWMRCRegister::ByteSize() const {
           this->framework_instance_info());
     }
     
-    // optional .FwmRcProto.FWMasterInfo framework_master_info = 2;
-    if (has_framework_master_info()) {
+    // required uint32 self_module_id = 2;
+    if (has_self_module_id()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->framework_master_info());
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->self_module_id());
     }
     
     // optional .FwmRcProto.NetAddress data_search_entry = 3;
@@ -2565,10 +2219,10 @@ int FWMRCRegister::ByteSize() const {
   return total_size;
 }
 
-void FWMRCRegister::MergeFrom(const ::google::protobuf::Message& from) {
+void Register::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const FWMRCRegister* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const FWMRCRegister*>(
+  const Register* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Register*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -2577,14 +2231,14 @@ void FWMRCRegister::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void FWMRCRegister::MergeFrom(const FWMRCRegister& from) {
+void Register::MergeFrom(const Register& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_framework_instance_info()) {
       mutable_framework_instance_info()->::FwmRcProto::FrameworkInstanceInfo::MergeFrom(from.framework_instance_info());
     }
-    if (from.has_framework_master_info()) {
-      mutable_framework_master_info()->::FwmRcProto::FWMasterInfo::MergeFrom(from.framework_master_info());
+    if (from.has_self_module_id()) {
+      set_self_module_id(from.self_module_id());
     }
     if (from.has_data_search_entry()) {
       mutable_data_search_entry()->::FwmRcProto::NetAddress::MergeFrom(from.data_search_entry());
@@ -2593,26 +2247,23 @@ void FWMRCRegister::MergeFrom(const FWMRCRegister& from) {
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void FWMRCRegister::CopyFrom(const ::google::protobuf::Message& from) {
+void Register::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void FWMRCRegister::CopyFrom(const FWMRCRegister& from) {
+void Register::CopyFrom(const Register& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool FWMRCRegister::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+bool Register::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   
   if (has_framework_instance_info()) {
     if (!this->framework_instance_info().IsInitialized()) return false;
-  }
-  if (has_framework_master_info()) {
-    if (!this->framework_master_info().IsInitialized()) return false;
   }
   if (has_data_search_entry()) {
     if (!this->data_search_entry().IsInitialized()) return false;
@@ -2620,10 +2271,10 @@ bool FWMRCRegister::IsInitialized() const {
   return true;
 }
 
-void FWMRCRegister::Swap(FWMRCRegister* other) {
+void Register::Swap(Register* other) {
   if (other != this) {
     std::swap(framework_instance_info_, other->framework_instance_info_);
-    std::swap(framework_master_info_, other->framework_master_info_);
+    std::swap(self_module_id_, other->self_module_id_);
     std::swap(data_search_entry_, other->data_search_entry_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
@@ -2631,11 +2282,11 @@ void FWMRCRegister::Swap(FWMRCRegister* other) {
   }
 }
 
-::google::protobuf::Metadata FWMRCRegister::GetMetadata() const {
+::google::protobuf::Metadata Register::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = FWMRCRegister_descriptor_;
-  metadata.reflection = FWMRCRegister_reflection_;
+  metadata.descriptor = Register_descriptor_;
+  metadata.reflection = Register_reflection_;
   return metadata;
 }
 
@@ -2643,59 +2294,59 @@ void FWMRCRegister::Swap(FWMRCRegister* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int FWMRCRegisterACK::kStatuscodeFieldNumber;
+const int RegisterAck::kStatuscodeFieldNumber;
 #endif  // !_MSC_VER
 
-FWMRCRegisterACK::FWMRCRegisterACK()
+RegisterAck::RegisterAck()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void FWMRCRegisterACK::InitAsDefaultInstance() {
+void RegisterAck::InitAsDefaultInstance() {
 }
 
-FWMRCRegisterACK::FWMRCRegisterACK(const FWMRCRegisterACK& from)
+RegisterAck::RegisterAck(const RegisterAck& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void FWMRCRegisterACK::SharedCtor() {
+void RegisterAck::SharedCtor() {
   _cached_size_ = 0;
   statuscode_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-FWMRCRegisterACK::~FWMRCRegisterACK() {
+RegisterAck::~RegisterAck() {
   SharedDtor();
 }
 
-void FWMRCRegisterACK::SharedDtor() {
+void RegisterAck::SharedDtor() {
   if (this != default_instance_) {
   }
 }
 
-void FWMRCRegisterACK::SetCachedSize(int size) const {
+void RegisterAck::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* FWMRCRegisterACK::descriptor() {
+const ::google::protobuf::Descriptor* RegisterAck::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return FWMRCRegisterACK_descriptor_;
+  return RegisterAck_descriptor_;
 }
 
-const FWMRCRegisterACK& FWMRCRegisterACK::default_instance() {
+const RegisterAck& RegisterAck::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
 }
 
-FWMRCRegisterACK* FWMRCRegisterACK::default_instance_ = NULL;
+RegisterAck* RegisterAck::default_instance_ = NULL;
 
-FWMRCRegisterACK* FWMRCRegisterACK::New() const {
-  return new FWMRCRegisterACK;
+RegisterAck* RegisterAck::New() const {
+  return new RegisterAck;
 }
 
-void FWMRCRegisterACK::Clear() {
+void RegisterAck::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     statuscode_ = 0;
   }
@@ -2703,7 +2354,7 @@ void FWMRCRegisterACK::Clear() {
   mutable_unknown_fields()->Clear();
 }
 
-bool FWMRCRegisterACK::MergePartialFromCodedStream(
+bool RegisterAck::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
@@ -2740,7 +2391,7 @@ bool FWMRCRegisterACK::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void FWMRCRegisterACK::SerializeWithCachedSizes(
+void RegisterAck::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required int32 statuscode = 1;
   if (has_statuscode()) {
@@ -2753,7 +2404,7 @@ void FWMRCRegisterACK::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* FWMRCRegisterACK::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* RegisterAck::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // required int32 statuscode = 1;
   if (has_statuscode()) {
@@ -2767,7 +2418,7 @@ void FWMRCRegisterACK::SerializeWithCachedSizes(
   return target;
 }
 
-int FWMRCRegisterACK::ByteSize() const {
+int RegisterAck::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
@@ -2790,10 +2441,10 @@ int FWMRCRegisterACK::ByteSize() const {
   return total_size;
 }
 
-void FWMRCRegisterACK::MergeFrom(const ::google::protobuf::Message& from) {
+void RegisterAck::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const FWMRCRegisterACK* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const FWMRCRegisterACK*>(
+  const RegisterAck* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const RegisterAck*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -2802,7 +2453,7 @@ void FWMRCRegisterACK::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void FWMRCRegisterACK::MergeFrom(const FWMRCRegisterACK& from) {
+void RegisterAck::MergeFrom(const RegisterAck& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_statuscode()) {
@@ -2812,25 +2463,25 @@ void FWMRCRegisterACK::MergeFrom(const FWMRCRegisterACK& from) {
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void FWMRCRegisterACK::CopyFrom(const ::google::protobuf::Message& from) {
+void RegisterAck::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void FWMRCRegisterACK::CopyFrom(const FWMRCRegisterACK& from) {
+void RegisterAck::CopyFrom(const RegisterAck& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool FWMRCRegisterACK::IsInitialized() const {
+bool RegisterAck::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   
   return true;
 }
 
-void FWMRCRegisterACK::Swap(FWMRCRegisterACK* other) {
+void RegisterAck::Swap(RegisterAck* other) {
   if (other != this) {
     std::swap(statuscode_, other->statuscode_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
@@ -2839,11 +2490,11 @@ void FWMRCRegisterACK::Swap(FWMRCRegisterACK* other) {
   }
 }
 
-::google::protobuf::Metadata FWMRCRegisterACK::GetMetadata() const {
+::google::protobuf::Metadata RegisterAck::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = FWMRCRegisterACK_descriptor_;
-  metadata.reflection = FWMRCRegisterACK_reflection_;
+  metadata.descriptor = RegisterAck_descriptor_;
+  metadata.reflection = RegisterAck_reflection_;
   return metadata;
 }
 
@@ -2851,37 +2502,39 @@ void FWMRCRegisterACK::Swap(FWMRCRegisterACK* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int EachMachineResourceInfo::kIpFieldNumber;
-const int EachMachineResourceInfo::kResourceInfoFieldNumber;
+const int EachModuleResourceInfo::kIpFieldNumber;
+const int EachModuleResourceInfo::kResourceInfoFieldNumber;
+const int EachModuleResourceInfo::kListenPortNumFieldNumber;
 #endif  // !_MSC_VER
 
-EachMachineResourceInfo::EachMachineResourceInfo()
+EachModuleResourceInfo::EachModuleResourceInfo()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void EachMachineResourceInfo::InitAsDefaultInstance() {
+void EachModuleResourceInfo::InitAsDefaultInstance() {
   resource_info_ = const_cast< ::FwmRcProto::ResourceInfo*>(&::FwmRcProto::ResourceInfo::default_instance());
 }
 
-EachMachineResourceInfo::EachMachineResourceInfo(const EachMachineResourceInfo& from)
+EachModuleResourceInfo::EachModuleResourceInfo(const EachModuleResourceInfo& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void EachMachineResourceInfo::SharedCtor() {
+void EachModuleResourceInfo::SharedCtor() {
   _cached_size_ = 0;
   ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   resource_info_ = NULL;
+  listen_port_num_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-EachMachineResourceInfo::~EachMachineResourceInfo() {
+EachModuleResourceInfo::~EachModuleResourceInfo() {
   SharedDtor();
 }
 
-void EachMachineResourceInfo::SharedDtor() {
+void EachModuleResourceInfo::SharedDtor() {
   if (ip_ != &::google::protobuf::internal::kEmptyString) {
     delete ip_;
   }
@@ -2890,27 +2543,27 @@ void EachMachineResourceInfo::SharedDtor() {
   }
 }
 
-void EachMachineResourceInfo::SetCachedSize(int size) const {
+void EachModuleResourceInfo::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* EachMachineResourceInfo::descriptor() {
+const ::google::protobuf::Descriptor* EachModuleResourceInfo::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return EachMachineResourceInfo_descriptor_;
+  return EachModuleResourceInfo_descriptor_;
 }
 
-const EachMachineResourceInfo& EachMachineResourceInfo::default_instance() {
+const EachModuleResourceInfo& EachModuleResourceInfo::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
 }
 
-EachMachineResourceInfo* EachMachineResourceInfo::default_instance_ = NULL;
+EachModuleResourceInfo* EachModuleResourceInfo::default_instance_ = NULL;
 
-EachMachineResourceInfo* EachMachineResourceInfo::New() const {
-  return new EachMachineResourceInfo;
+EachModuleResourceInfo* EachModuleResourceInfo::New() const {
+  return new EachModuleResourceInfo;
 }
 
-void EachMachineResourceInfo::Clear() {
+void EachModuleResourceInfo::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (has_ip()) {
       if (ip_ != &::google::protobuf::internal::kEmptyString) {
@@ -2920,12 +2573,13 @@ void EachMachineResourceInfo::Clear() {
     if (has_resource_info()) {
       if (resource_info_ != NULL) resource_info_->::FwmRcProto::ResourceInfo::Clear();
     }
+    listen_port_num_ = 0u;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
-bool EachMachineResourceInfo::MergePartialFromCodedStream(
+bool EachModuleResourceInfo::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
@@ -2957,6 +2611,22 @@ bool EachMachineResourceInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(24)) goto parse_listen_port_num;
+        break;
+      }
+      
+      // optional uint32 listen_port_num = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_listen_port_num:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &listen_port_num_)));
+          set_has_listen_port_num();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -2977,7 +2647,7 @@ bool EachMachineResourceInfo::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void EachMachineResourceInfo::SerializeWithCachedSizes(
+void EachModuleResourceInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required string ip = 1;
   if (has_ip()) {
@@ -2994,13 +2664,18 @@ void EachMachineResourceInfo::SerializeWithCachedSizes(
       2, this->resource_info(), output);
   }
   
+  // optional uint32 listen_port_num = 3;
+  if (has_listen_port_num()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->listen_port_num(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
 }
 
-::google::protobuf::uint8* EachMachineResourceInfo::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* EachModuleResourceInfo::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // required string ip = 1;
   if (has_ip()) {
@@ -3019,6 +2694,11 @@ void EachMachineResourceInfo::SerializeWithCachedSizes(
         2, this->resource_info(), target);
   }
   
+  // optional uint32 listen_port_num = 3;
+  if (has_listen_port_num()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->listen_port_num(), target);
+  }
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -3026,7 +2706,7 @@ void EachMachineResourceInfo::SerializeWithCachedSizes(
   return target;
 }
 
-int EachMachineResourceInfo::ByteSize() const {
+int EachModuleResourceInfo::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
@@ -3044,6 +2724,13 @@ int EachMachineResourceInfo::ByteSize() const {
           this->resource_info());
     }
     
+    // optional uint32 listen_port_num = 3;
+    if (has_listen_port_num()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->listen_port_num());
+    }
+    
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -3056,10 +2743,10 @@ int EachMachineResourceInfo::ByteSize() const {
   return total_size;
 }
 
-void EachMachineResourceInfo::MergeFrom(const ::google::protobuf::Message& from) {
+void EachModuleResourceInfo::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const EachMachineResourceInfo* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const EachMachineResourceInfo*>(
+  const EachModuleResourceInfo* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const EachModuleResourceInfo*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -3068,7 +2755,7 @@ void EachMachineResourceInfo::MergeFrom(const ::google::protobuf::Message& from)
   }
 }
 
-void EachMachineResourceInfo::MergeFrom(const EachMachineResourceInfo& from) {
+void EachModuleResourceInfo::MergeFrom(const EachModuleResourceInfo& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_ip()) {
@@ -3077,23 +2764,26 @@ void EachMachineResourceInfo::MergeFrom(const EachMachineResourceInfo& from) {
     if (from.has_resource_info()) {
       mutable_resource_info()->::FwmRcProto::ResourceInfo::MergeFrom(from.resource_info());
     }
+    if (from.has_listen_port_num()) {
+      set_listen_port_num(from.listen_port_num());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void EachMachineResourceInfo::CopyFrom(const ::google::protobuf::Message& from) {
+void EachModuleResourceInfo::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void EachMachineResourceInfo::CopyFrom(const EachMachineResourceInfo& from) {
+void EachModuleResourceInfo::CopyFrom(const EachModuleResourceInfo& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool EachMachineResourceInfo::IsInitialized() const {
+bool EachModuleResourceInfo::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   
   if (has_resource_info()) {
@@ -3102,21 +2792,22 @@ bool EachMachineResourceInfo::IsInitialized() const {
   return true;
 }
 
-void EachMachineResourceInfo::Swap(EachMachineResourceInfo* other) {
+void EachModuleResourceInfo::Swap(EachModuleResourceInfo* other) {
   if (other != this) {
     std::swap(ip_, other->ip_);
     std::swap(resource_info_, other->resource_info_);
+    std::swap(listen_port_num_, other->listen_port_num_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata EachMachineResourceInfo::GetMetadata() const {
+::google::protobuf::Metadata EachModuleResourceInfo::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EachMachineResourceInfo_descriptor_;
-  metadata.reflection = EachMachineResourceInfo_reflection_;
+  metadata.descriptor = EachModuleResourceInfo_descriptor_;
+  metadata.reflection = EachModuleResourceInfo_reflection_;
   return metadata;
 }
 
@@ -3124,83 +2815,83 @@ void EachMachineResourceInfo::Swap(EachMachineResourceInfo* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int RequestSlaveResource::kFrameworkInstanceInfoFieldNumber;
-const int RequestSlaveResource::kModuleNameFieldNumber;
-const int RequestSlaveResource::kEachResourceInfoFieldNumber;
+const int RequestStartSlave::kFrameworkInstanceInfoFieldNumber;
+const int RequestStartSlave::kSelfModuleIdFieldNumber;
+const int RequestStartSlave::kStartModuleResourceInfoFieldNumber;
+const int RequestStartSlave::kFWMNetAddressFieldNumber;
 #endif  // !_MSC_VER
 
-RequestSlaveResource::RequestSlaveResource()
+RequestStartSlave::RequestStartSlave()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void RequestSlaveResource::InitAsDefaultInstance() {
+void RequestStartSlave::InitAsDefaultInstance() {
   framework_instance_info_ = const_cast< ::FwmRcProto::FrameworkInstanceInfo*>(&::FwmRcProto::FrameworkInstanceInfo::default_instance());
+  fwm_net_address_ = const_cast< ::FwmRcProto::NetAddress*>(&::FwmRcProto::NetAddress::default_instance());
 }
 
-RequestSlaveResource::RequestSlaveResource(const RequestSlaveResource& from)
+RequestStartSlave::RequestStartSlave(const RequestStartSlave& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void RequestSlaveResource::SharedCtor() {
+void RequestStartSlave::SharedCtor() {
   _cached_size_ = 0;
   framework_instance_info_ = NULL;
-  module_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  self_module_id_ = 0u;
+  fwm_net_address_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-RequestSlaveResource::~RequestSlaveResource() {
+RequestStartSlave::~RequestStartSlave() {
   SharedDtor();
 }
 
-void RequestSlaveResource::SharedDtor() {
-  if (module_name_ != &::google::protobuf::internal::kEmptyString) {
-    delete module_name_;
-  }
+void RequestStartSlave::SharedDtor() {
   if (this != default_instance_) {
     delete framework_instance_info_;
+    delete fwm_net_address_;
   }
 }
 
-void RequestSlaveResource::SetCachedSize(int size) const {
+void RequestStartSlave::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* RequestSlaveResource::descriptor() {
+const ::google::protobuf::Descriptor* RequestStartSlave::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return RequestSlaveResource_descriptor_;
+  return RequestStartSlave_descriptor_;
 }
 
-const RequestSlaveResource& RequestSlaveResource::default_instance() {
+const RequestStartSlave& RequestStartSlave::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
 }
 
-RequestSlaveResource* RequestSlaveResource::default_instance_ = NULL;
+RequestStartSlave* RequestStartSlave::default_instance_ = NULL;
 
-RequestSlaveResource* RequestSlaveResource::New() const {
-  return new RequestSlaveResource;
+RequestStartSlave* RequestStartSlave::New() const {
+  return new RequestStartSlave;
 }
 
-void RequestSlaveResource::Clear() {
+void RequestStartSlave::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (has_framework_instance_info()) {
       if (framework_instance_info_ != NULL) framework_instance_info_->::FwmRcProto::FrameworkInstanceInfo::Clear();
     }
-    if (has_module_name()) {
-      if (module_name_ != &::google::protobuf::internal::kEmptyString) {
-        module_name_->clear();
-      }
+    self_module_id_ = 0u;
+    if (has_fwm_net_address()) {
+      if (fwm_net_address_ != NULL) fwm_net_address_->::FwmRcProto::NetAddress::Clear();
     }
   }
-  each_resource_info_.Clear();
+  start_module_resource_info_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
-bool RequestSlaveResource::MergePartialFromCodedStream(
+bool RequestStartSlave::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
@@ -3215,822 +2906,48 @@ bool RequestSlaveResource::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_module_name;
+        if (input->ExpectTag(16)) goto parse_self_module_id;
         break;
       }
       
-      // optional string module_name = 2;
+      // required uint32 self_module_id = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_module_name:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_module_name()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->module_name().data(), this->module_name().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(26)) goto parse_each_resource_info;
-        break;
-      }
-      
-      // repeated .FwmRcProto.EachMachineResourceInfo each_resource_info = 3;
-      case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_each_resource_info:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_each_resource_info()));
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(26)) goto parse_each_resource_info;
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-      
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void RequestSlaveResource::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
-  if (has_framework_instance_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->framework_instance_info(), output);
-  }
-  
-  // optional string module_name = 2;
-  if (has_module_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->module_name().data(), this->module_name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      2, this->module_name(), output);
-  }
-  
-  // repeated .FwmRcProto.EachMachineResourceInfo each_resource_info = 3;
-  for (int i = 0; i < this->each_resource_info_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, this->each_resource_info(i), output);
-  }
-  
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* RequestSlaveResource::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
-  if (has_framework_instance_info()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, this->framework_instance_info(), target);
-  }
-  
-  // optional string module_name = 2;
-  if (has_module_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->module_name().data(), this->module_name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->module_name(), target);
-  }
-  
-  // repeated .FwmRcProto.EachMachineResourceInfo each_resource_info = 3;
-  for (int i = 0; i < this->each_resource_info_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, this->each_resource_info(i), target);
-  }
-  
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
-}
-
-int RequestSlaveResource::ByteSize() const {
-  int total_size = 0;
-  
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
-    if (has_framework_instance_info()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->framework_instance_info());
-    }
-    
-    // optional string module_name = 2;
-    if (has_module_name()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->module_name());
-    }
-    
-  }
-  // repeated .FwmRcProto.EachMachineResourceInfo each_resource_info = 3;
-  total_size += 1 * this->each_resource_info_size();
-  for (int i = 0; i < this->each_resource_info_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->each_resource_info(i));
-  }
-  
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void RequestSlaveResource::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const RequestSlaveResource* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const RequestSlaveResource*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void RequestSlaveResource::MergeFrom(const RequestSlaveResource& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  each_resource_info_.MergeFrom(from.each_resource_info_);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_framework_instance_info()) {
-      mutable_framework_instance_info()->::FwmRcProto::FrameworkInstanceInfo::MergeFrom(from.framework_instance_info());
-    }
-    if (from.has_module_name()) {
-      set_module_name(from.module_name());
-    }
-  }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void RequestSlaveResource::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void RequestSlaveResource::CopyFrom(const RequestSlaveResource& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool RequestSlaveResource::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-  
-  if (has_framework_instance_info()) {
-    if (!this->framework_instance_info().IsInitialized()) return false;
-  }
-  for (int i = 0; i < each_resource_info_size(); i++) {
-    if (!this->each_resource_info(i).IsInitialized()) return false;
-  }
-  return true;
-}
-
-void RequestSlaveResource::Swap(RequestSlaveResource* other) {
-  if (other != this) {
-    std::swap(framework_instance_info_, other->framework_instance_info_);
-    std::swap(module_name_, other->module_name_);
-    each_resource_info_.Swap(&other->each_resource_info_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::google::protobuf::Metadata RequestSlaveResource::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = RequestSlaveResource_descriptor_;
-  metadata.reflection = RequestSlaveResource_reflection_;
-  return metadata;
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int EachNCResourceAddress::kNCNetAddressFieldNumber;
-const int EachNCResourceAddress::kResourceInfoFieldNumber;
-#endif  // !_MSC_VER
-
-EachNCResourceAddress::EachNCResourceAddress()
-  : ::google::protobuf::Message() {
-  SharedCtor();
-}
-
-void EachNCResourceAddress::InitAsDefaultInstance() {
-  nc_net_address_ = const_cast< ::FwmRcProto::NetAddress*>(&::FwmRcProto::NetAddress::default_instance());
-  resource_info_ = const_cast< ::FwmRcProto::ResourceInfo*>(&::FwmRcProto::ResourceInfo::default_instance());
-}
-
-EachNCResourceAddress::EachNCResourceAddress(const EachNCResourceAddress& from)
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void EachNCResourceAddress::SharedCtor() {
-  _cached_size_ = 0;
-  nc_net_address_ = NULL;
-  resource_info_ = NULL;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-EachNCResourceAddress::~EachNCResourceAddress() {
-  SharedDtor();
-}
-
-void EachNCResourceAddress::SharedDtor() {
-  if (this != default_instance_) {
-    delete nc_net_address_;
-    delete resource_info_;
-  }
-}
-
-void EachNCResourceAddress::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* EachNCResourceAddress::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EachNCResourceAddress_descriptor_;
-}
-
-const EachNCResourceAddress& EachNCResourceAddress::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
-}
-
-EachNCResourceAddress* EachNCResourceAddress::default_instance_ = NULL;
-
-EachNCResourceAddress* EachNCResourceAddress::New() const {
-  return new EachNCResourceAddress;
-}
-
-void EachNCResourceAddress::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (has_nc_net_address()) {
-      if (nc_net_address_ != NULL) nc_net_address_->::FwmRcProto::NetAddress::Clear();
-    }
-    if (has_resource_info()) {
-      if (resource_info_ != NULL) resource_info_->::FwmRcProto::ResourceInfo::Clear();
-    }
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
-}
-
-bool EachNCResourceAddress::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .FwmRcProto.NetAddress NC_net_address = 1;
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_nc_net_address()));
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(18)) goto parse_resource_info;
-        break;
-      }
-      
-      // optional .FwmRcProto.ResourceInfo resource_info = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_resource_info:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_resource_info()));
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-      
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void EachNCResourceAddress::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // required .FwmRcProto.NetAddress NC_net_address = 1;
-  if (has_nc_net_address()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->nc_net_address(), output);
-  }
-  
-  // optional .FwmRcProto.ResourceInfo resource_info = 2;
-  if (has_resource_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->resource_info(), output);
-  }
-  
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* EachNCResourceAddress::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // required .FwmRcProto.NetAddress NC_net_address = 1;
-  if (has_nc_net_address()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, this->nc_net_address(), target);
-  }
-  
-  // optional .FwmRcProto.ResourceInfo resource_info = 2;
-  if (has_resource_info()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->resource_info(), target);
-  }
-  
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
-}
-
-int EachNCResourceAddress::ByteSize() const {
-  int total_size = 0;
-  
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .FwmRcProto.NetAddress NC_net_address = 1;
-    if (has_nc_net_address()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->nc_net_address());
-    }
-    
-    // optional .FwmRcProto.ResourceInfo resource_info = 2;
-    if (has_resource_info()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->resource_info());
-    }
-    
-  }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void EachNCResourceAddress::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const EachNCResourceAddress* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const EachNCResourceAddress*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void EachNCResourceAddress::MergeFrom(const EachNCResourceAddress& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_nc_net_address()) {
-      mutable_nc_net_address()->::FwmRcProto::NetAddress::MergeFrom(from.nc_net_address());
-    }
-    if (from.has_resource_info()) {
-      mutable_resource_info()->::FwmRcProto::ResourceInfo::MergeFrom(from.resource_info());
-    }
-  }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void EachNCResourceAddress::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void EachNCResourceAddress::CopyFrom(const EachNCResourceAddress& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool EachNCResourceAddress::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-  
-  if (has_nc_net_address()) {
-    if (!this->nc_net_address().IsInitialized()) return false;
-  }
-  if (has_resource_info()) {
-    if (!this->resource_info().IsInitialized()) return false;
-  }
-  return true;
-}
-
-void EachNCResourceAddress::Swap(EachNCResourceAddress* other) {
-  if (other != this) {
-    std::swap(nc_net_address_, other->nc_net_address_);
-    std::swap(resource_info_, other->resource_info_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::google::protobuf::Metadata EachNCResourceAddress::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EachNCResourceAddress_descriptor_;
-  metadata.reflection = EachNCResourceAddress_reflection_;
-  return metadata;
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int RespondRequestSlaveResource::kAddressResourceInfoFieldNumber;
-#endif  // !_MSC_VER
-
-RespondRequestSlaveResource::RespondRequestSlaveResource()
-  : ::google::protobuf::Message() {
-  SharedCtor();
-}
-
-void RespondRequestSlaveResource::InitAsDefaultInstance() {
-}
-
-RespondRequestSlaveResource::RespondRequestSlaveResource(const RespondRequestSlaveResource& from)
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void RespondRequestSlaveResource::SharedCtor() {
-  _cached_size_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-RespondRequestSlaveResource::~RespondRequestSlaveResource() {
-  SharedDtor();
-}
-
-void RespondRequestSlaveResource::SharedDtor() {
-  if (this != default_instance_) {
-  }
-}
-
-void RespondRequestSlaveResource::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* RespondRequestSlaveResource::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return RespondRequestSlaveResource_descriptor_;
-}
-
-const RespondRequestSlaveResource& RespondRequestSlaveResource::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
-}
-
-RespondRequestSlaveResource* RespondRequestSlaveResource::default_instance_ = NULL;
-
-RespondRequestSlaveResource* RespondRequestSlaveResource::New() const {
-  return new RespondRequestSlaveResource;
-}
-
-void RespondRequestSlaveResource::Clear() {
-  address_resource_info_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
-}
-
-bool RespondRequestSlaveResource::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .FwmRcProto.EachNCResourceAddress address_resource_info = 1;
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_address_resource_info:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_address_resource_info()));
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(10)) goto parse_address_resource_info;
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-      
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void RespondRequestSlaveResource::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // repeated .FwmRcProto.EachNCResourceAddress address_resource_info = 1;
-  for (int i = 0; i < this->address_resource_info_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->address_resource_info(i), output);
-  }
-  
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* RespondRequestSlaveResource::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // repeated .FwmRcProto.EachNCResourceAddress address_resource_info = 1;
-  for (int i = 0; i < this->address_resource_info_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, this->address_resource_info(i), target);
-  }
-  
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
-}
-
-int RespondRequestSlaveResource::ByteSize() const {
-  int total_size = 0;
-  
-  // repeated .FwmRcProto.EachNCResourceAddress address_resource_info = 1;
-  total_size += 1 * this->address_resource_info_size();
-  for (int i = 0; i < this->address_resource_info_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->address_resource_info(i));
-  }
-  
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void RespondRequestSlaveResource::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const RespondRequestSlaveResource* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const RespondRequestSlaveResource*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void RespondRequestSlaveResource::MergeFrom(const RespondRequestSlaveResource& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  address_resource_info_.MergeFrom(from.address_resource_info_);
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void RespondRequestSlaveResource::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void RespondRequestSlaveResource::CopyFrom(const RespondRequestSlaveResource& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool RespondRequestSlaveResource::IsInitialized() const {
-  
-  for (int i = 0; i < address_resource_info_size(); i++) {
-    if (!this->address_resource_info(i).IsInitialized()) return false;
-  }
-  return true;
-}
-
-void RespondRequestSlaveResource::Swap(RespondRequestSlaveResource* other) {
-  if (other != this) {
-    address_resource_info_.Swap(&other->address_resource_info_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::google::protobuf::Metadata RespondRequestSlaveResource::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = RespondRequestSlaveResource_descriptor_;
-  metadata.reflection = RespondRequestSlaveResource_reflection_;
-  return metadata;
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int EachSlaveInfo::kFrameworkInstanceInfoFieldNumber;
-const int EachSlaveInfo::kFrameworkSlaveIpFieldNumber;
-const int EachSlaveInfo::kFrameworkSlavePIDFieldNumber;
-#endif  // !_MSC_VER
-
-EachSlaveInfo::EachSlaveInfo()
-  : ::google::protobuf::Message() {
-  SharedCtor();
-}
-
-void EachSlaveInfo::InitAsDefaultInstance() {
-  framework_instance_info_ = const_cast< ::FwmRcProto::FrameworkInstanceInfo*>(&::FwmRcProto::FrameworkInstanceInfo::default_instance());
-}
-
-EachSlaveInfo::EachSlaveInfo(const EachSlaveInfo& from)
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void EachSlaveInfo::SharedCtor() {
-  _cached_size_ = 0;
-  framework_instance_info_ = NULL;
-  framework_slave_ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  framework_slave_pid_ = 0u;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-EachSlaveInfo::~EachSlaveInfo() {
-  SharedDtor();
-}
-
-void EachSlaveInfo::SharedDtor() {
-  if (framework_slave_ip_ != &::google::protobuf::internal::kEmptyString) {
-    delete framework_slave_ip_;
-  }
-  if (this != default_instance_) {
-    delete framework_instance_info_;
-  }
-}
-
-void EachSlaveInfo::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* EachSlaveInfo::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EachSlaveInfo_descriptor_;
-}
-
-const EachSlaveInfo& EachSlaveInfo::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
-}
-
-EachSlaveInfo* EachSlaveInfo::default_instance_ = NULL;
-
-EachSlaveInfo* EachSlaveInfo::New() const {
-  return new EachSlaveInfo;
-}
-
-void EachSlaveInfo::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (has_framework_instance_info()) {
-      if (framework_instance_info_ != NULL) framework_instance_info_->::FwmRcProto::FrameworkInstanceInfo::Clear();
-    }
-    if (has_framework_slave_ip()) {
-      if (framework_slave_ip_ != &::google::protobuf::internal::kEmptyString) {
-        framework_slave_ip_->clear();
-      }
-    }
-    framework_slave_pid_ = 0u;
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
-}
-
-bool EachSlaveInfo::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_framework_instance_info()));
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(18)) goto parse_framework_slave_ip;
-        break;
-      }
-      
-      // optional string framework_slave_ip = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_framework_slave_ip:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_framework_slave_ip()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->framework_slave_ip().data(), this->framework_slave_ip().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(24)) goto parse_framework_slave_PID;
-        break;
-      }
-      
-      // optional uint32 framework_slave_PID = 3;
-      case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_framework_slave_PID:
+         parse_self_module_id:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &framework_slave_pid_)));
-          set_has_framework_slave_pid();
+                 input, &self_module_id_)));
+          set_has_self_module_id();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_start_module_resource_info;
+        break;
+      }
+      
+      // repeated .FwmRcProto.EachModuleResourceInfo start_module_resource_info = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_start_module_resource_info:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_start_module_resource_info()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_start_module_resource_info;
+        if (input->ExpectTag(34)) goto parse_FWM_net_address;
+        break;
+      }
+      
+      // optional .FwmRcProto.NetAddress FWM_net_address = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_FWM_net_address:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_fwm_net_address()));
         } else {
           goto handle_uninterpreted;
         }
@@ -4054,7 +2971,7 @@ bool EachSlaveInfo::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void EachSlaveInfo::SerializeWithCachedSizes(
+void RequestStartSlave::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
   if (has_framework_instance_info()) {
@@ -4062,18 +2979,21 @@ void EachSlaveInfo::SerializeWithCachedSizes(
       1, this->framework_instance_info(), output);
   }
   
-  // optional string framework_slave_ip = 2;
-  if (has_framework_slave_ip()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->framework_slave_ip().data(), this->framework_slave_ip().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      2, this->framework_slave_ip(), output);
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->self_module_id(), output);
   }
   
-  // optional uint32 framework_slave_PID = 3;
-  if (has_framework_slave_pid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->framework_slave_pid(), output);
+  // repeated .FwmRcProto.EachModuleResourceInfo start_module_resource_info = 3;
+  for (int i = 0; i < this->start_module_resource_info_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->start_module_resource_info(i), output);
+  }
+  
+  // optional .FwmRcProto.NetAddress FWM_net_address = 4;
+  if (has_fwm_net_address()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->fwm_net_address(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -4082,7 +3002,7 @@ void EachSlaveInfo::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* EachSlaveInfo::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* RequestStartSlave::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
   if (has_framework_instance_info()) {
@@ -4091,19 +3011,23 @@ void EachSlaveInfo::SerializeWithCachedSizes(
         1, this->framework_instance_info(), target);
   }
   
-  // optional string framework_slave_ip = 2;
-  if (has_framework_slave_ip()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->framework_slave_ip().data(), this->framework_slave_ip().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->framework_slave_ip(), target);
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->self_module_id(), target);
   }
   
-  // optional uint32 framework_slave_PID = 3;
-  if (has_framework_slave_pid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->framework_slave_pid(), target);
+  // repeated .FwmRcProto.EachModuleResourceInfo start_module_resource_info = 3;
+  for (int i = 0; i < this->start_module_resource_info_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->start_module_resource_info(i), target);
+  }
+  
+  // optional .FwmRcProto.NetAddress FWM_net_address = 4;
+  if (has_fwm_net_address()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->fwm_net_address(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -4113,7 +3037,7 @@ void EachSlaveInfo::SerializeWithCachedSizes(
   return target;
 }
 
-int EachSlaveInfo::ByteSize() const {
+int RequestStartSlave::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
@@ -4124,21 +3048,29 @@ int EachSlaveInfo::ByteSize() const {
           this->framework_instance_info());
     }
     
-    // optional string framework_slave_ip = 2;
-    if (has_framework_slave_ip()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->framework_slave_ip());
-    }
-    
-    // optional uint32 framework_slave_PID = 3;
-    if (has_framework_slave_pid()) {
+    // required uint32 self_module_id = 2;
+    if (has_self_module_id()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->framework_slave_pid());
+          this->self_module_id());
+    }
+    
+    // optional .FwmRcProto.NetAddress FWM_net_address = 4;
+    if (has_fwm_net_address()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->fwm_net_address());
     }
     
   }
+  // repeated .FwmRcProto.EachModuleResourceInfo start_module_resource_info = 3;
+  total_size += 1 * this->start_module_resource_info_size();
+  for (int i = 0; i < this->start_module_resource_info_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->start_module_resource_info(i));
+  }
+  
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -4150,10 +3082,10 @@ int EachSlaveInfo::ByteSize() const {
   return total_size;
 }
 
-void EachSlaveInfo::MergeFrom(const ::google::protobuf::Message& from) {
+void RequestStartSlave::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const EachSlaveInfo* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const EachSlaveInfo*>(
+  const RequestStartSlave* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const RequestStartSlave*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -4162,59 +3094,67 @@ void EachSlaveInfo::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void EachSlaveInfo::MergeFrom(const EachSlaveInfo& from) {
+void RequestStartSlave::MergeFrom(const RequestStartSlave& from) {
   GOOGLE_CHECK_NE(&from, this);
+  start_module_resource_info_.MergeFrom(from.start_module_resource_info_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_framework_instance_info()) {
       mutable_framework_instance_info()->::FwmRcProto::FrameworkInstanceInfo::MergeFrom(from.framework_instance_info());
     }
-    if (from.has_framework_slave_ip()) {
-      set_framework_slave_ip(from.framework_slave_ip());
+    if (from.has_self_module_id()) {
+      set_self_module_id(from.self_module_id());
     }
-    if (from.has_framework_slave_pid()) {
-      set_framework_slave_pid(from.framework_slave_pid());
+    if (from.has_fwm_net_address()) {
+      mutable_fwm_net_address()->::FwmRcProto::NetAddress::MergeFrom(from.fwm_net_address());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void EachSlaveInfo::CopyFrom(const ::google::protobuf::Message& from) {
+void RequestStartSlave::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void EachSlaveInfo::CopyFrom(const EachSlaveInfo& from) {
+void RequestStartSlave::CopyFrom(const RequestStartSlave& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool EachSlaveInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+bool RequestStartSlave::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   
   if (has_framework_instance_info()) {
     if (!this->framework_instance_info().IsInitialized()) return false;
   }
+  for (int i = 0; i < start_module_resource_info_size(); i++) {
+    if (!this->start_module_resource_info(i).IsInitialized()) return false;
+  }
+  if (has_fwm_net_address()) {
+    if (!this->fwm_net_address().IsInitialized()) return false;
+  }
   return true;
 }
 
-void EachSlaveInfo::Swap(EachSlaveInfo* other) {
+void RequestStartSlave::Swap(RequestStartSlave* other) {
   if (other != this) {
     std::swap(framework_instance_info_, other->framework_instance_info_);
-    std::swap(framework_slave_ip_, other->framework_slave_ip_);
-    std::swap(framework_slave_pid_, other->framework_slave_pid_);
+    std::swap(self_module_id_, other->self_module_id_);
+    start_module_resource_info_.Swap(&other->start_module_resource_info_);
+    std::swap(fwm_net_address_, other->fwm_net_address_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata EachSlaveInfo::GetMetadata() const {
+::google::protobuf::Metadata RequestStartSlave::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EachSlaveInfo_descriptor_;
-  metadata.reflection = EachSlaveInfo_reflection_;
+  metadata.descriptor = RequestStartSlave_descriptor_;
+  metadata.reflection = RequestStartSlave_reflection_;
   return metadata;
 }
 
@@ -4222,80 +3162,107 @@ void EachSlaveInfo::Swap(EachSlaveInfo* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int SuccessSlaveInfo::kSuccessSlaveInfoFieldNumber;
+const int RequestStartSlaveAck::kStatuscodeFieldNumber;
+const int RequestStartSlaveAck::kModuleIdFieldNumber;
 #endif  // !_MSC_VER
 
-SuccessSlaveInfo::SuccessSlaveInfo()
+RequestStartSlaveAck::RequestStartSlaveAck()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void SuccessSlaveInfo::InitAsDefaultInstance() {
+void RequestStartSlaveAck::InitAsDefaultInstance() {
 }
 
-SuccessSlaveInfo::SuccessSlaveInfo(const SuccessSlaveInfo& from)
+RequestStartSlaveAck::RequestStartSlaveAck(const RequestStartSlaveAck& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void SuccessSlaveInfo::SharedCtor() {
+void RequestStartSlaveAck::SharedCtor() {
   _cached_size_ = 0;
+  statuscode_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-SuccessSlaveInfo::~SuccessSlaveInfo() {
+RequestStartSlaveAck::~RequestStartSlaveAck() {
   SharedDtor();
 }
 
-void SuccessSlaveInfo::SharedDtor() {
+void RequestStartSlaveAck::SharedDtor() {
   if (this != default_instance_) {
   }
 }
 
-void SuccessSlaveInfo::SetCachedSize(int size) const {
+void RequestStartSlaveAck::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* SuccessSlaveInfo::descriptor() {
+const ::google::protobuf::Descriptor* RequestStartSlaveAck::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return SuccessSlaveInfo_descriptor_;
+  return RequestStartSlaveAck_descriptor_;
 }
 
-const SuccessSlaveInfo& SuccessSlaveInfo::default_instance() {
+const RequestStartSlaveAck& RequestStartSlaveAck::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
 }
 
-SuccessSlaveInfo* SuccessSlaveInfo::default_instance_ = NULL;
+RequestStartSlaveAck* RequestStartSlaveAck::default_instance_ = NULL;
 
-SuccessSlaveInfo* SuccessSlaveInfo::New() const {
-  return new SuccessSlaveInfo;
+RequestStartSlaveAck* RequestStartSlaveAck::New() const {
+  return new RequestStartSlaveAck;
 }
 
-void SuccessSlaveInfo::Clear() {
-  success_slave_info_.Clear();
+void RequestStartSlaveAck::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    statuscode_ = 0;
+  }
+  module_id_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
-bool SuccessSlaveInfo::MergePartialFromCodedStream(
+bool RequestStartSlaveAck::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .FwmRcProto.EachSlaveInfo success_slave_info = 1;
+      // required int32 statuscode = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_success_slave_info:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_success_slave_info()));
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &statuscode_)));
+          set_has_statuscode();
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(10)) goto parse_success_slave_info;
+        if (input->ExpectTag(16)) goto parse_module_id;
+        break;
+      }
+      
+      // repeated uint32 module_id = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_module_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 16, input, this->mutable_module_id())));
+        } else if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag)
+                   == ::google::protobuf::internal::WireFormatLite::
+                      WIRETYPE_LENGTH_DELIMITED) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_module_id())));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_module_id;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -4316,12 +3283,17 @@ bool SuccessSlaveInfo::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void SuccessSlaveInfo::SerializeWithCachedSizes(
+void RequestStartSlaveAck::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // repeated .FwmRcProto.EachSlaveInfo success_slave_info = 1;
-  for (int i = 0; i < this->success_slave_info_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->success_slave_info(i), output);
+  // required int32 statuscode = 1;
+  if (has_statuscode()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->statuscode(), output);
+  }
+  
+  // repeated uint32 module_id = 2;
+  for (int i = 0; i < this->module_id_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(
+      2, this->module_id(i), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -4330,13 +3302,17 @@ void SuccessSlaveInfo::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* SuccessSlaveInfo::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* RequestStartSlaveAck::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // repeated .FwmRcProto.EachSlaveInfo success_slave_info = 1;
-  for (int i = 0; i < this->success_slave_info_size(); i++) {
+  // required int32 statuscode = 1;
+  if (has_statuscode()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->statuscode(), target);
+  }
+  
+  // repeated uint32 module_id = 2;
+  for (int i = 0; i < this->module_id_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, this->success_slave_info(i), target);
+      WriteUInt32ToArray(2, this->module_id(i), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -4346,15 +3322,26 @@ void SuccessSlaveInfo::SerializeWithCachedSizes(
   return target;
 }
 
-int SuccessSlaveInfo::ByteSize() const {
+int RequestStartSlaveAck::ByteSize() const {
   int total_size = 0;
   
-  // repeated .FwmRcProto.EachSlaveInfo success_slave_info = 1;
-  total_size += 1 * this->success_slave_info_size();
-  for (int i = 0; i < this->success_slave_info_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->success_slave_info(i));
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required int32 statuscode = 1;
+    if (has_statuscode()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->statuscode());
+    }
+    
+  }
+  // repeated uint32 module_id = 2;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->module_id_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        UInt32Size(this->module_id(i));
+    }
+    total_size += 1 * this->module_id_size() + data_size;
   }
   
   if (!unknown_fields().empty()) {
@@ -4368,10 +3355,10 @@ int SuccessSlaveInfo::ByteSize() const {
   return total_size;
 }
 
-void SuccessSlaveInfo::MergeFrom(const ::google::protobuf::Message& from) {
+void RequestStartSlaveAck::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const SuccessSlaveInfo* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const SuccessSlaveInfo*>(
+  const RequestStartSlaveAck* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const RequestStartSlaveAck*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -4380,46 +3367,50 @@ void SuccessSlaveInfo::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void SuccessSlaveInfo::MergeFrom(const SuccessSlaveInfo& from) {
+void RequestStartSlaveAck::MergeFrom(const RequestStartSlaveAck& from) {
   GOOGLE_CHECK_NE(&from, this);
-  success_slave_info_.MergeFrom(from.success_slave_info_);
+  module_id_.MergeFrom(from.module_id_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_statuscode()) {
+      set_statuscode(from.statuscode());
+    }
+  }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void SuccessSlaveInfo::CopyFrom(const ::google::protobuf::Message& from) {
+void RequestStartSlaveAck::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void SuccessSlaveInfo::CopyFrom(const SuccessSlaveInfo& from) {
+void RequestStartSlaveAck::CopyFrom(const RequestStartSlaveAck& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SuccessSlaveInfo::IsInitialized() const {
+bool RequestStartSlaveAck::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   
-  for (int i = 0; i < success_slave_info_size(); i++) {
-    if (!this->success_slave_info(i).IsInitialized()) return false;
-  }
   return true;
 }
 
-void SuccessSlaveInfo::Swap(SuccessSlaveInfo* other) {
+void RequestStartSlaveAck::Swap(RequestStartSlaveAck* other) {
   if (other != this) {
-    success_slave_info_.Swap(&other->success_slave_info_);
+    std::swap(statuscode_, other->statuscode_);
+    module_id_.Swap(&other->module_id_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata SuccessSlaveInfo::GetMetadata() const {
+::google::protobuf::Metadata RequestStartSlaveAck::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = SuccessSlaveInfo_descriptor_;
-  metadata.reflection = SuccessSlaveInfo_reflection_;
+  metadata.descriptor = RequestStartSlaveAck_descriptor_;
+  metadata.reflection = RequestStartSlaveAck_reflection_;
   return metadata;
 }
 
@@ -4427,7 +3418,9 @@ void SuccessSlaveInfo::Swap(SuccessSlaveInfo* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int RequestTaskResource::kTaskResourceInfoFieldNumber;
+const int RequestTaskResource::kFrameworkInstanceInfoFieldNumber;
+const int RequestTaskResource::kSelfModuleIdFieldNumber;
+const int RequestTaskResource::kModuleAddResourceInfoFieldNumber;
 #endif  // !_MSC_VER
 
 RequestTaskResource::RequestTaskResource()
@@ -4436,6 +3429,7 @@ RequestTaskResource::RequestTaskResource()
 }
 
 void RequestTaskResource::InitAsDefaultInstance() {
+  framework_instance_info_ = const_cast< ::FwmRcProto::FrameworkInstanceInfo*>(&::FwmRcProto::FrameworkInstanceInfo::default_instance());
 }
 
 RequestTaskResource::RequestTaskResource(const RequestTaskResource& from)
@@ -4446,6 +3440,8 @@ RequestTaskResource::RequestTaskResource(const RequestTaskResource& from)
 
 void RequestTaskResource::SharedCtor() {
   _cached_size_ = 0;
+  framework_instance_info_ = NULL;
+  self_module_id_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -4455,6 +3451,7 @@ RequestTaskResource::~RequestTaskResource() {
 
 void RequestTaskResource::SharedDtor() {
   if (this != default_instance_) {
+    delete framework_instance_info_;
   }
 }
 
@@ -4479,7 +3476,13 @@ RequestTaskResource* RequestTaskResource::New() const {
 }
 
 void RequestTaskResource::Clear() {
-  task_resource_info_.Clear();
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (has_framework_instance_info()) {
+      if (framework_instance_info_ != NULL) framework_instance_info_->::FwmRcProto::FrameworkInstanceInfo::Clear();
+    }
+    self_module_id_ = 0u;
+  }
+  module_add_resource_info_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -4490,17 +3493,46 @@ bool RequestTaskResource::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .FwmRcProto.AddressResourceInfo task_resource_info = 1;
+      // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_task_resource_info:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_task_resource_info()));
+               input, mutable_framework_instance_info()));
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(10)) goto parse_task_resource_info;
+        if (input->ExpectTag(16)) goto parse_self_module_id;
+        break;
+      }
+      
+      // required uint32 self_module_id = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_self_module_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &self_module_id_)));
+          set_has_self_module_id();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_module_add_resource_info;
+        break;
+      }
+      
+      // repeated .FwmRcProto.EachModuleRequestOrReturnResourceInfo module_add_resource_info = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_module_add_resource_info:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_module_add_resource_info()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_module_add_resource_info;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -4523,10 +3555,21 @@ bool RequestTaskResource::MergePartialFromCodedStream(
 
 void RequestTaskResource::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // repeated .FwmRcProto.AddressResourceInfo task_resource_info = 1;
-  for (int i = 0; i < this->task_resource_info_size(); i++) {
+  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+  if (has_framework_instance_info()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->task_resource_info(i), output);
+      1, this->framework_instance_info(), output);
+  }
+  
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->self_module_id(), output);
+  }
+  
+  // repeated .FwmRcProto.EachModuleRequestOrReturnResourceInfo module_add_resource_info = 3;
+  for (int i = 0; i < this->module_add_resource_info_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->module_add_resource_info(i), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -4537,11 +3580,23 @@ void RequestTaskResource::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* RequestTaskResource::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // repeated .FwmRcProto.AddressResourceInfo task_resource_info = 1;
-  for (int i = 0; i < this->task_resource_info_size(); i++) {
+  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+  if (has_framework_instance_info()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        1, this->task_resource_info(i), target);
+        1, this->framework_instance_info(), target);
+  }
+  
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->self_module_id(), target);
+  }
+  
+  // repeated .FwmRcProto.EachModuleRequestOrReturnResourceInfo module_add_resource_info = 3;
+  for (int i = 0; i < this->module_add_resource_info_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->module_add_resource_info(i), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -4554,12 +3609,28 @@ void RequestTaskResource::SerializeWithCachedSizes(
 int RequestTaskResource::ByteSize() const {
   int total_size = 0;
   
-  // repeated .FwmRcProto.AddressResourceInfo task_resource_info = 1;
-  total_size += 1 * this->task_resource_info_size();
-  for (int i = 0; i < this->task_resource_info_size(); i++) {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+    if (has_framework_instance_info()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->framework_instance_info());
+    }
+    
+    // required uint32 self_module_id = 2;
+    if (has_self_module_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->self_module_id());
+    }
+    
+  }
+  // repeated .FwmRcProto.EachModuleRequestOrReturnResourceInfo module_add_resource_info = 3;
+  total_size += 1 * this->module_add_resource_info_size();
+  for (int i = 0; i < this->module_add_resource_info_size(); i++) {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->task_resource_info(i));
+        this->module_add_resource_info(i));
   }
   
   if (!unknown_fields().empty()) {
@@ -4587,7 +3658,15 @@ void RequestTaskResource::MergeFrom(const ::google::protobuf::Message& from) {
 
 void RequestTaskResource::MergeFrom(const RequestTaskResource& from) {
   GOOGLE_CHECK_NE(&from, this);
-  task_resource_info_.MergeFrom(from.task_resource_info_);
+  module_add_resource_info_.MergeFrom(from.module_add_resource_info_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_framework_instance_info()) {
+      mutable_framework_instance_info()->::FwmRcProto::FrameworkInstanceInfo::MergeFrom(from.framework_instance_info());
+    }
+    if (from.has_self_module_id()) {
+      set_self_module_id(from.self_module_id());
+    }
+  }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
@@ -4604,16 +3683,22 @@ void RequestTaskResource::CopyFrom(const RequestTaskResource& from) {
 }
 
 bool RequestTaskResource::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   
-  for (int i = 0; i < task_resource_info_size(); i++) {
-    if (!this->task_resource_info(i).IsInitialized()) return false;
+  if (has_framework_instance_info()) {
+    if (!this->framework_instance_info().IsInitialized()) return false;
+  }
+  for (int i = 0; i < module_add_resource_info_size(); i++) {
+    if (!this->module_add_resource_info(i).IsInitialized()) return false;
   }
   return true;
 }
 
 void RequestTaskResource::Swap(RequestTaskResource* other) {
   if (other != this) {
-    task_resource_info_.Swap(&other->task_resource_info_);
+    std::swap(framework_instance_info_, other->framework_instance_info_);
+    std::swap(self_module_id_, other->self_module_id_);
+    module_add_resource_info_.Swap(&other->module_add_resource_info_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -4632,106 +3717,107 @@ void RequestTaskResource::Swap(RequestTaskResource* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int ResourceAddress::kNCNetAddressFieldNumber;
-const int ResourceAddress::kFrameworkInstanceInfoFieldNumber;
+const int RequestTaskResourceAck::kStatuscodeFieldNumber;
+const int RequestTaskResourceAck::kExceedModuleIdFieldNumber;
 #endif  // !_MSC_VER
 
-ResourceAddress::ResourceAddress()
+RequestTaskResourceAck::RequestTaskResourceAck()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void ResourceAddress::InitAsDefaultInstance() {
-  nc_net_address_ = const_cast< ::FwmRcProto::NetAddress*>(&::FwmRcProto::NetAddress::default_instance());
-  framework_instance_info_ = const_cast< ::FwmRcProto::FrameworkInstanceInfo*>(&::FwmRcProto::FrameworkInstanceInfo::default_instance());
+void RequestTaskResourceAck::InitAsDefaultInstance() {
 }
 
-ResourceAddress::ResourceAddress(const ResourceAddress& from)
+RequestTaskResourceAck::RequestTaskResourceAck(const RequestTaskResourceAck& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void ResourceAddress::SharedCtor() {
+void RequestTaskResourceAck::SharedCtor() {
   _cached_size_ = 0;
-  nc_net_address_ = NULL;
-  framework_instance_info_ = NULL;
+  statuscode_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-ResourceAddress::~ResourceAddress() {
+RequestTaskResourceAck::~RequestTaskResourceAck() {
   SharedDtor();
 }
 
-void ResourceAddress::SharedDtor() {
+void RequestTaskResourceAck::SharedDtor() {
   if (this != default_instance_) {
-    delete nc_net_address_;
-    delete framework_instance_info_;
   }
 }
 
-void ResourceAddress::SetCachedSize(int size) const {
+void RequestTaskResourceAck::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* ResourceAddress::descriptor() {
+const ::google::protobuf::Descriptor* RequestTaskResourceAck::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return ResourceAddress_descriptor_;
+  return RequestTaskResourceAck_descriptor_;
 }
 
-const ResourceAddress& ResourceAddress::default_instance() {
+const RequestTaskResourceAck& RequestTaskResourceAck::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
 }
 
-ResourceAddress* ResourceAddress::default_instance_ = NULL;
+RequestTaskResourceAck* RequestTaskResourceAck::default_instance_ = NULL;
 
-ResourceAddress* ResourceAddress::New() const {
-  return new ResourceAddress;
+RequestTaskResourceAck* RequestTaskResourceAck::New() const {
+  return new RequestTaskResourceAck;
 }
 
-void ResourceAddress::Clear() {
+void RequestTaskResourceAck::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (has_nc_net_address()) {
-      if (nc_net_address_ != NULL) nc_net_address_->::FwmRcProto::NetAddress::Clear();
-    }
-    if (has_framework_instance_info()) {
-      if (framework_instance_info_ != NULL) framework_instance_info_->::FwmRcProto::FrameworkInstanceInfo::Clear();
-    }
+    statuscode_ = 0;
   }
+  exceed_module_id_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
-bool ResourceAddress::MergePartialFromCodedStream(
+bool RequestTaskResourceAck::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .FwmRcProto.NetAddress NC_net_address = 1;
+      // required int32 statuscode = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_nc_net_address()));
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &statuscode_)));
+          set_has_statuscode();
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_framework_instance_info;
+        if (input->ExpectTag(16)) goto parse_exceed_module_id;
         break;
       }
       
-      // optional .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 2;
+      // repeated uint32 exceed_module_id = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_framework_instance_info:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_framework_instance_info()));
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_exceed_module_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 16, input, this->mutable_exceed_module_id())));
+        } else if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag)
+                   == ::google::protobuf::internal::WireFormatLite::
+                      WIRETYPE_LENGTH_DELIMITED) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_exceed_module_id())));
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(16)) goto parse_exceed_module_id;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -4752,18 +3838,17 @@ bool ResourceAddress::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void ResourceAddress::SerializeWithCachedSizes(
+void RequestTaskResourceAck::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required .FwmRcProto.NetAddress NC_net_address = 1;
-  if (has_nc_net_address()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->nc_net_address(), output);
+  // required int32 statuscode = 1;
+  if (has_statuscode()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->statuscode(), output);
   }
   
-  // optional .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 2;
-  if (has_framework_instance_info()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->framework_instance_info(), output);
+  // repeated uint32 exceed_module_id = 2;
+  for (int i = 0; i < this->exceed_module_id_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(
+      2, this->exceed_module_id(i), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -4772,20 +3857,17 @@ void ResourceAddress::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* ResourceAddress::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* RequestTaskResourceAck::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required .FwmRcProto.NetAddress NC_net_address = 1;
-  if (has_nc_net_address()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, this->nc_net_address(), target);
+  // required int32 statuscode = 1;
+  if (has_statuscode()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->statuscode(), target);
   }
   
-  // optional .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 2;
-  if (has_framework_instance_info()) {
+  // repeated uint32 exceed_module_id = 2;
+  for (int i = 0; i < this->exceed_module_id_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->framework_instance_info(), target);
+      WriteUInt32ToArray(2, this->exceed_module_id(i), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -4795,25 +3877,28 @@ void ResourceAddress::SerializeWithCachedSizes(
   return target;
 }
 
-int ResourceAddress::ByteSize() const {
+int RequestTaskResourceAck::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .FwmRcProto.NetAddress NC_net_address = 1;
-    if (has_nc_net_address()) {
+    // required int32 statuscode = 1;
+    if (has_statuscode()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->nc_net_address());
-    }
-    
-    // optional .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 2;
-    if (has_framework_instance_info()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->framework_instance_info());
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->statuscode());
     }
     
   }
+  // repeated uint32 exceed_module_id = 2;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->exceed_module_id_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        UInt32Size(this->exceed_module_id(i));
+    }
+    total_size += 1 * this->exceed_module_id_size() + data_size;
+  }
+  
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -4825,10 +3910,10 @@ int ResourceAddress::ByteSize() const {
   return total_size;
 }
 
-void ResourceAddress::MergeFrom(const ::google::protobuf::Message& from) {
+void RequestTaskResourceAck::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const ResourceAddress* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const ResourceAddress*>(
+  const RequestTaskResourceAck* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const RequestTaskResourceAck*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -4837,58 +3922,50 @@ void ResourceAddress::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void ResourceAddress::MergeFrom(const ResourceAddress& from) {
+void RequestTaskResourceAck::MergeFrom(const RequestTaskResourceAck& from) {
   GOOGLE_CHECK_NE(&from, this);
+  exceed_module_id_.MergeFrom(from.exceed_module_id_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_nc_net_address()) {
-      mutable_nc_net_address()->::FwmRcProto::NetAddress::MergeFrom(from.nc_net_address());
-    }
-    if (from.has_framework_instance_info()) {
-      mutable_framework_instance_info()->::FwmRcProto::FrameworkInstanceInfo::MergeFrom(from.framework_instance_info());
+    if (from.has_statuscode()) {
+      set_statuscode(from.statuscode());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void ResourceAddress::CopyFrom(const ::google::protobuf::Message& from) {
+void RequestTaskResourceAck::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void ResourceAddress::CopyFrom(const ResourceAddress& from) {
+void RequestTaskResourceAck::CopyFrom(const RequestTaskResourceAck& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ResourceAddress::IsInitialized() const {
+bool RequestTaskResourceAck::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   
-  if (has_nc_net_address()) {
-    if (!this->nc_net_address().IsInitialized()) return false;
-  }
-  if (has_framework_instance_info()) {
-    if (!this->framework_instance_info().IsInitialized()) return false;
-  }
   return true;
 }
 
-void ResourceAddress::Swap(ResourceAddress* other) {
+void RequestTaskResourceAck::Swap(RequestTaskResourceAck* other) {
   if (other != this) {
-    std::swap(nc_net_address_, other->nc_net_address_);
-    std::swap(framework_instance_info_, other->framework_instance_info_);
+    std::swap(statuscode_, other->statuscode_);
+    exceed_module_id_.Swap(&other->exceed_module_id_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata ResourceAddress::GetMetadata() const {
+::google::protobuf::Metadata RequestTaskResourceAck::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = ResourceAddress_descriptor_;
-  metadata.reflection = ResourceAddress_reflection_;
+  metadata.descriptor = RequestTaskResourceAck_descriptor_;
+  metadata.reflection = RequestTaskResourceAck_reflection_;
   return metadata;
 }
 
@@ -4896,212 +3973,9 @@ void ResourceAddress::Swap(ResourceAddress* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int RespondRequestTaskResource::kResourceAddressFieldNumber;
-#endif  // !_MSC_VER
-
-RespondRequestTaskResource::RespondRequestTaskResource()
-  : ::google::protobuf::Message() {
-  SharedCtor();
-}
-
-void RespondRequestTaskResource::InitAsDefaultInstance() {
-}
-
-RespondRequestTaskResource::RespondRequestTaskResource(const RespondRequestTaskResource& from)
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void RespondRequestTaskResource::SharedCtor() {
-  _cached_size_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-RespondRequestTaskResource::~RespondRequestTaskResource() {
-  SharedDtor();
-}
-
-void RespondRequestTaskResource::SharedDtor() {
-  if (this != default_instance_) {
-  }
-}
-
-void RespondRequestTaskResource::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* RespondRequestTaskResource::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return RespondRequestTaskResource_descriptor_;
-}
-
-const RespondRequestTaskResource& RespondRequestTaskResource::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
-}
-
-RespondRequestTaskResource* RespondRequestTaskResource::default_instance_ = NULL;
-
-RespondRequestTaskResource* RespondRequestTaskResource::New() const {
-  return new RespondRequestTaskResource;
-}
-
-void RespondRequestTaskResource::Clear() {
-  resource_address_.Clear();
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
-}
-
-bool RespondRequestTaskResource::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .FwmRcProto.ResourceAddress resource_address = 1;
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_resource_address:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_resource_address()));
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(10)) goto parse_resource_address;
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-      
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void RespondRequestTaskResource::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // repeated .FwmRcProto.ResourceAddress resource_address = 1;
-  for (int i = 0; i < this->resource_address_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->resource_address(i), output);
-  }
-  
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* RespondRequestTaskResource::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // repeated .FwmRcProto.ResourceAddress resource_address = 1;
-  for (int i = 0; i < this->resource_address_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, this->resource_address(i), target);
-  }
-  
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
-}
-
-int RespondRequestTaskResource::ByteSize() const {
-  int total_size = 0;
-  
-  // repeated .FwmRcProto.ResourceAddress resource_address = 1;
-  total_size += 1 * this->resource_address_size();
-  for (int i = 0; i < this->resource_address_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->resource_address(i));
-  }
-  
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void RespondRequestTaskResource::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const RespondRequestTaskResource* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const RespondRequestTaskResource*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void RespondRequestTaskResource::MergeFrom(const RespondRequestTaskResource& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  resource_address_.MergeFrom(from.resource_address_);
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void RespondRequestTaskResource::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void RespondRequestTaskResource::CopyFrom(const RespondRequestTaskResource& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool RespondRequestTaskResource::IsInitialized() const {
-  
-  for (int i = 0; i < resource_address_size(); i++) {
-    if (!this->resource_address(i).IsInitialized()) return false;
-  }
-  return true;
-}
-
-void RespondRequestTaskResource::Swap(RespondRequestTaskResource* other) {
-  if (other != this) {
-    resource_address_.Swap(&other->resource_address_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::google::protobuf::Metadata RespondRequestTaskResource::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = RespondRequestTaskResource_descriptor_;
-  metadata.reflection = RespondRequestTaskResource_reflection_;
-  return metadata;
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int ReturnTaskResource::kTaskResourceInfoFieldNumber;
+const int ReturnTaskResource::kFrameworkInstanceInfoFieldNumber;
+const int ReturnTaskResource::kSelfModuleIdFieldNumber;
+const int ReturnTaskResource::kModuleReturnResourceInfoFieldNumber;
 #endif  // !_MSC_VER
 
 ReturnTaskResource::ReturnTaskResource()
@@ -5110,6 +3984,7 @@ ReturnTaskResource::ReturnTaskResource()
 }
 
 void ReturnTaskResource::InitAsDefaultInstance() {
+  framework_instance_info_ = const_cast< ::FwmRcProto::FrameworkInstanceInfo*>(&::FwmRcProto::FrameworkInstanceInfo::default_instance());
 }
 
 ReturnTaskResource::ReturnTaskResource(const ReturnTaskResource& from)
@@ -5120,6 +3995,8 @@ ReturnTaskResource::ReturnTaskResource(const ReturnTaskResource& from)
 
 void ReturnTaskResource::SharedCtor() {
   _cached_size_ = 0;
+  framework_instance_info_ = NULL;
+  self_module_id_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -5129,6 +4006,7 @@ ReturnTaskResource::~ReturnTaskResource() {
 
 void ReturnTaskResource::SharedDtor() {
   if (this != default_instance_) {
+    delete framework_instance_info_;
   }
 }
 
@@ -5153,7 +4031,13 @@ ReturnTaskResource* ReturnTaskResource::New() const {
 }
 
 void ReturnTaskResource::Clear() {
-  task_resource_info_.Clear();
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (has_framework_instance_info()) {
+      if (framework_instance_info_ != NULL) framework_instance_info_->::FwmRcProto::FrameworkInstanceInfo::Clear();
+    }
+    self_module_id_ = 0u;
+  }
+  module_return_resource_info_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -5164,17 +4048,46 @@ bool ReturnTaskResource::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .FwmRcProto.AddressResourceInfo task_resource_info = 1;
+      // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_task_resource_info:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_task_resource_info()));
+               input, mutable_framework_instance_info()));
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(10)) goto parse_task_resource_info;
+        if (input->ExpectTag(16)) goto parse_self_module_id;
+        break;
+      }
+      
+      // required uint32 self_module_id = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_self_module_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &self_module_id_)));
+          set_has_self_module_id();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_module_return_resource_info;
+        break;
+      }
+      
+      // repeated .FwmRcProto.EachModuleRequestOrReturnResourceInfo module_return_resource_info = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_module_return_resource_info:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_module_return_resource_info()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_module_return_resource_info;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -5197,10 +4110,21 @@ bool ReturnTaskResource::MergePartialFromCodedStream(
 
 void ReturnTaskResource::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // repeated .FwmRcProto.AddressResourceInfo task_resource_info = 1;
-  for (int i = 0; i < this->task_resource_info_size(); i++) {
+  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+  if (has_framework_instance_info()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->task_resource_info(i), output);
+      1, this->framework_instance_info(), output);
+  }
+  
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->self_module_id(), output);
+  }
+  
+  // repeated .FwmRcProto.EachModuleRequestOrReturnResourceInfo module_return_resource_info = 3;
+  for (int i = 0; i < this->module_return_resource_info_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->module_return_resource_info(i), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -5211,11 +4135,23 @@ void ReturnTaskResource::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* ReturnTaskResource::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // repeated .FwmRcProto.AddressResourceInfo task_resource_info = 1;
-  for (int i = 0; i < this->task_resource_info_size(); i++) {
+  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+  if (has_framework_instance_info()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        1, this->task_resource_info(i), target);
+        1, this->framework_instance_info(), target);
+  }
+  
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->self_module_id(), target);
+  }
+  
+  // repeated .FwmRcProto.EachModuleRequestOrReturnResourceInfo module_return_resource_info = 3;
+  for (int i = 0; i < this->module_return_resource_info_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->module_return_resource_info(i), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -5228,12 +4164,28 @@ void ReturnTaskResource::SerializeWithCachedSizes(
 int ReturnTaskResource::ByteSize() const {
   int total_size = 0;
   
-  // repeated .FwmRcProto.AddressResourceInfo task_resource_info = 1;
-  total_size += 1 * this->task_resource_info_size();
-  for (int i = 0; i < this->task_resource_info_size(); i++) {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+    if (has_framework_instance_info()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->framework_instance_info());
+    }
+    
+    // required uint32 self_module_id = 2;
+    if (has_self_module_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->self_module_id());
+    }
+    
+  }
+  // repeated .FwmRcProto.EachModuleRequestOrReturnResourceInfo module_return_resource_info = 3;
+  total_size += 1 * this->module_return_resource_info_size();
+  for (int i = 0; i < this->module_return_resource_info_size(); i++) {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->task_resource_info(i));
+        this->module_return_resource_info(i));
   }
   
   if (!unknown_fields().empty()) {
@@ -5261,7 +4213,15 @@ void ReturnTaskResource::MergeFrom(const ::google::protobuf::Message& from) {
 
 void ReturnTaskResource::MergeFrom(const ReturnTaskResource& from) {
   GOOGLE_CHECK_NE(&from, this);
-  task_resource_info_.MergeFrom(from.task_resource_info_);
+  module_return_resource_info_.MergeFrom(from.module_return_resource_info_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_framework_instance_info()) {
+      mutable_framework_instance_info()->::FwmRcProto::FrameworkInstanceInfo::MergeFrom(from.framework_instance_info());
+    }
+    if (from.has_self_module_id()) {
+      set_self_module_id(from.self_module_id());
+    }
+  }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
@@ -5278,16 +4238,22 @@ void ReturnTaskResource::CopyFrom(const ReturnTaskResource& from) {
 }
 
 bool ReturnTaskResource::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   
-  for (int i = 0; i < task_resource_info_size(); i++) {
-    if (!this->task_resource_info(i).IsInitialized()) return false;
+  if (has_framework_instance_info()) {
+    if (!this->framework_instance_info().IsInitialized()) return false;
+  }
+  for (int i = 0; i < module_return_resource_info_size(); i++) {
+    if (!this->module_return_resource_info(i).IsInitialized()) return false;
   }
   return true;
 }
 
 void ReturnTaskResource::Swap(ReturnTaskResource* other) {
   if (other != this) {
-    task_resource_info_.Swap(&other->task_resource_info_);
+    std::swap(framework_instance_info_, other->framework_instance_info_);
+    std::swap(self_module_id_, other->self_module_id_);
+    module_return_resource_info_.Swap(&other->module_return_resource_info_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -5306,107 +4272,80 @@ void ReturnTaskResource::Swap(ReturnTaskResource* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int IPProcessInfo::kIpFieldNumber;
-const int IPProcessInfo::kProcessIdFieldNumber;
+const int ReturnTaskResourceAck::kStatuscodeFieldNumber;
 #endif  // !_MSC_VER
 
-IPProcessInfo::IPProcessInfo()
+ReturnTaskResourceAck::ReturnTaskResourceAck()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void IPProcessInfo::InitAsDefaultInstance() {
+void ReturnTaskResourceAck::InitAsDefaultInstance() {
 }
 
-IPProcessInfo::IPProcessInfo(const IPProcessInfo& from)
+ReturnTaskResourceAck::ReturnTaskResourceAck(const ReturnTaskResourceAck& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void IPProcessInfo::SharedCtor() {
+void ReturnTaskResourceAck::SharedCtor() {
   _cached_size_ = 0;
-  ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  process_id_ = 0u;
+  statuscode_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-IPProcessInfo::~IPProcessInfo() {
+ReturnTaskResourceAck::~ReturnTaskResourceAck() {
   SharedDtor();
 }
 
-void IPProcessInfo::SharedDtor() {
-  if (ip_ != &::google::protobuf::internal::kEmptyString) {
-    delete ip_;
-  }
+void ReturnTaskResourceAck::SharedDtor() {
   if (this != default_instance_) {
   }
 }
 
-void IPProcessInfo::SetCachedSize(int size) const {
+void ReturnTaskResourceAck::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* IPProcessInfo::descriptor() {
+const ::google::protobuf::Descriptor* ReturnTaskResourceAck::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return IPProcessInfo_descriptor_;
+  return ReturnTaskResourceAck_descriptor_;
 }
 
-const IPProcessInfo& IPProcessInfo::default_instance() {
+const ReturnTaskResourceAck& ReturnTaskResourceAck::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
 }
 
-IPProcessInfo* IPProcessInfo::default_instance_ = NULL;
+ReturnTaskResourceAck* ReturnTaskResourceAck::default_instance_ = NULL;
 
-IPProcessInfo* IPProcessInfo::New() const {
-  return new IPProcessInfo;
+ReturnTaskResourceAck* ReturnTaskResourceAck::New() const {
+  return new ReturnTaskResourceAck;
 }
 
-void IPProcessInfo::Clear() {
+void ReturnTaskResourceAck::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (has_ip()) {
-      if (ip_ != &::google::protobuf::internal::kEmptyString) {
-        ip_->clear();
-      }
-    }
-    process_id_ = 0u;
+    statuscode_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
-bool IPProcessInfo::MergePartialFromCodedStream(
+bool ReturnTaskResourceAck::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required string ip = 1;
+      // required int32 statuscode = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_ip()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->ip().data(), this->ip().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(16)) goto parse_process_id;
-        break;
-      }
-      
-      // optional uint32 process_id = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_process_id:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &process_id_)));
-          set_has_process_id();
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &statuscode_)));
+          set_has_statuscode();
         } else {
           goto handle_uninterpreted;
         }
@@ -5430,20 +4369,11 @@ bool IPProcessInfo::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void IPProcessInfo::SerializeWithCachedSizes(
+void ReturnTaskResourceAck::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required string ip = 1;
-  if (has_ip()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->ip().data(), this->ip().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      1, this->ip(), output);
-  }
-  
-  // optional uint32 process_id = 2;
-  if (has_process_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->process_id(), output);
+  // required int32 statuscode = 1;
+  if (has_statuscode()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->statuscode(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -5452,21 +4382,11 @@ void IPProcessInfo::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* IPProcessInfo::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* ReturnTaskResourceAck::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required string ip = 1;
-  if (has_ip()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->ip().data(), this->ip().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->ip(), target);
-  }
-  
-  // optional uint32 process_id = 2;
-  if (has_process_id()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->process_id(), target);
+  // required int32 statuscode = 1;
+  if (has_statuscode()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->statuscode(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -5476,22 +4396,15 @@ void IPProcessInfo::SerializeWithCachedSizes(
   return target;
 }
 
-int IPProcessInfo::ByteSize() const {
+int ReturnTaskResourceAck::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required string ip = 1;
-    if (has_ip()) {
+    // required int32 statuscode = 1;
+    if (has_statuscode()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->ip());
-    }
-    
-    // optional uint32 process_id = 2;
-    if (has_process_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->process_id());
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->statuscode());
     }
     
   }
@@ -5506,10 +4419,10 @@ int IPProcessInfo::ByteSize() const {
   return total_size;
 }
 
-void IPProcessInfo::MergeFrom(const ::google::protobuf::Message& from) {
+void ReturnTaskResourceAck::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const IPProcessInfo* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const IPProcessInfo*>(
+  const ReturnTaskResourceAck* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ReturnTaskResourceAck*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -5518,52 +4431,48 @@ void IPProcessInfo::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void IPProcessInfo::MergeFrom(const IPProcessInfo& from) {
+void ReturnTaskResourceAck::MergeFrom(const ReturnTaskResourceAck& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_ip()) {
-      set_ip(from.ip());
-    }
-    if (from.has_process_id()) {
-      set_process_id(from.process_id());
+    if (from.has_statuscode()) {
+      set_statuscode(from.statuscode());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void IPProcessInfo::CopyFrom(const ::google::protobuf::Message& from) {
+void ReturnTaskResourceAck::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void IPProcessInfo::CopyFrom(const IPProcessInfo& from) {
+void ReturnTaskResourceAck::CopyFrom(const ReturnTaskResourceAck& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool IPProcessInfo::IsInitialized() const {
+bool ReturnTaskResourceAck::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   
   return true;
 }
 
-void IPProcessInfo::Swap(IPProcessInfo* other) {
+void ReturnTaskResourceAck::Swap(ReturnTaskResourceAck* other) {
   if (other != this) {
-    std::swap(ip_, other->ip_);
-    std::swap(process_id_, other->process_id_);
+    std::swap(statuscode_, other->statuscode_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata IPProcessInfo::GetMetadata() const {
+::google::protobuf::Metadata ReturnTaskResourceAck::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = IPProcessInfo_descriptor_;
-  metadata.reflection = IPProcessInfo_reflection_;
+  metadata.descriptor = ReturnTaskResourceAck_descriptor_;
+  metadata.reflection = ReturnTaskResourceAck_reflection_;
   return metadata;
 }
 
@@ -5571,102 +4480,128 @@ void IPProcessInfo::Swap(IPProcessInfo* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int StopModuleInfo::kFrameworkInstanceFieldNumber;
-const int StopModuleInfo::kIpProcessFieldNumber;
+const int StopModule::kFrameworkInstanceInfoFieldNumber;
+const int StopModule::kSelfModuleIdFieldNumber;
+const int StopModule::kStopModuleIdFieldNumber;
 #endif  // !_MSC_VER
 
-StopModuleInfo::StopModuleInfo()
+StopModule::StopModule()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void StopModuleInfo::InitAsDefaultInstance() {
-  framework_instance_ = const_cast< ::FwmRcProto::FrameworkInstanceInfo*>(&::FwmRcProto::FrameworkInstanceInfo::default_instance());
+void StopModule::InitAsDefaultInstance() {
+  framework_instance_info_ = const_cast< ::FwmRcProto::FrameworkInstanceInfo*>(&::FwmRcProto::FrameworkInstanceInfo::default_instance());
 }
 
-StopModuleInfo::StopModuleInfo(const StopModuleInfo& from)
+StopModule::StopModule(const StopModule& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void StopModuleInfo::SharedCtor() {
+void StopModule::SharedCtor() {
   _cached_size_ = 0;
-  framework_instance_ = NULL;
+  framework_instance_info_ = NULL;
+  self_module_id_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-StopModuleInfo::~StopModuleInfo() {
+StopModule::~StopModule() {
   SharedDtor();
 }
 
-void StopModuleInfo::SharedDtor() {
+void StopModule::SharedDtor() {
   if (this != default_instance_) {
-    delete framework_instance_;
+    delete framework_instance_info_;
   }
 }
 
-void StopModuleInfo::SetCachedSize(int size) const {
+void StopModule::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* StopModuleInfo::descriptor() {
+const ::google::protobuf::Descriptor* StopModule::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return StopModuleInfo_descriptor_;
+  return StopModule_descriptor_;
 }
 
-const StopModuleInfo& StopModuleInfo::default_instance() {
+const StopModule& StopModule::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
 }
 
-StopModuleInfo* StopModuleInfo::default_instance_ = NULL;
+StopModule* StopModule::default_instance_ = NULL;
 
-StopModuleInfo* StopModuleInfo::New() const {
-  return new StopModuleInfo;
+StopModule* StopModule::New() const {
+  return new StopModule;
 }
 
-void StopModuleInfo::Clear() {
+void StopModule::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (has_framework_instance()) {
-      if (framework_instance_ != NULL) framework_instance_->::FwmRcProto::FrameworkInstanceInfo::Clear();
+    if (has_framework_instance_info()) {
+      if (framework_instance_info_ != NULL) framework_instance_info_->::FwmRcProto::FrameworkInstanceInfo::Clear();
     }
+    self_module_id_ = 0u;
   }
-  ip_process_.Clear();
+  stop_module_id_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
-bool StopModuleInfo::MergePartialFromCodedStream(
+bool StopModule::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .FwmRcProto.FrameworkInstanceInfo framework_Instance = 1;
+      // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_framework_instance()));
+               input, mutable_framework_instance_info()));
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_ip_process;
+        if (input->ExpectTag(16)) goto parse_self_module_id;
         break;
       }
       
-      // repeated .FwmRcProto.IPProcessInfo ip_process = 2;
+      // required uint32 self_module_id = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_ip_process:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_ip_process()));
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_self_module_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &self_module_id_)));
+          set_has_self_module_id();
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_ip_process;
+        if (input->ExpectTag(24)) goto parse_stop_module_id;
+        break;
+      }
+      
+      // repeated uint32 stop_module_id = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_stop_module_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 24, input, this->mutable_stop_module_id())));
+        } else if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag)
+                   == ::google::protobuf::internal::WireFormatLite::
+                      WIRETYPE_LENGTH_DELIMITED) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_stop_module_id())));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(24)) goto parse_stop_module_id;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -5687,18 +4622,23 @@ bool StopModuleInfo::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void StopModuleInfo::SerializeWithCachedSizes(
+void StopModule::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required .FwmRcProto.FrameworkInstanceInfo framework_Instance = 1;
-  if (has_framework_instance()) {
+  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+  if (has_framework_instance_info()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->framework_instance(), output);
+      1, this->framework_instance_info(), output);
   }
   
-  // repeated .FwmRcProto.IPProcessInfo ip_process = 2;
-  for (int i = 0; i < this->ip_process_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->ip_process(i), output);
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->self_module_id(), output);
+  }
+  
+  // repeated uint32 stop_module_id = 3;
+  for (int i = 0; i < this->stop_module_id_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(
+      3, this->stop_module_id(i), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -5707,20 +4647,24 @@ void StopModuleInfo::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* StopModuleInfo::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* StopModule::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required .FwmRcProto.FrameworkInstanceInfo framework_Instance = 1;
-  if (has_framework_instance()) {
+  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+  if (has_framework_instance_info()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        1, this->framework_instance(), target);
+        1, this->framework_instance_info(), target);
   }
   
-  // repeated .FwmRcProto.IPProcessInfo ip_process = 2;
-  for (int i = 0; i < this->ip_process_size(); i++) {
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->self_module_id(), target);
+  }
+  
+  // repeated uint32 stop_module_id = 3;
+  for (int i = 0; i < this->stop_module_id_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->ip_process(i), target);
+      WriteUInt32ToArray(3, this->stop_module_id(i), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -5730,24 +4674,33 @@ void StopModuleInfo::SerializeWithCachedSizes(
   return target;
 }
 
-int StopModuleInfo::ByteSize() const {
+int StopModule::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .FwmRcProto.FrameworkInstanceInfo framework_Instance = 1;
-    if (has_framework_instance()) {
+    // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+    if (has_framework_instance_info()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->framework_instance());
+          this->framework_instance_info());
+    }
+    
+    // required uint32 self_module_id = 2;
+    if (has_self_module_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->self_module_id());
     }
     
   }
-  // repeated .FwmRcProto.IPProcessInfo ip_process = 2;
-  total_size += 1 * this->ip_process_size();
-  for (int i = 0; i < this->ip_process_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->ip_process(i));
+  // repeated uint32 stop_module_id = 3;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->stop_module_id_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        UInt32Size(this->stop_module_id(i));
+    }
+    total_size += 1 * this->stop_module_id_size() + data_size;
   }
   
   if (!unknown_fields().empty()) {
@@ -5761,10 +4714,10 @@ int StopModuleInfo::ByteSize() const {
   return total_size;
 }
 
-void StopModuleInfo::MergeFrom(const ::google::protobuf::Message& from) {
+void StopModule::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const StopModuleInfo* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const StopModuleInfo*>(
+  const StopModule* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const StopModule*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -5773,56 +4726,1241 @@ void StopModuleInfo::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void StopModuleInfo::MergeFrom(const StopModuleInfo& from) {
+void StopModule::MergeFrom(const StopModule& from) {
   GOOGLE_CHECK_NE(&from, this);
-  ip_process_.MergeFrom(from.ip_process_);
+  stop_module_id_.MergeFrom(from.stop_module_id_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_framework_instance()) {
-      mutable_framework_instance()->::FwmRcProto::FrameworkInstanceInfo::MergeFrom(from.framework_instance());
+    if (from.has_framework_instance_info()) {
+      mutable_framework_instance_info()->::FwmRcProto::FrameworkInstanceInfo::MergeFrom(from.framework_instance_info());
+    }
+    if (from.has_self_module_id()) {
+      set_self_module_id(from.self_module_id());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void StopModuleInfo::CopyFrom(const ::google::protobuf::Message& from) {
+void StopModule::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void StopModuleInfo::CopyFrom(const StopModuleInfo& from) {
+void StopModule::CopyFrom(const StopModule& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool StopModuleInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+bool StopModule::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   
-  if (has_framework_instance()) {
-    if (!this->framework_instance().IsInitialized()) return false;
-  }
-  for (int i = 0; i < ip_process_size(); i++) {
-    if (!this->ip_process(i).IsInitialized()) return false;
+  if (has_framework_instance_info()) {
+    if (!this->framework_instance_info().IsInitialized()) return false;
   }
   return true;
 }
 
-void StopModuleInfo::Swap(StopModuleInfo* other) {
+void StopModule::Swap(StopModule* other) {
   if (other != this) {
-    std::swap(framework_instance_, other->framework_instance_);
-    ip_process_.Swap(&other->ip_process_);
+    std::swap(framework_instance_info_, other->framework_instance_info_);
+    std::swap(self_module_id_, other->self_module_id_);
+    stop_module_id_.Swap(&other->stop_module_id_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata StopModuleInfo::GetMetadata() const {
+::google::protobuf::Metadata StopModule::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = StopModuleInfo_descriptor_;
-  metadata.reflection = StopModuleInfo_reflection_;
+  metadata.descriptor = StopModule_descriptor_;
+  metadata.reflection = StopModule_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int StopModuleAck::kStatuscodeFieldNumber;
+const int StopModuleAck::kStopModuleIdFieldNumber;
+#endif  // !_MSC_VER
+
+StopModuleAck::StopModuleAck()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void StopModuleAck::InitAsDefaultInstance() {
+}
+
+StopModuleAck::StopModuleAck(const StopModuleAck& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void StopModuleAck::SharedCtor() {
+  _cached_size_ = 0;
+  statuscode_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+StopModuleAck::~StopModuleAck() {
+  SharedDtor();
+}
+
+void StopModuleAck::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void StopModuleAck::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* StopModuleAck::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return StopModuleAck_descriptor_;
+}
+
+const StopModuleAck& StopModuleAck::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
+}
+
+StopModuleAck* StopModuleAck::default_instance_ = NULL;
+
+StopModuleAck* StopModuleAck::New() const {
+  return new StopModuleAck;
+}
+
+void StopModuleAck::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    statuscode_ = 0;
+  }
+  stop_module_id_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool StopModuleAck::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required int32 statuscode = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &statuscode_)));
+          set_has_statuscode();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_stop_module_id;
+        break;
+      }
+      
+      // repeated uint32 stop_module_id = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_stop_module_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 16, input, this->mutable_stop_module_id())));
+        } else if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag)
+                   == ::google::protobuf::internal::WireFormatLite::
+                      WIRETYPE_LENGTH_DELIMITED) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_stop_module_id())));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_stop_module_id;
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void StopModuleAck::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required int32 statuscode = 1;
+  if (has_statuscode()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->statuscode(), output);
+  }
+  
+  // repeated uint32 stop_module_id = 2;
+  for (int i = 0; i < this->stop_module_id_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(
+      2, this->stop_module_id(i), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* StopModuleAck::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required int32 statuscode = 1;
+  if (has_statuscode()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->statuscode(), target);
+  }
+  
+  // repeated uint32 stop_module_id = 2;
+  for (int i = 0; i < this->stop_module_id_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteUInt32ToArray(2, this->stop_module_id(i), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int StopModuleAck::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required int32 statuscode = 1;
+    if (has_statuscode()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->statuscode());
+    }
+    
+  }
+  // repeated uint32 stop_module_id = 2;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->stop_module_id_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        UInt32Size(this->stop_module_id(i));
+    }
+    total_size += 1 * this->stop_module_id_size() + data_size;
+  }
+  
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void StopModuleAck::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const StopModuleAck* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const StopModuleAck*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void StopModuleAck::MergeFrom(const StopModuleAck& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  stop_module_id_.MergeFrom(from.stop_module_id_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_statuscode()) {
+      set_statuscode(from.statuscode());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void StopModuleAck::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void StopModuleAck::CopyFrom(const StopModuleAck& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StopModuleAck::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  
+  return true;
+}
+
+void StopModuleAck::Swap(StopModuleAck* other) {
+  if (other != this) {
+    std::swap(statuscode_, other->statuscode_);
+    stop_module_id_.Swap(&other->stop_module_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata StopModuleAck::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = StopModuleAck_descriptor_;
+  metadata.reflection = StopModuleAck_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int HeartBeatInfo::kFrameworkInstanceInfoFieldNumber;
+const int HeartBeatInfo::kSelfModuleIdFieldNumber;
+#endif  // !_MSC_VER
+
+HeartBeatInfo::HeartBeatInfo()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void HeartBeatInfo::InitAsDefaultInstance() {
+  framework_instance_info_ = const_cast< ::FwmRcProto::FrameworkInstanceInfo*>(&::FwmRcProto::FrameworkInstanceInfo::default_instance());
+}
+
+HeartBeatInfo::HeartBeatInfo(const HeartBeatInfo& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void HeartBeatInfo::SharedCtor() {
+  _cached_size_ = 0;
+  framework_instance_info_ = NULL;
+  self_module_id_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+HeartBeatInfo::~HeartBeatInfo() {
+  SharedDtor();
+}
+
+void HeartBeatInfo::SharedDtor() {
+  if (this != default_instance_) {
+    delete framework_instance_info_;
+  }
+}
+
+void HeartBeatInfo::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* HeartBeatInfo::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return HeartBeatInfo_descriptor_;
+}
+
+const HeartBeatInfo& HeartBeatInfo::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
+}
+
+HeartBeatInfo* HeartBeatInfo::default_instance_ = NULL;
+
+HeartBeatInfo* HeartBeatInfo::New() const {
+  return new HeartBeatInfo;
+}
+
+void HeartBeatInfo::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (has_framework_instance_info()) {
+      if (framework_instance_info_ != NULL) framework_instance_info_->::FwmRcProto::FrameworkInstanceInfo::Clear();
+    }
+    self_module_id_ = 0u;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool HeartBeatInfo::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_framework_instance_info()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_self_module_id;
+        break;
+      }
+      
+      // required uint32 self_module_id = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_self_module_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &self_module_id_)));
+          set_has_self_module_id();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void HeartBeatInfo::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+  if (has_framework_instance_info()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->framework_instance_info(), output);
+  }
+  
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->self_module_id(), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* HeartBeatInfo::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+  if (has_framework_instance_info()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->framework_instance_info(), target);
+  }
+  
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->self_module_id(), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int HeartBeatInfo::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+    if (has_framework_instance_info()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->framework_instance_info());
+    }
+    
+    // required uint32 self_module_id = 2;
+    if (has_self_module_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->self_module_id());
+    }
+    
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void HeartBeatInfo::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const HeartBeatInfo* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const HeartBeatInfo*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void HeartBeatInfo::MergeFrom(const HeartBeatInfo& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_framework_instance_info()) {
+      mutable_framework_instance_info()->::FwmRcProto::FrameworkInstanceInfo::MergeFrom(from.framework_instance_info());
+    }
+    if (from.has_self_module_id()) {
+      set_self_module_id(from.self_module_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void HeartBeatInfo::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void HeartBeatInfo::CopyFrom(const HeartBeatInfo& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool HeartBeatInfo::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  
+  if (has_framework_instance_info()) {
+    if (!this->framework_instance_info().IsInitialized()) return false;
+  }
+  return true;
+}
+
+void HeartBeatInfo::Swap(HeartBeatInfo* other) {
+  if (other != this) {
+    std::swap(framework_instance_info_, other->framework_instance_info_);
+    std::swap(self_module_id_, other->self_module_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata HeartBeatInfo::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = HeartBeatInfo_descriptor_;
+  metadata.reflection = HeartBeatInfo_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int HeartBeatInfoAck::kStatuscodeFieldNumber;
+#endif  // !_MSC_VER
+
+HeartBeatInfoAck::HeartBeatInfoAck()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void HeartBeatInfoAck::InitAsDefaultInstance() {
+}
+
+HeartBeatInfoAck::HeartBeatInfoAck(const HeartBeatInfoAck& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void HeartBeatInfoAck::SharedCtor() {
+  _cached_size_ = 0;
+  statuscode_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+HeartBeatInfoAck::~HeartBeatInfoAck() {
+  SharedDtor();
+}
+
+void HeartBeatInfoAck::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void HeartBeatInfoAck::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* HeartBeatInfoAck::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return HeartBeatInfoAck_descriptor_;
+}
+
+const HeartBeatInfoAck& HeartBeatInfoAck::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
+}
+
+HeartBeatInfoAck* HeartBeatInfoAck::default_instance_ = NULL;
+
+HeartBeatInfoAck* HeartBeatInfoAck::New() const {
+  return new HeartBeatInfoAck;
+}
+
+void HeartBeatInfoAck::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    statuscode_ = 0;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool HeartBeatInfoAck::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required int32 statuscode = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &statuscode_)));
+          set_has_statuscode();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void HeartBeatInfoAck::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required int32 statuscode = 1;
+  if (has_statuscode()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->statuscode(), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* HeartBeatInfoAck::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required int32 statuscode = 1;
+  if (has_statuscode()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->statuscode(), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int HeartBeatInfoAck::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required int32 statuscode = 1;
+    if (has_statuscode()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->statuscode());
+    }
+    
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void HeartBeatInfoAck::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const HeartBeatInfoAck* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const HeartBeatInfoAck*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void HeartBeatInfoAck::MergeFrom(const HeartBeatInfoAck& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_statuscode()) {
+      set_statuscode(from.statuscode());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void HeartBeatInfoAck::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void HeartBeatInfoAck::CopyFrom(const HeartBeatInfoAck& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool HeartBeatInfoAck::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  
+  return true;
+}
+
+void HeartBeatInfoAck::Swap(HeartBeatInfoAck* other) {
+  if (other != this) {
+    std::swap(statuscode_, other->statuscode_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata HeartBeatInfoAck::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = HeartBeatInfoAck_descriptor_;
+  metadata.reflection = HeartBeatInfoAck_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int CloseFrameworkInstanceInfo::kFrameworkInstanceInfoFieldNumber;
+const int CloseFrameworkInstanceInfo::kSelfModuleIdFieldNumber;
+#endif  // !_MSC_VER
+
+CloseFrameworkInstanceInfo::CloseFrameworkInstanceInfo()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void CloseFrameworkInstanceInfo::InitAsDefaultInstance() {
+  framework_instance_info_ = const_cast< ::FwmRcProto::FrameworkInstanceInfo*>(&::FwmRcProto::FrameworkInstanceInfo::default_instance());
+}
+
+CloseFrameworkInstanceInfo::CloseFrameworkInstanceInfo(const CloseFrameworkInstanceInfo& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void CloseFrameworkInstanceInfo::SharedCtor() {
+  _cached_size_ = 0;
+  framework_instance_info_ = NULL;
+  self_module_id_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+CloseFrameworkInstanceInfo::~CloseFrameworkInstanceInfo() {
+  SharedDtor();
+}
+
+void CloseFrameworkInstanceInfo::SharedDtor() {
+  if (this != default_instance_) {
+    delete framework_instance_info_;
+  }
+}
+
+void CloseFrameworkInstanceInfo::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CloseFrameworkInstanceInfo::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CloseFrameworkInstanceInfo_descriptor_;
+}
+
+const CloseFrameworkInstanceInfo& CloseFrameworkInstanceInfo::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
+}
+
+CloseFrameworkInstanceInfo* CloseFrameworkInstanceInfo::default_instance_ = NULL;
+
+CloseFrameworkInstanceInfo* CloseFrameworkInstanceInfo::New() const {
+  return new CloseFrameworkInstanceInfo;
+}
+
+void CloseFrameworkInstanceInfo::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (has_framework_instance_info()) {
+      if (framework_instance_info_ != NULL) framework_instance_info_->::FwmRcProto::FrameworkInstanceInfo::Clear();
+    }
+    self_module_id_ = 0u;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool CloseFrameworkInstanceInfo::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_framework_instance_info()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_self_module_id;
+        break;
+      }
+      
+      // required uint32 self_module_id = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_self_module_id:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &self_module_id_)));
+          set_has_self_module_id();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void CloseFrameworkInstanceInfo::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+  if (has_framework_instance_info()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->framework_instance_info(), output);
+  }
+  
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->self_module_id(), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CloseFrameworkInstanceInfo::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+  if (has_framework_instance_info()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->framework_instance_info(), target);
+  }
+  
+  // required uint32 self_module_id = 2;
+  if (has_self_module_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->self_module_id(), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int CloseFrameworkInstanceInfo::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .FwmRcProto.FrameworkInstanceInfo framework_instance_info = 1;
+    if (has_framework_instance_info()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->framework_instance_info());
+    }
+    
+    // required uint32 self_module_id = 2;
+    if (has_self_module_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->self_module_id());
+    }
+    
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CloseFrameworkInstanceInfo::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CloseFrameworkInstanceInfo* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CloseFrameworkInstanceInfo*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void CloseFrameworkInstanceInfo::MergeFrom(const CloseFrameworkInstanceInfo& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_framework_instance_info()) {
+      mutable_framework_instance_info()->::FwmRcProto::FrameworkInstanceInfo::MergeFrom(from.framework_instance_info());
+    }
+    if (from.has_self_module_id()) {
+      set_self_module_id(from.self_module_id());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CloseFrameworkInstanceInfo::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CloseFrameworkInstanceInfo::CopyFrom(const CloseFrameworkInstanceInfo& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CloseFrameworkInstanceInfo::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  
+  if (has_framework_instance_info()) {
+    if (!this->framework_instance_info().IsInitialized()) return false;
+  }
+  return true;
+}
+
+void CloseFrameworkInstanceInfo::Swap(CloseFrameworkInstanceInfo* other) {
+  if (other != this) {
+    std::swap(framework_instance_info_, other->framework_instance_info_);
+    std::swap(self_module_id_, other->self_module_id_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata CloseFrameworkInstanceInfo::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CloseFrameworkInstanceInfo_descriptor_;
+  metadata.reflection = CloseFrameworkInstanceInfo_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int CloseFrameworkInstanceInfoAck::kStatuscodeFieldNumber;
+#endif  // !_MSC_VER
+
+CloseFrameworkInstanceInfoAck::CloseFrameworkInstanceInfoAck()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void CloseFrameworkInstanceInfoAck::InitAsDefaultInstance() {
+}
+
+CloseFrameworkInstanceInfoAck::CloseFrameworkInstanceInfoAck(const CloseFrameworkInstanceInfoAck& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void CloseFrameworkInstanceInfoAck::SharedCtor() {
+  _cached_size_ = 0;
+  statuscode_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+CloseFrameworkInstanceInfoAck::~CloseFrameworkInstanceInfoAck() {
+  SharedDtor();
+}
+
+void CloseFrameworkInstanceInfoAck::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void CloseFrameworkInstanceInfoAck::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CloseFrameworkInstanceInfoAck::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CloseFrameworkInstanceInfoAck_descriptor_;
+}
+
+const CloseFrameworkInstanceInfoAck& CloseFrameworkInstanceInfoAck::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_FwmRcProtocol_2eproto();  return *default_instance_;
+}
+
+CloseFrameworkInstanceInfoAck* CloseFrameworkInstanceInfoAck::default_instance_ = NULL;
+
+CloseFrameworkInstanceInfoAck* CloseFrameworkInstanceInfoAck::New() const {
+  return new CloseFrameworkInstanceInfoAck;
+}
+
+void CloseFrameworkInstanceInfoAck::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    statuscode_ = 0;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool CloseFrameworkInstanceInfoAck::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required int32 statuscode = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &statuscode_)));
+          set_has_statuscode();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void CloseFrameworkInstanceInfoAck::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required int32 statuscode = 1;
+  if (has_statuscode()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->statuscode(), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CloseFrameworkInstanceInfoAck::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required int32 statuscode = 1;
+  if (has_statuscode()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->statuscode(), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int CloseFrameworkInstanceInfoAck::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required int32 statuscode = 1;
+    if (has_statuscode()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->statuscode());
+    }
+    
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CloseFrameworkInstanceInfoAck::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CloseFrameworkInstanceInfoAck* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CloseFrameworkInstanceInfoAck*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void CloseFrameworkInstanceInfoAck::MergeFrom(const CloseFrameworkInstanceInfoAck& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_statuscode()) {
+      set_statuscode(from.statuscode());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CloseFrameworkInstanceInfoAck::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CloseFrameworkInstanceInfoAck::CopyFrom(const CloseFrameworkInstanceInfoAck& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CloseFrameworkInstanceInfoAck::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  
+  return true;
+}
+
+void CloseFrameworkInstanceInfoAck::Swap(CloseFrameworkInstanceInfoAck* other) {
+  if (other != this) {
+    std::swap(statuscode_, other->statuscode_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata CloseFrameworkInstanceInfoAck::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CloseFrameworkInstanceInfoAck_descriptor_;
+  metadata.reflection = CloseFrameworkInstanceInfoAck_reflection_;
   return metadata;
 }
 

@@ -32,8 +32,6 @@
 #include <protocol/MSG_DC_DM_TOKEN_IDENTIFY.pb.h>
 #include <protocol/MSG_DM_DC_DOMAIN_DBINFO_GET.pb.h>
 #include <protocol/MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.h>
-#include <protocol/ALProtocol.pb.h>
-#include <protocol/FwmNcProtocol.pb.h>
 #include <protocol/FwmRcProtocol.pb.h>
 
 typedef boost::weak_ptr<muduo::net::TcpConnection> TcpConnectionWeakPtr;

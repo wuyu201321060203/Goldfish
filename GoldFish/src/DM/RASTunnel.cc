@@ -1,10 +1,14 @@
+#include <muduo/base/Logging.h>
+
 #include <DM/RASTunnel.h>
+#include <DM/Initializer.h>
 
 using namespace muduo;
 using namespace muduo::net;
+using namespace FwmRcProto;
 
-#define RAS_CONNECTED 1
-#define RAS_DISCONNECTED 0
+#define NORMAL 1
+#define ABNORMAL 0
 
 RASTunnel::RASTunnel(muduo::net::EventLoop* loop , muduo::net::InetAddress const& serveAddr):
                      _rasMasterClient(loop , serveAddr) , _status(RAS_DISCONNECTED),
@@ -12,15 +16,18 @@ RASTunnel::RASTunnel(muduo::net::EventLoop* loop , muduo::net::InetAddress const
                                 &Initializer::getDispatcher() , _1 , _2 , _3) )
 {
     ( Initializer::getDispatcher() ).registerMessageCallback(
-        FwmRcProto::FWMRCRegister::descriptor(),
+        //TODO
         boost::bind(&RASTunnel::onRegisterCallback , this , _1 , _2 , _3));
 
     ( Initializer::getDispatcher() ).registerMessageCallback(
-        FwmRcProto::RespondRequestSlaveResource::descriptor(),
+        //TODO
         boost::bind(&RASTunnel::onApplyResourceReplyFromRC , this , _1 , _2 , _3));
 
     _rasMasterClient.setConnectionCallback(boost::bind(&RASTunnel::onConnectionCallbackFromRC,
         this , _1));
+
+    _rasMasterClient.setMessageCallback(boost::bind(&ProtobufRASCodec::onMessage,
+        &_rasCodec , _1 , _2 , _3));
 }
 
 void RASTunnel::init()
@@ -32,32 +39,38 @@ void RASTunnel::applyResource(STDSTR domainName , STDSTR domainDescription,
                               double cpuNum , uint32_t cpuMemSize,
                               muduo::net::TcpConnectionPtr const& cliConn)
 {
-    if(RAS_CONNECTED == _status)
+    if(NORMAL == _status)
     {
         _cliConnApplyVec.push_back(cliConn);
-        RequestSlaveResource apply;
-        ::FwmRcProto::FrameworkInstanceInfo* frameWorkInstanceInfo =
-            apply.mutable_framework_instance_info();
+        RequestStartSlave apply;
+        FrameworkInstanceInfo* instanceInfo =
+                                        apply.mutable_framework_instance_info();
 
-        frameWorkInstanceInfo->set_framework_id(Initializer::getFrameworkID());
-        frameWorkInstanceInfo->set_framework_instance_id(
-            Initializer::getFrameworkInstanceID());
+        instanceInfo->set_framework_id( Initializer::getFrameworkID() );
+        instanceInfo->set_framework_instance_id( Initializer::getFrameworkInstanceID() );
 
-        apply.set_module_name("DC");
-        ::FwmRcProto::EachMachineResourceInfo* eachResourceInfo =
-            apply.add_each_resource_info();
-        eachResourceInfo->set_ip("*");
-        ::FwmRcProto::ResourceInfo* resourceInfo = eachResourceInfo->mutable_resource_info();
+        apply.set_self_module_id(Initializer::getSelfModuleID());
+
+        EachModuleResourceInfo* moduleResourceInfo = apply.add_start_module_resource_info();
+        moduleResourceInfo->set_ip("*");
+        ResourceInfo* resourceInfo = moduleResourceInfo->mutable_resource_info();
         double coreNum = coreNum;
         uint32_t memSize = cpuMemSize;
         resourceInfo->set_cpu_num(coreNum);
         resourceInfo->set_cpu_mem_size(memSize);
+        moduleResourceInfo->set_listen_port_num()//TODO
+
+        NetAddress* addr = apply.mutable_fwm_net_address();
+        addr->set_ip(Initializer::getSelfIP());
+        addr->set_port(Initializer::getDCPort());
+
         DomainInfoCache tmp;
         tmp._domainName = domainName;
         tmp._domainDescription = domainDescription;
         tmp._cpuNum = coreNum;
         tmp._cpuMemSize = memSize;
         _cacheVec.push_back(tmp);
+
         (Initializer::getCodec()).send(_rasMasterClient.connection() , apply);
     }
     else
@@ -82,31 +95,34 @@ void RASTunnel::onApplyResourceReply(muduo::net::TcpConnectionPtr const& conn,
                                      MessagePtr const& msg,
                                      muduo::Timestamp receiveTime)
 {
-    boost::shared_ptr<RespondRequestSlaveResource> respond =
-        muduo::down_pointer_cast<RespondRequestSlaveResource>(msg);
+    boost::shared_ptr<RequestStartSlaveAck> respond =
+        muduo::down_pointer_cast<RequestStartSlaveAck>(msg);
 
-    TcpConnectionPtr cliConn = _cliConnApplyVec.front();
+    TcpConnectionWeakPtr tmp = _cliConnApplyVec.front();
     _cliConnApplyVec.erase(_cliConnApplyVec.begin());
-
-    if(RESOURCE_APPLY_FAIL !=  respond->statuscode())
+    TcpConnectionPtr cliConn(tmp.lock());
+    if(cliConn)
     {
-        if(0 < _cacheVec.size())
+        if(RESOURCE_APPLY_FAIL !=  respond->statuscode())
         {
-            DomainInfoCache cache = _cacheVec.front();
-            _cacheVec.erase(_cacheVec.begin())
-            (Initializer::getThreadPool()).run(boost::bind(&RASTunnel::doCreateDomain,
-                this , cliConn , respond.id(),//TODO
-                cache._domainName,
-                cache._domainDescription,
-                cache._cpuNum,
-                cache._cpuMemSize,
-                respond.netaddress().ip(),
-                respond.netaddress.port()));
+            if(0 < _cacheVec.size())
+            {
+                DomainInfoCache cache = _cacheVec.front();
+                _cacheVec.erase(_cacheVec.begin())
+                    (Initializer::getThreadPool()).run(boost::bind(&RASTunnel::doCreateDomain,
+                        this , cliConn , respond.module_id(),//TODO
+                        cache._domainName,
+                        cache._domainDescription,
+                        cache._cpuNum,
+                        cache._cpuMemSize,
+                        respond.netaddress().ip(),
+                        respond.netaddress.port()));
 
-            return;
+                return;
+            }
         }
+        onFailSend<DomainCreateACK>(cliConn , RESOURCE_APPLY_FAIL);
     }
-    onFailSend<DomainCreateACK>(cliConn , RESOURCE_APPLY_FAIL);
 }
 
 void RASTunnel::onRevokeResourceReply(muduo::net::TcpConnectionPtr const& conn,
@@ -135,7 +151,6 @@ void RASTunnel::onConnectionCallbackFromRC(TcpConnectionPtr const& conn)
 {
     if(conn->connected())
     {
-        _status = RAS_CONNECTED;
         //heartbeat
         register2RAS(conn);
     }
@@ -148,15 +163,11 @@ void RASTunnel::onConnectionCallbackFromRC(TcpConnectionPtr const& conn)
 
 void RASTunnel::register2RAS(TcpConnectionPtr const& conn)
 {
-    FwmRcProto::FWMRCRegister msg;
-    (msg.mutable_framework_instance_info())->set_framework_id(
-                                                Initializer::getFrameworkID());
-
-    (msg.mutable_framework_instance_info())->set_framework_instance_id(
-                                        Initializer::getFrameworkInstanceID());
-
-    (msg.mutable_framework_master_info())->set_module_name(MODULE_NAME);
-    (msg.mutable_framework_master_info())->set_fw_master_ip(Initializer::getDMIP());
+    Register msg;
+    FrameworkInstanceInfo* instanceInfo = msg.mutable_framework_instance_info();
+    instanceInfo->set_framework_id(Initializer::getFrameworkID());
+    instanceInfo->set_framework_instance_id(Initializer::getFrameworkInstanceID());
+    msg.set_self_module_id(Initializer::getSelfModuleID());
     ( Initializer::getCodec() ).send(conn , msg);
 }
 
@@ -164,11 +175,12 @@ void RASTunnel::onRegisterCallback(TcpConnectionPtr const& conn,
                                    MessagePtr const& msg,
                                    muduo::Timestamp receiveTime)
 {
-    boost::shared_ptr<FWMRCRegisterACK> reply =
-        muduo::down_pointer_cast<FWMRCRegisterACK>(msg);
-    if(SUCCESS != reply->statuscode())
+    boost::shared_ptr<RegisterACK> reply = muduo::down_pointer_cast<RegisterACK>(msg);
+
+    if(SUCCESS == reply->statuscode()) _status = NORMAL;
+    else
     {
-        _statuc = RAS_DISCONNECTED;
+        _status = ABNORMAL;
         LOG_INFO << "failed to register to RAS";
     }
 }
