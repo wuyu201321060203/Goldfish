@@ -1,106 +1,191 @@
+#include <string>
+
+#ifdef TEST
+#include <vector>
+#include <iostream>
+#endif
+
+#include <boost/any.hpp>
+
+#include <muduo/base/Logging.h>
+#include <muduo/base/Types.h>
+#include <muduo/base/Mutex.h>
+#include <muduo/base/ThreadPool.h>
+
+#include <DM/RemoteDomainInfoService.h>
+#include <DM/Token.h>
+
+#include <Db/ResultSet.h>
+#include <Db/ConnectionPool.h>
+#include <mysql/MysqlConnection.h>
+#include <Exception/SQLException.h>
+
+using namespace muduo;
+using namespace muduo::net;
+using namespace OOzdb;
+using boost::any_cast;
+
+typedef boost::shared_ptr<MutexLock> MutexLockPtr;
+
+#ifdef TEST
+typedef MSG_DM_CLIENT_GROUP_DESCRIPTION_GET_ACK_GROUP_INFO GroupInfoType;
+extern std::vector<GroupInfoType> testArray;
+#endif
+
 #include "RemoteDomainInfoService.h"
 
+RemoteDomainInfoService::RemoteDomainInfoService(ResourceManagerPtr const& manager):
+                            _manager(manager)
+{
+}
 
 void RemoteDomainInfoService::onCreateInfo(TcpConnectionPtr const& conn,
                                            MessagePtr const& msg,
                                            muduo::Timestamp)
 {
-    boost::shared_ptr<CreateDomainMsg> query = muduo::down_cast<CreateDomainMsg>(msg);
-    Token token(query->token());
-    if(token.niuXThanDomainAdmin())
+    DomainCreateMsgPtr query = muduo::down_pointer_cast<DomainCreateMsg>(msg);
+    std::string tmp = query->token();
+    Token token(tmp);
+    if(token.niuXThanGroupAdmin())
     {
-        _resManager->applyResource(msg , conn);
+        _manager->applyResource(query->domainname() , query->domaindescription(),
+            query->corenum() , query->memsize() , conn);
     }
     else
-    {
-        CreateDomainACK reply;
-        reply.set_statusCode();
-        conn->send(reply);
-    }
+        onTokenFailAuthFailed<DomainCreateACK>(conn);
 }
 
 void RemoteDomainInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
                                            MessagePtr const& msg,
                                            muduo::Timestamp)
 {
-    boost::shared_ptr<DeleteDomainMsg> query = muduo::down_cast<DeleteDomainMsg>(msg);
-    Token token(query->token());
-    if(token.niuXThanDomainAdmin())
+    DomainDestroyMsgPtr query = muduo::down_pointer_cast<DomainDestroyMsg>(msg);
+    std::string tmp = query->token();
+    Token token(tmp);
+    if(token.niuXThanGroupAdmin())
     {
-        _resManager->revokeResource(msg , conn);
+        uint32_t id = query->domainid();
+        _manager->revokeResource(id);
     }
     else
-    {
-        DeleteDomainACK reply;
-        reply.set_statusCode();
-        conn->send(reply);
-    }
+        onTokenFailAuthFailed<DomainDestroyACK>(conn);
 }
 
 void RemoteDomainInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
                                            MessagePtr const& msg,
                                            muduo::Timestamp)
 {
-    boost::shared_ptr<UpdateDomainMsg> query = muduo::down_cast<UpdateDomainMsg>(msg);
-    Token token(query->token());
-    UpdateDomainACK reply;
-    if(token.niuXThanDomainAdmin())
+    DomainInfoUpdateMsgPtr query = muduo::down_pointer_cast<DomainInfoUpdateMsg>(msg);
+    std::string tmp = query->token();
+    Token token(tmp);
+    if(token.niuXThanGroupAdmin())
     {
-        ConnectionPtr dbConn = SingleConntionPool::instance().getConnection<
-            MysqlConnection>();
-        string domainName = query->domainName();
-        string description = query->description();
-        dbConn->execute("update Domain set description = %s where name = %s",
-                        description , domainName);
-        reply.set_statusCode();
-
+        std::string domainName = query->domainname();
+        std::string description = query->domaindescription();
+        (Initializer::getThreadPool()).run(boost::bind(&DomainInfoService::doUpdateDomain,
+            this , conn , domainName , description));
     }
     else
-    {
-        reply.set_statusCode();
-    }
-    conn->send(reply);
+        onTokenFailAuthFailed<DomainInfoUpdateACK>(conn);
 }
 
 void RemoteDomainInfoService::onGetInfo(TcpConnectionPtr const& conn,
                                         MessagePtr const& msg,
                                         muduo::Timestamp)
 {
-    boost::shared_ptr<GetDomainMsg> query = muduo::down_cast<GetDomainMsg>(msg);
-    Token token(query->token());
-    GetDomainACK reply;
-    if(token.niuXThanGroupAdmin())
-    {
-        ConnectionPtr dbConn = SingleConntionPool::instance().getConnection<
-            MysqlConnection>();
-        int domainNum = query->domainName_size();
-        string domainName;
-        string description;
-        for(int i = 0 ; i != domainNum ; ++i)
-        {
-            domainName = query->domainName(i);
-            ResultPtr result = dbConn->executeQuery("select description from
-                        Domain where name = %s" , domainName);
-            if(result->next())
-            {
-                description = result->getString(1);
-                reply.set_domainInfo(domainName , description);
-            }
-            else
-            {
-                reply.set_statusCode();
-                break;
-            }
-        }
-    }
-    else
-    {
-        reply.set_statusCode();
-    }
-    conn->send(reply);
+    DomainInfoGetMsgPtr query = muduo::down_pointer_cast<DomainInfoGetMsg>(msg);
+    std::string tmp = query->token();
+    Token token(tmp);
+    std::string domainName = token.getDomain();
+    (Initializer::getThreadPool()).run(boost::bind(&DomainInfoService::doGetDomain,
+                                        this , conn , domainName));
 }
 
-ResManagerPtr getResManager()
+void RemoteDomainInfoService::doUpdateDomain(TcpConnectionPtr const& conn,
+                                             std::string domainName,
+                                             std::string description)
 {
-    return _resManager;
+    ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
+    DomainInfoUpdateACK reply;
+    ResultSetPtr result;
+    try
+    {
+        {
+            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
+            MutexLockGuard guard(**lock);
+            result = dbConn->executeQuery("select id from DOMAIN_INFO\
+                                           where name = '%s' " , domainName.c_str());
+            if(result->next())
+            {
+                dbConn->execute(" update DOMAIN_INFO set description = '%s' where name = '%s' ",
+                    description.c_str() , domainName.c_str());
+
+                reply.set_statuscode(SUCCESS);
+            }
+            else
+                reply.set_statuscode(UNEXISTED_DOMAIN);
+        }
+    }
+    catch(SQLException const& e)
+    {
+#ifdef DEBUG
+        LOG_INFO << "failed to update domain: " << domainName;
+#endif
+        reply.set_statuscode(UNKNOWN_SYSERROR);
+    }
+    dbConn->close();
+#ifndef TEST
+    ( Initializer::getCodec() ).send(conn , reply);
+#endif
+}
+
+void RemoteDomainInfoService::doGetDomain(TcpConnectionPtr const& conn , std::string domainName)
+{
+    typedef MSG_DM_CLIENT_DOMAIN_DESCRIPTION_GET_ACK_DOMAIN_INFO DomainInfo;
+    ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
+    DomainInfoGetACK reply;
+    reply.set_statuscode(UNEXISTED_DOMAIN);
+    ResultSetPtr result;
+    std::string sqlQuery;
+    std::string domainDescription;
+    std::string domainNameAlias;
+    if(groupName != "*")
+    {
+        std::string prefix("select name , description from DOMAIN_INFO where name = '");
+        sqlQuery = prefix + domainName + "'";
+    }
+    else
+        sqlQuery = "select name , description from DOMAIN_INFO";
+    try
+    {
+        {
+            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
+            MutexLockGuard guard(**lock);
+            result = dbConn->executeQuery(sqlQuery.c_str());
+        }
+        while(result->next())
+        {
+            domainNameAlias = result->getString(1);
+            domainDescription = result->getString(2);
+            reply.set_statuscode(SUCCESS);
+            DomainInfo* info = reply.add_domaininfo();
+            info->set_name(domainNameAlias);
+            info->set_description(domainDescription);
+#ifdef TEST
+            testArray.push_back(*info);
+#endif
+
+        }
+    }
+    catch(SQLException const& e)
+    {
+#ifdef DEBUG
+        LOG_INFO << "failed to get the info of domain: " << domainName;
+#endif
+        reply.set_statuscode(UNKNOWN_SYSERROR);
+    }
+    dbConn->close();
+#ifndef TEST
+    ( Initializer::getCodec() ).send(conn , reply);
+#endif
 }

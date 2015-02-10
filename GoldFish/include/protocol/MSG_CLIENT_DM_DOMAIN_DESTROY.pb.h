@@ -100,28 +100,24 @@ class MSG_CLIENT_DM_DOMAIN_DESTROY : public ::google::protobuf::Message {
   inline ::std::string* mutable_token();
   inline ::std::string* release_token();
   
-  // optional string domainName = 2;
-  inline bool has_domainname() const;
-  inline void clear_domainname();
-  static const int kDomainNameFieldNumber = 2;
-  inline const ::std::string& domainname() const;
-  inline void set_domainname(const ::std::string& value);
-  inline void set_domainname(const char* value);
-  inline void set_domainname(const char* value, size_t size);
-  inline ::std::string* mutable_domainname();
-  inline ::std::string* release_domainname();
+  // optional uint32 domainID = 2;
+  inline bool has_domainid() const;
+  inline void clear_domainid();
+  static const int kDomainIDFieldNumber = 2;
+  inline ::google::protobuf::uint32 domainid() const;
+  inline void set_domainid(::google::protobuf::uint32 value);
   
   // @@protoc_insertion_point(class_scope:MSG_CLIENT_DM_DOMAIN_DESTROY)
  private:
   inline void set_has_token();
   inline void clear_has_token();
-  inline void set_has_domainname();
-  inline void clear_has_domainname();
+  inline void set_has_domainid();
+  inline void clear_has_domainid();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
   ::std::string* token_;
-  ::std::string* domainname_;
+  ::google::protobuf::uint32 domainid_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
@@ -280,62 +276,26 @@ inline ::std::string* MSG_CLIENT_DM_DOMAIN_DESTROY::release_token() {
   }
 }
 
-// optional string domainName = 2;
-inline bool MSG_CLIENT_DM_DOMAIN_DESTROY::has_domainname() const {
+// optional uint32 domainID = 2;
+inline bool MSG_CLIENT_DM_DOMAIN_DESTROY::has_domainid() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void MSG_CLIENT_DM_DOMAIN_DESTROY::set_has_domainname() {
+inline void MSG_CLIENT_DM_DOMAIN_DESTROY::set_has_domainid() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void MSG_CLIENT_DM_DOMAIN_DESTROY::clear_has_domainname() {
+inline void MSG_CLIENT_DM_DOMAIN_DESTROY::clear_has_domainid() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void MSG_CLIENT_DM_DOMAIN_DESTROY::clear_domainname() {
-  if (domainname_ != &::google::protobuf::internal::kEmptyString) {
-    domainname_->clear();
-  }
-  clear_has_domainname();
+inline void MSG_CLIENT_DM_DOMAIN_DESTROY::clear_domainid() {
+  domainid_ = 0u;
+  clear_has_domainid();
 }
-inline const ::std::string& MSG_CLIENT_DM_DOMAIN_DESTROY::domainname() const {
-  return *domainname_;
+inline ::google::protobuf::uint32 MSG_CLIENT_DM_DOMAIN_DESTROY::domainid() const {
+  return domainid_;
 }
-inline void MSG_CLIENT_DM_DOMAIN_DESTROY::set_domainname(const ::std::string& value) {
-  set_has_domainname();
-  if (domainname_ == &::google::protobuf::internal::kEmptyString) {
-    domainname_ = new ::std::string;
-  }
-  domainname_->assign(value);
-}
-inline void MSG_CLIENT_DM_DOMAIN_DESTROY::set_domainname(const char* value) {
-  set_has_domainname();
-  if (domainname_ == &::google::protobuf::internal::kEmptyString) {
-    domainname_ = new ::std::string;
-  }
-  domainname_->assign(value);
-}
-inline void MSG_CLIENT_DM_DOMAIN_DESTROY::set_domainname(const char* value, size_t size) {
-  set_has_domainname();
-  if (domainname_ == &::google::protobuf::internal::kEmptyString) {
-    domainname_ = new ::std::string;
-  }
-  domainname_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* MSG_CLIENT_DM_DOMAIN_DESTROY::mutable_domainname() {
-  set_has_domainname();
-  if (domainname_ == &::google::protobuf::internal::kEmptyString) {
-    domainname_ = new ::std::string;
-  }
-  return domainname_;
-}
-inline ::std::string* MSG_CLIENT_DM_DOMAIN_DESTROY::release_domainname() {
-  clear_has_domainname();
-  if (domainname_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = domainname_;
-    domainname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
+inline void MSG_CLIENT_DM_DOMAIN_DESTROY::set_domainid(::google::protobuf::uint32 value) {
+  set_has_domainid();
+  domainid_ = value;
 }
 
 // -------------------------------------------------------------------

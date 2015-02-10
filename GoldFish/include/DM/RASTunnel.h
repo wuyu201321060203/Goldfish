@@ -23,19 +23,20 @@ public:
 
     virtual void init();
 
-    virtual void applyResource(MessagePtr const& msg,
-                               muduo::net::TcpConnectionPtr const& cliConn);
+    virtual void applyResource(STDSTR domainName , STDSTR domainDescription,
+                       double cpuNum , uint32_t cpuMemSize,
+                       muduo::net::TcpConnectionPtr const& cliConn);
 
-    virtual void revokeResource(MessagePtr const& msg,
+    virtual void revokeResource(uint32_t domainID,
                                 muduo::net::TcpConnectionPtr const& cliConn);
 
     void onApplyResourceReply(muduo::net::TcpConnectionPtr const&,
-                                      MessagePtr const&,
-                                      muduo::Timestamp);
+                              MessagePtr const&,
+                              muduo::Timestamp);
 
     void onRevokeResourceReply(muduo::net::TcpConnectionPtr const&,
-                                       MessagePtr const&,
-                                       muduo::Timestamp);
+                               MessagePtr const&,
+                               muduo::Timestamp);
 
 private:
 
@@ -60,8 +61,27 @@ private:
 
 private:
 
-    void onConnectionCallback(muduo::net::TcpConnectionPtr const&);
+    void onConnectionCallbackFromRC(muduo::net::TcpConnectionPtr const&);
     void register2RAS(muduo::net::TcpConnectionPtr const&);
+
+    void onRegisterCallback(muduo::net::TcpConnectionPtr const& conn,
+                            MessagePtr const& msg,
+                            muduo::Timestamp receiveTime);
+
+    void doCreateDomain(muduo::net::TcpConnectionPtr const& conn , uint32_t domainID,
+                        STDSTR domainName , STDSTR domainDescription,
+                        double cpuNum , uint32_t cpuMemSize,
+                        STDSTR IP , uint32_t port);
+
+    void doRevokeDomain(muduo::net::TcpConnectionPtr const& conn , uint32_t domainID);
+
+    template<typename T>
+    void onFailSend(muduo::net::TcpConnectionPtr const& conn , T reply , int replyInfo)
+    {
+        T reply;
+        reply.set_statuscode(replyInfo);
+        (Initializer::getCodec()).send(conn , reply);
+    }
 };
 
 #endif

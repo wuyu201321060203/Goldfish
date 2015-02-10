@@ -1,12 +1,17 @@
 #ifndef DOMAININFOSERVICE_H
 #define DOMAININFOSERVICE_H
 
+#include <boost/shared_ptr.hpp>
+
 #include "GenericInfoService.h"
+
+typedef boost::shared_ptr<ResourceManager> ResourceManagerPtr;
 
 class RemoteDomainInfoService : public GenericInfoService
 {
 public:
 
+    RemoteDomainInfoService(ResourceManagerPtr const&);
     virtual void onCreateInfo(TcpConnectionPtr const&,
                               MessagePtr const&,
                               muduo::Timestamp);
@@ -23,11 +28,9 @@ public:
                            MessagePtr const&,
                            muduo::Timestamp);
 
-    ResManagerPtr getResManager();
-
 private:
 
-    ResManagerPtr _resManager;
+    ResourceManagerPtr _manager;
 };
 
 #endif

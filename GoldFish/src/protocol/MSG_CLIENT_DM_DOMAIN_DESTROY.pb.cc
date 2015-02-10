@@ -34,7 +34,7 @@ void protobuf_AssignDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fDESTROY_2eproto() {
   MSG_CLIENT_DM_DOMAIN_DESTROY_descriptor_ = file->message_type(0);
   static const int MSG_CLIENT_DM_DOMAIN_DESTROY_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_DESTROY, token_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_DESTROY, domainname_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_CLIENT_DM_DOMAIN_DESTROY, domainid_),
   };
   MSG_CLIENT_DM_DOMAIN_DESTROY_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -96,10 +96,10 @@ void protobuf_AddDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fDESTROY_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\"MSG_CLIENT_DM_DOMAIN_DESTROY.proto\"A\n\034"
+    "\n\"MSG_CLIENT_DM_DOMAIN_DESTROY.proto\"\?\n\034"
     "MSG_CLIENT_DM_DOMAIN_DESTROY\022\r\n\005token\030\001 "
-    "\001(\t\022\022\n\ndomainName\030\002 \001(\t\"6\n MSG_DM_CLIENT"
-    "_DOMAIN_DESTROY_ACK\022\022\n\nstatusCode\030\001 \001(\005", 159);
+    "\001(\t\022\020\n\010domainID\030\002 \001(\r\"6\n MSG_DM_CLIENT_D"
+    "OMAIN_DESTROY_ACK\022\022\n\nstatusCode\030\001 \001(\005", 157);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MSG_CLIENT_DM_DOMAIN_DESTROY.proto", &protobuf_RegisterTypes);
   MSG_CLIENT_DM_DOMAIN_DESTROY::default_instance_ = new MSG_CLIENT_DM_DOMAIN_DESTROY();
@@ -121,7 +121,7 @@ struct StaticDescriptorInitializer_MSG_5fCLIENT_5fDM_5fDOMAIN_5fDESTROY_2eproto 
 
 #ifndef _MSC_VER
 const int MSG_CLIENT_DM_DOMAIN_DESTROY::kTokenFieldNumber;
-const int MSG_CLIENT_DM_DOMAIN_DESTROY::kDomainNameFieldNumber;
+const int MSG_CLIENT_DM_DOMAIN_DESTROY::kDomainIDFieldNumber;
 #endif  // !_MSC_VER
 
 MSG_CLIENT_DM_DOMAIN_DESTROY::MSG_CLIENT_DM_DOMAIN_DESTROY()
@@ -141,7 +141,7 @@ MSG_CLIENT_DM_DOMAIN_DESTROY::MSG_CLIENT_DM_DOMAIN_DESTROY(const MSG_CLIENT_DM_D
 void MSG_CLIENT_DM_DOMAIN_DESTROY::SharedCtor() {
   _cached_size_ = 0;
   token_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  domainname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  domainid_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -152,9 +152,6 @@ MSG_CLIENT_DM_DOMAIN_DESTROY::~MSG_CLIENT_DM_DOMAIN_DESTROY() {
 void MSG_CLIENT_DM_DOMAIN_DESTROY::SharedDtor() {
   if (token_ != &::google::protobuf::internal::kEmptyString) {
     delete token_;
-  }
-  if (domainname_ != &::google::protobuf::internal::kEmptyString) {
-    delete domainname_;
   }
   if (this != default_instance_) {
   }
@@ -187,11 +184,7 @@ void MSG_CLIENT_DM_DOMAIN_DESTROY::Clear() {
         token_->clear();
       }
     }
-    if (has_domainname()) {
-      if (domainname_ != &::google::protobuf::internal::kEmptyString) {
-        domainname_->clear();
-      }
-    }
+    domainid_ = 0u;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -215,20 +208,19 @@ bool MSG_CLIENT_DM_DOMAIN_DESTROY::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_domainName;
+        if (input->ExpectTag(16)) goto parse_domainID;
         break;
       }
       
-      // optional string domainName = 2;
+      // optional uint32 domainID = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_domainName:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_domainname()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->domainname().data(), this->domainname().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_domainID:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &domainid_)));
+          set_has_domainid();
         } else {
           goto handle_uninterpreted;
         }
@@ -263,13 +255,9 @@ void MSG_CLIENT_DM_DOMAIN_DESTROY::SerializeWithCachedSizes(
       1, this->token(), output);
   }
   
-  // optional string domainName = 2;
-  if (has_domainname()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->domainname().data(), this->domainname().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      2, this->domainname(), output);
+  // optional uint32 domainID = 2;
+  if (has_domainid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->domainid(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -290,14 +278,9 @@ void MSG_CLIENT_DM_DOMAIN_DESTROY::SerializeWithCachedSizes(
         1, this->token(), target);
   }
   
-  // optional string domainName = 2;
-  if (has_domainname()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->domainname().data(), this->domainname().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->domainname(), target);
+  // optional uint32 domainID = 2;
+  if (has_domainid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->domainid(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -318,11 +301,11 @@ int MSG_CLIENT_DM_DOMAIN_DESTROY::ByteSize() const {
           this->token());
     }
     
-    // optional string domainName = 2;
-    if (has_domainname()) {
+    // optional uint32 domainID = 2;
+    if (has_domainid()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->domainname());
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->domainid());
     }
     
   }
@@ -355,8 +338,8 @@ void MSG_CLIENT_DM_DOMAIN_DESTROY::MergeFrom(const MSG_CLIENT_DM_DOMAIN_DESTROY&
     if (from.has_token()) {
       set_token(from.token());
     }
-    if (from.has_domainname()) {
-      set_domainname(from.domainname());
+    if (from.has_domainid()) {
+      set_domainid(from.domainid());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -382,7 +365,7 @@ bool MSG_CLIENT_DM_DOMAIN_DESTROY::IsInitialized() const {
 void MSG_CLIENT_DM_DOMAIN_DESTROY::Swap(MSG_CLIENT_DM_DOMAIN_DESTROY* other) {
   if (other != this) {
     std::swap(token_, other->token_);
-    std::swap(domainname_, other->domainname_);
+    std::swap(domainid_, other->domainid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
