@@ -9,6 +9,7 @@
 
 OOzdb::ConnectionPool g_DbPool("mysql://root:123@localhost:3306/DM");
 
+/*
 TEST(InitializerTest , InitTest)
 {
     char* config[9] = {"test" , "1" , "2" , "ha" , "lo" , "3" , "4" , "0.0" , "5"};
@@ -22,6 +23,7 @@ TEST(InitializerTest , InitTest)
     EXPECT_EQ("0.0" , Initializer::getRCIP());
     EXPECT_EQ(5 , Initializer::getRCPort());
 }
+*/
 
 TEST(InitializerTest , registeMsgTest)
 {

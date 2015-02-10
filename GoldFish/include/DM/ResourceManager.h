@@ -16,11 +16,11 @@ public:
 
     virtual void init();
 
-    virtual void applyResource(MessagePtr const& msg,
-                               muduo::net::TcpConnectionPtr const& cliConn) = 0;
+    virtual void applyResource(STDSTR , STDSTR , double , uint32_t,
+                               muduo::net::TcpConnectionPtr const&) = 0;
 
-    virtual void revokeResource(MessagePtr const& msg,
-                                muduo::net::TcpConnectionPtr const& cliConn) = 0;
+    virtual void revokeResource(uint32_t,
+                                muduo::net::TcpConnectionPtr const&) = 0;
 };
 
 #endif

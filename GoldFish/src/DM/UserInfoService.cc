@@ -51,7 +51,7 @@ void UserInfoService::onCreateInfo(TcpConnectionPtr const& conn,
             this , conn , domainName , groupName , userName , passwd , authority));
     }
     else
-        onTokenFailAuthFailed<UserCreateACK>(conn);
+        onTokenAuthFailed<UserCreateACK>(conn);
 }
 
 void UserInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
@@ -68,7 +68,7 @@ void UserInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
             this , conn , userName));
     }
     else
-        onTokenFailAuthFailed<UserDestroyACK>(conn);
+        onTokenAuthFailed<UserDestroyACK>(conn);
 }
 
 void UserInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
@@ -157,7 +157,7 @@ void UserInfoService::doDeleteUser(TcpConnectionPtr const& conn , STDSTR userNam
                                         where name = '%s'" , userName.c_str());
             if(result->next())
             {
-                dbConn->executeQuery("delete from USER_INFO where name = '%s'",
+                dbConn->execute("delete from USER_INFO where name = '%s'",
                                                     userName.c_str());
                 reply.set_statuscode(SUCCESS);
             }

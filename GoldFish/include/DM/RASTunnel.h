@@ -7,13 +7,16 @@
 
 #include <muduo/net/TcpConnection.h>
 #include <muduo/net/TcpClient.h>
+#include <muduo/net/EventLoop.h>
+#include <muduo/net/InetAddress.h>
 #include <muduo/base/Timestamp.h>
 
-#include <DM/ProtobufRASCodec.h>
+#include "ProtobufRASCodec.h"
+#include "ReourceManager.h"
+#include "Initializer.h"
+#include "Config.h"
 
 typedef boost::shared_ptr<muduo::net::TcpClient> TcpClientPtr;
-
-#include "ReourceManager.h"
 
 class RASTunnel : public ResourceManager
 {
@@ -23,12 +26,11 @@ public:
 
     virtual void init();
 
-    virtual void applyResource(STDSTR domainName , STDSTR domainDescription,
-                       double cpuNum , uint32_t cpuMemSize,
-                       muduo::net::TcpConnectionPtr const& cliConn);
+    virtual void applyResource(STDSTR , STDSTR , double , uint32_t,
+                               muduo::net::TcpConnectionPtr const&);
 
-    virtual void revokeResource(uint32_t domainID,
-                                muduo::net::TcpConnectionPtr const& cliConn);
+    virtual void revokeResource(uint32_t,
+                                muduo::net::TcpConnectionPtr const&);
 
     void onApplyResourceReply(muduo::net::TcpConnectionPtr const&,
                               MessagePtr const&,
@@ -64,19 +66,17 @@ private:
     void onConnectionCallbackFromRC(muduo::net::TcpConnectionPtr const&);
     void register2RAS(muduo::net::TcpConnectionPtr const&);
 
-    void onRegisterCallback(muduo::net::TcpConnectionPtr const& conn,
-                            MessagePtr const& msg,
-                            muduo::Timestamp receiveTime);
+    void onRegisterCallback(muduo::net::TcpConnectionPtr const&,
+                            MessagePtr const&,
+                            muduo::Timestamp);
 
-    void doCreateDomain(muduo::net::TcpConnectionPtr const& conn , uint32_t domainID,
-                        STDSTR domainName , STDSTR domainDescription,
-                        double cpuNum , uint32_t cpuMemSize,
-                        STDSTR IP , uint32_t port);
+    void doCreateDomain(muduo::net::TcpConnectionPtr const& , uint32_t,
+                        STDSTR , STDSTR , double , uint32_t , STDSTR , uint32_t);
 
-    void doRevokeDomain(muduo::net::TcpConnectionPtr const& conn , uint32_t domainID);
+    void doRevokeDomain(muduo::net::TcpConnectionPtr const& , uint32_t);
 
     template<typename T>
-    void onFailSend(muduo::net::TcpConnectionPtr const& conn , T reply , int replyInfo)
+    void onFailSend(muduo::net::TcpConnectionPtr const& conn , int replyInfo)
     {
         T reply;
         reply.set_statuscode(replyInfo);

@@ -1,5 +1,4 @@
 #include <DM/ResourceManager.h>
-#include <DM/Initializer.h>
 
 using namespace muduo;
 using namespace muduo::net;
@@ -8,12 +7,15 @@ void ResourceManager::init()
 {
 }
 
-void ResourceManager::applyResource(MessagePtr const& msg,
+void ResourceManager::applyResource(STDSTR domainName,
+                                    STDSTR description,
+                                    double coreNum,
+                                    uint32_t memSize,
                                     TcpConnectionPtr const& cliConn)
 {
 }
 
-void ResourceManager::revokeResource(MessagePtr const& msg,
+void ResourceManager::revokeResource(uint32_t domainID,
                                      TcpConnectionPtr const& cliConn)
 {
 }

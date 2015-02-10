@@ -14,6 +14,7 @@
 
 #include <DM/RemoteDomainInfoService.h>
 #include <DM/Token.h>
+#include <DM/ResourceManager.h>
 
 #include <Db/ResultSet.h>
 #include <Db/ConnectionPool.h>
@@ -27,13 +28,6 @@ using boost::any_cast;
 
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
-#ifdef TEST
-typedef MSG_DM_CLIENT_GROUP_DESCRIPTION_GET_ACK_GROUP_INFO GroupInfoType;
-extern std::vector<GroupInfoType> testArray;
-#endif
-
-#include "RemoteDomainInfoService.h"
-
 RemoteDomainInfoService::RemoteDomainInfoService(ResourceManagerPtr const& manager):
                             _manager(manager)
 {
@@ -46,13 +40,13 @@ void RemoteDomainInfoService::onCreateInfo(TcpConnectionPtr const& conn,
     DomainCreateMsgPtr query = muduo::down_pointer_cast<DomainCreateMsg>(msg);
     std::string tmp = query->token();
     Token token(tmp);
-    if(token.niuXThanGroupAdmin())
+    if( token.niuXThanDomainAdmin() )
     {
         _manager->applyResource(query->domainname() , query->domaindescription(),
             query->corenum() , query->memsize() , conn);
     }
     else
-        onTokenFailAuthFailed<DomainCreateACK>(conn);
+        onTokenAuthFailed<DomainCreateACK>(conn);
 }
 
 void RemoteDomainInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
@@ -62,13 +56,13 @@ void RemoteDomainInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
     DomainDestroyMsgPtr query = muduo::down_pointer_cast<DomainDestroyMsg>(msg);
     std::string tmp = query->token();
     Token token(tmp);
-    if(token.niuXThanGroupAdmin())
+    if( token.niuXThanDomainAdmin() )
     {
         uint32_t id = query->domainid();
         _manager->revokeResource(id);
     }
     else
-        onTokenFailAuthFailed<DomainDestroyACK>(conn);
+        onTokenAuthFailed<DomainDestroyACK>(conn);
 }
 
 void RemoteDomainInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
@@ -86,7 +80,7 @@ void RemoteDomainInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
             this , conn , domainName , description));
     }
     else
-        onTokenFailAuthFailed<DomainInfoUpdateACK>(conn);
+        onTokenAuthFailed<DomainInfoUpdateACK>(conn);
 }
 
 void RemoteDomainInfoService::onGetInfo(TcpConnectionPtr const& conn,
@@ -149,7 +143,7 @@ void RemoteDomainInfoService::doGetDomain(TcpConnectionPtr const& conn , std::st
     std::string sqlQuery;
     std::string domainDescription;
     std::string domainNameAlias;
-    if(groupName != "*")
+    if(domainName != "*")
     {
         std::string prefix("select name , description from DOMAIN_INFO where name = '");
         sqlQuery = prefix + domainName + "'";
@@ -171,10 +165,6 @@ void RemoteDomainInfoService::doGetDomain(TcpConnectionPtr const& conn , std::st
             DomainInfo* info = reply.add_domaininfo();
             info->set_name(domainNameAlias);
             info->set_description(domainDescription);
-#ifdef TEST
-            testArray.push_back(*info);
-#endif
-
         }
     }
     catch(SQLException const& e)

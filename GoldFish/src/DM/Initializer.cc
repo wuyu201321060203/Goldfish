@@ -44,10 +44,6 @@ uint32_t Initializer::_frameworkID = 0;
 
 uint32_t Initializer::_frameworkInstanceID = 0;
 
-std::string Initializer::_dockerTag;
-
-std::string Initializer::_execFilePathList;
-
 uint16_t Initializer::_cliPort = 0;
 
 uint16_t Initializer::_dcPort = 0;
@@ -55,10 +51,6 @@ uint16_t Initializer::_dcPort = 0;
 std::string Initializer::_rcIP;
 
 uint16_t Initializer::_rcPort = 0;
-
-std::string Initializer::_dmIP;
-
-uint16_t Initializer::_dmPort = 0;
 
 int Initializer::init(int argc , char** argv)
 {
@@ -137,16 +129,6 @@ uint32_t Initializer::getFrameworkInstanceID()
     return _frameworkInstanceID;
 }
 
-std::string Initializer::getDockerTag()
-{
-    return _dockerTag;
-}
-
-std::string Initializer::getExecFilePathList()
-{
-    return _execFilePathList;
-}
-
 uint16_t Initializer::getCliPort()
 {
     return _cliPort;
@@ -165,16 +147,6 @@ std::string Initializer::getRCIP()
 uint16_t Initializer::getRCPort()
 {
     return _rcPort;
-}
-
-std::string Initializer::getDMIP()
-{
-    return _dmIP;
-}
-
-uint16_t Initializer::getDMPort()
-{
-    return _dmPort;
 }
 
 void Initializer::onUnknownMessage(TcpConnectionPtr const& conn , MessagePtr const& msg,
@@ -218,13 +190,9 @@ bool Initializer::parseCommandLineDull(int argc , char* argv[])
     STDSTR dmPort(argv[10]);
     _frameworkID = boost::lexical_cast<uint32_t>(frameworkID);
     _frameworkInstanceID = boost::lexical_cast<uint32_t>(frameworkInstanceID);
-    _dockerTag = dockerTag;
-    _execFilePathList = execFilePathList;
     _cliPort = boost::lexical_cast<uint16_t>(cliPort);
     _dcPort = boost::lexical_cast<uint16_t>(dcPort);
     _rcIP = rcIP;
     _rcPort = boost::lexical_cast<uint16_t>(rcPort);
-    _dmIP = dmIP;
-    _dmPort = boost::lexical_cast<uint16_t>(dmPort);
     return true;
 }

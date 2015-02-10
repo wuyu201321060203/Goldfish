@@ -36,7 +36,7 @@ public:
 protected:
 
     template<typename T>
-    void onTokenFailAuthFailed(muduo::net::TcpConnectionPtr const& conn)
+    void onTokenAuthFailed(muduo::net::TcpConnectionPtr const& conn)
     {
         T reply;
         reply.set_statuscode(PERMISSION_DENIED);

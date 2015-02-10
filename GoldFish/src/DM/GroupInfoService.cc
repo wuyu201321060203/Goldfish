@@ -48,7 +48,7 @@ void GroupInfoService::onCreateInfo(TcpConnectionPtr const& conn,
                         this , conn , groupName , belong2Domain , description) );
     }
     else
-        onTokenFailAuthFailed<GroupCreateACK>(conn);
+        onTokenAuthFailed<GroupCreateACK>(conn);
 }
 
 void GroupInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
@@ -65,7 +65,7 @@ void GroupInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
             this , conn , groupName));
     }
     else
-        onTokenFailAuthFailed<GroupDestroyACK>(conn);
+        onTokenAuthFailed<GroupDestroyACK>(conn);
 }
 
 void GroupInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
@@ -83,7 +83,7 @@ void GroupInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
             this , conn , groupName , description));
     }
     else
-        onTokenFailAuthFailed<GroupInfoUpdateACK>(conn);
+        onTokenAuthFailed<GroupInfoUpdateACK>(conn);
 }
 
 void GroupInfoService::onGetInfo(TcpConnectionPtr const& conn,

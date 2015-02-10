@@ -40,10 +40,6 @@ public:
 
     static uint32_t getFrameworkInstanceID();
 
-    static std::string getDockerTag();
-
-    static std::string getExecFilePathList();
-
     static uint16_t getCliPort();
 
     static uint16_t getDCPort();
@@ -51,10 +47,6 @@ public:
     static std::string getRCIP();
 
     static uint16_t getRCPort();
-
-    static std::string getDMIP();
-
-    static uint16_t getDMPort();
 
 private:
 
@@ -71,14 +63,10 @@ private:
     static HeartBeatManager _heartbeatManager;
     static uint32_t _frameworkID;
     static uint32_t _frameworkInstanceID;
-    static std::string _dockerTag;
-    static std::string _execFilePathList;
     static uint16_t _cliPort;
     static uint16_t _dcPort;
     static std::string _rcIP;
     static uint16_t _rcPort;
-    static std::string _dmIP;
-    static uint16_t _dmPort;
 
 private:
 

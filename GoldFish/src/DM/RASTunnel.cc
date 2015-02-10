@@ -1,5 +1,4 @@
 #include <DM/RASTunnel.h>
-#include <DM/Initializer.h>
 
 using namespace muduo;
 using namespace muduo::net;
@@ -7,10 +6,10 @@ using namespace muduo::net;
 #define RAS_CONNECTED 1
 #define RAS_DISCONNECTED 0
 
-RASTunnel::RASTunnel(muduo::net::EventLoop* loop , muduo::net::InetAddress const& addr):
-                    ResourceManager(loop , addr) , _status(RAS_DISCONNECTED),
-                    _rasCodec(boost::bind(&ProtobufDispatcher::onProtobufMessage,
-                                &Initializer::getDispatcher() , _1 , _2 , _3)),
+RASTunnel::RASTunnel(muduo::net::EventLoop* loop , muduo::net::InetAddress const& serveAddr):
+                     _rasMasterClient(loop , serveAddr) , _status(RAS_DISCONNECTED),
+                     _rasCodec(boost::bind(&ProtobufDispatcher::onProtobufMessage,
+                                &Initializer::getDispatcher() , _1 , _2 , _3) )
 {
     ( Initializer::getDispatcher() ).registerMessageCallback(
         FwmRcProto::FWMRCRegister::descriptor(),
@@ -19,6 +18,9 @@ RASTunnel::RASTunnel(muduo::net::EventLoop* loop , muduo::net::InetAddress const
     ( Initializer::getDispatcher() ).registerMessageCallback(
         FwmRcProto::RespondRequestSlaveResource::descriptor(),
         boost::bind(&RASTunnel::onApplyResourceReplyFromRC , this , _1 , _2 , _3));
+
+    _rasMasterClient.setConnectionCallback(boost::bind(&RASTunnel::onConnectionCallbackFromRC,
+        this , _1));
 }
 
 void RASTunnel::init()
@@ -59,9 +61,7 @@ void RASTunnel::applyResource(STDSTR domainName , STDSTR domainDescription,
         (Initializer::getCodec()).send(_rasMasterClient.connection() , apply);
     }
     else
-    {
         onFailSend<DomainCreateACK>(cliConn , RESOURCE_APPLY_FAIL);
-    }
 }
 
 void RASTunnel::revokeResource(uint32_t domainID,
