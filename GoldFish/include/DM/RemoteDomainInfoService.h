@@ -33,6 +33,11 @@ public:
 private:
 
     ResourceManagerPtr _manager;
+
+private:
+
+    void doUpdateDomain(muduo::net::TcpConnectionPtr const& , std::string , std::string);
+    void doGetDomain(muduo::net::TcpConnectionPtr const& , std::string);
 };
 
 #endif

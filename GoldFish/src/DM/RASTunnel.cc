@@ -1,4 +1,8 @@
 #include <muduo/base/Logging.h>
+#include <muduo/base/Mutex.h>
+
+#include <mysql/MysqlConnection.h>
+#include <Exception/SQLException.h>
 
 #include <DM/RASTunnel.h>
 #include <DM/Initializer.h>
@@ -6,12 +10,16 @@
 using namespace muduo;
 using namespace muduo::net;
 using namespace FwmRcProto;
+using namespace OOzdb;
+using boost::any_cast;
 
 #define NORMAL 1
 #define ABNORMAL 0
 
-RASTunnel::RASTunnel(muduo::net::EventLoop* loop , muduo::net::InetAddress const& serveAddr):
-                     _rasMasterClient(loop , serveAddr) , _status(RAS_DISCONNECTED),
+typedef boost::shared_ptr<MutexLock> MutexLockPtr;
+
+RASTunnel::RASTunnel(EventLoop* loop , InetAddress const& serveAddr):
+                     _rasMasterClient(loop , serveAddr , "rasMaster") , _status(ABNORMAL),
                      _rasCodec(boost::bind(&ProtobufDispatcher::onProtobufMessage,
                                 &Initializer::getDispatcher() , _1 , _2 , _3) )
 {
@@ -21,8 +29,20 @@ RASTunnel::RASTunnel(muduo::net::EventLoop* loop , muduo::net::InetAddress const
     _rasMasterClient.setMessageCallback( boost::bind(&ProtobufRASCodec::onMessage,
         &_rasCodec , _1 , _2 , _3) );
 
+    Initializer::registeRASMsg(MSG_FWM_RC_REGISTER , "FwmRcProto.Register");
+    Initializer::registeRASMsg(MSG_FWM_RC_REGISTER_ACK , "FwmRcProto.RegisterAck");
+    Initializer::registeRASMsg(MSG_FWM_RC_REQUEST_START_SLAVE,
+                               "FwmRcProto.RequestStartSlave");
+    Initializer::registeRASMsg(MSG_FWM_RC_REQUEST_START_SLAVE_ACK,
+                               "FwmRcProto.RequestStartSlaveAck");
+    Initializer::registeRASMsg(MSG_FWM_RC_STOP_MODULE , "FwmRcProto.StopModule");
+    Initializer::registeRASMsg(MSG_FWM_RC_STOP_MODULE_ACK , "FwmRcProto.StopModuleAck");
+    Initializer::registeRASMsg(MSG_FWM_RC_SEND_HEARTBEAT , "FwmRcProto.HeartBeatInfo");
+    Initializer::registeRASMsg(MSG_FWM_RC_SEND_HEARTBEAT_ACK,
+                               "FwmRcProto.HeartBeatInfoAck");
+
     ( Initializer::getDispatcher() ).registerMessageCallback(
-        RegisterACK::descriptor(),
+        RegisterAck::descriptor(),
         boost::bind(&RASTunnel::onRegisterCallback , this , _1 , _2 , _3) );
 
     ( Initializer::getDispatcher() ).registerMessageCallback(
@@ -62,7 +82,7 @@ void RASTunnel::applyResource(STDSTR domainName , STDSTR domainDescription,
         uint32_t memSize = cpuMemSize;
         resourceInfo->set_cpu_num(coreNum);
         resourceInfo->set_cpu_mem_size(memSize);
-        moduleResourceInfo->set_listen_port_num()//TODO
+        moduleResourceInfo->set_listen_port_num(4);//DC need 4 ports to serve
 
         NetAddress* addr = apply.mutable_fwm_net_address();
         addr->set_ip(Initializer::getSelfIP());
@@ -92,7 +112,7 @@ void RASTunnel::revokeResource(uint32_t domainID,
         instanceInfo->set_framework_id( Initializer::getFrameworkID() );
         instanceInfo->set_framework_instance_id( Initializer::getFrameworkInstanceID() );
         query.set_self_module_id(Initializer::getSelfModuleID());
-        query.set_stop_module_id(domainID);
+        query.add_stop_module_id(domainID);
         (Initializer::getCodec()).send(_rasMasterClient.connection() , query);
     }
     else
@@ -116,13 +136,15 @@ void RASTunnel::onApplyResourceReply(muduo::net::TcpConnectionPtr const& conn,
             if(0 < _cacheVec.size())
             {
                 DomainInfoCache cache = _cacheVec.front();
-                _cacheVec.erase(_cacheVec.begin())
-                    (Initializer::getThreadPool()).run(boost::bind(&RASTunnel::doCreateDomain,
-                        this , cliConn , respond.module_id(),
-                        cache._domainName,
-                        cache._domainDescription,
-                        cache._cpuNum,
-                        cache._cpuMemSize));
+                _cacheVec.erase(_cacheVec.begin());
+                uint32_t moduleID = respond->module_id(0);
+
+                (Initializer::getThreadPool()).run(boost::bind(&RASTunnel::doCreateDomain,
+                    this , cliConn , moduleID,
+                    cache._domainName,
+                    cache._domainDescription,
+                    cache._cpuNum,
+                    cache._cpuMemSize));
 
                 return;
             }
@@ -146,7 +168,7 @@ void RASTunnel::onRevokeResourceReply(muduo::net::TcpConnectionPtr const& conn,
         if(RESOURCE_REVOKE_FAIL !=  respond->statuscode())
         {
             (Initializer::getThreadPool()).run(boost::bind(&RASTunnel::doRevokeDomain,
-                    this , respond->stop_module_id() , cliConn) );
+                    this , cliConn , respond->stop_module_id(0)) );
         }
         else
             onFailSend<DomainDestroyACK>(cliConn , RESOURCE_REVOKE_FAIL);
@@ -163,7 +185,7 @@ void RASTunnel::onConnectionCallbackFromRC(TcpConnectionPtr const& conn)
     else
     {
         LOG_INFO << "disconnect to RC of RAS";
-        _status = RAS_DISCONNECTED;
+        _status = ABNORMAL;
     }
 }
 
@@ -181,7 +203,7 @@ void RASTunnel::onRegisterCallback(TcpConnectionPtr const& conn,
                                    MessagePtr const& msg,
                                    muduo::Timestamp receiveTime)
 {
-    boost::shared_ptr<RegisterACK> reply = muduo::down_pointer_cast<RegisterACK>(msg);
+    boost::shared_ptr<RegisterAck> reply = muduo::down_pointer_cast<RegisterAck>(msg);
 
     if(SUCCESS == reply->statuscode()) _status = NORMAL;
     else

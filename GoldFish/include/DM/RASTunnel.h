@@ -12,7 +12,7 @@
 #include <muduo/base/Timestamp.h>
 
 #include "ProtobufRASCodec.h"
-#include "ReourceManager.h"
+#include "ResourceManager.h"
 #include "Initializer.h"
 #include "Config.h"
 
@@ -69,7 +69,7 @@ private:
                             muduo::Timestamp);
 
     void doCreateDomain(muduo::net::TcpConnectionPtr const& , uint32_t,
-                        STDSTR , STDSTR , double , uint32_t , STDSTR , uint32_t);
+                        STDSTR , STDSTR , double , uint32_t);
 
     void doRevokeDomain(muduo::net::TcpConnectionPtr const& , uint32_t);
 

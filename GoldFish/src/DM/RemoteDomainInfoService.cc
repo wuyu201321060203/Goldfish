@@ -59,7 +59,7 @@ void RemoteDomainInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
     if( token.niuXThanDomainAdmin() )
     {
         uint32_t id = query->domainid();
-        _manager->revokeResource(id);
+        _manager->revokeResource(id , conn);
     }
     else
         onTokenAuthFailed<DomainDestroyACK>(conn);
@@ -76,7 +76,8 @@ void RemoteDomainInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
     {
         std::string domainName = query->domainname();
         std::string description = query->domaindescription();
-        (Initializer::getThreadPool()).run(boost::bind(&DomainInfoService::doUpdateDomain,
+        (Initializer::getThreadPool()).run(boost::bind(
+            &RemoteDomainInfoService::doUpdateDomain,
             this , conn , domainName , description));
     }
     else
@@ -91,7 +92,7 @@ void RemoteDomainInfoService::onGetInfo(TcpConnectionPtr const& conn,
     std::string tmp = query->token();
     Token token(tmp);
     std::string domainName = token.getDomain();
-    (Initializer::getThreadPool()).run(boost::bind(&DomainInfoService::doGetDomain,
+    (Initializer::getThreadPool()).run(boost::bind(&RemoteDomainInfoService::doGetDomain,
                                         this , conn , domainName));
 }
 
@@ -133,7 +134,8 @@ void RemoteDomainInfoService::doUpdateDomain(TcpConnectionPtr const& conn,
 #endif
 }
 
-void RemoteDomainInfoService::doGetDomain(TcpConnectionPtr const& conn , std::string domainName)
+void RemoteDomainInfoService::doGetDomain(TcpConnectionPtr const& conn,
+                                          std::string domainName)
 {
     typedef MSG_DM_CLIENT_DOMAIN_DESCRIPTION_GET_ACK_DOMAIN_INFO DomainInfo;
     ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
@@ -159,9 +161,9 @@ void RemoteDomainInfoService::doGetDomain(TcpConnectionPtr const& conn , std::st
         }
         while(result->next())
         {
+            reply.set_statuscode(SUCCESS);
             domainNameAlias = result->getString(1);
             domainDescription = result->getString(2);
-            reply.set_statuscode(SUCCESS);
             DomainInfo* info = reply.add_domaininfo();
             info->set_name(domainNameAlias);
             info->set_description(domainDescription);

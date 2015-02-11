@@ -100,6 +100,9 @@ Initializer.o : $(DM_SRC_DIR)/Initializer.cc
 ProtobufCodec.o : $(DM_SRC_DIR)/ProtobufCodec.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+RemoteDomainInfoService.o : $(DM_SRC_DIR)/RemoteDomainInfoService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 MSG_DC_DM_CONFIG_PERSISTENCE.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_CONFIG_PERSISTENCE.pb.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -148,6 +151,21 @@ MSG_CLIENT_DM_USER_INFO_UPDATE.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_USER_INFO_U
 MSG_CLIENT_DM_USER_LOG_IN.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_USER_LOG_IN.pb.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+MSG_CLIENT_DM_DOMAIN_CREATE.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_DOMAIN_CREATE.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_CLIENT_DM_DOMAIN_DESCRIPTION_GET.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_DOMAIN_DESCRIPTION_GET.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_CLIENT_DM_DOMAIN_DESTROY.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_DOMAIN_DESTROY.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+FwmRcProtocol.pb.o : $(PROTO_SRC_DIR)/FwmRcProtocol.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 DbAcceptor.o : $(DM_SRC_DIR)/DbAcceptor.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -178,6 +196,9 @@ CryptographicService.o : $(DM_SRC_DIR)/CryptographicService.cc
 ResourceManager.o : $(DM_SRC_DIR)/ResourceManager.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+RASTunnel.o : $(DM_SRC_DIR)/RASTunnel.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_unittest.o ConfigLoader.o Options.o\
 			  Initializer.o ProtobufCodec.o Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o \
 			  MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
@@ -194,5 +215,8 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  userinfoservice_unittest.o ProtobufRASCodec.o rascodec_unittest.o\
 			  UserManager.o MSG_CLIENT_DM_USER_LOG_IN.pb.o usermanager_unittest.o\
 			  heartbeatmanager_unittest.o CryptographicService.o DesEcbService.o\
-			  desecbservice_unittest.o ResourceManager.o
+			  desecbservice_unittest.o ResourceManager.o RemoteDomainInfoService.o\
+			  MSG_CLIENT_DM_DOMAIN_CREATE.pb.o MSG_CLIENT_DM_DOMAIN_DESCRIPTION_GET.pb.o\
+			  MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE.pb.o MSG_CLIENT_DM_DOMAIN_DESTROY.pb.o\
+			  RASTunnel.o FwmRcProtocol.pb.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

@@ -32,14 +32,14 @@ message NetAddress
     optional uint32 port = 2;
 }
 
-message Register
+message Register //cmd1
 {
     required FrameworkInstanceInfo framework_instance_info = 1;
     required uint32 self_module_id = 2;
     optional NetAddress data_search_entry = 3;
 }
 
-message RegisterAck
+message RegisterAck // cmd2
 {
     required int32 statuscode = 1;
 }
@@ -51,7 +51,7 @@ message EachModuleResourceInfo
 	optional uint32 listen_port_num = 3;
 }
 
-message RequestStartSlave
+message RequestStartSlave //cmd3
 {
     required FrameworkInstanceInfo framework_instance_info = 1;
     required uint32 self_module_id = 2;
@@ -59,7 +59,7 @@ message RequestStartSlave
 	optional NetAddress FWM_net_address = 4;
 }
 
-message RequestStartSlaveAck
+message RequestStartSlaveAck //cmd4
 {
     required int32 statuscode = 1;
 	repeated uint32 module_id = 2;
@@ -90,26 +90,26 @@ message ReturnTaskResourceAck
     required int32 statuscode = 1;
 }
 
-message StopModule
+message StopModule //cmd5
 {
     required FrameworkInstanceInfo framework_instance_info = 1;
     required uint32 self_module_id = 2;
     repeated uint32 stop_module_id = 3;
 }
 
-message StopModuleAck
+message StopModuleAck //cmd6
 {
     required int32 statuscode = 1;
 	repeated uint32 stop_module_id = 2;
 }
 
-message HeartBeatInfo
+message HeartBeatInfo //cmd7
 {
     required FrameworkInstanceInfo framework_instance_info = 1;
     required uint32 self_module_id = 2;
 }
 
-message HeartBeatInfoAck
+message HeartBeatInfoAck //cmd8
 {
     required int32 statuscode = 1;
 }

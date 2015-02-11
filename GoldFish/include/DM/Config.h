@@ -65,6 +65,7 @@ typedef enum Role
     Slave
 }Role;
 
+//encode/decode service macros
 #define DES_KEY "01234567899876543210"//must shorter than 24
 #define LEN_OF_KEY 24
 #define ENCODE 0
@@ -102,6 +103,16 @@ typedef enum Role
 #define USER_NOT_LOGIN -33
 #define RESOURCE_APPLY_FAIL -34
 #define RESOURCE_REVOKE_FAIL -35
+
+//RAS cmd macros
+#define MSG_FWM_RC_REGISTER 1
+#define MSG_FWM_RC_REGISTER_ACK 2
+#define MSG_FWM_RC_REQUEST_START_SLAVE 3
+#define MSG_FWM_RC_REQUEST_START_SLAVE_ACK 4
+#define MSG_FWM_RC_STOP_MODULE 5
+#define MSG_FWM_RC_STOP_MODULE_ACK 6
+#define MSG_FWM_RC_SEND_HEARTBEAT 7
+#define MSG_FWM_RC_SEND_HEARTBEAT_ACK 8
 
 /*
  * protocol macro
