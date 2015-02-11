@@ -44,6 +44,8 @@ uint32_t Initializer::_frameworkID = 0;
 
 uint32_t Initializer::_frameworkInstanceID = 0;
 
+uint32_t Initializer::_selfModuleID = 0;
+
 uint16_t Initializer::_cliPort = 0;
 
 uint16_t Initializer::_dcPort = 0;
@@ -51,6 +53,8 @@ uint16_t Initializer::_dcPort = 0;
 std::string Initializer::_rcIP;
 
 uint16_t Initializer::_rcPort = 0;
+
+std::string Initializer::_selfIP;
 
 int Initializer::init(int argc , char** argv)
 {
@@ -129,6 +133,11 @@ uint32_t Initializer::getFrameworkInstanceID()
     return _frameworkInstanceID;
 }
 
+uint32_t Initializer::getSelfModuleID()
+{
+    return _selfModuleID;
+}
+
 uint16_t Initializer::getCliPort()
 {
     return _cliPort;
@@ -147,6 +156,11 @@ std::string Initializer::getRCIP()
 uint16_t Initializer::getRCPort()
 {
     return _rcPort;
+}
+
+std::string Initializer::getSelfIP()
+{
+    return _selfIP;
 }
 
 void Initializer::onUnknownMessage(TcpConnectionPtr const& conn , MessagePtr const& msg,
@@ -180,19 +194,19 @@ bool Initializer::parseCommandLineDull(int argc , char* argv[])
     _path = CONFIG_FILE_PATH;
     STDSTR frameworkID(argv[1]);
     STDSTR frameworkInstanceID(argv[2]);
-    STDSTR dockerTag(argv[3]);
-    STDSTR execFilePathList(argv[4]);
-    STDSTR cliPort(argv[5]);
-    STDSTR dcPort(argv[6]);
-    STDSTR rcIP(argv[7]);
-    STDSTR rcPort(argv[8]);
-    STDSTR dmIP(argv[9]);
-    STDSTR dmPort(argv[10]);
+    STDSTR selfModuleID(argv[3]);
+    STDSTR cliPort(argv[4]);
+    STDSTR dcPort(argv[5]);
+    STDSTR rcIP(argv[6]);
+    STDSTR rcPort(argv[7]);
+    STDSTR selfIP(argv[8]);
     _frameworkID = boost::lexical_cast<uint32_t>(frameworkID);
     _frameworkInstanceID = boost::lexical_cast<uint32_t>(frameworkInstanceID);
+    _selfModuleID = boost::lexical_cast<uint32_t>(selfModuleID);
     _cliPort = boost::lexical_cast<uint16_t>(cliPort);
     _dcPort = boost::lexical_cast<uint16_t>(dcPort);
     _rcIP = rcIP;
     _rcPort = boost::lexical_cast<uint16_t>(rcPort);
+    _selfIP = selfIP;
     return true;
 }
