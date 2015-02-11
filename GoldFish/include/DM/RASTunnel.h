@@ -48,8 +48,6 @@ private:
         std::string _domainDescription;
         double _cpuNum;
         uint32_t _cpuMemSize;
-        std::string _ip;
-        uint32_t _port;
     };
 
 private:

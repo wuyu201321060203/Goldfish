@@ -10,4 +10,5 @@ message MSG_CLIENT_DM_DOMAIN_CREATE
 message MSG_DM_CLIENT_DOMAIN_CREATE_ACK
 {
     optional int32 statusCode = 1;
+    optional uint32 domainid = 2;
 }

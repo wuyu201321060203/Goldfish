@@ -230,17 +230,27 @@ class MSG_DM_CLIENT_DOMAIN_CREATE_ACK : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 statuscode() const;
   inline void set_statuscode(::google::protobuf::int32 value);
   
+  // optional uint32 domainid = 2;
+  inline bool has_domainid() const;
+  inline void clear_domainid();
+  static const int kDomainidFieldNumber = 2;
+  inline ::google::protobuf::uint32 domainid() const;
+  inline void set_domainid(::google::protobuf::uint32 value);
+  
   // @@protoc_insertion_point(class_scope:MSG_DM_CLIENT_DOMAIN_CREATE_ACK)
  private:
   inline void set_has_statuscode();
   inline void clear_has_statuscode();
+  inline void set_has_domainid();
+  inline void clear_has_domainid();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
   ::google::protobuf::int32 statuscode_;
+  ::google::protobuf::uint32 domainid_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
   
   friend void  protobuf_AddDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fCREATE_2eproto();
   friend void protobuf_AssignDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fCREATE_2eproto();
@@ -498,6 +508,28 @@ inline ::google::protobuf::int32 MSG_DM_CLIENT_DOMAIN_CREATE_ACK::statuscode() c
 inline void MSG_DM_CLIENT_DOMAIN_CREATE_ACK::set_statuscode(::google::protobuf::int32 value) {
   set_has_statuscode();
   statuscode_ = value;
+}
+
+// optional uint32 domainid = 2;
+inline bool MSG_DM_CLIENT_DOMAIN_CREATE_ACK::has_domainid() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void MSG_DM_CLIENT_DOMAIN_CREATE_ACK::set_has_domainid() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void MSG_DM_CLIENT_DOMAIN_CREATE_ACK::clear_has_domainid() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void MSG_DM_CLIENT_DOMAIN_CREATE_ACK::clear_domainid() {
+  domainid_ = 0u;
+  clear_has_domainid();
+}
+inline ::google::protobuf::uint32 MSG_DM_CLIENT_DOMAIN_CREATE_ACK::domainid() const {
+  return domainid_;
+}
+inline void MSG_DM_CLIENT_DOMAIN_CREATE_ACK::set_domainid(::google::protobuf::uint32 value) {
+  set_has_domainid();
+  domainid_ = value;
 }
 
 

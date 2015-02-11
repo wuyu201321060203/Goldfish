@@ -51,8 +51,9 @@ void protobuf_AssignDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fCREATE_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(MSG_CLIENT_DM_DOMAIN_CREATE));
   MSG_DM_CLIENT_DOMAIN_CREATE_ACK_descriptor_ = file->message_type(1);
-  static const int MSG_DM_CLIENT_DOMAIN_CREATE_ACK_offsets_[1] = {
+  static const int MSG_DM_CLIENT_DOMAIN_CREATE_ACK_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_CLIENT_DOMAIN_CREATE_ACK, statuscode_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_CLIENT_DOMAIN_CREATE_ACK, domainid_),
   };
   MSG_DM_CLIENT_DOMAIN_CREATE_ACK_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -103,8 +104,8 @@ void protobuf_AddDesc_MSG_5fCLIENT_5fDM_5fDOMAIN_5fCREATE_2eproto() {
     "SG_CLIENT_DM_DOMAIN_CREATE\022\r\n\005token\030\001 \001("
     "\t\022\022\n\ndomainName\030\002 \001(\t\022\031\n\021domainDescripti"
     "on\030\003 \001(\t\022\017\n\007coreNum\030\004 \001(\001\022\017\n\007memSize\030\005 \001"
-    "(\r\"5\n\037MSG_DM_CLIENT_DOMAIN_CREATE_ACK\022\022\n"
-    "\nstatusCode\030\001 \001(\005", 217);
+    "(\r\"G\n\037MSG_DM_CLIENT_DOMAIN_CREATE_ACK\022\022\n"
+    "\nstatusCode\030\001 \001(\005\022\020\n\010domainid\030\002 \001(\r", 235);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MSG_CLIENT_DM_DOMAIN_CREATE.proto", &protobuf_RegisterTypes);
   MSG_CLIENT_DM_DOMAIN_CREATE::default_instance_ = new MSG_CLIENT_DM_DOMAIN_CREATE();
@@ -542,6 +543,7 @@ void MSG_CLIENT_DM_DOMAIN_CREATE::Swap(MSG_CLIENT_DM_DOMAIN_CREATE* other) {
 
 #ifndef _MSC_VER
 const int MSG_DM_CLIENT_DOMAIN_CREATE_ACK::kStatusCodeFieldNumber;
+const int MSG_DM_CLIENT_DOMAIN_CREATE_ACK::kDomainidFieldNumber;
 #endif  // !_MSC_VER
 
 MSG_DM_CLIENT_DOMAIN_CREATE_ACK::MSG_DM_CLIENT_DOMAIN_CREATE_ACK()
@@ -561,6 +563,7 @@ MSG_DM_CLIENT_DOMAIN_CREATE_ACK::MSG_DM_CLIENT_DOMAIN_CREATE_ACK(const MSG_DM_CL
 void MSG_DM_CLIENT_DOMAIN_CREATE_ACK::SharedCtor() {
   _cached_size_ = 0;
   statuscode_ = 0;
+  domainid_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -596,6 +599,7 @@ MSG_DM_CLIENT_DOMAIN_CREATE_ACK* MSG_DM_CLIENT_DOMAIN_CREATE_ACK::New() const {
 void MSG_DM_CLIENT_DOMAIN_CREATE_ACK::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     statuscode_ = 0;
+    domainid_ = 0u;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -615,6 +619,22 @@ bool MSG_DM_CLIENT_DOMAIN_CREATE_ACK::MergePartialFromCodedStream(
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &statuscode_)));
           set_has_statuscode();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_domainid;
+        break;
+      }
+      
+      // optional uint32 domainid = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_domainid:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &domainid_)));
+          set_has_domainid();
         } else {
           goto handle_uninterpreted;
         }
@@ -645,6 +665,11 @@ void MSG_DM_CLIENT_DOMAIN_CREATE_ACK::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->statuscode(), output);
   }
   
+  // optional uint32 domainid = 2;
+  if (has_domainid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->domainid(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -656,6 +681,11 @@ void MSG_DM_CLIENT_DOMAIN_CREATE_ACK::SerializeWithCachedSizes(
   // optional int32 statusCode = 1;
   if (has_statuscode()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->statuscode(), target);
+  }
+  
+  // optional uint32 domainid = 2;
+  if (has_domainid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->domainid(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -674,6 +704,13 @@ int MSG_DM_CLIENT_DOMAIN_CREATE_ACK::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->statuscode());
+    }
+    
+    // optional uint32 domainid = 2;
+    if (has_domainid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->domainid());
     }
     
   }
@@ -706,6 +743,9 @@ void MSG_DM_CLIENT_DOMAIN_CREATE_ACK::MergeFrom(const MSG_DM_CLIENT_DOMAIN_CREAT
     if (from.has_statuscode()) {
       set_statuscode(from.statuscode());
     }
+    if (from.has_domainid()) {
+      set_domainid(from.domainid());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -730,6 +770,7 @@ bool MSG_DM_CLIENT_DOMAIN_CREATE_ACK::IsInitialized() const {
 void MSG_DM_CLIENT_DOMAIN_CREATE_ACK::Swap(MSG_DM_CLIENT_DOMAIN_CREATE_ACK* other) {
   if (other != this) {
     std::swap(statuscode_, other->statuscode_);
+    std::swap(domainid_, other->domainid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
