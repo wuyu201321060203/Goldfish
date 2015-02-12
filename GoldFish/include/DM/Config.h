@@ -40,6 +40,9 @@ typedef boost::shared_ptr<google::protobuf::Message> MessagePtr;
 
 #define MODULE_NAME "DM"
 
+#define ROOT_DOMAIN 88
+#define ROOT_DOMAINADMIN_GROUP 88
+
 #define CONFIG_FILE_PATH "/home/wuyu/Goldfish/GoldFish/src/DM/DMConfig.lua"
 
 /* The macro for most used return value */

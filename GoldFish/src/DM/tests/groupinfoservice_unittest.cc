@@ -182,8 +182,10 @@ TEST(GroupInfoServiceTest , GetNoSingleInfoSuccessTest)
     sleep(3);
     EXPECT_EQ("group1" , testArray[0].name());
     EXPECT_EQ("group1" , testArray[0].description());
-    EXPECT_EQ("group2" , testArray[1].name());
-    EXPECT_EQ("group2new" , testArray[1].description());
+    EXPECT_EQ("*" , testArray[1].name());
+    EXPECT_EQ("null" , testArray[1].description());
+    EXPECT_EQ("group2" , testArray[2].name());
+    EXPECT_EQ("group2new" , testArray[2].description());
 }
 
 TEST(GroupInfoServiceTest , DeleteInfoSuccessTest)

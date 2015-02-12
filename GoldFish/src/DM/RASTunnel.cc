@@ -230,7 +230,7 @@ void RASTunnel::doCreateDomain(TcpConnectionPtr const& conn , uint32_t domainID,
                 if( !result->next() )
                 {
                     dbConn->execute("insert into DOMAIN_INFO(id , name , description,\
-                        corenum , memsize) values('%d' , '%s', '%s' , '%ld' , '%d')",
+                        corenum , memsize) values('%d' , '%s', '%s' , '%lf' , '%d')",
                          domainID , domainName.c_str() , domainDescription.c_str(),
                          cpuNum , cpuMemSize);
 

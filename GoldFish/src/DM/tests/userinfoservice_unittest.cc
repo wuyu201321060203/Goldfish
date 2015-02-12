@@ -65,6 +65,69 @@ TEST(UserInfoServiceTest , CreateInfoSuccessTest)
     }
     EXPECT_EQ("ddsb" , testPasswd);
     EXPECT_EQ(8 , testIdentity);
+//test create root
+    tmp =  new UserCreateMsg;
+    tmp->set_token(token.toString());
+    tmp->set_domainname("*");
+    tmp->set_groupname("*");
+    tmp->set_username("ddrootsb");
+    tmp->set_password("ddrootsb");
+    unsigned int identity2 = 0b00000000;
+    tmp->set_authority(identity2);
+    MessagePtr msg1(tmp);
+    Timestamp time1;
+    waiter.onCreateInfo(conn , msg1 , time1);
+    sleep(3);
+    result = dbConn->executeQuery("select identity , passwd , belong2Domain\
+                            , belong2Group from USER_INFO where name = 'ddrootsb'");
+    sleep(3);
+    STDSTR testPasswd1("haha");
+    int testIdentity1 = -1;
+    int testDomain = -1;
+    int testGroup = -1;
+    if(result->next())
+    {
+        testPasswd1 = result->getString(2);
+        testIdentity1 = result->getInt(1);
+        testDomain = result->getInt(3);
+        testGroup = result->getInt(4);
+    }
+    EXPECT_EQ("ddrootsb" , testPasswd1);
+    EXPECT_EQ(0 , testIdentity1);
+    EXPECT_EQ(ROOT_DOMAIN , testDomain);
+    EXPECT_EQ(ROOT_DOMAINADMIN_GROUP , testGroup);
+//test create domainadmin
+    tmp =  new UserCreateMsg;
+    tmp->set_token(token.toString());
+    tmp->set_domainname("domain1");
+    tmp->set_groupname("*");
+    tmp->set_username("ddsb1");
+    tmp->set_password("ddsb1");
+    unsigned int identity3 = 0b00000010;
+    tmp->set_authority(identity3);
+    MessagePtr msg2(tmp);
+    Timestamp time2;
+    waiter.onCreateInfo(conn , msg2 , time2);
+    sleep(3);
+    dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
+    result = dbConn->executeQuery("select identity , passwd , belong2Domain ,\
+                            belong2Group from USER_INFO where name = 'ddsb1'");
+    sleep(3);
+    STDSTR testPasswd2("haha");
+    int testIdentity2 = -1;
+    int testDomain1 = -1;
+    int testGroup1 = -1;
+    if(result->next())
+    {
+        testPasswd2 = result->getString(2);
+        testIdentity2 = result->getInt(1);
+        testDomain1 = result->getInt(3);
+        testGroup1 = result->getInt(4);
+    }
+    EXPECT_EQ("ddsb1" , testPasswd2);
+    EXPECT_EQ(2 , testIdentity2);
+    EXPECT_EQ(1 , testDomain1);
+    EXPECT_EQ(88 , testGroup1);
 }
 
 TEST(UserInfoServiceTest , GetSingleInfoSuccessTest)

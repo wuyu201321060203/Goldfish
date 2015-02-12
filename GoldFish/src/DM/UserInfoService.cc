@@ -102,40 +102,57 @@ void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , STDSTR domainN
     ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     ResultSetPtr result;
     UserCreateACK reply;
+    int domainID = ROOT_DOMAIN;
+    int groupID = ROOT_DOMAINADMIN_GROUP;
+    int executeFlag = 1;
     try
     {
         {
             MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
             MutexLockGuard guard(**lock);
-            result = dbConn->executeQuery("select id from DOMAIN_INFO \
-                                    where name = '%s'" , domainName.c_str());
-            if(result->next())
+            if("*" != domainName)
             {
-                int domainID = result->getInt(1);
+                result = dbConn->executeQuery("select id from DOMAIN_INFO \
+                    where name = '%s'" , domainName.c_str());
+
+                if(result->next())
+                    domainID = result->getInt(1);
+                else
+                {
+                    reply.set_statuscode(UNEXISTED_DOMAIN);
+                    executeFlag = 0;
+                }
+            }
+            if("*" != groupName)
+            {
                 result = dbConn->executeQuery("select id from GROUP_INFO where name = '%s'",
                     groupName.c_str());
+
                 if(result->next())
-                {
-                    int groupID = result->getInt(1);
-                    dbConn->execute("insert into USER_INFO(belong2Domain , belong2Group\
-                        , name , passwd , identity) values('%d' , '%d' , '%s',\
-                        '%s' , '%d')" , domainID , groupID,
-                        userName.c_str() , passwd.c_str() , authority);
-                    reply.set_statuscode(SUCCESS);
-                }
+                    groupID = result->getInt(1);
                 else
+                {
                     reply.set_statuscode(UNEXISTED_GROUP);
+                    executeFlag = 0;
+                }
             }
-            else
-                reply.set_statuscode(UNEXISTED_DOMAIN);
+            if(executeFlag)
+            {
+                dbConn->execute("insert into USER_INFO(belong2Domain , belong2Group \
+                    , name , passwd , identity) values('%d' , '%d' , '%s',\
+                        '%s' , '%d')" , domainID , groupID , userName.c_str(),
+                    passwd.c_str() , authority);
+
+                reply.set_statuscode(SUCCESS);
+            }
         }
     }
     catch(SQLException const& e)
     {
 #ifdef TEST
-         std::cout << e.getReason() << "\n";
+        std::cout << e.getReason() << "\n";
 #endif
-         reply.set_statuscode(UNKNOWN_SYSERROR);
+        reply.set_statuscode(UNKNOWN_SYSERROR);
     }
     dbConn->close();
 #ifndef TEST
@@ -279,13 +296,23 @@ void UserInfoService::doGetUserInfo(TcpConnectionPtr const& conn , Token token)
                 if(tmp->next())
                     domainName = tmp->getString(1);
                 else
-                    THROW(SQLException , "unexisted domain");
+                {
+                    if( 0 == tmpDomainID )
+                        domainName = "*";
+                    else
+                        THROW(SQLException , "unexisted domain");
+                }
                 tmp = dbConn1->executeQuery("select name from GROUP_INFO where id = '%d'",
                                             tmpGroupID);
                 if(tmp->next())
                     groupName = tmp->getString(1);
                 else
-                    THROW(SQLException , "unexisted group");
+                {
+                    if( 0 == tmpGroupID )
+                        groupName = "*";
+                    else
+                        THROW(SQLException , "unexisted group");
+                }
 
                 info = reply.add_userinfo();
                 info->set_domainname(domainName);
