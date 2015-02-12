@@ -22,6 +22,7 @@ using namespace OOzdb;
 //extern ConnectionPool Initializer::getDbPool();
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 extern MutexLockPtr mutex;
+extern GroupCreateACK testReply;
 
 typedef MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO UserInfo;
 std::vector<UserInfo> testArray1;
@@ -130,6 +131,34 @@ TEST(UserInfoServiceTest , CreateInfoSuccessTest)
     EXPECT_EQ(88 , testGroup1);
 }
 
+TEST(UserInfoServiceTest , CreateInfoFailTest)
+{
+    InetAddress localAddr(10);
+    InetAddress remoteAddr(100);
+    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
+    TcpConnectionPtr conn( new TcpConnection(&g_Initializer.getEventLoop(),
+                                "conn" , socketfd , localAddr , remoteAddr) );
+    conn->setContext(mutex);
+    STDSTR username("ddcnmb");
+    STDSTR userBelong2Domain("domain1");
+    STDSTR userBelong2Group("group1");
+    unsigned int identity = 0b00001000;
+    Token token(username , identity , userBelong2Domain , userBelong2Group);
+    UserCreateMsg* tmp =  new UserCreateMsg;
+    tmp->set_token(token.toString());
+    tmp->set_domainname("*");
+    tmp->set_groupname("*");
+    tmp->set_username("ddrootsb");
+    tmp->set_password("ddrootsb");
+    unsigned int identity2 = 0b00000000;
+    tmp->set_authority(identity2);
+    MessagePtr msg(tmp);
+    Timestamp time;
+    UserInfoService waiter;
+    waiter.onCreateInfo(conn , msg , time);
+    EXPECT_EQ(PERMISSION_DENIED , testReply.statuscode());
+}
+
 TEST(UserInfoServiceTest , GetSingleInfoSuccessTest)
 {
     InetAddress localAddr(10);
@@ -219,36 +248,6 @@ TEST(UserInfoServiceTest , UpdateInfoSuccessTest)
         testPasswd = result->getString(1);
     EXPECT_EQ("ddsb" , testPasswd);
 }
-
-/*
-TEST(GroupInfoServiceTest , CreateInfoFailTest)
-{
-    InetAddress localAddr(10);
-    InetAddress remoteAddr(100);
-    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
-    TcpConnectionPtr conn( new TcpConnection(&g_Initializer.getEventLoop(),
-                                "conn" , socketfd , localAddr , remoteAddr) );
-    conn->setContext(mutex);
-    STDSTR belong2Domain("domain1");
-    STDSTR groupName("group2");
-    STDSTR description("group2");
-    STDSTR username("ddcnmb");
-    STDSTR userBelong2Domain("*");
-    STDSTR userBelong2Group("*");
-    unsigned int identity = 0b00001000;
-    Token token(username , identity , userBelong2Domain , userBelong2Group);
-    GroupCreateMsg* tmp =  new GroupCreateMsg;
-    tmp->set_token(token.toString());
-    tmp->set_groupname(groupName);
-    tmp->set_belong2domain(belong2Domain);
-    tmp->set_groupdescription(description);
-    MessagePtr msg(tmp);
-    Timestamp time;
-    GroupInfoService waiter;
-    waiter.onCreateInfo(conn , msg , time);
-    EXPECT_EQ(PERMISSION_DENIED , testReply.statuscode());
-}
-*/
 
 TEST(UserInfoServiceTest , DeleteInfoSuccessTest)
 {
