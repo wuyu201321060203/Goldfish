@@ -88,6 +88,9 @@ heartbeatmanager_unittest.o : $(USER_DIR)/heartbeatmanager_unittest.cc
 desecbservice_unittest.o : $(USER_DIR)/desecbservice_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+domaininfoservice_unittest.o : $(USER_DIR)/domaininfoservice_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 ConfigLoader.o : $(DM_SRC_DIR)/ConfigLoader.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -218,5 +221,5 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  desecbservice_unittest.o ResourceManager.o RemoteDomainInfoService.o\
 			  MSG_CLIENT_DM_DOMAIN_CREATE.pb.o MSG_CLIENT_DM_DOMAIN_DESCRIPTION_GET.pb.o\
 			  MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE.pb.o MSG_CLIENT_DM_DOMAIN_DESTROY.pb.o\
-			  RASTunnel.o FwmRcProtocol.pb.o
+			  RASTunnel.o FwmRcProtocol.pb.o domaininfoservice_unittest.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

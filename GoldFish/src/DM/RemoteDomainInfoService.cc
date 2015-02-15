@@ -28,6 +28,11 @@ using boost::any_cast;
 
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
+#ifdef TEST
+typedef MSG_DM_CLIENT_DOMAIN_DESCRIPTION_GET_ACK_DOMAIN_INFO DomainInfo;
+extern std::vector<DomainInfo> testDomainArray;
+#endif
+
 RemoteDomainInfoService::RemoteDomainInfoService(ResourceManagerPtr const& manager):
                             _manager(manager)
 {
@@ -137,7 +142,6 @@ void RemoteDomainInfoService::doUpdateDomain(TcpConnectionPtr const& conn,
 void RemoteDomainInfoService::doGetDomain(TcpConnectionPtr const& conn,
                                           std::string domainName)
 {
-    typedef MSG_DM_CLIENT_DOMAIN_DESCRIPTION_GET_ACK_DOMAIN_INFO DomainInfo;
     ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
     DomainInfoGetACK reply;
     reply.set_statuscode(UNEXISTED_DOMAIN);
@@ -167,6 +171,9 @@ void RemoteDomainInfoService::doGetDomain(TcpConnectionPtr const& conn,
             DomainInfo* info = reply.add_domaininfo();
             info->set_name(domainNameAlias);
             info->set_description(domainDescription);
+#ifdef TEST
+            testDomainArray.push_back(*info);
+#endif
         }
     }
     catch(SQLException const& e)
