@@ -87,10 +87,9 @@ TEST(DomainInfoServiceTest , GetSingleInfoSuccessTest)
     EXPECT_EQ("OK" , testDomainArray[0].description());
 }
 
-/*
 TEST(DomainInfoServiceTest , GetNoSingleInfoSuccessTest)
 {
-    testArray.clear();
+    testDomainArray.clear();
     InetAddress localAddr(10);
     InetAddress remoteAddr(100);
     int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
@@ -98,20 +97,21 @@ TEST(DomainInfoServiceTest , GetNoSingleInfoSuccessTest)
                                 "conn" , socketfd , localAddr , remoteAddr) );
     conn->setContext(mutex);
     STDSTR username("ddcnmb");
-    STDSTR userBelong2Domain("domain1");
+    STDSTR userBelong2Domain("*");
     STDSTR userBelong2Group("*");
-    unsigned int identity = 0b00001000;
+    unsigned int identity = 0b00000000;
     Token token(username , identity , userBelong2Domain , userBelong2Group);
-    GroupInfoGetMsg* tmp =  new GroupInfoGetMsg;
+    DomainInfoGetMsg* tmp =  new DomainInfoGetMsg;
     tmp->set_token(token.toString());
     MessagePtr msg(tmp);
     Timestamp time;
-    GroupInfoService waiter;
+    boost::shared_ptr<ResourceManager> manager(new RASTunnel(
+                        &g_Initializer.getEventLoop() , localAddr));
+    RemoteDomainInfoService waiter(manager);
     waiter.onGetInfo(conn , msg , time);
     sleep(3);
-    EXPECT_EQ("group1" , testArray[0].name());
-    EXPECT_EQ("group1" , testArray[0].description());
-    EXPECT_EQ("group2" , testArray[1].name());
-    EXPECT_EQ("group2new" , testArray[1].description());
+    EXPECT_EQ("domain1" , testDomainArray[0].name());
+    EXPECT_EQ("OK" , testDomainArray[0].description());
+    EXPECT_EQ("*" , testDomainArray[1].name());
+    EXPECT_EQ("null" , testDomainArray[1].description());
 }
-*/
