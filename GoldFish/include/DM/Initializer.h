@@ -34,7 +34,6 @@ public:
     static std::string getTypenameByCmd(uint32_t);
     static void registeRASMsg(uint32_t const& , std::string const&);
     static OOzdb::ConnectionPool& getDbPool();
-    static HeartBeatManager& getHeartBeatManager();
 
     static uint32_t getFrameworkID();
 
@@ -64,7 +63,6 @@ private:
     static Cmd2TypeNameMap _cmd2TypeName;
     static TypeName2CmdMap _typeName2Cmd;
     static OOzdb::ConnectionPool _dbPool;
-    static HeartBeatManager _heartbeatManager;
     static uint32_t _frameworkID;
     static uint32_t _frameworkInstanceID;
     static uint32_t _selfModuleID;

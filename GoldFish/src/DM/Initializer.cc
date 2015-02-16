@@ -38,8 +38,6 @@ TypeName2CmdMap Initializer::_typeName2Cmd;
 
 ConnectionPool Initializer::_dbPool(DB_URL);
 
-HeartBeatManager Initializer::_heartbeatManager;
-
 uint32_t Initializer::_frameworkID = 0;
 
 uint32_t Initializer::_frameworkInstanceID = 0;
@@ -116,11 +114,6 @@ void Initializer::registeRASMsg(uint32_t const& cmd , STDSTR const& typeName)
 ConnectionPool& Initializer::getDbPool()
 {
     return _dbPool;
-}
-
-HeartBeatManager& Initializer::getHeartBeatManager()
-{
-    return _heartbeatManager;
 }
 
 uint32_t Initializer::getFrameworkID()

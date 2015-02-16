@@ -18,6 +18,9 @@
 #include <DM/util.h>
 
 typedef boost::function<void ()> TimeoutCallback;
+typedef boost::function<void (muduo::net::TcpConnectionPtr const&,
+                              MessagePtr const&,
+                              muduo::Timestamp)> onTimeCallback;
 typedef unsigned int uint;
 
 class HeartBeatManager : boost::noncopyable
@@ -108,6 +111,22 @@ public:
     typedef boost::shared_ptr<HeartBeater> HeartBeaterPtr;
     typedef std::map<STDSTR , HeartBeaterPtr> Name2BeaterMap;
 
+    HeartBeatManager()
+    {
+    }
+
+    HeartBeatManager(muduo::net::EventLoop* loop,
+                     onTimeCallback const& cb):
+                     _loop(loop),
+                     _onTimeCallback(cb)
+    {
+    }
+
+    void setOnTimeCallback(onTimeCallback const& cb)
+    {
+        _onTimeCallback = cb;
+    }
+
     void setEventLoop(muduo::net::EventLoop* loop)
     {
         _loop = loop;
@@ -151,8 +170,7 @@ public:
                            muduo::Timestamp time)
     {
         resetTimerTask(conn);
-        PongMsg reply;
-        ( Initializer::getCodec() ).send(conn , reply);
+        _onTimeCallback(conn , msg , time);
     }
 
     void getDCList(TcpConnectionWeakPtrVec& dcList)
@@ -167,6 +185,7 @@ private:
 
     muduo::net::EventLoop* _loop;
     Name2BeaterMap _beaterMap;
+    onTimeCallback _onTimeCallback;
 };
 
 #endif
