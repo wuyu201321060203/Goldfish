@@ -10,6 +10,7 @@
 #include <muduo/base/Timestamp.h>
 
 #include "ProtobufCodec.h"
+#include "ProtobufRASCodec.h"
 #include "ProtobufDispatcher.h"
 #include "ConfigLoader.h"
 #include "Options.h"
@@ -25,6 +26,7 @@ class Initializer
 public:
 
     static int init(int , char**);
+    static ProtobufRASCodec& getRASCodec();
     static ProtobufCodec& getCodec();
     static ProtobufDispatcher& getDispatcher();
     static muduo::ThreadPool& getThreadPool();
@@ -55,6 +57,7 @@ private:
 
     static ProtobufDispatcher _dispatcher;
     static ProtobufCodec _codec;
+    static ProtobufRASCodec _rasCodec;
     static muduo::ThreadPool _threadPool;
     static muduo::net::EventLoop _loop;
     static ConfigLoader _loader;

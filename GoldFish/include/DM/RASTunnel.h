@@ -40,6 +40,10 @@ public:
                                MessagePtr const&,
                                muduo::Timestamp);
 
+#ifdef TEST
+    muduo::net::TcpConnectionPtr getConn();
+#endif
+
 private:
 
     struct DomainInfoCache

@@ -1,3 +1,4 @@
+#include <unistd.h>//TODO
 #include <muduo/base/Logging.h>
 #include <muduo/base/Mutex.h>
 
@@ -19,7 +20,8 @@ using boost::any_cast;
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
 RASTunnel::RASTunnel(EventLoop* loop , InetAddress const& serveAddr):
-                     _rasMasterClient(loop , serveAddr , "rasMaster") , _status(ABNORMAL),
+                     _rasMasterClient(loop , serveAddr , "rasMasterClient"),
+                     _status(ABNORMAL),
                      _rasCodec(boost::bind(&ProtobufDispatcher::onProtobufMessage,
                                 &Initializer::getDispatcher() , _1 , _2 , _3) )
 {
@@ -31,10 +33,13 @@ RASTunnel::RASTunnel(EventLoop* loop , InetAddress const& serveAddr):
 
     Initializer::registeRASMsg(MSG_FWM_RC_REGISTER , "FwmRcProto.Register");
     Initializer::registeRASMsg(MSG_FWM_RC_REGISTER_ACK , "FwmRcProto.RegisterAck");
+
     Initializer::registeRASMsg(MSG_FWM_RC_REQUEST_START_SLAVE,
                                "FwmRcProto.RequestStartSlave");
+
     Initializer::registeRASMsg(MSG_FWM_RC_REQUEST_START_SLAVE_ACK,
                                "FwmRcProto.RequestStartSlaveAck");
+
     Initializer::registeRASMsg(MSG_FWM_RC_STOP_MODULE , "FwmRcProto.StopModule");
     Initializer::registeRASMsg(MSG_FWM_RC_STOP_MODULE_ACK , "FwmRcProto.StopModuleAck");
     Initializer::registeRASMsg(MSG_FWM_RC_SEND_HEARTBEAT , "FwmRcProto.HeartBeatInfo");
@@ -78,7 +83,7 @@ void RASTunnel::applyResource(STDSTR domainName , STDSTR domainDescription,
         EachModuleResourceInfo* moduleResourceInfo = apply.add_start_module_resource_info();
         moduleResourceInfo->set_ip("*");
         ResourceInfo* resourceInfo = moduleResourceInfo->mutable_resource_info();
-        double coreNum = coreNum;
+        double coreNum = cpuNum;
         uint32_t memSize = cpuMemSize;
         resourceInfo->set_cpu_num(coreNum);
         resourceInfo->set_cpu_mem_size(memSize);
@@ -95,7 +100,7 @@ void RASTunnel::applyResource(STDSTR domainName , STDSTR domainDescription,
         tmp._cpuMemSize = memSize;
         _cacheVec.push_back(tmp);
 
-        (Initializer::getCodec()).send(_rasMasterClient.connection() , apply);
+        (Initializer::getRASCodec()).send(_rasMasterClient.connection() , apply);
     }
     else
         onFailSend<DomainCreateACK>(cliConn , RESOURCE_APPLY_FAIL);
@@ -113,7 +118,7 @@ void RASTunnel::revokeResource(uint32_t domainID,
         instanceInfo->set_framework_instance_id( Initializer::getFrameworkInstanceID() );
         query.set_self_module_id(Initializer::getSelfModuleID());
         query.add_stop_module_id(domainID);
-        (Initializer::getCodec()).send(_rasMasterClient.connection() , query);
+        (Initializer::getRASCodec()).send(_rasMasterClient.connection() , query);
     }
     else
         onFailSend<DomainDestroyACK>(cliConn , RESOURCE_REVOKE_FAIL);
@@ -139,6 +144,9 @@ void RASTunnel::onApplyResourceReply(muduo::net::TcpConnectionPtr const& conn,
                 _cacheVec.erase(_cacheVec.begin());
                 uint32_t moduleID = respond->module_id(0);
 
+#ifdef TEST
+                LOG_INFO << "main apply";
+#endif
                 (Initializer::getThreadPool()).run(boost::bind(&RASTunnel::doCreateDomain,
                     this , cliConn , moduleID,
                     cache._domainName,
@@ -160,13 +168,16 @@ void RASTunnel::onRevokeResourceReply(muduo::net::TcpConnectionPtr const& conn,
     boost::shared_ptr<StopModuleAck> respond =
         muduo::down_pointer_cast<StopModuleAck>(msg);
 
-    TcpConnectionWeakPtr tmp = _cliConnApplyVec.front();
-    _cliConnApplyVec.erase(_cliConnApplyVec.begin());
+    TcpConnectionWeakPtr tmp = _cliConnRevokeVec.front();
+    _cliConnRevokeVec.erase(_cliConnRevokeVec.begin());
     TcpConnectionPtr cliConn(tmp.lock());
     if(cliConn)
     {
         if(RESOURCE_REVOKE_FAIL !=  respond->statuscode())
         {
+#ifdef TEST
+            LOG_INFO << "main revoke";
+#endif
             (Initializer::getThreadPool()).run(boost::bind(&RASTunnel::doRevokeDomain,
                     this , cliConn , respond->stop_module_id(0)) );
         }
@@ -175,11 +186,20 @@ void RASTunnel::onRevokeResourceReply(muduo::net::TcpConnectionPtr const& conn,
     }
 }
 
+#ifdef TEST
+TcpConnectionPtr RASTunnel::getConn()
+{
+    return _rasMasterClient.connection();
+}
+#endif
+
 void RASTunnel::onConnectionCallbackFromRC(TcpConnectionPtr const& conn)
 {
     if(conn->connected())
     {
         //heartbeat
+        MutexLockPtr lock(new MutexLock);
+        conn->setContext(lock);
         register2RAS(conn);
     }
     else
@@ -196,7 +216,7 @@ void RASTunnel::register2RAS(TcpConnectionPtr const& conn)
     instanceInfo->set_framework_id(Initializer::getFrameworkID());
     instanceInfo->set_framework_instance_id(Initializer::getFrameworkInstanceID());
     msg.set_self_module_id(Initializer::getSelfModuleID());
-    ( Initializer::getCodec() ).send(conn , msg);
+    ( Initializer::getRASCodec() ).send(conn , msg);
 }
 
 void RASTunnel::onRegisterCallback(TcpConnectionPtr const& conn,
@@ -205,7 +225,15 @@ void RASTunnel::onRegisterCallback(TcpConnectionPtr const& conn,
 {
     boost::shared_ptr<RegisterAck> reply = muduo::down_pointer_cast<RegisterAck>(msg);
 
-    if(SUCCESS == reply->statuscode()) _status = NORMAL;
+    if(SUCCESS == reply->statuscode())
+    {
+        _status = NORMAL;
+#ifdef TEST
+        LOG_INFO << "register to RAS success";
+        applyResource("domain2" , "domain2" , 1 , 1 , getConn());
+        revokeResource(66 , getConn());
+#endif
+    }
     else
     {
         _status = ABNORMAL;
@@ -223,6 +251,9 @@ void RASTunnel::doCreateDomain(TcpConnectionPtr const& conn , uint32_t domainID,
     try
     {
         {
+#ifdef TEST
+            LOG_INFO << "Apply!!!!!";
+#endif
             MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
             MutexLockGuard guard(**lock);
             result = dbConn->executeQuery("select id from DOMAIN_INFO\
@@ -235,7 +266,7 @@ void RASTunnel::doCreateDomain(TcpConnectionPtr const& conn , uint32_t domainID,
                          cpuNum , cpuMemSize);
 
                     reply.set_statuscode(SUCCESS);
-                    reply.set_domainid(domainID);
+                    reply.set_domainid(domainID);//need clients store
                 }
                 else
                     reply.set_statuscode(EXISTED_DOMAIN);
@@ -252,6 +283,8 @@ void RASTunnel::doCreateDomain(TcpConnectionPtr const& conn , uint32_t domainID,
     dbConn->close();
 #ifndef TEST
     ( Initializer::getCodec() ).send(conn , reply);
+#else
+    sleep(10);
 #endif
 }
 
@@ -263,6 +296,10 @@ void RASTunnel::doRevokeDomain(TcpConnectionPtr const& conn , uint32_t domainID)
     try
     {
         {
+#ifdef TEST
+            sleep(10);
+            LOG_INFO << "Revoke!!!!!!";
+#endif
             MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
             MutexLockGuard guard(**lock);
             dbConn->execute("delete from DOMAIN_INFO where id = '%d' " , domainID);

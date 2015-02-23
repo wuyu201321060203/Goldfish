@@ -22,6 +22,9 @@ ProtobufDispatcher Initializer::_dispatcher(
 ProtobufCodec Initializer::_codec(
             boost::bind(&ProtobufDispatcher::onProtobufMessage , _dispatcher , _1, _2 , _3));
 
+ProtobufRASCodec Initializer::_rasCodec(
+            boost::bind(&ProtobufDispatcher::onProtobufMessage , _dispatcher , _1, _2 , _3));
+
 muduo::ThreadPool Initializer::_threadPool;
 
 muduo::net::EventLoop Initializer::_loop;
@@ -73,6 +76,11 @@ int Initializer::init(int argc , char** argv)
 ProtobufCodec& Initializer::getCodec()
 {
     return _codec;
+}
+
+ProtobufRASCodec& Initializer::getRASCodec()
+{
+    return _rasCodec;
 }
 
 ProtobufDispatcher& Initializer::getDispatcher()
