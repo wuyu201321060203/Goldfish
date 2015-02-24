@@ -13,12 +13,15 @@
 using namespace muduo;
 using namespace muduo::net;
 
+Cmd2TypeNameMap ProtobufRASCodec::_cmd2TypeName;
+TypeName2CmdMap ProtobufRASCodec::_typeName2Cmd;
+
 void ProtobufRASCodec::fillEmptyBuffer(Buffer* buf,
                                        google::protobuf::Message const& message)
 {
     assert(buf->readableBytes() == 0);
     std::string const& typeName = message.GetTypeName();
-    uint32_t cmd = Initializer::getCmdByTypename(typeName);
+    uint32_t cmd = getCmdByTypename(typeName);
     buf->appendInt32(cmd);
     GOOGLE_DCHECK(message.IsInitialized()) <<
         InitializationErrorMessage("serialize", message);
@@ -140,7 +143,7 @@ MessagePtr ProtobufRASCodec::parse(char const* buf , int len , uint32_t cmd,
                                    ErrorCode* error)
 {
     MessagePtr message;
-    std::string typeName = Initializer::getTypenameByCmd(cmd);//TODO
+    std::string typeName = getTypenameByCmd(cmd);//TODO
     message.reset(createMessage(typeName));
     if(message)
     {
@@ -152,4 +155,20 @@ MessagePtr ProtobufRASCodec::parse(char const* buf , int len , uint32_t cmd,
     else
         *error = kUnknownMessageType;
     return message;
+}
+
+uint32_t ProtobufRASCodec::getCmdByTypename(STDSTR const& typeName)
+{
+    return _typeName2Cmd[typeName];
+}
+
+STDSTR ProtobufRASCodec::getTypenameByCmd(uint32_t cmd)
+{
+    return _cmd2TypeName[cmd];
+}
+
+void ProtobufRASCodec::registeRASMsg(uint32_t const& cmd , STDSTR const& typeName)
+{
+    _cmd2TypeName.insert(Cmd2TypeNameMap::value_type(cmd , typeName));
+    _typeName2Cmd.insert(TypeName2CmdMap::value_type(typeName , cmd));
 }

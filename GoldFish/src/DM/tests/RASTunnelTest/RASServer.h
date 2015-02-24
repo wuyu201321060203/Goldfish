@@ -38,19 +38,19 @@ public:
                             &_dispatcher , _1 , _2 , _3)),
          _dispatcher(boost::bind(&RASServer::onUnknownMessage , this , _1 , _2 , _3))
     {
-        Initializer::registeRASMsg(MSG_FWM_RC_REGISTER , "FwmRcProto.Register");
-        Initializer::registeRASMsg(MSG_FWM_RC_REGISTER_ACK , "FwmRcProto.RegisterAck");
+        ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_REGISTER , "FwmRcProto.Register");
+        ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_REGISTER_ACK , "FwmRcProto.RegisterAck");
 
-        Initializer::registeRASMsg(MSG_FWM_RC_REQUEST_START_SLAVE,
+        ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_REQUEST_START_SLAVE,
             "FwmRcProto.RequestStartSlave");
 
-        Initializer::registeRASMsg(MSG_FWM_RC_REQUEST_START_SLAVE_ACK,
+        ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_REQUEST_START_SLAVE_ACK,
             "FwmRcProto.RequestStartSlaveAck");
 
-        Initializer::registeRASMsg(MSG_FWM_RC_STOP_MODULE , "FwmRcProto.StopModule");
-        Initializer::registeRASMsg(MSG_FWM_RC_STOP_MODULE_ACK , "FwmRcProto.StopModuleAck");
-        Initializer::registeRASMsg(MSG_FWM_RC_SEND_HEARTBEAT , "FwmRcProto.HeartBeatInfo");
-        Initializer::registeRASMsg(MSG_FWM_RC_SEND_HEARTBEAT_ACK,
+        ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_STOP_MODULE , "FwmRcProto.StopModule");
+        ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_STOP_MODULE_ACK , "FwmRcProto.StopModuleAck");
+        ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_SEND_HEARTBEAT , "FwmRcProto.HeartBeatInfo");
+        ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_SEND_HEARTBEAT_ACK,
             "FwmRcProto.HeartBeatInfoAck");
 
         _dispatcher.registerMessageCallback(Register::descriptor(),

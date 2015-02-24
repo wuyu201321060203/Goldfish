@@ -1,4 +1,6 @@
 #include <unistd.h>//TODO
+#include <iostream>//TODO
+
 #include <muduo/base/Logging.h>
 #include <muduo/base/Mutex.h>
 
@@ -31,19 +33,19 @@ RASTunnel::RASTunnel(EventLoop* loop , InetAddress const& serveAddr):
     _rasMasterClient.setMessageCallback( boost::bind(&ProtobufRASCodec::onMessage,
         &_rasCodec , _1 , _2 , _3) );
 
-    Initializer::registeRASMsg(MSG_FWM_RC_REGISTER , "FwmRcProto.Register");
-    Initializer::registeRASMsg(MSG_FWM_RC_REGISTER_ACK , "FwmRcProto.RegisterAck");
+    ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_REGISTER , "FwmRcProto.Register");
+    ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_REGISTER_ACK , "FwmRcProto.RegisterAck");
 
-    Initializer::registeRASMsg(MSG_FWM_RC_REQUEST_START_SLAVE,
+    ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_REQUEST_START_SLAVE,
                                "FwmRcProto.RequestStartSlave");
 
-    Initializer::registeRASMsg(MSG_FWM_RC_REQUEST_START_SLAVE_ACK,
+    ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_REQUEST_START_SLAVE_ACK,
                                "FwmRcProto.RequestStartSlaveAck");
 
-    Initializer::registeRASMsg(MSG_FWM_RC_STOP_MODULE , "FwmRcProto.StopModule");
-    Initializer::registeRASMsg(MSG_FWM_RC_STOP_MODULE_ACK , "FwmRcProto.StopModuleAck");
-    Initializer::registeRASMsg(MSG_FWM_RC_SEND_HEARTBEAT , "FwmRcProto.HeartBeatInfo");
-    Initializer::registeRASMsg(MSG_FWM_RC_SEND_HEARTBEAT_ACK,
+    ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_STOP_MODULE , "FwmRcProto.StopModule");
+    ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_STOP_MODULE_ACK , "FwmRcProto.StopModuleAck");
+    ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_SEND_HEARTBEAT , "FwmRcProto.HeartBeatInfo");
+    ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_SEND_HEARTBEAT_ACK,
                                "FwmRcProto.HeartBeatInfoAck");
 
     ( Initializer::getDispatcher() ).registerMessageCallback(
@@ -100,7 +102,7 @@ void RASTunnel::applyResource(STDSTR domainName , STDSTR domainDescription,
         tmp._cpuMemSize = memSize;
         _cacheVec.push_back(tmp);
 
-        (Initializer::getRASCodec()).send(_rasMasterClient.connection() , apply);
+        _rasCodec.send(_rasMasterClient.connection() , apply);
     }
     else
         onFailSend<DomainCreateACK>(cliConn , RESOURCE_APPLY_FAIL);
@@ -118,7 +120,7 @@ void RASTunnel::revokeResource(uint32_t domainID,
         instanceInfo->set_framework_instance_id( Initializer::getFrameworkInstanceID() );
         query.set_self_module_id(Initializer::getSelfModuleID());
         query.add_stop_module_id(domainID);
-        (Initializer::getRASCodec()).send(_rasMasterClient.connection() , query);
+        _rasCodec.send(_rasMasterClient.connection() , query);
     }
     else
         onFailSend<DomainDestroyACK>(cliConn , RESOURCE_REVOKE_FAIL);
@@ -216,7 +218,7 @@ void RASTunnel::register2RAS(TcpConnectionPtr const& conn)
     instanceInfo->set_framework_id(Initializer::getFrameworkID());
     instanceInfo->set_framework_instance_id(Initializer::getFrameworkInstanceID());
     msg.set_self_module_id(Initializer::getSelfModuleID());
-    ( Initializer::getRASCodec() ).send(conn , msg);
+    _rasCodec.send(conn , msg);
 }
 
 void RASTunnel::onRegisterCallback(TcpConnectionPtr const& conn,
@@ -251,10 +253,11 @@ void RASTunnel::doCreateDomain(TcpConnectionPtr const& conn , uint32_t domainID,
     try
     {
         {
+            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
 #ifdef TEST
             LOG_INFO << "Apply!!!!!";
+            std::cout << lock << "\n";
 #endif
-            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
             MutexLockGuard guard(**lock);
             result = dbConn->executeQuery("select id from DOMAIN_INFO\
                 where name = '%s' " , domainName.c_str());
@@ -283,8 +286,6 @@ void RASTunnel::doCreateDomain(TcpConnectionPtr const& conn , uint32_t domainID,
     dbConn->close();
 #ifndef TEST
     ( Initializer::getCodec() ).send(conn , reply);
-#else
-    sleep(10);
 #endif
 }
 
@@ -296,11 +297,12 @@ void RASTunnel::doRevokeDomain(TcpConnectionPtr const& conn , uint32_t domainID)
     try
     {
         {
-#ifdef TEST
-            sleep(10);
-            LOG_INFO << "Revoke!!!!!!";
-#endif
             MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
+#ifdef TEST
+            sleep(3);
+            LOG_INFO << "Revoke!!!!!!";
+            std::cout << lock << "\n";
+#endif
             MutexLockGuard guard(**lock);
             dbConn->execute("delete from DOMAIN_INFO where id = '%d' " , domainID);
         }

@@ -22,15 +22,3 @@ TEST(InitializerTest , InitTest)
     EXPECT_EQ(5 , Initializer::getRCPort());
     EXPECT_EQ("0.1" , Initializer::getSelfIP());
 }
-
-TEST(InitializerTest , registeMsgTest)
-{
-    uint32_t cmd1 = 1;
-    uint32_t cmd2 = 2;
-    std::string type1 = "hello";
-    std::string type2 = "world";
-    Initializer::registeRASMsg(cmd1 , type1);
-    Initializer::registeRASMsg(cmd2 , type2);
-    EXPECT_EQ(1 , Initializer::getCmdByTypename("hello"));
-    EXPECT_EQ("world" , Initializer::getTypenameByCmd(2));
-}

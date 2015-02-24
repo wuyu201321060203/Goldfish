@@ -34,8 +34,8 @@ TEST(RASProtobufCodecTest , PraseTest)
     int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
     TcpConnectionPtr conn( new TcpConnection(&g_Initializer.getEventLoop(),
         "conn" , socketfd , localAddr , remoteAddr) );
-    g_Initializer.registeRASMsg(5 , "MSG_CLIENT_DM_USER_CREATE");
-    g_Initializer.registeRASMsg(6 , "MSG_DM_CLIENT_USER_CREATE_ACK");
+    ProtobufRASCodec::registeRASMsg(5 , "MSG_CLIENT_DM_USER_CREATE");
+    ProtobufRASCodec::registeRASMsg(6 , "MSG_DM_CLIENT_USER_CREATE_ACK");
     ProtobufRASCodec codec(&testCallback);
     Buffer buf;
     UserCreateMsg msg1;

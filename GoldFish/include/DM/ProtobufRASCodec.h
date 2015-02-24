@@ -1,6 +1,8 @@
 #ifndef PROTOBUF_RAS_CODEC_H
 #define PROTOBUF_RAS_CODEC_H
 
+#include <map>
+
 #include <boost/function.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
@@ -23,6 +25,8 @@ struct ProtobufTransportFormat __attribute__ ((__packed__))
 */
 
 typedef boost::shared_ptr<google::protobuf::Message> MessagePtr;
+typedef std::map<uint32_t , std::string> Cmd2TypeNameMap;
+typedef std::map<std::string , uint32_t> TypeName2CmdMap;
 
 class ProtobufRASCodec : boost::noncopyable
 {
@@ -77,6 +81,10 @@ public:
     static google::protobuf::Message* createMessage(std::string const& type_name);
     static MessagePtr parse(char const* buf, int len, uint32_t cmd , ErrorCode* errorCode);
 
+    static uint32_t getCmdByTypename(std::string const&);
+    static std::string getTypenameByCmd(uint32_t);
+    static void registeRASMsg(uint32_t const& , std::string const&);
+
 private:
 
     static void defaultErrorCallback(muduo::net::TcpConnectionPtr const&,
@@ -90,6 +98,9 @@ private:
     static int const kHeaderLen = ( sizeof(uint32_t) )*5;
     static int const kMinMessageLen = 0;
     static int const kMaxMessageLen = 64*1024*1024;
+
+    static Cmd2TypeNameMap _cmd2TypeName;
+    static TypeName2CmdMap _typeName2Cmd;
 };
 
 #endif

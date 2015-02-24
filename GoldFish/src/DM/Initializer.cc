@@ -22,9 +22,6 @@ ProtobufDispatcher Initializer::_dispatcher(
 ProtobufCodec Initializer::_codec(
             boost::bind(&ProtobufDispatcher::onProtobufMessage , _dispatcher , _1, _2 , _3));
 
-ProtobufRASCodec Initializer::_rasCodec(
-            boost::bind(&ProtobufDispatcher::onProtobufMessage , _dispatcher , _1, _2 , _3));
-
 muduo::ThreadPool Initializer::_threadPool;
 
 muduo::net::EventLoop Initializer::_loop;
@@ -35,9 +32,11 @@ Options Initializer::_options;
 
 std::string Initializer::_path;
 
+/*
 Cmd2TypeNameMap Initializer::_cmd2TypeName;
 
 TypeName2CmdMap Initializer::_typeName2Cmd;
+*/
 
 ConnectionPool Initializer::_dbPool(DB_URL);
 
@@ -78,11 +77,6 @@ ProtobufCodec& Initializer::getCodec()
     return _codec;
 }
 
-ProtobufRASCodec& Initializer::getRASCodec()
-{
-    return _rasCodec;
-}
-
 ProtobufDispatcher& Initializer::getDispatcher()
 {
     return _dispatcher;
@@ -103,6 +97,7 @@ Options& Initializer::getOptions()
     return _options;
 }
 
+/*
 uint32_t Initializer::getCmdByTypename(STDSTR const& typeName)
 {
     return _typeName2Cmd[typeName];
@@ -118,6 +113,7 @@ void Initializer::registeRASMsg(uint32_t const& cmd , STDSTR const& typeName)
     _cmd2TypeName.insert(Cmd2TypeNameMap::value_type(cmd , typeName));
     _typeName2Cmd.insert(TypeName2CmdMap::value_type(typeName , cmd));
 }
+*/
 
 ConnectionPool& Initializer::getDbPool()
 {

@@ -2,7 +2,6 @@
 #define INITIALIZER_H
 
 #include <string>
-#include <map>
 
 #include <muduo/net/EventLoop.h>
 #include <muduo/base/ThreadPool.h>
@@ -18,23 +17,21 @@
 
 class HeartBeatManager;
 
-typedef std::map<uint32_t , std::string> Cmd2TypeNameMap;
-typedef std::map<std::string , uint32_t> TypeName2CmdMap;
-
 class Initializer
 {
 public:
 
     static int init(int , char**);
-    static ProtobufRASCodec& getRASCodec();
     static ProtobufCodec& getCodec();
     static ProtobufDispatcher& getDispatcher();
     static muduo::ThreadPool& getThreadPool();
     static muduo::net::EventLoop& getEventLoop();
     static Options& getOptions();
+    /*
     static uint32_t getCmdByTypename(std::string const&);
     static std::string getTypenameByCmd(uint32_t);
     static void registeRASMsg(uint32_t const& , std::string const&);
+    */
     static OOzdb::ConnectionPool& getDbPool();
 
     static uint32_t getFrameworkID();
@@ -57,14 +54,11 @@ private:
 
     static ProtobufDispatcher _dispatcher;
     static ProtobufCodec _codec;
-    static ProtobufRASCodec _rasCodec;
     static muduo::ThreadPool _threadPool;
     static muduo::net::EventLoop _loop;
     static ConfigLoader _loader;
     static Options _options;
     static std::string _path;
-    static Cmd2TypeNameMap _cmd2TypeName;
-    static TypeName2CmdMap _typeName2Cmd;
     static OOzdb::ConnectionPool _dbPool;
     static uint32_t _frameworkID;
     static uint32_t _frameworkInstanceID;
