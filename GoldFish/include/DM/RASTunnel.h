@@ -15,6 +15,7 @@
 #include "ResourceManager.h"
 #include "Initializer.h"
 #include "Config.h"
+#include "HeartBeatManager.h"
 
 typedef boost::shared_ptr<muduo::net::TcpClient> TcpClientPtr;
 
@@ -62,6 +63,7 @@ private:
     int _status;
     ProtobufRASCodec _rasCodec;
     std::vector<DomainInfoCache> _cacheVec;
+    HeartBeatManager _hbManager;
 
 private:
 
@@ -84,6 +86,12 @@ private:
         reply.set_statuscode(replyInfo);
         (Initializer::getCodec()).send(conn , reply);
     }
+
+    void onHeartBeat(muduo::net::TcpConnectionPtr const&,
+                     MessagePtr const&,
+                     muduo::Timestamp);
+
+    void onTimeout(void);
 };
 
 #endif

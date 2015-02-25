@@ -32,6 +32,7 @@ private:
     CrossDomainInfoServicePtr  _SysInfoHandler;
     CrossDomainInfoServicePtr  _DbInfoHandler;
     UserManager _userManager;
+    HeartBeatManager _dcManager;
 
 private:
 

@@ -57,6 +57,9 @@ Initializer.o: $(DM_SRC_DIR)/Initializer.cc
 ConfigLoader.o: $(DM_SRC_DIR)/ConfigLoader.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+util.o: $(DM_SRC_DIR)/util.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 Options.o: $(DM_SRC_DIR)/Options.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -87,5 +90,5 @@ RASClient : main.o ProtobufRASCodec.o ProtobufCodec.o Initializer.o\
 			MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE.pb.o MSG_CLIENT_DM_DOMAIN_DESTROY.pb.o\
 			Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o\
 			MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
-			              StringBuffer.o StrOperation.o TimeOperation.o URL.o
+			StringBuffer.o StrOperation.o TimeOperation.o URL.o util.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

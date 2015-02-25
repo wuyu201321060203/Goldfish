@@ -1,5 +1,7 @@
+#ifdef TEST
 #include <unistd.h>//TODO
 #include <iostream>//TODO
+#endif
 
 #include <muduo/base/Logging.h>
 #include <muduo/base/Mutex.h>
@@ -20,12 +22,15 @@ using boost::any_cast;
 #define ABNORMAL 0
 
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
+static HeartBeatInfo ping;
 
 RASTunnel::RASTunnel(EventLoop* loop , InetAddress const& serveAddr):
                      _rasMasterClient(loop , serveAddr , "rasMasterClient"),
                      _status(ABNORMAL),
                      _rasCodec(boost::bind(&ProtobufDispatcher::onProtobufMessage,
-                                &Initializer::getDispatcher() , _1 , _2 , _3) )
+                                &Initializer::getDispatcher() , _1 , _2 , _3) ),
+                     _hbManager(loop , boost::bind(&RASTunnel::onHeartBeat , this,
+                                                _1 , _2 , _3) )
 {
     _rasMasterClient.setConnectionCallback( boost::bind(
         &RASTunnel::onConnectionCallbackFromRC , this , _1) );
@@ -59,6 +64,15 @@ RASTunnel::RASTunnel(EventLoop* loop , InetAddress const& serveAddr):
     ( Initializer::getDispatcher() ).registerMessageCallback(
         StopModuleAck::descriptor(),
         boost::bind(&RASTunnel::onRevokeResourceReply , this , _1 , _2 , _3) );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        HeartBeatInfoAck::descriptor(),
+        boost::bind(&HeartBeatManager::onMessageCallback , &_hbManager , _1 , _2 , _3) );
+
+    FrameworkInstanceInfo* instanceInfo = ping.mutable_framework_instance_info();
+    instanceInfo->set_framework_id(Initializer::getFrameworkID());
+    instanceInfo->set_framework_instance_id(Initializer::getFrameworkInstanceID());
+    ping.set_self_module_id(Initializer::getSelfModuleID());
 }
 
 void RASTunnel::init()
@@ -199,7 +213,6 @@ void RASTunnel::onConnectionCallbackFromRC(TcpConnectionPtr const& conn)
 {
     if(conn->connected())
     {
-        //heartbeat
         MutexLockPtr lock(new MutexLock);
         conn->setContext(lock);
         register2RAS(conn);
@@ -230,6 +243,8 @@ void RASTunnel::onRegisterCallback(TcpConnectionPtr const& conn,
     if(SUCCESS == reply->statuscode())
     {
         _status = NORMAL;
+        _hbManager.delegateTimerTask(1 , 10 , 3,
+                    boost::bind(&RASTunnel::onTimeout , this) , conn);
 #ifdef TEST
         LOG_INFO << "register to RAS success";
         applyResource("domain2" , "domain2" , 1 , 1 , getConn());
@@ -319,4 +334,15 @@ void RASTunnel::doRevokeDomain(TcpConnectionPtr const& conn , uint32_t domainID)
 #ifndef TEST
     ( Initializer::getCodec() ).send(conn , reply);
 #endif
+}
+
+void RASTunnel::onHeartBeat(TcpConnectionPtr const& conn , MessagePtr const& msg,
+                            Timestamp receiveTime)
+{
+    _rasCodec.send(conn , ping);
+}
+
+void RASTunnel::onTimeout(void)
+{
+    LOG_INFO << "disconnect to RC of RAS , HeartBeat timeout";
 }
