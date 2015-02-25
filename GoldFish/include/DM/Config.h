@@ -33,6 +33,7 @@
 #include <protocol/MSG_DM_DC_DOMAIN_DBINFO_GET.pb.h>
 #include <protocol/MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.h>
 #include <protocol/FwmRcProtocol.pb.h>
+#include <protocol/MSG_DC_DM_REGISTER.pb.h>
 
 typedef boost::weak_ptr<muduo::net::TcpConnection> TcpConnectionWeakPtr;
 typedef std::vector<TcpConnectionWeakPtr> TcpConnectionWeakPtrVec;
@@ -252,5 +253,11 @@ typedef boost::shared_ptr<PingMsg> PingMsgPtr;
 
 typedef MSG_DM_DC_PONG PongMsg;
 typedef boost::shared_ptr<PongMsg> PongMsgPtr;
+
+typedef MSG_DC_DM_REGISTER RegisterMsg;
+typedef boost::shared_ptr<RegisterMsg> RegisterMsgPtr;
+
+typedef MSG_DM_DC_REGISTER_ACK RegisterMsgACK;
+typedef boost::shared_ptr<RegisterMsgACK> RegisterMsgACKPtr;
 
 #endif

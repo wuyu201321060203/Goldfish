@@ -1,0 +1,11 @@
+message MSG_DC_DM_REGISTER
+{
+    optional uint32 moduleID = 1;
+    optional string IP = 2;
+    optional uint32 port = 3;
+}
+
+message MSG_DM_DC_REGISTER_ACK
+{
+    optional int32 statusCode = 1;
+}

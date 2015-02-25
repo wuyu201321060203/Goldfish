@@ -91,6 +91,9 @@ desecbservice_unittest.o : $(USER_DIR)/desecbservice_unittest.cc
 domaininfoservice_unittest.o : $(USER_DIR)/domaininfoservice_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+dcregister_unittest.o : $(USER_DIR)/dcregister_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 ConfigLoader.o : $(DM_SRC_DIR)/ConfigLoader.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -166,6 +169,9 @@ MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_DO
 MSG_CLIENT_DM_DOMAIN_DESTROY.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_DOMAIN_DESTROY.pb.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+MSG_DC_DM_REGISTER.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_REGISTER.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 FwmRcProtocol.pb.o : $(PROTO_SRC_DIR)/FwmRcProtocol.pb.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -202,6 +208,9 @@ ResourceManager.o : $(DM_SRC_DIR)/ResourceManager.cc
 RASTunnel.o : $(DM_SRC_DIR)/RASTunnel.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+DCRegister.o : $(DM_SRC_DIR)/DCRegister.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_unittest.o ConfigLoader.o Options.o\
 			  Initializer.o ProtobufCodec.o Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o \
 			  MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
@@ -221,5 +230,6 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  desecbservice_unittest.o ResourceManager.o RemoteDomainInfoService.o\
 			  MSG_CLIENT_DM_DOMAIN_CREATE.pb.o MSG_CLIENT_DM_DOMAIN_DESCRIPTION_GET.pb.o\
 			  MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE.pb.o MSG_CLIENT_DM_DOMAIN_DESTROY.pb.o\
-			  RASTunnel.o FwmRcProtocol.pb.o domaininfoservice_unittest.o
+			  RASTunnel.o FwmRcProtocol.pb.o domaininfoservice_unittest.o DCRegister.o\
+			  MSG_DC_DM_REGISTER.pb.o dcregister_unittest.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)
