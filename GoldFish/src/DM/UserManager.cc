@@ -8,6 +8,7 @@
 #include <DM/UserManager.h>
 #include <DM/Config.h>
 #include <DM/Initializer.h>
+#include <DM/Token.h>
 
 using namespace muduo;
 using namespace muduo::net;
@@ -16,6 +17,14 @@ using namespace OOzdb;
 #ifdef TEST
 extern UserLoginACK testLogin;
 #endif
+
+UserManager::UserManager()
+{
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        UserLoginMsg::descriptor(),
+        boost::bind(&UserManager::onUserLogin , this , _1 , _2 , _3)
+        );
+}
 
 void UserManager::onUserLogin(TcpConnectionPtr const& conn,
                               MessagePtr const& msg,
@@ -58,11 +67,14 @@ void UserManager::verifyIdentity(TcpConnectionPtr const& conn , STDSTR name,
                     domainName = result->getString(1);
                     STDSTR ip = result->getString(2);
                     int port = result->getInt(3);
-                    /*
-                    STDSTR tokenStr = createEncryptedToken(username , authority,
-                        domainName , groupName);
-                        */
+#ifndef TEST
+                    Token rawToken(username , authority , domainName , groupName);
+                    STDSTR tokenStr(rawToken.toString());
+
+                    ( Initializer::getDesEcbAcceptor() ).encrypt(tokenStr);
+#else
                     STDSTR tokenStr("helloworld");
+#endif
                     reply.set_token(tokenStr);
                     reply.set_dcip(ip);
                     reply.set_dcport(port);

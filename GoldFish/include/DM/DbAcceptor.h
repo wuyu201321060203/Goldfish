@@ -7,6 +7,8 @@ class DbAcceptor : public CustomizedServiceAcceptor
 {
 public:
 
+    DbAcceptor();
+
     void onPreserve(muduo::net::TcpConnectionPtr const& conn,
                     MessagePtr const& msg,
                     muduo::Timestamp timeStamp);

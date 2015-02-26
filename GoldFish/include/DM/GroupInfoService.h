@@ -9,6 +9,8 @@ class GroupInfoService : public GenericInfoService
 {
 public:
 
+    GroupInfoService();
+
     virtual void onCreateInfo(muduo::net::TcpConnectionPtr const&,
                               MessagePtr const&,
                               muduo::Timestamp);

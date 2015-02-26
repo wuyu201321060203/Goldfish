@@ -10,6 +10,14 @@ using namespace OOzdb;
 using namespace muduo;
 using namespace muduo::net;
 
+DCRegister::DCRegister()
+{
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        RegisterMsg::descriptor(),
+        boost::bind(&DCRegister::onMessage , this , _1 , _2 , _3)
+        );
+}
+
 void DCRegister::onMessage(muduo::net::TcpConnectionPtr const& conn,
                            MessagePtr const& msg,
                            muduo::Timestamp receiveTime)

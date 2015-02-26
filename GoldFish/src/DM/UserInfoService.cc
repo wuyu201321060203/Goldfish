@@ -6,6 +6,7 @@
 
 #include <boost/any.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/bind.hpp>
 
 #include <muduo/base/Logging.h>
 #include <muduo/base/Types.h>
@@ -14,6 +15,7 @@
 
 #include <DM/UserInfoService.h>
 #include <DM/Token.h>
+#include <DM/Initializer.h>
 
 #include <Db/ResultSet.h>
 #include <Db/ConnectionPool.h>
@@ -32,6 +34,29 @@ typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 typedef MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO UserInfo;
 extern std::vector<UserInfo> testArray1;
 #endif
+
+UserInfoService::UserInfoService()
+{
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        UserCreateMsg::descriptor(),
+        boost::bind(&UserInfoService::onCreateInfo , this , _1 , _2 , _3)
+    );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        UserDestroyMsg::descriptor(),
+        boost::bind(&UserInfoService::onDeleteInfo , this , _1 , _2 , _3)
+    );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        UserInfoUpdateMsg::descriptor(),
+        boost::bind(&UserInfoService::onUpdateInfo , this , _1 , _2 , _3)
+    );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        UserInfoGetMsg::descriptor(),
+        boost::bind(&UserInfoService::onGetInfo , this , _1 , _2 , _3)
+    );
+}
 
 void UserInfoService::onCreateInfo(TcpConnectionPtr const& conn,
                                    MessagePtr const& msg,

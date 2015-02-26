@@ -10,6 +10,8 @@ class DCRegister
 {
 public:
 
+    DCRegister();
+
     void onMessage(muduo::net::TcpConnectionPtr const& conn,
                    MessagePtr const& msg,
                    muduo::Timestamp receiveTime);

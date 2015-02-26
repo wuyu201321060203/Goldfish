@@ -36,6 +36,25 @@ extern std::vector<DomainInfo> testDomainArray;
 RemoteDomainInfoService::RemoteDomainInfoService(ResourceManagerPtr const& manager):
                             _manager(manager)
 {
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        DomainCreateMsg::descriptor(),
+        boost::bind(&RemoteDomainInfoService::onCreateInfo , this , _1 , _2 , _3)
+        );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        DomainDestroyMsg::descriptor(),
+        boost::bind(&RemoteDomainInfoService::onDeleteInfo , this , _1 , _2 , _3)
+        );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        DomainInfoUpdateMsg::descriptor(),
+        boost::bind(&RemoteDomainInfoService::onUpdateInfo , this , _1 , _2 , _3)
+        );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        DomainInfoGetMsg::descriptor(),
+        boost::bind(&RemoteDomainInfoService::onGetInfo , this , _1 , _2 , _3)
+        );
 }
 
 void RemoteDomainInfoService::onCreateInfo(TcpConnectionPtr const& conn,

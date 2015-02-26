@@ -36,6 +36,24 @@ using boost::any_cast;
 
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
+DbAcceptor::DbAcceptor()
+{
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        ConfigPersistenceMsg::descriptor(),
+        boost::bind(&DbAcceptor::onPreserve , this , _1 , _2 , _3)
+        );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        ConfigLookupMsg::descriptor(),
+        boost::bind(&DbAcceptor::onLoad , this , _1 , _2 , _3)
+        );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        ConfigDeleteMsg::descriptor(),
+        boost::bind(&DbAcceptor::onDelete , this , _1 , _2 , _3)
+        );
+}
+
 void DbAcceptor::onPreserve(TcpConnectionPtr const& conn,
                             MessagePtr const& msg,
                             Timestamp timeStamp)

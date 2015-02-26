@@ -14,6 +14,8 @@ class UserManager
 {
 public:
 
+    UserManager();
+
     void onUserLogin(muduo::net::TcpConnectionPtr const&,
                      MessagePtr const&,
                      muduo::Timestamp);
@@ -27,12 +29,6 @@ private:
     typedef std::vector<Token> TokenVec;
     TokenVec _rawTokenList;
 
-private:
-
-    Token createEncryptedToken(std::string , unsigned long , std::string,
-                               std::string);
-
-    inline int encryptRawToken(Token& rawToken);
     static void verifyIdentity(muduo::net::TcpConnectionPtr const&,
                                std::string,
                                std::string);

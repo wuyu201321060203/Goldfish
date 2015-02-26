@@ -32,6 +32,29 @@ typedef MSG_DM_CLIENT_GROUP_DESCRIPTION_GET_ACK_GROUP_INFO GroupInfoType;
 extern std::vector<GroupInfoType> testArray;
 #endif
 
+GroupInfoService::GroupInfoService()
+{
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        GroupCreateMsg::descriptor(),
+        boost::bind(&GroupInfoService::onCreateInfo , this , _1 , _2 , _3)
+        );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        GroupDestroyMsg::descriptor(),
+        boost::bind(&GroupInfoService::onDeleteInfo , this , _1 , _2 , _3)
+        );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        GroupInfoUpdateMsg::descriptor(),
+        boost::bind(&GroupInfoService::onUpdateInfo , this , _1 , _2 , _3)
+        );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        GroupInfoGetMsg::descriptor(),
+        boost::bind(&GroupInfoService::onGetInfo , this , _1 , _2 , _3)
+        );
+}
+
 void GroupInfoService::onCreateInfo(TcpConnectionPtr const& conn,
                                     MessagePtr const& msg,
                                     Timestamp time)
