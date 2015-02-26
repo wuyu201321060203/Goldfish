@@ -13,6 +13,7 @@
 #include "ProtobufDispatcher.h"
 #include "ConfigLoader.h"
 #include "Options.h"
+#include "CryptographicService.h"
 #include <Db/ConnectionPool.h>
 
 class HeartBeatManager;
@@ -27,12 +28,8 @@ public:
     static muduo::ThreadPool& getThreadPool();
     static muduo::net::EventLoop& getEventLoop();
     static Options& getOptions();
-    /*
-    static uint32_t getCmdByTypename(std::string const&);
-    static std::string getTypenameByCmd(uint32_t);
-    static void registeRASMsg(uint32_t const& , std::string const&);
-    */
     static OOzdb::ConnectionPool& getDbPool();
+    static CryptographicServicePtr const& getDesEcbAcceptor();
 
     static uint32_t getFrameworkID();
 
@@ -60,6 +57,7 @@ private:
     static Options _options;
     static std::string _path;
     static OOzdb::ConnectionPool _dbPool;
+    static CryptographicServicePtr _desEcbAcceptor;
     static uint32_t _frameworkID;
     static uint32_t _frameworkInstanceID;
     static uint32_t _selfModuleID;

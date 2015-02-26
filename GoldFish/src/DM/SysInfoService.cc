@@ -19,6 +19,7 @@ void SysInfoService::onSysInfoQuery(TcpConnectionPtr const& conn,
 {
     CrossSysInfoGetMsgPtr query =  muduo::down_pointer_cast<CrossSysInfoGetMsg>(msg);
     std::string fakeToken = query->token();
+    ( Initializer::getDesEcbAcceptor() )->decode(fakeToken);
     Token token(fakeToken);
     CrossSysInfoGetACK reply;
     if(token.niuXThanDomainAdmin())

@@ -38,6 +38,7 @@ void GroupInfoService::onCreateInfo(TcpConnectionPtr const& conn,
 {
     GroupCreateMsgPtr query = muduo::down_pointer_cast<GroupCreateMsg>(msg);
     std::string tmp = query->token();
+    ( Initializer::getDesEcbAcceptor() )->decode(tmp);
     Token token(tmp);
     if(token.niuXThanGroupAdmin())
     {
@@ -57,6 +58,7 @@ void GroupInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
 {
     GroupDestroyMsgPtr query = muduo::down_pointer_cast<GroupDestroyMsg>(msg);
     std::string tmp = query->token();
+    ( Initializer::getDesEcbAcceptor() )->decode(tmp);
     Token token(tmp);
     if(token.niuXThanGroupAdmin())
     {
@@ -74,6 +76,7 @@ void GroupInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
 {
     GroupInfoUpdateMsgPtr query = muduo::down_pointer_cast<GroupInfoUpdateMsg>(msg);
     std::string tmp = query->token();
+    ( Initializer::getDesEcbAcceptor() )->decode(tmp);
     Token token(tmp);
     if(token.niuXThanGroupAdmin())
     {
@@ -92,6 +95,7 @@ void GroupInfoService::onGetInfo(TcpConnectionPtr const& conn,
 {
     GroupInfoGetMsgPtr query = muduo::down_pointer_cast<GroupInfoGetMsg>(msg);
     std::string tmp = query->token();
+    ( Initializer::getDesEcbAcceptor() )->decode(tmp);
     Token token(tmp);
     std::string groupName = token.getGroup();
     (Initializer::getThreadPool()).run(boost::bind(&GroupInfoService::doGetGroup,

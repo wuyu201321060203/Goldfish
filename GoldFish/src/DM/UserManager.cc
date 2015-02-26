@@ -28,38 +28,6 @@ void UserManager::onUserLogin(TcpConnectionPtr const& conn,
                                         username , passwd));
 }
 
-/*
-void UserManager::onVerifyEncryptedToken(TcpConnectionPtr const& conn,
-                                         MessagePtr const& msg,
-                                         muduo::Timestamp)
-{
-    TokenIdentifyMsgPtr query = muduo::down_pointer_cast<TokenIdentifyMsg>(msg);
-    STDSTR tmp = query->encryptedtoken();
-    Token encryptedToken(tmp);
-    //(g_Initializer.getDecoder())
-    TokenVec::iterator iter = _rawTokenList.find(rawToken);//TODO
-    TokenIdentifyACK reply;
-    if(iter != _rawTokenList.end())
-        reply.set_statuscode(SUCCESS);
-    else
-        reply.set_statuscode(TOKEN_AUTH_FAIL);
-#ifdef TEST
-    (Initializer::getCodec()).send(conn , reply);
-#endif
-}
-
-STDSTR UserManager::createEncryptedToken(STDSTR username , ulong identity,
-                                        STDSTR belong2Domain , STDSTR belong2Group)
-{
-    Token rawToken(username , identity , belong2Domain , belong2Group);
-    STDSTR encryptedTokenStr;
-    if( encryptRawToken( token.toString() , encryptedTokenStr ) )//TODO
-        return encryptedTokenStr;
-    else
-        LOG_INFO << "create encrypted token failed";
-}
-*/
-
 void UserManager::verifyIdentity(TcpConnectionPtr const& conn , STDSTR name,
                                  STDSTR passwd)
 {

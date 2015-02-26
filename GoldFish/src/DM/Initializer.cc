@@ -9,6 +9,7 @@
 #include <DM/Config.h>
 #include <DM/Initializer.h>
 #include <DM/HeartBeatManager.h>
+#include <DM/DesEcbService.h>
 
 namespace po = boost::program_options;
 
@@ -32,13 +33,9 @@ Options Initializer::_options;
 
 std::string Initializer::_path;
 
-/*
-Cmd2TypeNameMap Initializer::_cmd2TypeName;
-
-TypeName2CmdMap Initializer::_typeName2Cmd;
-*/
-
 ConnectionPool Initializer::_dbPool(DB_URL);
+
+CryptographicServicePtr Initializer::_desEcbAcceptor(new DesEcbService);
 
 uint32_t Initializer::_frameworkID = 0;
 
@@ -97,27 +94,14 @@ Options& Initializer::getOptions()
     return _options;
 }
 
-/*
-uint32_t Initializer::getCmdByTypename(STDSTR const& typeName)
-{
-    return _typeName2Cmd[typeName];
-}
-
-STDSTR Initializer::getTypenameByCmd(uint32_t cmd)
-{
-    return _cmd2TypeName[cmd];
-}
-
-void Initializer::registeRASMsg(uint32_t const& cmd , STDSTR const& typeName)
-{
-    _cmd2TypeName.insert(Cmd2TypeNameMap::value_type(cmd , typeName));
-    _typeName2Cmd.insert(TypeName2CmdMap::value_type(typeName , cmd));
-}
-*/
-
 ConnectionPool& Initializer::getDbPool()
 {
     return _dbPool;
+}
+
+CryptographicServicePtr const& Initializer::getDesEcbAcceptor()
+{
+    return _desEcbAcceptor;
 }
 
 uint32_t Initializer::getFrameworkID()

@@ -19,6 +19,7 @@ void DbInfoService::onCrossDomainInfoQuery(TcpConnectionPtr const& conn,
 {
     CrossDbInfoGetMsgPtr query =  muduo::down_pointer_cast<CrossDbInfoGetMsg>(msg);
     std::string fakeToken = query->token();
+    ( Initializer::getDesEcbAcceptor() )->decode(fakeToken);
     Token token(fakeToken);
     CrossDbInfoGetACK reply;
     if(token.niuXThanDomainAdmin())
