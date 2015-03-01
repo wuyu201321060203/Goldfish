@@ -9,6 +9,7 @@ class CryptographicService
 {
 public:
 
+    virtual ~CryptographicService();
     virtual STDSTR encrypt(STDSTR const&) = 0;
     virtual STDSTR decode(STDSTR const&) = 0;
 };

@@ -16,6 +16,9 @@ public:
     virtual void onCrossDomainInfoReplyFromDC(muduo::net::TcpConnectionPtr const&,
                                               MessagePtr const&,
                                               muduo::Timestamp);
+#ifdef TEST
+    Time2ConnMap& getCliMap();
+#endif
 };
 
 #endif

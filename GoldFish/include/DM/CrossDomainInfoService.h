@@ -5,6 +5,7 @@
 #include <map>
 
 #include <boost/function.hpp>
+#include <boost/shared_ptr.hpp>
 
 #include <muduo/net/TcpConnection.h>
 #include <muduo/base/Timestamp.h>
@@ -15,6 +16,8 @@
 class CrossDomainInfoService
 {
 public:
+
+    virtual ~CrossDomainInfoService();
 
     typedef boost::function<void (TcpConnectionWeakPtrVec&)> DCListGetFunc;
 
@@ -40,5 +43,7 @@ protected:
     Time2ConnMap _cliMap;
     DCListGetFunc _func;
 };
+
+typedef boost::shared_ptr<CrossDomainInfoService> CrossDomainInfoServicePtr;
 
 #endif

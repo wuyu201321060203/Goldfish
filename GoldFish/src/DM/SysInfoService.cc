@@ -10,12 +10,12 @@
 #include <muduo/base/Timestamp.h>
 #include <muduo/base/Logging.h>
 
-using muduo::net::TcpConnectionPtr;
-using muduo::Timestamp;
+using namespace muduo::net;
+using namespace muduo;
 
-void SysInfoService::onSysInfoQuery(TcpConnectionPtr const& conn,
-                                    MessagePtr const& msg,
-                                    muduo::Timestamp timeStamp)//decorate TODO
+void SysInfoService::onCrossDomainInfoQuery(TcpConnectionPtr const& conn,
+                                            MessagePtr const& msg,
+                                            muduo::Timestamp timeStamp)//decorate TODO
 {
     CrossSysInfoGetMsgPtr query =  muduo::down_pointer_cast<CrossSysInfoGetMsg>(msg);
     std::string fakeToken = query->token();
@@ -35,7 +35,8 @@ void SysInfoService::onSysInfoQuery(TcpConnectionPtr const& conn,
             DomainSysInfoGetMsg relayMsg;
             std::string tmp( MuduoStr2StdStr(time) );
             relayMsg.set_timestamp(tmp);
-            _dcVec.erase(remove_if(_dcVec.begin() , _dcVec.end() , HelperFunctor()));
+            _dcVec.erase( remove_if( _dcVec.begin() , _dcVec.end() , HelperFunctor() ),
+                          _dcVec.end() );
             for(TcpConnectionWeakPtr dcConn : _dcVec)
                 ( Initializer::getCodec() ).send(dcConn.lock() , relayMsg);//Oops!
             return;
@@ -48,11 +49,19 @@ void SysInfoService::onSysInfoQuery(TcpConnectionPtr const& conn,
     ( Initializer::getCodec() ).send(conn , reply);
 }
 
-void SysInfoService::onSysInfoReplyFromDC(TcpConnectionPtr const& conn,
-                                          MessagePtr const& msg,
-                                          muduo::Timestamp timeStamp)
+void SysInfoService::onCrossDomainInfoReplyFromDC(TcpConnectionPtr const& conn,
+                                                  MessagePtr const& msg,
+                                                  muduo::Timestamp timeStamp)
 {
     DomainSysInfoGetACKPtr dcACK = muduo::down_pointer_cast<DomainSysInfoGetACK>(msg);
+    for(Time2ConnMap::iterator iter = _cliMap.begin() ; iter != _cliMap.end();)
+    {
+        TcpConnectionPtr temp( ( iter->second ).lock() );
+        if(!temp)
+            _cliMap.erase(iter++);
+        else
+            ++iter;
+    }
     STDSTR time = dcACK->timestamp();
     muduo::string tmp( StdStr2MuduoStr(time) );
     Time2ConnMap::iterator iter = _cliMap.find(tmp);
@@ -60,7 +69,7 @@ void SysInfoService::onSysInfoReplyFromDC(TcpConnectionPtr const& conn,
     {
         TcpConnectionPtr tmp( (iter->second).lock() );
         if(tmp)
-            ( Initializer::getCodec() ).send(tmp , *( dcACK.get() ) );
+            ( Initializer::getCodec() ).send(tmp , *dcACK);
         else
             _cliMap.erase(iter);
     }

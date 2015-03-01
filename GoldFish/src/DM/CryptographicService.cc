@@ -1,5 +1,9 @@
 #include <DM/CryptographicService.h>
 
+CryptographicService::~CryptographicService()
+{
+}
+
 STDSTR CryptographicService::encrypt(STDSTR const& tokenStr)
 {
 }

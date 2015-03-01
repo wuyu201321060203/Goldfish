@@ -21,6 +21,7 @@ using namespace muduo::net;
 using namespace OOzdb;
 
 UserLoginACK testLogin;
+TokenIdentifyACK testVerifyToken;
 
 TEST(UserManagerTest , LoginSuccessTest)
 {
@@ -58,4 +59,60 @@ TEST(UserManagerTest , LoginFailTest)
     waiter.onUserLogin(conn , msg , time);
     sleep(3);
     EXPECT_EQ(UNEXISTED_USER , testLogin.statuscode());
+}
+
+TEST(UserManagerTest , VerifyTokenTest)
+{
+    InetAddress localAddr(10);
+    InetAddress remoteAddr(100);
+    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
+    TcpConnectionPtr conn( new TcpConnection(&Initializer::getEventLoop(),
+        "conn" , socketfd , localAddr , remoteAddr) );
+    TokenIdentifyMsg* tmp =  new TokenIdentifyMsg;
+    tmp->set_encryptedtoken("helloworld");
+    MessagePtr msg(tmp);
+    Timestamp time;
+    UserManager waiter;
+    (waiter.getTokenList()).push_back("helloworld");
+    waiter.onVerifyEncryptedToken(conn , msg , time);
+    sleep(3);
+    EXPECT_EQ(SUCCESS , testVerifyToken.statuscode());
+    EXPECT_EQ("helloworld" , testVerifyToken.rawtoken());
+}
+
+TEST(UserManagerTest , VerifyTokenSuccessTest)
+{
+    InetAddress localAddr(10);
+    InetAddress remoteAddr(100);
+    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
+    TcpConnectionPtr conn( new TcpConnection(&Initializer::getEventLoop(),
+        "conn" , socketfd , localAddr , remoteAddr) );
+    TokenIdentifyMsg* tmp =  new TokenIdentifyMsg;
+    tmp->set_encryptedtoken("helloworld");
+    MessagePtr msg(tmp);
+    Timestamp time;
+    UserManager waiter;
+    (waiter.getTokenList()).push_back("helloworld");
+    waiter.onVerifyEncryptedToken(conn , msg , time);
+    sleep(3);
+    EXPECT_EQ(SUCCESS , testVerifyToken.statuscode());
+    EXPECT_EQ("helloworld" , testVerifyToken.rawtoken());
+}
+
+TEST(UserManagerTest , VerifyTokenFailTest)
+{
+    InetAddress localAddr(10);
+    InetAddress remoteAddr(100);
+    int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
+    TcpConnectionPtr conn( new TcpConnection(&Initializer::getEventLoop(),
+        "conn" , socketfd , localAddr , remoteAddr) );
+    TokenIdentifyMsg* tmp =  new TokenIdentifyMsg;
+    tmp->set_encryptedtoken("helloworld1");
+    MessagePtr msg(tmp);
+    Timestamp time;
+    UserManager waiter;
+    (waiter.getTokenList()).push_back("helloworld");
+    waiter.onVerifyEncryptedToken(conn , msg , time);
+    sleep(3);
+    EXPECT_EQ(TOKEN_AUTH_FAIL , testVerifyToken.statuscode());
 }

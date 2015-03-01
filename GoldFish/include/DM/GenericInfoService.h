@@ -17,6 +17,8 @@ class GenericInfoService
 {
 public:
 
+    virtual ~GenericInfoService();
+
     virtual void onCreateInfo(muduo::net::TcpConnectionPtr const&,
         MessagePtr const&,
         muduo::Timestamp) = 0;

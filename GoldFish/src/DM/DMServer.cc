@@ -5,16 +5,25 @@
 #include <DM/DMServer.h>
 #include <DM/RemoteDomainInfoService.h>
 #include <DM/Initializer.h>
+#include <DM/UserInfoService.h>
+#include <DM/GroupInfoService.h>
+#include <DM/RASTunnel.h>
+#include <DM/DbAcceptor.h>
+#include <DM/ResourceManager.h>
+#include <DM/DbInfoService.h>
+#include <DM/SysInfoService.h>
 
 static PongMsg pong;
 
 using namespace muduo;
 using namespace muduo::net;
 
-DMServer::DMServer(EventLop* loop , Options const& options)
+DMServer::DMServer(EventLoop* loop , Options const& options)
     :_userInfoHandler(new UserInfoService),
      _groupInfoHandler(new GroupInfoService),
      _importConfigHandler(new DbAcceptor),
+     _sysInfoHandler(new SysInfoService),
+     _dbInfoHandler(new DbInfoService),
      _dcManager(&Initializer::getEventLoop() , boost::bind(&DMServer::onHeartBeat,
          this , _1 , _2 , _3)),
      _server4Client(&Initializer::getEventLoop() ,  InetAddress( Initializer::getSelfIP(),
@@ -23,16 +32,16 @@ DMServer::DMServer(EventLop* loop , Options const& options)
          Initializer::getDCPort() ) , "server4DC")
 {
     InetAddress rcAddr(Initializer::getRCIP() , Initializer::getRCPort());
-    ResourceManagerPtr reourceManager(new RASTunnel(&Initializer::getEventLoop(),
+    ResourceManagerPtr resourceManager(new RASTunnel(&Initializer::getEventLoop(),
         rcAddr));
 
     _domainInfoHandler.reset(new RemoteDomainInfoService(resourceManager));
 
-    _server4Client.setConnectionCallback(boost::bind(&DMServer::onCliConnection,
-        this , _1));
+    _server4Client.setConnectionCallback(
+        boost::bind(&DMServer::onCliConnection , this , _1));
 
-    _server4DC.setConnectionCallback(boost::bind(&DMServer::onDCConnection,
-        this , _1));
+    _server4DC.setConnectionCallback(
+        boost::bind(&DMServer::onDCConnection , this , _1));
 
     _server4Client.setMessageCallback(boost::bind(&ProtobufCodec::onMessage,
         &Initializer::getCodec() , _1 , _2 , _3));
@@ -44,6 +53,30 @@ DMServer::DMServer(EventLop* loop , Options const& options)
         PingMsg::descriptor(),
         boost::bind(&HeartBeatManager::onMessageCallback , &_dcManager , _1 , _2 , _3)
     );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        CrossDbInfoGetMsg::descriptor(),
+        boost::bind(&CrossDomainInfoService::onCrossDomainInfoQuery,
+        _dbInfoHandler , _1 , _2 , _3)
+    );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        CrossSysInfoGetMsg::descriptor(),
+        boost::bind(&CrossDomainInfoService::onCrossDomainInfoQuery,
+        _sysInfoHandler , _1 , _2 , _3)
+    );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        DomainSysInfoGetACK::descriptor(),
+        boost::bind(&CrossDomainInfoService::onCrossDomainInfoReplyFromDC,
+        _sysInfoHandler , _1 , _2 , _3)
+    );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        DomainDbInfoGetACK::descriptor(),
+        boost::bind(&CrossDomainInfoService::onCrossDomainInfoReplyFromDC,
+        _dbInfoHandler , _1 , _2 , _3)
+    );
 }
 
 void DMServer::start()
@@ -52,12 +85,12 @@ void DMServer::start()
     _server4DC.start();
 }
 
-void DMServer::onCliConnection(TcpConnection const& conn)
+void DMServer::onCliConnection(TcpConnectionPtr const& conn)
 {
     //TODO
 }
 
-void DMServer::onDCConnection(TcpConnection const& conn)
+void DMServer::onDCConnection(TcpConnectionPtr const& conn)
 {
     //TODO
 }

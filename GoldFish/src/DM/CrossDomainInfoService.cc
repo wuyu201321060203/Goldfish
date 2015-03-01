@@ -1,5 +1,9 @@
 #include <DM/CrossDomainInfoService.h>
 
+CrossDomainInfoService::~CrossDomainInfoService()
+{
+}
+
 void CrossDomainInfoService::onCrossDomainInfoQuery(muduo::net::TcpConnectionPtr const&,
                                                     MessagePtr const&,
                                                     muduo::Timestamp)
@@ -21,5 +25,5 @@ int CrossDomainInfoService::setGetDCListFunc(DCListGetFunc const& func)
 bool CrossDomainInfoService::HelperFunctor::operator()(TcpConnectionWeakPtr conn)
 {
     muduo::net::TcpConnectionPtr tmp( conn.lock() );
-    return tmp ? true : false;
+    return tmp ? false : true;
 }

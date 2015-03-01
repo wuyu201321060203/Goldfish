@@ -14,6 +14,7 @@ class UserManager
 {
 public:
 
+    typedef std::vector<STDSTR> TokenVec;
     UserManager();
 
     void onUserLogin(muduo::net::TcpConnectionPtr const&,
@@ -23,15 +24,17 @@ public:
     void onVerifyEncryptedToken(muduo::net::TcpConnectionPtr const&,
                                 MessagePtr const&,
                                 muduo::Timestamp);
+#ifdef TEST
+   TokenVec& getTokenList();
+#endif
 
 private:
 
-    typedef std::vector<Token> TokenVec;
-    TokenVec _rawTokenList;
+    TokenVec _tokenList;
 
-    static void verifyIdentity(muduo::net::TcpConnectionPtr const&,
-                               std::string,
-                               std::string);
+    void verifyIdentity(muduo::net::TcpConnectionPtr const&,
+                        std::string,
+                        std::string);
 };
 
 #endif

@@ -94,6 +94,9 @@ domaininfoservice_unittest.o : $(USER_DIR)/domaininfoservice_unittest.cc
 dcregister_unittest.o : $(USER_DIR)/dcregister_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+dbinfoservice_unittest.o : $(USER_DIR)/dbinfoservice_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 ConfigLoader.o : $(DM_SRC_DIR)/ConfigLoader.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -106,28 +109,22 @@ Initializer.o : $(DM_SRC_DIR)/Initializer.cc
 ProtobufCodec.o : $(DM_SRC_DIR)/ProtobufCodec.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+DMServer.o : $(DM_SRC_DIR)/DMServer.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 RemoteDomainInfoService.o : $(DM_SRC_DIR)/RemoteDomainInfoService.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
 MSG_DC_DM_CONFIG_PERSISTENCE.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_CONFIG_PERSISTENCE.pb.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+MSG_DC_DM_TOKEN_IDENTIFY.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_TOKEN_IDENTIFY.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 MSG_DC_DM_CONFIG_LOOKUP.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_CONFIG_LOOKUP.pb.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
 MSG_DC_DM_CONFIG_DELETE.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_CONFIG_DELETE.pb.cc
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
-
-MSG_DM_DC_DOMAIN_DBINFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_DM_DC_DOMAIN_DBINFO_GET.pb.cc
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
-
-MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.cc
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
-
-MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.cc
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
-
-MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
 MSG_CLIENT_DM_GROUP_CREATE.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_GROUP_CREATE.pb.cc
@@ -175,6 +172,21 @@ MSG_DC_DM_REGISTER.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_REGISTER.pb.cc
 FwmRcProtocol.pb.o : $(PROTO_SRC_DIR)/FwmRcProtocol.pb.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_DM_DC_DOMAIN_DBINFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_DM_DC_DOMAIN_DBINFO_GET.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.o : $(PROTO_SRC_DIR)/MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+MSG_DC_DM_PING.pb.o : $(PROTO_SRC_DIR)/MSG_DC_DM_PING.pb.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 DbAcceptor.o : $(DM_SRC_DIR)/DbAcceptor.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -211,6 +223,21 @@ RASTunnel.o : $(DM_SRC_DIR)/RASTunnel.cc
 DCRegister.o : $(DM_SRC_DIR)/DCRegister.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+DbInfoService.o : $(DM_SRC_DIR)/DbInfoService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+SysInfoService.o : $(DM_SRC_DIR)/SysInfoService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+CrossDomainInfoService.o : $(DM_SRC_DIR)/CrossDomainInfoService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+GenericInfoService.o : $(DM_SRC_DIR)/GenericInfoService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+CustomizedServiceAcceptor.o : $(DM_SRC_DIR)/CustomizedServiceAcceptor.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_unittest.o ConfigLoader.o Options.o\
 			  Initializer.o ProtobufCodec.o Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o \
 			  MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
@@ -231,5 +258,9 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  MSG_CLIENT_DM_DOMAIN_CREATE.pb.o MSG_CLIENT_DM_DOMAIN_DESCRIPTION_GET.pb.o\
 			  MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE.pb.o MSG_CLIENT_DM_DOMAIN_DESTROY.pb.o\
 			  RASTunnel.o FwmRcProtocol.pb.o domaininfoservice_unittest.o DCRegister.o\
-			  MSG_DC_DM_REGISTER.pb.o dcregister_unittest.o
+			  MSG_DC_DM_REGISTER.pb.o dcregister_unittest.o MSG_DC_DM_TOKEN_IDENTIFY.pb.o\
+			  DbInfoService.o SysInfoService.o DMServer.o MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.o\
+			  MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.o MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.o\
+			  MSG_DM_DC_DOMAIN_DBINFO_GET.pb.o CrossDomainInfoService.o MSG_DC_DM_PING.pb.o\
+			  GenericInfoService.o CustomizedServiceAcceptor.o dbinfoservice_unittest.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

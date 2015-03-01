@@ -3,6 +3,10 @@
 using namespace muduo;
 using namespace muduo::net;
 
+ResourceManager::~ResourceManager()
+{
+}
+
 void ResourceManager::init()
 {
 }

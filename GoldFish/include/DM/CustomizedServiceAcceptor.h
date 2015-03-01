@@ -9,6 +9,8 @@ class CustomizedServiceAcceptor
 {
 public:
 
+    virtual ~CustomizedServiceAcceptor();
+
     virtual void onPreserve(muduo::net::TcpConnectionPtr const& conn,
                             MessagePtr const& msg,
                             muduo::Timestamp timeStamp) = 0;

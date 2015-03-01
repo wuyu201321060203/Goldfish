@@ -1,4 +1,8 @@
-#include "GenericInfoService.h"
+#include <DM/GenericInfoService.h>
+
+GenericInfoService::~GenericInfoService()
+{
+}
 
 void GenericInfoService::onCreateInfo(muduo::net::TcpConnectionPtr const&,
                                       MessagePtr const&,
