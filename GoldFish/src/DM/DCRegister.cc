@@ -28,10 +28,11 @@ void DCRegister::onMessage(muduo::net::TcpConnectionPtr const& conn,
     uint32_t moduleID = apply->moduleid();
 
     ( Initializer::getThreadPool() ).run( boost::bind(&DCRegister::doRegister,
-        this , moduleID , ip , port) );
+        this , conn , moduleID , ip , port) );
 }
 
-void DCRegister::doRegister(uint32_t moduleID , STDSTR ip , uint32_t port)
+void DCRegister::doRegister(muduo::net::TcpConnectionPtr const& conn,
+                            uint32_t moduleID , STDSTR ip , uint32_t port)
 {
     ConnectionPtr dbConn = ( Initializer::getDbPool() ).
         getConnection<MysqlConnection>();

@@ -7,6 +7,7 @@
 #include <DM/Token.h>
 #include <DM/util.h>
 #include <DM/Initializer.h>
+#include <DM/Config.h>
 
 #include <muduo/base/Timestamp.h>
 #include <muduo/base/Logging.h>
@@ -31,6 +32,21 @@ static void testDbSend1(TcpConnectionPtr const& conn , DomainDbInfoGetACK const&
 }
 
 #endif
+
+DbInfoService::DbInfoService()
+{
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        CrossDbInfoGetMsg::descriptor(),
+        boost::bind(&CrossDomainInfoService::onCrossDomainInfoQuery,
+        this , _1 , _2 , _3)
+        );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        DomainDbInfoGetACK::descriptor(),
+        boost::bind(&CrossDomainInfoService::onCrossDomainInfoReplyFromDC,
+        this , _1 , _2 , _3)
+        );
+}
 
 void DbInfoService::onCrossDomainInfoQuery(TcpConnectionPtr const& conn,
                                            MessagePtr const& msg,

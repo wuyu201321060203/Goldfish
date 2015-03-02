@@ -6,12 +6,28 @@
 #include <DM/Token.h>
 #include <DM/util.h>
 #include <DM/Initializer.h>
+#include <DM/Config.h>
 
 #include <muduo/base/Timestamp.h>
 #include <muduo/base/Logging.h>
 
 using namespace muduo::net;
 using namespace muduo;
+
+SysInfoService::SysInfoService()
+{
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        CrossSysInfoGetMsg::descriptor(),
+        boost::bind(&CrossDomainInfoService::onCrossDomainInfoQuery,
+        this , _1 , _2 , _3)
+        );
+
+    ( Initializer::getDispatcher() ).registerMessageCallback(
+        DomainSysInfoGetACK::descriptor(),
+        boost::bind(&CrossDomainInfoService::onCrossDomainInfoReplyFromDC,
+        this , _1 , _2 , _3)
+        );
+}
 
 void SysInfoService::onCrossDomainInfoQuery(TcpConnectionPtr const& conn,
                                             MessagePtr const& msg,

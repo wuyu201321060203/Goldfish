@@ -53,30 +53,6 @@ DMServer::DMServer(EventLoop* loop , Options const& options)
         PingMsg::descriptor(),
         boost::bind(&HeartBeatManager::onMessageCallback , &_dcManager , _1 , _2 , _3)
     );
-
-    ( Initializer::getDispatcher() ).registerMessageCallback(
-        CrossDbInfoGetMsg::descriptor(),
-        boost::bind(&CrossDomainInfoService::onCrossDomainInfoQuery,
-        _dbInfoHandler , _1 , _2 , _3)
-    );
-
-    ( Initializer::getDispatcher() ).registerMessageCallback(
-        CrossSysInfoGetMsg::descriptor(),
-        boost::bind(&CrossDomainInfoService::onCrossDomainInfoQuery,
-        _sysInfoHandler , _1 , _2 , _3)
-    );
-
-    ( Initializer::getDispatcher() ).registerMessageCallback(
-        DomainSysInfoGetACK::descriptor(),
-        boost::bind(&CrossDomainInfoService::onCrossDomainInfoReplyFromDC,
-        _sysInfoHandler , _1 , _2 , _3)
-    );
-
-    ( Initializer::getDispatcher() ).registerMessageCallback(
-        DomainDbInfoGetACK::descriptor(),
-        boost::bind(&CrossDomainInfoService::onCrossDomainInfoReplyFromDC,
-        _dbInfoHandler , _1 , _2 , _3)
-    );
 }
 
 void DMServer::start()

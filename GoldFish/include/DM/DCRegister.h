@@ -18,7 +18,8 @@ public:
 
 private:
 
-    void doRegister(uint32_t moduleID , STDSTR ip , uint32_t port);
+    void doRegister(muduo::net::TcpConnectionPtr const& conn,
+                    uint32_t moduleID , STDSTR ip , uint32_t port);
 };
 
 #endif

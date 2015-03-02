@@ -10,6 +10,7 @@
 #include <DM/Initializer.h>
 #include <DM/HeartBeatManager.h>
 #include <DM/DesEcbService.h>
+#include <DM/DesEcbService.h>
 
 namespace po = boost::program_options;
 

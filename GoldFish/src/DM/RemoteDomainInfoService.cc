@@ -27,9 +27,9 @@ using namespace OOzdb;
 using boost::any_cast;
 
 typedef boost::shared_ptr<MutexLock> MutexLockPtr;
+typedef MSG_DM_CLIENT_DOMAIN_DESCRIPTION_GET_ACK_DOMAIN_INFO DomainInfo;
 
 #ifdef TEST
-typedef MSG_DM_CLIENT_DOMAIN_DESCRIPTION_GET_ACK_DOMAIN_INFO DomainInfo;
 extern std::vector<DomainInfo> testDomainArray;
 #endif
 
@@ -55,6 +55,7 @@ RemoteDomainInfoService::RemoteDomainInfoService(ResourceManagerPtr const& manag
         DomainInfoGetMsg::descriptor(),
         boost::bind(&RemoteDomainInfoService::onGetInfo , this , _1 , _2 , _3)
         );
+    _manager->init();
 }
 
 void RemoteDomainInfoService::onCreateInfo(TcpConnectionPtr const& conn,

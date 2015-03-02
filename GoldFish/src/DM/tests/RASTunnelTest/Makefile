@@ -63,9 +63,15 @@ Options.o: $(DM_SRC_DIR)/Options.cc
 ProtobufCodec.o: $(DM_SRC_DIR)/ProtobufCodec.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+DesEcbService.o: $(DM_SRC_DIR)/DesEcbService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+CryptographicService.o: $(DM_SRC_DIR)/CryptographicService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 RASServer : FwmRcProtocol.pb.o main.o ProtobufRASCodec.o ProtobufCodec.o Initializer.o\
 			ConfigLoader.o Options.o Connection.o ConnectionPool.o MemoryOperation.o\
 			MysqlConnection.o MysqlPreparedStatement.o MysqlResultSet.o\
 			PreparedStatement.o ResultSet.o StringBuffer.o StrOperation.o\
-			TimeOperation.o URL.o
+			TimeOperation.o URL.o DesEcbService.o CryptographicService.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)
