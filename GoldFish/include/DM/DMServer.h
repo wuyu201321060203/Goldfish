@@ -61,7 +61,7 @@ private:
                      MessagePtr const&,
                      muduo::Timestamp);
 
-    void onTimeout();
+    void onTimeout(muduo::net::TcpConnectionPtr const&);
 };
 
 #endif

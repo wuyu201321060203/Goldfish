@@ -17,7 +17,7 @@
 #include <DM/Initializer.h>
 #include <DM/util.h>
 
-typedef boost::function<void ()> TimeoutCallback;
+typedef boost::function<void (muduo::net::TcpConnectionPtr const&)> TimeoutCallback;
 typedef boost::function<void (muduo::net::TcpConnectionPtr const&,
                               MessagePtr const&,
                               muduo::Timestamp)> onTimeCallback;
@@ -61,7 +61,7 @@ public:
             if(_counter++ > _ttl)
             {
                 LOG_INFO << _conn->peerAddress().toIpPort() << " may be down";//TODO
-                _callback();
+                _callback(_conn);
                 _manager->deleteTimerTask(_conn);
             }
             else

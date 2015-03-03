@@ -10,7 +10,7 @@
 
 #include <muduo/base/Logging.h>
 #include <muduo/base/Types.h>
-#include <muduo/base/Mutex.h>
+//#include <muduo/base/Mutex.h>
 #include <muduo/base/ThreadPool.h>
 
 #include <DM/UserInfoService.h>
@@ -28,7 +28,7 @@ using namespace muduo::net;
 using namespace OOzdb;
 using boost::any_cast;
 
-typedef boost::shared_ptr<MutexLock> MutexLockPtr;
+//typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
 #ifdef TEST
 typedef MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO UserInfo;
@@ -136,45 +136,45 @@ void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , STDSTR domainN
     int executeFlag = 1;
     try
     {
+        //{
+        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
+        //MutexLockGuard guard(**lock);
+        if("*" != domainName)
         {
-            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-            MutexLockGuard guard(**lock);
-            if("*" != domainName)
-            {
-                result = dbConn->executeQuery("select id from DOMAIN_INFO \
-                    where name = '%s'" , domainName.c_str());
+            result = dbConn->executeQuery("select id from DOMAIN_INFO \
+                where name = '%s'" , domainName.c_str());
 
-                if(result->next())
-                    domainID = result->getInt(1);
-                else
-                {
-                    reply.set_statuscode(UNEXISTED_DOMAIN);
-                    executeFlag = 0;
-                }
-            }
-            if("*" != groupName)
+            if(result->next())
+                domainID = result->getInt(1);
+            else
             {
-                result = dbConn->executeQuery("select id from GROUP_INFO where name = '%s'",
-                    groupName.c_str());
-
-                if(result->next())
-                    groupID = result->getInt(1);
-                else
-                {
-                    reply.set_statuscode(UNEXISTED_GROUP);
-                    executeFlag = 0;
-                }
-            }
-            if(executeFlag)
-            {
-                dbConn->execute("insert into USER_INFO(belong2Domain , belong2Group \
-                    , name , passwd , identity) values('%d' , '%d' , '%s',\
-                        '%s' , '%d')" , domainID , groupID , userName.c_str(),
-                    passwd.c_str() , authority);
-
-                reply.set_statuscode(SUCCESS);
+                reply.set_statuscode(UNEXISTED_DOMAIN);
+                executeFlag = 0;
             }
         }
+        if("*" != groupName)
+        {
+            result = dbConn->executeQuery("select id from GROUP_INFO where name = '%s'",
+                groupName.c_str());
+
+            if(result->next())
+                groupID = result->getInt(1);
+            else
+            {
+                reply.set_statuscode(UNEXISTED_GROUP);
+                executeFlag = 0;
+            }
+        }
+        if(executeFlag)
+        {
+            dbConn->execute("insert into USER_INFO(belong2Domain , belong2Group \
+                , name , passwd , identity) values('%d' , '%d' , '%s',\
+                    '%s' , '%d')" , domainID , groupID , userName.c_str(),
+                passwd.c_str() , authority);
+
+            reply.set_statuscode(SUCCESS);
+        }
+        //}
     }
     catch(SQLException const& e)
     {
@@ -192,31 +192,31 @@ void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , STDSTR domainN
 void UserInfoService::doDeleteUser(TcpConnectionPtr const& conn , STDSTR userName)
 {
     ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
-    ResultSetPtr result;
+    //ResultSetPtr result;
     UserDestroyACK reply;
     try
     {
+        //{
+        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
+        //MutexLockGuard guard(**lock);
+        ResultSetPtr result = dbConn->executeQuery("select id from USER_INFO\
+            where name = '%s'" , userName.c_str());
+        if(result->next())
         {
-            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-            MutexLockGuard guard(**lock);
-            result = dbConn->executeQuery("select id from USER_INFO\
-                                        where name = '%s'" , userName.c_str());
-            if(result->next())
-            {
-                dbConn->execute("delete from USER_INFO where name = '%s'",
-                                                    userName.c_str());
-                reply.set_statuscode(SUCCESS);
-            }
-            else
-                reply.set_statuscode(UNEXISTED_USER);
+            dbConn->execute("delete from USER_INFO where name = '%s'",
+                userName.c_str());
+            reply.set_statuscode(SUCCESS);
         }
+        else
+            reply.set_statuscode(UNEXISTED_USER);
+        //}
     }
     catch(SQLException const& e)
     {
 #ifdef TEST
-         std::cout << e.getReason() << "\n";
+        std::cout << e.getReason() << "\n";
 #endif
-         reply.set_statuscode(UNKNOWN_SYSERROR);
+        reply.set_statuscode(UNKNOWN_SYSERROR);
     }
     dbConn->close();
 #ifndef TEST
@@ -228,24 +228,24 @@ void UserInfoService::doUpdateUser(TcpConnectionPtr const& conn , STDSTR userNam
                                    STDSTR passwd)
 {
     ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
-    ResultSetPtr result;
+    //ResultSetPtr result;
     UserInfoUpdateACK reply;
     try
     {
+        //{
+        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
+        //MutexLockGuard guard(**lock);
+        ResultSetPtr result = dbConn->executeQuery("select id from USER_INFO\
+            where name = '%s'" , userName.c_str());
+        if(result->next())
         {
-            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-            MutexLockGuard guard(**lock);
-            result = dbConn->executeQuery("select id from USER_INFO\
-                where name = '%s'" , userName.c_str());
-            if(result->next())
-            {
-                dbConn->execute("update USER_INFO set passwd = '%s' where name = '%s'",
-                    passwd.c_str() , userName.c_str());
-                reply.set_statuscode(SUCCESS);
-            }
-            else
-                reply.set_statuscode(UNEXISTED_USER);
+            dbConn->execute("update USER_INFO set passwd = '%s' where name = '%s'",
+                passwd.c_str() , userName.c_str());
+            reply.set_statuscode(SUCCESS);
         }
+        else
+            reply.set_statuscode(UNEXISTED_USER);
+        //}
     }
     catch(SQLException const& e)
     {
@@ -278,17 +278,17 @@ void UserInfoService::doGetUserInfo(TcpConnectionPtr const& conn , Token token)
         else if(token.niuXThanGroupAdmin())
         {
             result = dbConn->executeQuery("select id from DOMAIN_INFO where name = '%s'",
-                                            (token.getDomain()).c_str());
+                (token.getDomain()).c_str());
             if(result->next())
                 sqlQuery += ( " where belong2Domain = " +
-                                    boost::lexical_cast<STDSTR>( result->getInt(1) ) );
+                    boost::lexical_cast<STDSTR>( result->getInt(1) ) );
             else
                 THROW(SQLException , "illegal token with a unexisted domain");
         }
         else if(token.niuXThanCommonUser())
         {
             result = dbConn->executeQuery("select id from GROUP_INFO where name = '%s'",
-                                            (token.getGroup()).c_str());
+                (token.getGroup()).c_str());
             if(result->next())
                 sqlQuery += ( " where belong2Group = " +
                     boost::lexical_cast<STDSTR>( result->getInt(1) ) );
@@ -298,62 +298,62 @@ void UserInfoService::doGetUserInfo(TcpConnectionPtr const& conn , Token token)
         else
         {
             result = dbConn->executeQuery("select id from USER_INFO where name = '%s'",
-                                                (token.getUserName()).c_str());
+                (token.getUserName()).c_str());
             if(result->next())
                 sqlQuery += ( " where name = '" + token.getUserName() +"'" );//no measure to deal the same name
             else
                 THROW(SQLException , "illegal token with a unexisted user");
 
         }
+        //{
+        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
+        //MutexLockGuard guard(**lock);
+        result = dbConn->executeQuery(sqlQuery.c_str());
+        UserInfo* info = NULL;
+        STDSTR domainName;
+        STDSTR groupName;
+        int tmpDomainID;
+        int tmpGroupID;
+        ResultSetPtr tmp;
+        while( result->next() )
         {
-            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-            MutexLockGuard guard(**lock);
-            result = dbConn->executeQuery(sqlQuery.c_str());
-            UserInfo* info = NULL;
-            STDSTR domainName;
-            STDSTR groupName;
-            int tmpDomainID;
-            int tmpGroupID;
-            ResultSetPtr tmp;
-            while( result->next() )
+            reply.set_statuscode(SUCCESS);
+            tmpDomainID = result->getInt(2);
+            tmpGroupID = result->getInt(3);
+            tmp = dbConn1->executeQuery("select name from DOMAIN_INFO where id = '%d'",
+                tmpDomainID);
+            if(tmp->next())
+                domainName = tmp->getString(1);
+            else
             {
-                reply.set_statuscode(SUCCESS);
-                tmpDomainID = result->getInt(2);
-                tmpGroupID = result->getInt(3);
-                tmp = dbConn1->executeQuery("select name from DOMAIN_INFO where id = '%d'",
-                                            tmpDomainID);
-                if(tmp->next())
-                    domainName = tmp->getString(1);
+                if( 0 == tmpDomainID )
+                    domainName = "*";
                 else
-                {
-                    if( 0 == tmpDomainID )
-                        domainName = "*";
-                    else
-                        THROW(SQLException , "unexisted domain");
-                }
-                tmp = dbConn1->executeQuery("select name from GROUP_INFO where id = '%d'",
-                                            tmpGroupID);
-                if(tmp->next())
-                    groupName = tmp->getString(1);
-                else
-                {
-                    if( 0 == tmpGroupID )
-                        groupName = "*";
-                    else
-                        THROW(SQLException , "unexisted group");
-                }
-
-                info = reply.add_userinfo();
-                info->set_domainname(domainName);
-                info->set_groupname(groupName);
-                info->set_username(result->getString(5));
-                info->set_password(result->getString(1));
-                info->set_authority(result->getInt(4));
-#ifdef TEST
-                testArray1.push_back(*info);
-#endif
+                    THROW(SQLException , "unexisted domain");
             }
+            tmp = dbConn1->executeQuery("select name from GROUP_INFO where id = '%d'",
+                tmpGroupID);
+            if(tmp->next())
+                groupName = tmp->getString(1);
+            else
+            {
+                if( 0 == tmpGroupID )
+                    groupName = "*";
+                else
+                    THROW(SQLException , "unexisted group");
+            }
+
+            info = reply.add_userinfo();
+            info->set_domainname(domainName);
+            info->set_groupname(groupName);
+            info->set_username(result->getString(5));
+            info->set_password(result->getString(1));
+            info->set_authority(result->getInt(4));
+#ifdef TEST
+            testArray1.push_back(*info);
+#endif
         }
+        //}
     }
     catch(SQLException const& e)
     {

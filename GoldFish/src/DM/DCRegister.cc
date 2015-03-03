@@ -57,7 +57,7 @@ void DCRegister::doRegister(muduo::net::TcpConnectionPtr const& conn,
     (_dm->_dbInfoHandler)->addDCConn(conn);
     (_dm->_sysInfoHandler)->addDCConn(conn);
     (_dm->_dcManager).delegateTimerTask(2 , 10 , 3,
-        boost::bind(&DMServer::onTimeout , _dm) , conn);
+        boost::bind(&DMServer::onTimeout , _dm , _1) , conn);
 
     ( Initializer::getCodec()  ).send(conn , reply);
 #endif

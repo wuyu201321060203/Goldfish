@@ -81,7 +81,7 @@ void DMServer::onHeartBeat(muduo::net::TcpConnectionPtr const& conn,
     ( Initializer::getCodec() ).send(conn , pong);
 }
 
-void DMServer::onTimeout()
+void DMServer::onTimeout(TcpConnectionPtr const& conn)
 {
-    //TODO
+    conn->forceClose();
 }

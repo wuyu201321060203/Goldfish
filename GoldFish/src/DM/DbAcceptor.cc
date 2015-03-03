@@ -5,7 +5,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include <muduo/base/ThreadPool.h>
-#include <muduo/base/Mutex.h>
+//#include <muduo/base/Mutex.h>
 
 #include <DM/DbAcceptor.h>
 #include <DM/Initializer.h>
@@ -34,7 +34,7 @@ using boost::any_cast;
 
 /* remember to attach a session lock for each TcpConnection*/
 
-typedef boost::shared_ptr<MutexLock> MutexLockPtr;
+//typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
 DbAcceptor::DbAcceptor()
 {
@@ -91,26 +91,26 @@ void DbAcceptor::doPreserve(TcpConnectionPtr const& conn,
     reply.set_statuscode(CONFIG_PRESERVE_FAIL);
     try
     {
-        ResultSetPtr result;
+        //ResultSetPtr result;
+        //{
+        //MutexLockPtr* lock = any_cast<MutexLockPtr>( conn->getMutableContext() );
+        //MutexLockGuard guard(**lock);
+        ResultSetPtr result = dbConn->executeQuery(
+            " select id from DOMAIN_INFO where name = '%s' " , domain.c_str() );
+        if(result->next())
         {
-            MutexLockPtr* lock = any_cast<MutexLockPtr>( conn->getMutableContext() );
-            MutexLockGuard guard(**lock);
-            result = dbConn->executeQuery(" select id from DOMAIN_INFO where name = '%s' ",
-                domain.c_str() );
-            if(result->next())
+            int ipNum = message->raip_size();
+            std::string ip;
+            for(int i = 0 ; i != ipNum ; ++i)
             {
-                int ipNum = message->raip_size();
-                std::string ip;
-                for(int i = 0 ; i != ipNum ; ++i)
-                {
-                    ip = message->raip(i);
-                    dbConn->execute(
-                        "insert into IMCONFIG_INFO (domainName , raIP) \
-                        values ('%s' , '%s')" , domain.c_str() , ip.c_str() );
-                }
-                reply.set_statuscode(SUCCESS);
+                ip = message->raip(i);
+                dbConn->execute(
+                    "insert into IMCONFIG_INFO (domainName , raIP) \
+                    values ('%s' , '%s')" , domain.c_str() , ip.c_str() );
             }
+            reply.set_statuscode(SUCCESS);
         }
+        //}
     }
     catch(SQLException& e)
     {
@@ -137,13 +137,13 @@ void DbAcceptor::doLoad(TcpConnectionPtr const& conn,
     reply.set_statuscode(DOMAIN_NO_CONFIG);
     try
     {
-        ResultSetPtr result;
-        {
-            MutexLockPtr* lock = any_cast<MutexLockPtr>( conn->getMutableContext() );
-            MutexLockGuard guard(**lock);
-            result = dbConn->executeQuery("select raIP from \
-                IMCONFIG_INFO where domainName = '%s' ", domain.c_str());
-        }
+        //ResultSetPtr result;
+        //{
+        //MutexLockPtr* lock = any_cast<MutexLockPtr>( conn->getMutableContext() );
+        //MutexLockGuard guard(**lock);
+        ResultSetPtr result = dbConn->executeQuery("select raIP from \
+            IMCONFIG_INFO where domainName = '%s' ", domain.c_str());
+        //}
         std::string ip;
         while(result->next())
         {
@@ -178,19 +178,19 @@ void DbAcceptor::doDelete(TcpConnectionPtr const& conn,
     reply.set_statuscode(DOMAIN_NO_CONFIG);
     try
     {
-        ResultSetPtr result;
+        //ResultSetPtr result;
+        //{
+        //MutexLockPtr* lock = any_cast<MutexLockPtr>( conn->getMutableContext() );
+        //MutexLockGuard guard(**lock);
+        ResultSetPtr result = dbConn->executeQuery("select id from \
+            IMCONFIG_INFO where domainName = '%s' ", domain.c_str());
+        if(result->next())
         {
-            MutexLockPtr* lock = any_cast<MutexLockPtr>( conn->getMutableContext() );
-            MutexLockGuard guard(**lock);
-            result = dbConn->executeQuery("select id from \
-                IMCONFIG_INFO where domainName = '%s' ", domain.c_str());
-            if(result->next())
-            {
-                dbConn->execute("delete from IMCONFIG_INFO where domainName = '%s' ",
-                    domain.c_str());
-                reply.set_statuscode(SUCCESS);
-            }
+            dbConn->execute("delete from IMCONFIG_INFO where domainName = '%s' ",
+                domain.c_str());
+            reply.set_statuscode(SUCCESS);
         }
+        //}
     }
     catch(SQLException& e)
     {

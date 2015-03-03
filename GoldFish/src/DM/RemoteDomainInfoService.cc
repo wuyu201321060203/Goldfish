@@ -9,7 +9,7 @@
 
 #include <muduo/base/Logging.h>
 #include <muduo/base/Types.h>
-#include <muduo/base/Mutex.h>
+//#include <muduo/base/Mutex.h>
 #include <muduo/base/ThreadPool.h>
 
 #include <DM/RemoteDomainInfoService.h>
@@ -26,7 +26,7 @@ using namespace muduo::net;
 using namespace OOzdb;
 using boost::any_cast;
 
-typedef boost::shared_ptr<MutexLock> MutexLockPtr;
+//typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 typedef MSG_DM_CLIENT_DOMAIN_DESCRIPTION_GET_ACK_DOMAIN_INFO DomainInfo;
 
 #ifdef TEST
@@ -133,24 +133,24 @@ void RemoteDomainInfoService::doUpdateDomain(TcpConnectionPtr const& conn,
 {
     ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     DomainInfoUpdateACK reply;
-    ResultSetPtr result;
+    //ResultSetPtr result;
     try
     {
+        //{
+        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
+        //MutexLockGuard guard(**lock);
+        ResultSetPtr result = dbConn->executeQuery("select id from DOMAIN_INFO\
+            where name = '%s' " , domainName.c_str());
+        if(result->next())
         {
-            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-            MutexLockGuard guard(**lock);
-            result = dbConn->executeQuery("select id from DOMAIN_INFO\
-                                           where name = '%s' " , domainName.c_str());
-            if(result->next())
-            {
-                dbConn->execute(" update DOMAIN_INFO set description = '%s' where name = '%s' ",
-                    description.c_str() , domainName.c_str());
+            dbConn->execute(" update DOMAIN_INFO set description = '%s' where name = '%s' ",
+                description.c_str() , domainName.c_str());
 
-                reply.set_statuscode(SUCCESS);
-            }
-            else
-                reply.set_statuscode(UNEXISTED_DOMAIN);
+            reply.set_statuscode(SUCCESS);
         }
+        else
+            reply.set_statuscode(UNEXISTED_DOMAIN);
+        //}
     }
     catch(SQLException const& e)
     {
@@ -171,7 +171,7 @@ void RemoteDomainInfoService::doGetDomain(TcpConnectionPtr const& conn,
     ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
     DomainInfoGetACK reply;
     reply.set_statuscode(UNEXISTED_DOMAIN);
-    ResultSetPtr result;
+    //ResultSetPtr result;
     std::string sqlQuery;
     std::string domainDescription;
     std::string domainNameAlias;
@@ -184,11 +184,11 @@ void RemoteDomainInfoService::doGetDomain(TcpConnectionPtr const& conn,
         sqlQuery = "select name , description from DOMAIN_INFO";
     try
     {
-        {
-            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-            MutexLockGuard guard(**lock);
-            result = dbConn->executeQuery(sqlQuery.c_str());
-        }
+        //{
+        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
+        //MutexLockGuard guard(**lock);
+        ResultSetPtr result = dbConn->executeQuery(sqlQuery.c_str());
+        //}
         while(result->next())
         {
             reply.set_statuscode(SUCCESS);

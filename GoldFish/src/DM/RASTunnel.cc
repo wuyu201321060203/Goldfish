@@ -4,7 +4,7 @@
 #endif
 
 #include <muduo/base/Logging.h>
-#include <muduo/base/Mutex.h>
+//#include <muduo/base/Mutex.h>
 
 #include <mysql/MysqlConnection.h>
 #include <Exception/SQLException.h>
@@ -21,7 +21,7 @@ using boost::any_cast;
 #define NORMAL 1
 #define ABNORMAL 0
 
-typedef boost::shared_ptr<MutexLock> MutexLockPtr;
+//typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 static HeartBeatInfo ping;
 
 RASTunnel::RASTunnel(EventLoop* loop , InetAddress const& serveAddr):
@@ -215,8 +215,8 @@ void RASTunnel::onConnectionCallbackFromRC(TcpConnectionPtr const& conn)
 {
     if(conn->connected())
     {
-        MutexLockPtr lock(new MutexLock);
-        conn->setContext(lock);
+        //MutexLockPtr lock(new MutexLock);
+        //conn->setContext(lock);
         register2RAS(conn);
     }
     else
@@ -266,32 +266,32 @@ void RASTunnel::doCreateDomain(TcpConnectionPtr const& conn , uint32_t domainID,
                                double cpuNum , uint32_t cpuMemSize)
 {
     ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
-    ResultSetPtr result;
+    //ResultSetPtr result;
     DomainCreateACK reply;
     try
     {
-        {
-            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
+        //{
+        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
 #ifdef TEST
-            LOG_INFO << "Apply!!!!!";
-            std::cout << lock << "\n";
+        LOG_INFO << "Apply!!!!!";
+        //std::cout << lock << "\n";
 #endif
-            MutexLockGuard guard(**lock);
-            result = dbConn->executeQuery("select id from DOMAIN_INFO\
-                where name = '%s' " , domainName.c_str());
-                if( !result->next() )
-                {
-                    dbConn->execute("insert into DOMAIN_INFO(id , name , description,\
-                        corenum , memsize) values('%d' , '%s', '%s' , '%lf' , '%d')",
-                         domainID , domainName.c_str() , domainDescription.c_str(),
-                         cpuNum , cpuMemSize);
+        //MutexLockGuard guard(**lock);
+        ResultSetPtr result = dbConn->executeQuery("select id from DOMAIN_INFO\
+            where name = '%s' " , domainName.c_str());
+        if( !result->next() )
+        {
+            dbConn->execute("insert into DOMAIN_INFO(id , name , description,\
+                corenum , memsize) values('%d' , '%s', '%s' , '%lf' , '%d')",
+                domainID , domainName.c_str() , domainDescription.c_str(),
+                cpuNum , cpuMemSize);
 
-                    reply.set_statuscode(SUCCESS);
-                    reply.set_domainid(domainID);//need clients store
-                }
-                else
-                    reply.set_statuscode(EXISTED_DOMAIN);
+            reply.set_statuscode(SUCCESS);
+            reply.set_domainid(domainID);//need clients store
         }
+        else
+            reply.set_statuscode(EXISTED_DOMAIN);
+        //}
     }
     catch(SQLException const& e)
     {
@@ -310,20 +310,20 @@ void RASTunnel::doCreateDomain(TcpConnectionPtr const& conn , uint32_t domainID,
 void RASTunnel::doRevokeDomain(TcpConnectionPtr const& conn , uint32_t domainID)
 {
     ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
-    ResultSetPtr result;
+    //ResultSetPtr result;
     DomainDestroyACK reply;
     try
     {
-        {
-            MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
+        //{
+        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
 #ifdef TEST
-            sleep(3);
-            LOG_INFO << "Revoke!!!!!!";
-            std::cout << lock << "\n";
+        sleep(3);
+        LOG_INFO << "Revoke!!!!!!";
+        //std::cout << lock << "\n";
 #endif
-            MutexLockGuard guard(**lock);
-            dbConn->execute("delete from DOMAIN_INFO where id = '%d' " , domainID);
-        }
+        //MutexLockGuard guard(**lock);
+        dbConn->execute("delete from DOMAIN_INFO where id = '%d' " , domainID);
+        //}
     }
     catch(SQLException const& e)
     {
