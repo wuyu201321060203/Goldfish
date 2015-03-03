@@ -9,19 +9,24 @@
 
 #include "GenericInfoService.h"
 #include "CustomizedServiceAcceptor.h"
-#include "CrossInfoService.h"
 #include "CrossDomainInfoService.h"
 #include "HeartBeatManager.h"
 #include "UserManager.h"
 #include "Options.h"
 #include "DCRegister.h"
 #include "Config.h"
+#include "SysInfoService.h"
+#include "DbInfoService.h"
 
 typedef boost::shared_ptr<GenericInfoService> GenericInfoServicePtr;
 
 class DMServer
 {
 public:
+
+    friend class DCRegister;
+    friend class DbInfoService;
+    friend class SysInfoService;
 
     DMServer(muduo::net::EventLoop* , Options const&);
     void start();
@@ -36,21 +41,13 @@ private:
 
     CustomizedServiceAcceptorPtr _importConfigHandler;
 
-    /*
-    CrossInfoService<CrossDbInfoGetMsg , CrossDbInfoGetACK,
-                     DomainDbInfoGetMsg , DomainDbInfoGetACK> _sysInfoHandler;//TODO
-
-    CrossInfoService<CrossSysInfoGetMsg , CrossSysInfoGetACK,
-                     DomainSysInfoGetMsg , DomainSysInfoGetACK> _dbInfoHandler;///TODO
-                     */
-
-
     CrossDomainInfoServicePtr _sysInfoHandler;
     CrossDomainInfoServicePtr _dbInfoHandler;
 
     DCRegister _dcRegister;
 
     UserManager _userManager;
+
     HeartBeatManager _dcManager;
 
 private:
@@ -63,6 +60,8 @@ private:
     void onHeartBeat(muduo::net::TcpConnectionPtr const&,
                      MessagePtr const&,
                      muduo::Timestamp);
+
+    void onTimeout();
 };
 
 #endif

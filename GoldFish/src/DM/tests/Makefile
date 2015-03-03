@@ -82,9 +82,6 @@ rascodec_unittest.o : $(USER_DIR)/rascodec_unittest.cc
 usermanager_unittest.o : $(USER_DIR)/usermanager_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
-heartbeatmanager_unittest.o : $(USER_DIR)/heartbeatmanager_unittest.cc
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
-
 desecbservice_unittest.o : $(USER_DIR)/desecbservice_unittest.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -253,7 +250,7 @@ dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_u
 			  MSG_CLIENT_DM_USER_INFO_GET.pb.o MSG_CLIENT_DM_USER_INFO_UPDATE.pb.o\
 			  userinfoservice_unittest.o ProtobufRASCodec.o rascodec_unittest.o\
 			  UserManager.o MSG_CLIENT_DM_USER_LOG_IN.pb.o usermanager_unittest.o\
-			  heartbeatmanager_unittest.o CryptographicService.o DesEcbService.o\
+			  CryptographicService.o DesEcbService.o\
 			  desecbservice_unittest.o ResourceManager.o RemoteDomainInfoService.o\
 			  MSG_CLIENT_DM_DOMAIN_CREATE.pb.o MSG_CLIENT_DM_DOMAIN_DESCRIPTION_GET.pb.o\
 			  MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE.pb.o MSG_CLIENT_DM_DOMAIN_DESTROY.pb.o\

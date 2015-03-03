@@ -1,4 +1,10 @@
 #include <DM/CrossDomainInfoService.h>
+#include <DM/DMServer.h>
+
+CrossDomainInfoService::CrossDomainInfoService(DMServer* dm):_dm(dm)
+{
+
+}
 
 CrossDomainInfoService::~CrossDomainInfoService()
 {
@@ -16,10 +22,9 @@ void CrossDomainInfoService::onCrossDomainInfoReplyFromDC(muduo::net::TcpConnect
 {
 }
 
-int CrossDomainInfoService::setGetDCListFunc(DCListGetFunc const& func)
+void CrossDomainInfoService::addDCConn(muduo::net::TcpConnectionPtr const& conn)
 {
-    _func = func;
-    return RET_SUCCESS;
+    _dcVec.push_back(conn);
 }
 
 bool CrossDomainInfoService::HelperFunctor::operator()(TcpConnectionWeakPtr conn)

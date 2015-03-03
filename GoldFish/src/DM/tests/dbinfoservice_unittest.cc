@@ -5,6 +5,7 @@
 #include <DM/Initializer.h>
 #include <DM/util.h>
 #include <DM/Token.h>
+#include <DM/DMServer.h>
 #include <muduo/base/Types.h>
 #include <boost/bind.hpp>
 #include <map>
@@ -22,12 +23,6 @@ std::string timeDb1;
 typedef std::vector<TcpConnectionWeakPtr> TcpConnectionWeakPtrVec;
 typedef std::map<muduo::string , TcpConnectionWeakPtr> Time2ConnMap;
 
-static void dcDbGetTestFunc(TcpConnectionWeakPtrVec& vec)
-{
-    vec.push_back(dbconn1);
-    vec.push_back(dbconn2);
-}
-
 TEST(DbInfoServiceTest , InfoQuerySuccessTest)
 {
     InetAddress localAddr(10);
@@ -41,8 +36,10 @@ TEST(DbInfoServiceTest , InfoQuerySuccessTest)
         "conn2" , socketfd2 , localAddr , remoteAddr) );
     TcpConnectionPtr conn3(new TcpConnection(&Initializer::getEventLoop(),
                             "conn3" , socketfd3 , localAddr , remoteAddr));
-    DbInfoService waiter;
-    waiter.setGetDCListFunc(boost::bind(&dcDbGetTestFunc , _1));
+    DMServer dm(&Initializer::getEventLoop() , Initializer::getOptions());
+    DbInfoService waiter(&dm);
+    waiter.addDCConn(dbconn1);
+    waiter.addDCConn(dbconn2);
     STDSTR username("ddcnmb");
     STDSTR belong2Domain("domain1");
     STDSTR belong2Group("group1");
@@ -59,7 +56,6 @@ TEST(DbInfoServiceTest , InfoQuerySuccessTest)
     EXPECT_EQ(timeDb1 , msg2.timestamp());
 }
 
-/*
 TEST(DbInfoServiceTest , InfoReplySuccessTest)
 {
     InetAddress localAddr(10);
@@ -76,8 +72,10 @@ TEST(DbInfoServiceTest , InfoReplySuccessTest)
                             "cliConn1" , socketfd3 , localAddr , remoteAddr));
     TcpConnectionPtr conn4(new TcpConnection(&Initializer::getEventLoop(),
                             "cliConn2" , socketfd4 , localAddr , remoteAddr));
-    DbInfoService waiter;
-    waiter.setGetDCListFunc(boost::bind(&dcDbGetTestFunc , _1));
+    DMServer dm(&Initializer::getEventLoop() , Initializer::getOptions());
+    DbInfoService waiter(&dm);
+    waiter.addDCConn(dbconn1);
+    waiter.addDCConn(dbconn2);
     STDSTR username("ddcnmb");
     STDSTR belong2Domain("domain1");
     STDSTR belong2Group("group1");
@@ -87,10 +85,10 @@ TEST(DbInfoServiceTest , InfoReplySuccessTest)
     tmp->set_token(token.toString());
     MessagePtr msg(tmp);
     Timestamp time;
-    waiter.onCrossDomainInfoReplyFromDC(conn3 , msg , time);
+    waiter.onCrossDomainInfoQuery(conn3 , msg , time);
     std::string timeConn3 = timeDb1;
     sleep(3);
-    waiter.onCrossDomainInfoReplyFromDC(conn4 , msg , time);
+    waiter.onCrossDomainInfoQuery(conn4 , msg , time);
     std::string timeConn4 = timeDb1;
     Time2ConnMap& clients = waiter.getCliMap();
     TcpConnectionPtr cli1 = clients[StdStr2MuduoStr(timeConn3)].lock();
@@ -105,4 +103,3 @@ TEST(DbInfoServiceTest , InfoReplySuccessTest)
     waiter.onCrossDomainInfoReplyFromDC(dbconn1 , msg1 , time);
     EXPECT_EQ(ackMsg->timestamp() , (testDbMap1[conn3->name()]).timestamp());
 }
-*/

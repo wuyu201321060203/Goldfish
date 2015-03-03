@@ -62,6 +62,9 @@ public:
         _dispatcher.registerMessageCallback(StopModule::descriptor(),
             boost::bind(&RASServer::onRevokeResource , this , _1 , _2 , _3));
 
+        _dispatcher.registerMessageCallback(HeartBeatInfo::descriptor(),
+            boost::bind(&RASServer::onHeartBeat , this , _1 , _2 , _3));
+
         _server.setConnectionCallback(
             boost::bind(&RASServer::onConnection , this , _1));
 
@@ -121,6 +124,14 @@ private:
                           Timestamp receiveTime)
     {
         LOG_INFO << "onUnknownMessage:" << msg->GetTypeName();
+    }
+
+    void onHeartBeat(TcpConnectionPtr const& conn , MessagePtr const& msg,
+                     Timestamp receiveTime)
+    {
+        HeartBeatInfoAck reply;
+        reply.set_statuscode(0);
+        _codec.send(conn , reply);
     }
 };
 

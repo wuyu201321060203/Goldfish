@@ -1,5 +1,6 @@
 #include <DM/DCRegister.h>
 #include <DM/Initializer.h>
+#include <DM/DMServer.h>
 
 #include <Db/ConnectionPool.h>
 #include <Db/ResultSet.h>
@@ -10,7 +11,7 @@ using namespace OOzdb;
 using namespace muduo;
 using namespace muduo::net;
 
-DCRegister::DCRegister()
+DCRegister::DCRegister(DMServer* dm):_dm(dm)
 {
     ( Initializer::getDispatcher() ).registerMessageCallback(
         RegisterMsg::descriptor(),
@@ -53,6 +54,11 @@ void DCRegister::doRegister(muduo::net::TcpConnectionPtr const& conn,
     }
     dbConn->close();
 #ifndef TEST
+    (_dm->_dbInfoHandler)->addDCConn(conn);
+    (_dm->_sysInfoHandler)->addDCConn(conn);
+    (_dm->_dcManager).delegateTimerTask(2 , 10 , 3,
+        boost::bind(&DMServer::onTimeout , _dm) , conn);
+
     ( Initializer::getCodec()  ).send(conn , reply);
 #endif
 }

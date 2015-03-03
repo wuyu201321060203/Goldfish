@@ -144,6 +144,7 @@ void RASTunnel::onApplyResourceReply(muduo::net::TcpConnectionPtr const& conn,
                                      MessagePtr const& msg,
                                      muduo::Timestamp receiveTime)
 {
+    _hbManager.resetTimerTask(conn);
     boost::shared_ptr<RequestStartSlaveAck> respond =
         muduo::down_pointer_cast<RequestStartSlaveAck>(msg);
 
@@ -181,6 +182,7 @@ void RASTunnel::onRevokeResourceReply(muduo::net::TcpConnectionPtr const& conn,
                                       MessagePtr const& msg,
                                       muduo::Timestamp receiveTime)
 {
+    _hbManager.resetTimerTask(conn);
     boost::shared_ptr<StopModuleAck> respond =
         muduo::down_pointer_cast<StopModuleAck>(msg);
 
@@ -243,7 +245,8 @@ void RASTunnel::onRegisterCallback(TcpConnectionPtr const& conn,
     if(SUCCESS == reply->statuscode())
     {
         _status = NORMAL;
-        _hbManager.delegateTimerTask(1 , 10 , 3,
+        _rasCodec.send(conn , ping);
+        _hbManager.delegateTimerTask(2 , 10 , 3,
                     boost::bind(&RASTunnel::onTimeout , this) , conn);
 #ifdef TEST
         LOG_INFO << "register to RAS success";

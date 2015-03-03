@@ -13,13 +13,14 @@
 
 #include "Config.h"
 
+class DMServer;
+
 class CrossDomainInfoService
 {
 public:
 
+    CrossDomainInfoService(DMServer*);
     virtual ~CrossDomainInfoService();
-
-    typedef boost::function<void (TcpConnectionWeakPtrVec&)> DCListGetFunc;
 
     virtual void onCrossDomainInfoQuery(muduo::net::TcpConnectionPtr const&,
         MessagePtr const& , muduo::Timestamp) = 0;
@@ -27,7 +28,7 @@ public:
     virtual void onCrossDomainInfoReplyFromDC(muduo::net::TcpConnectionPtr const&,
         MessagePtr const& , muduo::Timestamp) = 0;
 
-    int setGetDCListFunc(DCListGetFunc const& func);
+    void addDCConn(muduo::net::TcpConnectionPtr const&);
 
 protected:
 
@@ -41,7 +42,7 @@ protected:
     TcpConnectionWeakPtrVec _dcVec;
     typedef std::map<muduo::string , TcpConnectionWeakPtr> Time2ConnMap;
     Time2ConnMap _cliMap;
-    DCListGetFunc _func;
+    DMServer* _dm;
 };
 
 typedef boost::shared_ptr<CrossDomainInfoService> CrossDomainInfoServicePtr;

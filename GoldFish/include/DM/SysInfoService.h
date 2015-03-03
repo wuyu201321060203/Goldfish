@@ -10,7 +10,7 @@ class SysInfoService : public CrossDomainInfoService
 {
 public:
 
-    SysInfoService();
+    SysInfoService(DMServer*);
 
     virtual void onCrossDomainInfoQuery(muduo::net::TcpConnectionPtr const&,
                                         MessagePtr const&,

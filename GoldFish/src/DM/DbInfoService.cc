@@ -8,6 +8,7 @@
 #include <DM/util.h>
 #include <DM/Initializer.h>
 #include <DM/Config.h>
+#include <DM/DMServer.h>
 
 #include <muduo/base/Timestamp.h>
 #include <muduo/base/Logging.h>
@@ -33,7 +34,7 @@ static void testDbSend1(TcpConnectionPtr const& conn , DomainDbInfoGetACK const&
 
 #endif
 
-DbInfoService::DbInfoService()
+DbInfoService::DbInfoService(DMServer* dm):CrossDomainInfoService(dm)
 {
     ( Initializer::getDispatcher() ).registerMessageCallback(
         CrossDbInfoGetMsg::descriptor(),
@@ -61,8 +62,6 @@ void DbInfoService::onCrossDomainInfoQuery(TcpConnectionPtr const& conn,
     CrossDbInfoGetACK reply;
     if(token.niuXThanDomainAdmin())
     {
-        _dcVec.clear();
-        _func(_dcVec);
         if(!_dcVec.empty())
         {
             Timestamp now = Timestamp::now();
@@ -100,6 +99,7 @@ void DbInfoService::onCrossDomainInfoReplyFromDC(TcpConnectionPtr const& conn,
                                                  MessagePtr const& msg,
                                                  Timestamp timeStamp)
 {
+    (_dm->_dcManager).resetTimerTask(conn);
     DomainDbInfoGetACKPtr dcACK = muduo::down_pointer_cast<DomainDbInfoGetACK>(msg);
     for(Time2ConnMap::iterator iter = _cliMap.begin() ; iter != _cliMap.end();)
     {

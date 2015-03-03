@@ -173,14 +173,6 @@ public:
         _onTimeCallback(conn , msg , time);
     }
 
-    void getDCList(TcpConnectionWeakPtrVec& dcList)
-    {
-        for(auto it = _beaterMap.begin() ; it != _beaterMap.end() ; ++it)
-        {
-            dcList.push_back( (it->second)->getConnWeakPtr() );
-        }
-    }
-
 private:
 
     muduo::net::EventLoop* _loop;

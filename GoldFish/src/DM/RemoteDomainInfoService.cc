@@ -55,7 +55,9 @@ RemoteDomainInfoService::RemoteDomainInfoService(ResourceManagerPtr const& manag
         DomainInfoGetMsg::descriptor(),
         boost::bind(&RemoteDomainInfoService::onGetInfo , this , _1 , _2 , _3)
         );
+#ifndef TEST
     _manager->init();
+#endif
 }
 
 void RemoteDomainInfoService::onCreateInfo(TcpConnectionPtr const& conn,

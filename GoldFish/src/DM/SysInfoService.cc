@@ -7,6 +7,7 @@
 #include <DM/util.h>
 #include <DM/Initializer.h>
 #include <DM/Config.h>
+#include <DM/DMServer.h>
 
 #include <muduo/base/Timestamp.h>
 #include <muduo/base/Logging.h>
@@ -14,7 +15,7 @@
 using namespace muduo::net;
 using namespace muduo;
 
-SysInfoService::SysInfoService()
+SysInfoService::SysInfoService(DMServer* dm):CrossDomainInfoService(dm)
 {
     ( Initializer::getDispatcher() ).registerMessageCallback(
         CrossSysInfoGetMsg::descriptor(),
@@ -40,8 +41,6 @@ void SysInfoService::onCrossDomainInfoQuery(TcpConnectionPtr const& conn,
     CrossSysInfoGetACK reply;
     if(token.niuXThanDomainAdmin())
     {
-        _dcVec.clear();
-        _func(_dcVec);
         if(!_dcVec.empty())
         {
             Timestamp now = Timestamp::now();
@@ -69,6 +68,7 @@ void SysInfoService::onCrossDomainInfoReplyFromDC(TcpConnectionPtr const& conn,
                                                   MessagePtr const& msg,
                                                   muduo::Timestamp timeStamp)
 {
+    (_dm->_dcManager).resetTimerTask(conn);
     DomainSysInfoGetACKPtr dcACK = muduo::down_pointer_cast<DomainSysInfoGetACK>(msg);
     for(Time2ConnMap::iterator iter = _cliMap.begin() ; iter != _cliMap.end();)
     {

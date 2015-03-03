@@ -6,6 +6,7 @@
 #include <DM/Config.h>
 #include <DM/util.h>
 #include <DM/DCRegister.h>
+#include <DM/DMServer.h>
 #include <Db/ConnectionPool.h>
 #include <Db/ResultSet.h>
 #include <Db/Connection.h>
@@ -20,8 +21,8 @@ extern Initializer g_Initializer;
 
 TEST(DCRegisterTest , RegisterTest)
 {
-    InetAddress localAddr(10);
-    InetAddress remoteAddr(100);
+    InetAddress localAddr(9877);
+    InetAddress remoteAddr(9878);
     int socketfd = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP);
     TcpConnectionPtr conn( new TcpConnection(&g_Initializer.getEventLoop(),
                                 "conn" , socketfd , localAddr , remoteAddr) );
@@ -32,7 +33,8 @@ TEST(DCRegisterTest , RegisterTest)
     tmp->set_port(12345);
     MessagePtr msg(tmp);
     Timestamp time;
-    DCRegister waiter;
+    DMServer dm(&Initializer::getEventLoop() , Initializer::getOptions());
+    DCRegister waiter(&dm);
     waiter.onMessage(conn , msg , time);
     sleep(3);
     ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();

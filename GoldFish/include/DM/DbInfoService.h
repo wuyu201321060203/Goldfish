@@ -9,7 +9,7 @@ class DbInfoService : public CrossDomainInfoService
 {
 public:
 
-    DbInfoService();
+    DbInfoService(DMServer*);
     virtual void onCrossDomainInfoQuery(muduo::net::TcpConnectionPtr const&,
                                         MessagePtr const&,
                                         muduo::Timestamp);

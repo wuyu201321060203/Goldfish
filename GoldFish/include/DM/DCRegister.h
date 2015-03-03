@@ -6,11 +6,13 @@
 
 #include <DM/Config.h>
 
+class DMServer;
+
 class DCRegister
 {
 public:
 
-    DCRegister();
+    DCRegister(DMServer*);
 
     void onMessage(muduo::net::TcpConnectionPtr const& conn,
                    MessagePtr const& msg,
@@ -20,6 +22,10 @@ private:
 
     void doRegister(muduo::net::TcpConnectionPtr const& conn,
                     uint32_t moduleID , STDSTR ip , uint32_t port);
+
+private:
+
+    DMServer* _dm;
 };
 
 #endif
