@@ -1,7 +1,7 @@
 MUDUO_DIRECTORY = $(HOME)/build/debug-install
 MUDUO_LIBRARY = $(MUDUO_DIRECTORY)/lib
 MUDUO_INCLUDE = $(MUDUO_DIRECTORY)/include
-OOZDB_INCLUDE = ./OOzdb
+OOZDB_INCLUDE = ../OOzdb
 DM_INCLUDE = $(HOME)/Goldfish/GoldFish/include
 # Points to the root of Google Test, relative to where this file is.
 # Remember to tweak this if you move this file.
@@ -23,11 +23,11 @@ CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # Flags passed to the C++ compiler.
 CXXFLAGS += -g -ggdb3 -Wall -Wextra -pthread -I$(MUDUO_INCLUDE) -I$(OOZDB_INCLUDE)\
-			-I$(DM_INCLUDE) -std=c++11
+			-I$(DM_INCLUDE) -std=c++11 -DTEST
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = DM
+TESTS = dm_unittest
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -51,6 +51,48 @@ GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 # Builds a sample test.  A test should link with either gtest.a or
 # gtest_main.a, depending on whether it defines its own main()
 # function.
+
+initializer_unittest.o : $(USER_DIR)/initializer_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+loader_unittest.o : $(USER_DIR)/loader_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+dbacceptor_unittest.o : $(USER_DIR)/dbacceptor_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+token_unittest.o : $(USER_DIR)/token_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+crossinfoservice_unittest.o : $(USER_DIR)/crossinfoservice_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+util_unittest.o : $(USER_DIR)/util_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+groupinfoservice_unittest.o : $(USER_DIR)/groupinfoservice_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+userinfoservice_unittest.o : $(USER_DIR)/userinfoservice_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+rascodec_unittest.o : $(USER_DIR)/rascodec_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+usermanager_unittest.o : $(USER_DIR)/usermanager_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+desecbservice_unittest.o : $(USER_DIR)/desecbservice_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+domaininfoservice_unittest.o : $(USER_DIR)/domaininfoservice_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+dcregister_unittest.o : $(USER_DIR)/dcregister_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+dbinfoservice_unittest.o : $(USER_DIR)/dbinfoservice_unittest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
 ConfigLoader.o : $(DM_SRC_DIR)/ConfigLoader.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
@@ -193,32 +235,29 @@ GenericInfoService.o : $(DM_SRC_DIR)/GenericInfoService.cc
 CustomizedServiceAcceptor.o : $(DM_SRC_DIR)/CustomizedServiceAcceptor.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
-main.o : $(DM_SRC_DIR)/main.cc
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
-
-DM : ConfigLoader.o Options.o\
+dm_unittest : gtest_main.a initializer_unittest.o loader_unittest.o dbacceptor_unittest.o ConfigLoader.o Options.o\
 			  Initializer.o ProtobufCodec.o Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o \
 			  MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
 			  StringBuffer.o StrOperation.o TimeOperation.o URL.o MSG_DC_DM_CONFIG_PERSISTENCE.pb.o\
 			  DbAcceptor.o MSG_DC_DM_CONFIG_LOOKUP.pb.o MSG_DC_DM_CONFIG_DELETE.pb.o\
-			  Token.o util.o \
+			  token_unittest.o Token.o util_unittest.o util.o \
 		      MSG_DM_DC_DOMAIN_DBINFO_GET.pb.o MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.o\
 			  MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.o MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.o\
 			  MSG_CLIENT_DM_GROUP_CREATE.pb.o MSG_CLIENT_DM_GROUP_DESCRIPTION_GET.pb.o\
 			  MSG_CLIENT_DM_GROUP_DESCRIPTION_UPDATE.pb.o MSG_CLIENT_DM_GROUP_DESTROY.pb.o\
-			  GroupInfoService.o \
+			  GroupInfoService.o groupinfoservice_unittest.o crossinfoservice_unittest.o\
 			  UserInfoService.o MSG_CLIENT_DM_USER_CREATE.pb.o MSG_CLIENT_DM_USER_DESTROY.pb.o\
 			  MSG_CLIENT_DM_USER_INFO_GET.pb.o MSG_CLIENT_DM_USER_INFO_UPDATE.pb.o\
-			  ProtobufRASCodec.o \
-			  UserManager.o MSG_CLIENT_DM_USER_LOG_IN.pb.o \
+			  userinfoservice_unittest.o ProtobufRASCodec.o rascodec_unittest.o\
+			  UserManager.o MSG_CLIENT_DM_USER_LOG_IN.pb.o usermanager_unittest.o\
 			  CryptographicService.o DesEcbService.o\
-			  ResourceManager.o RemoteDomainInfoService.o\
+			  desecbservice_unittest.o ResourceManager.o RemoteDomainInfoService.o\
 			  MSG_CLIENT_DM_DOMAIN_CREATE.pb.o MSG_CLIENT_DM_DOMAIN_DESCRIPTION_GET.pb.o\
 			  MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE.pb.o MSG_CLIENT_DM_DOMAIN_DESTROY.pb.o\
-			  RASTunnel.o FwmRcProtocol.pb.o DCRegister.o\
-			  MSG_DC_DM_REGISTER.pb.o MSG_DC_DM_TOKEN_IDENTIFY.pb.o\
+			  RASTunnel.o FwmRcProtocol.pb.o domaininfoservice_unittest.o DCRegister.o\
+			  MSG_DC_DM_REGISTER.pb.o dcregister_unittest.o MSG_DC_DM_TOKEN_IDENTIFY.pb.o\
 			  DbInfoService.o SysInfoService.o DMServer.o MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.o\
 			  MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.o MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.o\
 			  MSG_DM_DC_DOMAIN_DBINFO_GET.pb.o CrossDomainInfoService.o MSG_DC_DM_PING.pb.o\
-			  GenericInfoService.o CustomizedServiceAcceptor.o main.o
+			  GenericInfoService.o CustomizedServiceAcceptor.o dbinfoservice_unittest.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

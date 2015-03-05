@@ -2,6 +2,7 @@
 #define DISPATCHER_LITE_H
 
 #include <muduo/net/Callbacks.h>
+#include <muduo/base/Logging.h>
 
 #include <google/protobuf/message.h>
 
@@ -44,7 +45,10 @@ public:
     void registerMessageCallback(google::protobuf::Descriptor const* desc,
                                  ProtobufMessageCallback const& callback)
     {
-        callbacks_[desc] = callback;
+        auto ret = callbacks_.insert(CallbackMap::value_type(desc , callback));
+        if(ret.second == false)
+            LOG_INFO << "failed to register callback";
+        //callbacks_[desc] = callback;//TODO
     }
 
 private:

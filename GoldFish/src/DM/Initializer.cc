@@ -22,7 +22,7 @@ ProtobufDispatcher Initializer::_dispatcher(
             boost::bind(&Initializer::onUnknownMessage , _1 , _2 , _3));
 
 ProtobufCodec Initializer::_codec(
-            boost::bind(&ProtobufDispatcher::onProtobufMessage , _dispatcher , _1, _2 , _3));
+            boost::bind(&ProtobufDispatcher::onProtobufMessage , &_dispatcher , _1, _2 , _3));
 
 muduo::ThreadPool Initializer::_threadPool;
 

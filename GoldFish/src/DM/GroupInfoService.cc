@@ -5,6 +5,7 @@
 #include <iostream>
 #endif
 
+#include <boost/bind.hpp>
 #include <boost/any.hpp>
 
 #include <muduo/base/Logging.h>
