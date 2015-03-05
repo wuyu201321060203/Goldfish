@@ -12,8 +12,6 @@
 #include <DM/RASTunnel.h>
 #include <DM/Initializer.h>
 
-#include <iostream>//TODO
-
 using namespace muduo;
 using namespace muduo::net;
 using namespace FwmRcProto;
@@ -55,8 +53,6 @@ RASTunnel::RASTunnel(EventLoop* loop , InetAddress const& serveAddr):
     ProtobufRASCodec::registeRASMsg(MSG_FWM_RC_SEND_HEARTBEAT_ACK,
                                "FwmRcProto.HeartBeatInfoAck");
 
-    std::cout << "RASTunnel constructor\n";//TODO
-    std::cout << &Initializer::getDispatcher() << "\n";//TODO
     ( Initializer::getDispatcher() ).registerMessageCallback(
         RegisterAck::descriptor(),
         boost::bind(&RASTunnel::onRegisterCallback , this , _1 , _2 , _3) );
@@ -252,7 +248,6 @@ void RASTunnel::onRegisterCallback(TcpConnectionPtr const& conn,
         _rasCodec.send(conn , ping);
         _hbManager.delegateTimerTask(2 , 10 , 3,
                     boost::bind(&RASTunnel::onTimeout , this) , conn);
-        LOG_INFO << "register to RAS success";//TODO
 #ifdef TEST
         LOG_INFO << "register to RAS success";
         applyResource("domain2" , "domain2" , 1 , 1 , getConn());
@@ -347,7 +342,7 @@ void RASTunnel::doRevokeDomain(TcpConnectionPtr const& conn , uint32_t domainID)
 void RASTunnel::onHeartBeat(TcpConnectionPtr const& conn , MessagePtr const& msg,
                             Timestamp receiveTime)
 {
-//    _rasCodec.send(conn , ping);//TODO
+    _rasCodec.send(conn , ping);
 }
 
 void RASTunnel::onTimeout(void)

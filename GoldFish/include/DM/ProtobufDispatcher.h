@@ -45,10 +45,13 @@ public:
     void registerMessageCallback(google::protobuf::Descriptor const* desc,
                                  ProtobufMessageCallback const& callback)
     {
+#ifndef TEST
         auto ret = callbacks_.insert(CallbackMap::value_type(desc , callback));
         if(ret.second == false)
             LOG_INFO << "failed to register callback";
-        //callbacks_[desc] = callback;//TODO
+#else
+        callbacks_[desc] = callback;
+#endif
     }
 
 private:

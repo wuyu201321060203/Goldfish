@@ -23,7 +23,7 @@ CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # Flags passed to the C++ compiler.
 CXXFLAGS += -g -ggdb3 -Wall -Wextra -pthread -I$(MUDUO_INCLUDE) -I$(OOZDB_INCLUDE)\
-			-I$(DM_INCLUDE) -std=c++11
+			-I$(DM_INCLUDE) -std=c++11 -DTEST
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
