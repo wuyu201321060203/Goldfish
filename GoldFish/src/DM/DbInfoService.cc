@@ -7,11 +7,12 @@
 #include <DM/Token.h>
 #include <DM/util.h>
 #include <DM/Initializer.h>
-#include <DM/Config.h>
 #include <DM/DMServer.h>
 
 #include <muduo/base/Timestamp.h>
+#ifdef DMDEBUG
 #include <muduo/base/Logging.h>
+#endif
 
 using namespace muduo;
 using namespace muduo::net;
@@ -125,7 +126,11 @@ void DbInfoService::onCrossDomainInfoReplyFromDC(TcpConnectionPtr const& conn,
             _cliMap.erase(iter);
     }
     else
+    {
+#ifdef DMDEBUG
         LOG_INFO << "timestamp is unknown , there is not a corresponding client";
+#endif
+    }
 }
 #ifdef TEST
 typedef std::map<muduo::string , TcpConnectionWeakPtr> Time2ConnMap;

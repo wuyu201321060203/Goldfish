@@ -99,7 +99,7 @@ void ProtobufRASCodec::onMessage(TcpConnectionPtr const& conn,
         len = sockets::hostToNetwork32(len);
         if(len > kMaxMessageLen)
         {
-            errorCallback_(conn , buf , receiveTime , kInvalidLength);
+            _errorCallback(conn , buf , receiveTime , kInvalidLength);
             break;
         }
         else if(buf->readableBytes() >= implicit_cast<size_t>(len + kHeaderLen))
@@ -108,12 +108,12 @@ void ProtobufRASCodec::onMessage(TcpConnectionPtr const& conn,
             MessagePtr message = parse(buf->peek()+kHeaderLen , len , cmd , &errorCode);
             if(errorCode == kNoError && message)
             {
-                messageCallback_(conn , message , receiveTime);
+                _messageCallback(conn , message , receiveTime);
                 buf->retrieve(kHeaderLen+len);
             }
             else
             {
-                errorCallback_(conn , buf , receiveTime , errorCode);
+                _errorCallback(conn , buf , receiveTime , errorCode);
                 break;
             }
         }

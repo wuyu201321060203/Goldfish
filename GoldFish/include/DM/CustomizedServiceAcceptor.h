@@ -1,7 +1,10 @@
 #ifndef CUSTOMIZEDSERVICE_H
 #define CUSTOMIZEDSERVICE_H
 
+#include <muduo/net/TcpConnection.h>
 #include <muduo/base/Timestamp.h>
+
+#include <boost/shared_ptr.hpp>
 
 #include "Config.h"
 

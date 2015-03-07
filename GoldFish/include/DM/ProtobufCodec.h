@@ -45,14 +45,14 @@ public:
         ErrorCode)> ErrorCallback;
 
     explicit ProtobufCodec(ProtobufMessageCallback const& messageCb)
-        : messageCallback_(messageCb),
-        errorCallback_(defaultErrorCallback)
+        : _messageCallback(messageCb),
+        _errorCallback(defaultErrorCallback)
     {
     }
 
     ProtobufCodec(ProtobufMessageCallback const& messageCb, ErrorCallback const& errorCb)
-        : messageCallback_(messageCb),
-        errorCallback_(errorCb)
+        : _messageCallback(messageCb),
+        _errorCallback(errorCb)
     {
     }
 
@@ -81,8 +81,8 @@ private:
         muduo::Timestamp,
         ErrorCode);
 
-    ProtobufMessageCallback messageCallback_;
-    ErrorCallback errorCallback_;
+    ProtobufMessageCallback _messageCallback;
+    ErrorCallback _errorCallback;
 
     static int const kHeaderLen = sizeof(int32_t);
     static int const kMinMessageLen = 2*kHeaderLen + 2;

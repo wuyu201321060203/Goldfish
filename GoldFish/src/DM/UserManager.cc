@@ -1,6 +1,8 @@
 #include <algorithm>
 
+#ifdef DMDEBUG
 #include <muduo/base/Logging.h>
+#endif
 
 #include <Exception/Exception.h>
 #include <Exception/SQLException.h>
@@ -135,8 +137,8 @@ void UserManager::verifyIdentity(TcpConnectionPtr const& conn , STDSTR name,
     }
     catch(SQLException const& e)
     {
-#ifdef DEBUG
-        LOG_INFO << "query error in user login" << groupName;
+#ifdef DMDEBUG
+        LOG_INFO << "error in user login";
 #endif
         reply.set_statuscode(UNKNOWN_SYSERROR);
     }

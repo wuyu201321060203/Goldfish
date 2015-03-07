@@ -2,6 +2,7 @@ MUDUO_DIRECTORY = $(HOME)/build/debug-install
 MUDUO_LIBRARY = $(MUDUO_DIRECTORY)/lib
 MUDUO_INCLUDE = $(MUDUO_DIRECTORY)/include
 OOZDB_INCLUDE = ../OOzdb
+LUA_INCLUDE = ../lua
 DM_INCLUDE = $(HOME)/Goldfish/GoldFish/include
 # Points to the root of Google Test, relative to where this file is.
 # Remember to tweak this if you move this file.
@@ -23,7 +24,7 @@ CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # Flags passed to the C++ compiler.
 CXXFLAGS += -g -ggdb3 -Wall -Wextra -pthread -I$(MUDUO_INCLUDE) -I$(OOZDB_INCLUDE)\
-			-I$(DM_INCLUDE) -std=c++11 -DTEST
+			-I$(DM_INCLUDE) -I$(LUA_INCLUDE) -std=c++11 -DTEST -DDMDEBUG
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.

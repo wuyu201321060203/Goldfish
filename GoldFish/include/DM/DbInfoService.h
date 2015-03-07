@@ -1,8 +1,6 @@
 #ifndef DBINFO_SERVICE_H
 #define DBINFO_SERVICE_H
 
-#include <muduo/net/TcpConnection.h>
-
 #include "CrossDomainInfoService.h"
 
 class DbInfoService : public CrossDomainInfoService

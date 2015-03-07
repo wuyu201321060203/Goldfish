@@ -1,4 +1,5 @@
 #include <DM/ConfigLoader.h>
+#include <DM/Options.h>
 #include "../lua/fflua_type.h"
 
 #include "gtest/gtest.h"

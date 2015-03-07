@@ -1,14 +1,9 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
-#include <vector>
-
 #include <boost/shared_ptr.hpp>
 
 #include <muduo/net/TcpConnection.h>
-#include <muduo/net/EventLoop.h>
-#include <muduo/net/InetAddress.h>
-#include <muduo/net/TcpClient.h>
 
 #include "Config.h"
 

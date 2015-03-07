@@ -1,7 +1,9 @@
 #include <DM/Token.h>
 #include <DM/Config.h>
 
+#ifdef DMDEBUG
 #include <muduo/base/Logging.h>
+#endif
 
 #include <boost/lexical_cast.hpp>
 #include <boost/tokenizer.hpp>
@@ -23,7 +25,12 @@ Token::Token(STDSTR username , ulong identity , STDSTR belong2Domain,
     _token = _username + _delimiter + (_identity.to_string()) + _delimiter +
              _belong2Domain + _delimiter + _belong2Group + _delimiter;
     int ret = addCheckSum();
-    if(ret != RET_SUCCESS) LOG_INFO << "Failed to add checksum for token";
+    if(ret != RET_SUCCESS)
+    {
+#ifdef DMDEBUG
+        LOG_INFO << "Failed to add checksum for token";
+#endif
+    }
 }
 
 Token::Token(STDSTR token):_token(token)

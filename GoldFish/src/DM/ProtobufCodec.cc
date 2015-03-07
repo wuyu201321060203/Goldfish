@@ -110,7 +110,7 @@ void ProtobufCodec::onMessage(TcpConnectionPtr const& conn,
         int32_t const len = buf->peekInt32();
         if (len > kMaxMessageLen || len < kMinMessageLen)
         {
-            errorCallback_(conn, buf, receiveTime, kInvalidLength);
+            _errorCallback(conn, buf, receiveTime, kInvalidLength);
             break;
         }
         else if (buf->readableBytes() >= implicit_cast<size_t>(len + kHeaderLen))
@@ -119,12 +119,12 @@ void ProtobufCodec::onMessage(TcpConnectionPtr const& conn,
             MessagePtr message = parse(buf->peek()+kHeaderLen, len, &errorCode);
             if (errorCode == kNoError && message)
             {
-                messageCallback_(conn, message, receiveTime);
+                _messageCallback(conn, message, receiveTime);
                 buf->retrieve(kHeaderLen+len);
             }
             else
             {
-                errorCallback_(conn, buf, receiveTime, errorCode);
+                _errorCallback(conn, buf, receiveTime, errorCode);
                 break;
             }
         }

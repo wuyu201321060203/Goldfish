@@ -2,10 +2,8 @@
 
 #include <boost/bind.hpp>
 #include <boost/any.hpp>
-#include <boost/shared_ptr.hpp>
 
 #include <muduo/base/ThreadPool.h>
-//#include <muduo/base/Mutex.h>
 
 #include <DM/DbAcceptor.h>
 #include <DM/Initializer.h>
@@ -31,10 +29,6 @@ using namespace muduo::net;
 using namespace muduo;
 using namespace OOzdb;
 using boost::any_cast;
-
-/* remember to attach a session lock for each TcpConnection*/
-
-//typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
 DbAcceptor::DbAcceptor()
 {
@@ -114,8 +108,8 @@ void DbAcceptor::doPreserve(TcpConnectionPtr const& conn,
     }
     catch(SQLException& e)
     {
-#ifdef DEBUG
-        LOG_INFO << e.getReason();
+#ifdef DMDEBUG
+            LOG_INFO << e.getReason();
 #endif
     }
 #ifndef TEST
@@ -154,8 +148,8 @@ void DbAcceptor::doLoad(TcpConnectionPtr const& conn,
     }
     catch(SQLException& e)
     {
-#ifdef DEBUG
-        LOG_INFO << e.getReason();
+#ifdef DMDEBUG
+            LOG_INFO << e.getReason();
 #endif
         reply.set_statuscode(CONFIG_QUERY_FAIL);
     }
@@ -194,8 +188,8 @@ void DbAcceptor::doDelete(TcpConnectionPtr const& conn,
     }
     catch(SQLException& e)
     {
-#ifdef DEBUG
-        LOG_INFO << e.getReason();
+#ifdef DMDEBUG
+            LOG_INFO << e.getReason();
         reply.set_statuscode(CONFIG_DELETE_FAIL);
 #endif
     }

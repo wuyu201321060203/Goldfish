@@ -47,7 +47,7 @@ void DCRegister::doRegister(muduo::net::TcpConnectionPtr const& conn,
     }
     catch(SQLException const& e)
     {
-#ifdef DEBUG
+#ifdef DMDEBUG
         LOG_INFO << "DC failed to register";
         reply.set_statuscode(UNKNOWN_SYSERROR);
 #endif

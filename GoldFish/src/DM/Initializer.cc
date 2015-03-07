@@ -65,7 +65,9 @@ int Initializer::init(int argc , char** argv)
     }
     else
     {
+#ifdef DMDEBUG
         LOG_INFO << "fail to parse command line";
+#endif
         return RET_FAIL;
     }
 }
@@ -148,7 +150,9 @@ std::string Initializer::getSelfIP()
 void Initializer::onUnknownMessage(TcpConnectionPtr const& conn , MessagePtr const& msg,
                                    Timestamp receiveTime)
 {
+#ifdef DMDEBUG
     LOG_INFO << "onUnknownMessage:" << msg->GetTypeName();
+#endif
 }
 
 bool Initializer::parseCommandLine(int argc , char* argv[])

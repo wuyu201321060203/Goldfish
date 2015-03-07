@@ -4,7 +4,6 @@
 #include <muduo/net/TcpConnection.h>
 
 #include "GenericInfoService.h"
-//#include "UserManager.h"
 #include "Token.h"
 
 class UserInfoService : public GenericInfoService

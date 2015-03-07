@@ -8,9 +8,10 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
 
+#ifdef DMDEBUG
 #include <muduo/base/Logging.h>
+#endif
 #include <muduo/base/Types.h>
-//#include <muduo/base/Mutex.h>
 #include <muduo/base/ThreadPool.h>
 
 #include <DM/UserInfoService.h>
@@ -27,8 +28,6 @@ using namespace muduo;
 using namespace muduo::net;
 using namespace OOzdb;
 using boost::any_cast;
-
-//typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
 #ifdef TEST
 typedef MSG_DM_CLIENT_USER_INFO_GET_ACK_USER_INFO UserInfo;

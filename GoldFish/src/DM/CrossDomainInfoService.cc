@@ -1,5 +1,4 @@
 #include <DM/CrossDomainInfoService.h>
-#include <DM/DMServer.h>
 
 CrossDomainInfoService::CrossDomainInfoService(DMServer* dm):_dm(dm)
 {

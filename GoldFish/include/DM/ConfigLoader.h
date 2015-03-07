@@ -1,21 +1,20 @@
 #ifndef CONFIGLOADER_H
 #define CONFIGLOADER_H
 
-#include <string>
-
 #include "Config.h"
-#include "Options.h"
+
+class Options;
 
 class ConfigLoader
 {
 public:
 
-    int setConfigFilePath(std::string);
+    int setConfigFilePath(STDSTR);
     int loadConfig(Options&);
 
 private:
 
-    std::string _configFilePath;
+    STDSTR _configFilePath;
 };
 
 #endif

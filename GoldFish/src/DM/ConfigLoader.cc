@@ -2,8 +2,9 @@
 #include <stdint.h>
 
 #include <DM/ConfigLoader.h>
+#include <DM/Options.h>
 
-#include "lua/fflua.h"
+#include <fflua.h>
 
 using namespace ff;
 using namespace std;

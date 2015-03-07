@@ -1,15 +1,12 @@
 #ifndef CROSSDOMAININFOSERVICE_H
 #define CROSSDOMAININFOSERVICE_H
 
-#include <vector>
 #include <map>
 
-#include <boost/function.hpp>
 #include <boost/shared_ptr.hpp>
 
 #include <muduo/net/TcpConnection.h>
 #include <muduo/base/Timestamp.h>
-#include <muduo/base/Types.h>
 
 #include "Config.h"
 

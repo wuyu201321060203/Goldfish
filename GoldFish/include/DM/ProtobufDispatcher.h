@@ -23,7 +23,7 @@ public:
                                   muduo::Timestamp)> ProtobufMessageCallback;
 
     explicit ProtobufDispatcher(ProtobufMessageCallback const& defaultCb)
-        : defaultCallback_(defaultCb)
+        : _defaultCallback(defaultCb)
     {
     }
 
@@ -31,14 +31,14 @@ public:
                            MessagePtr const& message,
                            muduo::Timestamp receiveTime) const
     {
-        CallbackMap::const_iterator it = callbacks_.find(message->GetDescriptor());
-        if (it != callbacks_.end())
+        CallbackMap::const_iterator it = _callbacks.find(message->GetDescriptor());
+        if (it != _callbacks.end())
         {
             it->second(conn, message, receiveTime);
         }
         else
         {
-            defaultCallback_(conn, message, receiveTime);
+            _defaultCallback(conn, message, receiveTime);
         }
     }
 
@@ -46,19 +46,19 @@ public:
                                  ProtobufMessageCallback const& callback)
     {
 #ifndef TEST
-        auto ret = callbacks_.insert(CallbackMap::value_type(desc , callback));
+        auto ret = _callbacks.insert(CallbackMap::value_type(desc , callback));
         if(ret.second == false)
             LOG_INFO << "failed to register callback";
 #else
-        callbacks_[desc] = callback;
+        _callbacks[desc] = callback;
 #endif
     }
 
 private:
 
     typedef std::map<google::protobuf::Descriptor const*, ProtobufMessageCallback> CallbackMap;
-    CallbackMap callbacks_;
-    ProtobufMessageCallback defaultCallback_;
+    CallbackMap _callbacks;
+    ProtobufMessageCallback _defaultCallback;
 };
 
 #endif

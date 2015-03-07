@@ -7,7 +7,9 @@
 
 #include <boost/any.hpp>
 
+#ifdef DMDEBUG
 #include <muduo/base/Logging.h>
+#endif
 #include <muduo/base/Types.h>
 //#include <muduo/base/Mutex.h>
 #include <muduo/base/ThreadPool.h>
@@ -154,7 +156,7 @@ void RemoteDomainInfoService::doUpdateDomain(TcpConnectionPtr const& conn,
     }
     catch(SQLException const& e)
     {
-#ifdef DEBUG
+#ifdef DMDEBUG
         LOG_INFO << "failed to update domain: " << domainName;
 #endif
         reply.set_statuscode(UNKNOWN_SYSERROR);
@@ -204,7 +206,7 @@ void RemoteDomainInfoService::doGetDomain(TcpConnectionPtr const& conn,
     }
     catch(SQLException const& e)
     {
-#ifdef DEBUG
+#ifdef DMDEBUG
         LOG_INFO << "failed to get the info of domain: " << domainName;
 #endif
         reply.set_statuscode(UNKNOWN_SYSERROR);

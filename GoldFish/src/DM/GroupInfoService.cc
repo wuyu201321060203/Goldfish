@@ -8,7 +8,9 @@
 #include <boost/bind.hpp>
 #include <boost/any.hpp>
 
+#ifdef DMDEBUG
 #include <muduo/base/Logging.h>
+#endif
 #include <muduo/base/Types.h>
 //#include <muduo/base/Mutex.h>
 #include <muduo/base/ThreadPool.h>
@@ -197,7 +199,7 @@ void GroupInfoService::doDeleteGroup(TcpConnectionPtr const& conn , std::string 
     }
     catch(SQLException const& e)
     {
-#ifdef DEBUG
+#ifdef DMDEBUG
         LOG_INFO << "failed to delete group: " << groupName;
 #endif
         reply.set_statuscode(UNKNOWN_SYSERROR);
@@ -235,7 +237,7 @@ void GroupInfoService::doUpdateGroup(TcpConnectionPtr const& conn , std::string 
     }
     catch(SQLException const& e)
     {
-#ifdef DEBUG
+#ifdef DMDEBUG
         LOG_INFO << "failed to update group: " << groupName;
 #endif
         reply.set_statuscode(UNKNOWN_SYSERROR);
@@ -286,7 +288,7 @@ void GroupInfoService::doGetGroup(TcpConnectionPtr const& conn , std::string gro
     }
     catch(SQLException const& e)
     {
-#ifdef DEBUG
+#ifdef DMDEBUG
         LOG_INFO << "failed to get the info of group: " << groupName;
 #endif
         reply.set_statuscode(UNKNOWN_SYSERROR);

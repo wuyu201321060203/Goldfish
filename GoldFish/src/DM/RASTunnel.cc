@@ -3,8 +3,9 @@
 #include <iostream>//TODO
 #endif
 
+#ifdef DMDEBUG
 #include <muduo/base/Logging.h>
-//#include <muduo/base/Mutex.h>
+#endif
 
 #include <mysql/MysqlConnection.h>
 #include <Exception/SQLException.h>
@@ -161,7 +162,7 @@ void RASTunnel::onApplyResourceReply(muduo::net::TcpConnectionPtr const& conn,
                 _cacheVec.erase(_cacheVec.begin());
                 uint32_t moduleID = respond->module_id(0);
 
-#ifdef TEST
+#ifdef DMDEBUG
                 LOG_INFO << "main apply";
 #endif
                 (Initializer::getThreadPool()).run(boost::bind(&RASTunnel::doCreateDomain,
@@ -193,7 +194,7 @@ void RASTunnel::onRevokeResourceReply(muduo::net::TcpConnectionPtr const& conn,
     {
         if(RESOURCE_REVOKE_FAIL !=  respond->statuscode())
         {
-#ifdef TEST
+#ifdef DMDEBUG
             LOG_INFO << "main revoke";
 #endif
             (Initializer::getThreadPool()).run(boost::bind(&RASTunnel::doRevokeDomain,
@@ -221,7 +222,9 @@ void RASTunnel::onConnectionCallbackFromRC(TcpConnectionPtr const& conn)
     }
     else
     {
+#ifdef DMDEBUG
         LOG_INFO << "disconnect to RC of RAS";
+#endif
         _status = ABNORMAL;
     }
 }
@@ -248,8 +251,10 @@ void RASTunnel::onRegisterCallback(TcpConnectionPtr const& conn,
         _rasCodec.send(conn , ping);
         _hbManager.delegateTimerTask(2 , 10 , 3,
                     boost::bind(&RASTunnel::onTimeout , this) , conn);
-#ifdef TEST
+#ifdef DMDEBUG
         LOG_INFO << "register to RAS success";
+#endif
+#ifdef TEST
         applyResource("domain2" , "domain2" , 1 , 1 , getConn());
         revokeResource(66 , getConn());
 #endif
@@ -257,7 +262,9 @@ void RASTunnel::onRegisterCallback(TcpConnectionPtr const& conn,
     else
     {
         _status = ABNORMAL;
+#ifdef DMDEBUG
         LOG_INFO << "failed to register to RAS";
+#endif
     }
 }
 
@@ -266,17 +273,12 @@ void RASTunnel::doCreateDomain(TcpConnectionPtr const& conn , uint32_t domainID,
                                double cpuNum , uint32_t cpuMemSize)
 {
     ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
-    //ResultSetPtr result;
     DomainCreateACK reply;
     try
     {
-        //{
-        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-#ifdef TEST
+#ifdef DMDEBUG
         LOG_INFO << "Apply!!!!!";
-        //std::cout << lock << "\n";
 #endif
-        //MutexLockGuard guard(**lock);
         ResultSetPtr result = dbConn->executeQuery("select id from DOMAIN_INFO\
             where name = '%s' " , domainName.c_str());
         if( !result->next() )
@@ -310,20 +312,13 @@ void RASTunnel::doCreateDomain(TcpConnectionPtr const& conn , uint32_t domainID,
 void RASTunnel::doRevokeDomain(TcpConnectionPtr const& conn , uint32_t domainID)
 {
     ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
-    //ResultSetPtr result;
     DomainDestroyACK reply;
     try
     {
-        //{
-        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-#ifdef TEST
-        sleep(3);
+#ifdef DMDEBUG
         LOG_INFO << "Revoke!!!!!!";
-        //std::cout << lock << "\n";
 #endif
-        //MutexLockGuard guard(**lock);
         dbConn->execute("delete from DOMAIN_INFO where id = '%d' " , domainID);
-        //}
     }
     catch(SQLException const& e)
     {
@@ -347,5 +342,7 @@ void RASTunnel::onHeartBeat(TcpConnectionPtr const& conn , MessagePtr const& msg
 
 void RASTunnel::onTimeout(void)
 {
+#ifdef DMDEBUG
     LOG_INFO << "disconnect to RC of RAS , HeartBeat timeout";
+#endif
 }
