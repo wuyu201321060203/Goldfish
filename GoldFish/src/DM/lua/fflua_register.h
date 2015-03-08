@@ -1,10 +1,11 @@
-﻿#ifndef _FF_LUA_REGISTER_H_
+#ifndef _FF_LUA_REGISTER_H_
 #define _FF_LUA_REGISTER_H_
 
 #include <lua5.1/lua.hpp>
 #include <string>
 #include <string.h>
 #include <stdio.h>
+
 using namespace std;
 
 #include "fflua_type.h"
@@ -16,14 +17,14 @@ namespace ff
 #define ctor void
 #define LUA_ARG_POS(x) (x)
 
-typedef int (*mt_index_func_t)(lua_State*, void*, const char*);
-typedef int (*mt_newindex_func_t)(lua_State*, void*, const char*, int);
+typedef int (*mt_index_func_t)(lua_State* , void* , char const*);
+typedef int (*mt_newindex_func_t)(lua_State* , void* , char const* , int);
 
 #define TO_METATABLE_NAME(x) op_tool_t::to_metatable_name((x)).c_str()
 
 struct op_tool_t
 {
-	static string to_metatable_name(const string& name_)
+	static string to_metatable_name(string const& name_)
 	{
 		return string("fflua.") + name_;
 	}
@@ -70,7 +71,7 @@ struct metatable_register_impl_t
 {
 	static int mt_index_function(lua_State* ls_)
 	{
-		const char* key = luaL_checkstring(ls_, LUA_ARG_POS(2));
+		char const* key = luaL_checkstring(ls_, LUA_ARG_POS(2));
 
 		luaL_getmetatable(ls_, lua_type_info_t<CLASS_TYPE>::get_name());
 		int mt_index = lua_gettop(ls_);
@@ -101,7 +102,7 @@ struct metatable_register_impl_t
 	}
 	static int mt_newindex_function(lua_State* ls_)
 	{
-		const char* key = luaL_checkstring(ls_, LUA_ARG_POS(2));
+		char const* key = luaL_checkstring(ls_, LUA_ARG_POS(2));
 
 		luaL_getmetatable(ls_, lua_type_info_t<CLASS_TYPE>::get_name());
 		int mt_index = lua_gettop(ls_);
@@ -231,7 +232,7 @@ template<typename T>
 struct fflua_register_router_t
 {
 	template<typename REG_TYPE>
-	static void call(REG_TYPE* reg_, T arg_, const string& s_)
+	static void call(REG_TYPE* reg_, T arg_, string const& s_)
 	{
 		reg_->def_class_property(arg_, s_);
 	}
@@ -241,17 +242,17 @@ class fflua_register_t
 {
 public:
 	fflua_register_t(lua_State* ls_):m_ls(ls_){}
-	fflua_register_t(lua_State* ls_, const string& class_name_, string inherit_name_ = "");
+	fflua_register_t(lua_State* ls_, string const& class_name_, string inherit_name_ = "");
 
 
 	template<typename FUNC_TYPE>
-	fflua_register_t& def(FUNC_TYPE func, const string& s_)
+	fflua_register_t& def(FUNC_TYPE func, string const& s_)
 	{
 		fflua_register_router_t<FUNC_TYPE>::call(this, func, s_);
 		return *this;
 	}
 	template<typename FUNC_TYPE>
-	fflua_register_t& def_class_func(FUNC_TYPE func_, const string& func_name_)
+	fflua_register_t& def_class_func(FUNC_TYPE func_, string const& func_name_)
 	{
 		lua_function_t class_function = &class_function_traits_t<FUNC_TYPE>::lua_function;
 		typedef typename class_function_traits_t<FUNC_TYPE>::userdata_for_function_info userdata_for_function_t;
@@ -268,7 +269,7 @@ public:
 		return *this;
 	}
 	template<typename RET>
-	fflua_register_t& def_class_property(RET CLASS_TYPE::* p_, const string& property_name_)
+	fflua_register_t& def_class_property(RET CLASS_TYPE::* p_, string const& property_name_)
 	{
 		typedef typename class_property_traits_t<CLASS_TYPE, RET>::process_index_func_t process_index_func_t;
 		typedef typename class_property_traits_t<CLASS_TYPE, RET>::process_newindex_func_t process_newindex_func_t;
@@ -294,7 +295,7 @@ public:
 		return *this;
 	}
 	template<typename FUNC>
-	fflua_register_t& def_func(FUNC func_, const string& func_name_)
+	fflua_register_t& def_func(FUNC func_, string const & func_name_)
 	{
 	    if (m_class_name.empty())
 	    {
@@ -331,7 +332,7 @@ private:
 };
 
 template<typename CLASS_TYPE, typename CTOR_TYPE>
-fflua_register_t<CLASS_TYPE, CTOR_TYPE>::fflua_register_t(lua_State* ls_, const string& class_name_, string inherit_name_):
+fflua_register_t<CLASS_TYPE, CTOR_TYPE>::fflua_register_t(lua_State* ls_, string const & class_name_, string inherit_name_):
 	m_ls(ls_),
 	m_class_name(class_name_)
 {

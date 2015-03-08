@@ -74,7 +74,6 @@ private:
 
     static bool parseCommandLine(int  , char**);
     static bool parseCommandLineDull(int  , char**);
-
 };
 
 #endif

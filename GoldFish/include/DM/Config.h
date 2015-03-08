@@ -41,6 +41,9 @@ typedef boost::shared_ptr<google::protobuf::Message> MessagePtr;
 
 #define MODULE_NAME "DM"
 
+/*log roll size*/
+#define ROLL_SIZE 500000000
+
 #define ROOT_DOMAIN 88
 #define ROOT_DOMAINADMIN_GROUP 88
 

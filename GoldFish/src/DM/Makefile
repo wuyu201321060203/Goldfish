@@ -24,7 +24,7 @@ CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # Flags passed to the C++ compiler.
 CXXFLAGS += -g -ggdb3 -Wall -Wextra -pthread -I$(MUDUO_INCLUDE) -I$(OOZDB_INCLUDE)\
-			-I$(DM_INCLUDE) -I$(LUA_INCLUDE) -std=c++11 -DTEST
+			-I$(DM_INCLUDE) -I$(LUA_INCLUDE) -std=c++11
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
@@ -194,13 +194,14 @@ GenericInfoService.o : $(DM_SRC_DIR)/GenericInfoService.cc
 CustomizedServiceAcceptor.o : $(DM_SRC_DIR)/CustomizedServiceAcceptor.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+AsyncLogging.o : $(DM_SRC_DIR)/AsyncLogging.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 main.o : $(DM_SRC_DIR)/main.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
 DM : ConfigLoader.o Options.o\
-			  Initializer.o ProtobufCodec.o Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o \
-			  MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
-			  StringBuffer.o StrOperation.o TimeOperation.o URL.o MSG_DC_DM_CONFIG_PERSISTENCE.pb.o\
+			  Initializer.o ProtobufCodec.o MSG_DC_DM_CONFIG_PERSISTENCE.pb.o\
 			  DbAcceptor.o MSG_DC_DM_CONFIG_LOOKUP.pb.o MSG_DC_DM_CONFIG_DELETE.pb.o\
 			  Token.o util.o \
 		      MSG_DM_DC_DOMAIN_DBINFO_GET.pb.o MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.o\
@@ -221,5 +222,5 @@ DM : ConfigLoader.o Options.o\
 			  DbInfoService.o SysInfoService.o DMServer.o MSG_CLIENT_DM_CROSS_DBINFO_GET.pb.o\
 			  MSG_CLIENT_DM_CROSS_SYSINFO_GET.pb.o MSG_DM_DC_DOMAIN_SYSINFO_GET.pb.o\
 			  MSG_DM_DC_DOMAIN_DBINFO_GET.pb.o CrossDomainInfoService.o MSG_DC_DM_PING.pb.o\
-			  GenericInfoService.o CustomizedServiceAcceptor.o main.o
+			  GenericInfoService.o CustomizedServiceAcceptor.o AsyncLogging.o main.o  OOzdb.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

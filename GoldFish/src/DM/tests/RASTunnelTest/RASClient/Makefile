@@ -2,6 +2,7 @@ MUDUO_DIRECTORY = $(HOME)/build/debug-install
 MUDUO_LIBRARY = $(MUDUO_DIRECTORY)/lib
 MUDUO_INCLUDE = $(MUDUO_DIRECTORY)/include
 OOZDB_INCLUDE = ../../../OOzdb
+LUA_INCLUDE = ../../../lua
 DM_INCLUDE = $(HOME)/Goldfish/GoldFish/include
 # Points to the root of Google Test, relative to where this file is.
 # Remember to tweak this if you move this file.
@@ -23,7 +24,7 @@ CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # Flags passed to the C++ compiler.
 CXXFLAGS += -g -ggdb3 -Wall -Wextra -pthread -I$(MUDUO_INCLUDE) -I$(OOZDB_INCLUDE)\
-			-I$(DM_INCLUDE) -std=c++11 -DTEST
+			-I$(DM_INCLUDE) -I$(LUA_INCLUDE) -std=c++11 -DTEST
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -72,6 +73,12 @@ RASTunnel.o: $(DM_SRC_DIR)/RASTunnel.cc
 ResourceManager.o: $(DM_SRC_DIR)/ResourceManager.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
+DesEcbService.o: $(DM_SRC_DIR)/DesEcbService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
+CryptographicService.o: $(DM_SRC_DIR)/CryptographicService.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
+
 MSG_CLIENT_DM_DOMAIN_CREATE.pb.o: $(PROTO_SRC_DIR)/MSG_CLIENT_DM_DOMAIN_CREATE.pb.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $^
 
@@ -88,7 +95,5 @@ RASClient : main.o ProtobufRASCodec.o ProtobufCodec.o Initializer.o\
 			ConfigLoader.o Options.o RASTunnel.o FwmRcProtocol.pb.o ResourceManager.o\
 			MSG_CLIENT_DM_DOMAIN_CREATE.pb.o MSG_CLIENT_DM_DOMAIN_DESCRIPTION_GET.pb.o\
 			MSG_CLIENT_DM_DOMAIN_DESCRIPTION_UPDATE.pb.o MSG_CLIENT_DM_DOMAIN_DESTROY.pb.o\
-			Connection.o ConnectionPool.o MemoryOperation.o MysqlConnection.o\
-			MysqlPreparedStatement.o MysqlResultSet.o PreparedStatement.o ResultSet.o \
-			StringBuffer.o StrOperation.o TimeOperation.o URL.o util.o
+			DesEcbService.o CryptographicService.o util.o OOzdb.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(LDFLAGS)

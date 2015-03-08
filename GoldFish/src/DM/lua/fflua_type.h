@@ -18,10 +18,11 @@ typedef  unsigned char uint8_t;
 
 struct strtoll_tool_t
 {
-    static long do_strtoll(const char* s, const char*, int){
+    static long do_strtoll(char const* s , char const*, int){
         return atol(s);
     }
 };
+
 #define strtoll strtoll_tool_t::do_strtoll
 #define strtoull (unsigned long)strtoll_tool_t::do_strtoll
 #endif
@@ -46,23 +47,23 @@ struct cpp_void_t{};
 
 struct lua_string_tool_t
 {
-	inline static const char* c_str(const string& s_) { return s_.c_str(); }
-	inline static const char* c_str(const char* s_)   { return s_; }
+	inline static char const* c_str(string const& s_) { return s_.c_str(); }
+	inline static char const* c_str(char const* s_)   { return s_; }
 };
 
 class lua_exception_t: public exception
 {
 public:
-    explicit lua_exception_t(const char* err_):
+    explicit lua_exception_t(char const* err_):
 		m_err(err_)
 	{}
-    explicit lua_exception_t(const string& err_):
+    explicit lua_exception_t(string const& err_):
 		m_err(err_)
 	{
 	}
     ~lua_exception_t() throw (){}
 
-    const char* what() const throw () { return m_err.c_str(); }
+    char const* what() const throw () { return m_err.c_str(); }
 private:
     string m_err;
 };
@@ -118,7 +119,7 @@ public:
         }
         printf("\n");
     }
-    static string dump_error(lua_State* ls_, const char *fmt, ...)
+    static string dump_error(lua_State* ls_, char const* fmt, ...)
     {
         string ret;
         char buff[1024];
@@ -155,7 +156,7 @@ struct userdata_for_object_t
 template<typename T>
 struct lua_type_info_t
 {
-	static void set_name(const string& name_, string inherit_name_ = "")
+	static void set_name(string const& name_, string inherit_name_ = "")
 	{
 		size_t n = name_.length() > sizeof(name) - 1? sizeof(name) - 1: name_.length();
 #ifndef _WIN32
@@ -173,11 +174,11 @@ struct lua_type_info_t
 #endif
 		}
 	}
-	inline static const char* get_name()
+	inline static char const* get_name()
 	{
 		return name;
 	}
-	inline static const char* get_inherit_name()
+	inline static char const* get_inherit_name()
 	{
 		return inherit_name;
 	}
@@ -208,7 +209,7 @@ struct reference_traits_t
 };
 
 template<>
-struct reference_traits_t<const string&>
+struct reference_traits_t<string const&>
 {
     typedef string arg_type_t;
 };
@@ -220,18 +221,18 @@ struct reference_traits_t<string&>
 };
 
 template<typename T>
-struct reference_traits_t<const T*>
+struct reference_traits_t<T const*>
 {
     typedef T* arg_type_t;
 };
 template<typename T>
-struct reference_traits_t<const T&>
+struct reference_traits_t<T const&>
 {
     typedef T arg_type_t;
 };
 
 template<>
-struct reference_traits_t<const char*>
+struct reference_traits_t<char const*>
 {
     typedef char* arg_type_t;
 };
@@ -246,13 +247,13 @@ struct init_value_traits_t
 };
 
 template <typename T>
-struct init_value_traits_t<const T*>
+struct init_value_traits_t<T const*>
 {
     inline static T* value(){ return NULL; }
 };
 
 template <typename T>
-struct init_value_traits_t<const T&>
+struct init_value_traits_t<T const&>
 {
     inline static T value(){ return T(); }
 };
@@ -260,13 +261,13 @@ struct init_value_traits_t<const T&>
 template <>
 struct init_value_traits_t<string>
 {
-    inline static const char* value(){ return ""; }
+    inline static char const* value(){ return ""; }
 };
 
 template <>
-struct init_value_traits_t<const string&>
+struct init_value_traits_t<string const&>
 {
-    inline static const char* value(){ return ""; }
+    inline static char const* value(){ return ""; }
 };
 
 template<typename T>
@@ -274,15 +275,15 @@ struct lua_op_t;
 
 
 template<>
-struct lua_op_t<const char*>
+struct lua_op_t<char const*>
 {
-    static void push_stack(lua_State* ls_, const char* arg_)
+    static void push_stack(lua_State* ls_, char const* arg_)
     {
         lua_pushstring(ls_, arg_);
     }
     static int lua_to_value(lua_State* ls_, int pos_, char*& param_)
     {
-        const char* str = luaL_checkstring(ls_, pos_);
+        char const* str = luaL_checkstring(ls_, pos_);
         param_ = (char*)str;
         return 0;
     }
@@ -291,7 +292,7 @@ struct lua_op_t<const char*>
 template<>
 struct lua_op_t<lua_nil_t>
 {
-    static void push_stack(lua_State* ls_, const lua_nil_t& arg_)
+    static void push_stack(lua_State* ls_, lua_nil_t const& arg_)
     {
         lua_pushnil (ls_);
     }
@@ -326,7 +327,7 @@ struct lua_op_t<int64_t>
         }
 
         size_t len  = 0;
-        const char* src = lua_tolstring(ls_, pos_, &len);
+        char const* src = lua_tolstring(ls_, pos_, &len);
         param_ = (int64_t)strtoll(src, NULL, 10);
         return 0;
     }
@@ -334,7 +335,7 @@ struct lua_op_t<int64_t>
     static int lua_to_value(lua_State* ls_, int pos_, int64_t& param_)
     {
         size_t len = 0;
-        const char* str = luaL_checklstring(ls_, pos_, &len);
+        char const* str = luaL_checklstring(ls_, pos_, &len);
         param_ = (int64_t)strtoll(str, NULL, 10);
         return 0;
     }
@@ -358,7 +359,7 @@ template<> struct lua_op_t<uint64_t>
         }
 
         size_t len  = 0;
-        const char* src = lua_tolstring(ls_, pos_, &len);
+        char const* src = lua_tolstring(ls_, pos_, &len);
         param_ = (uint64_t)strtoull(src, NULL, 10);
         return 0;
     }
@@ -366,7 +367,7 @@ template<> struct lua_op_t<uint64_t>
     static int lua_to_value(lua_State* ls_, int pos_, uint64_t& param_)
     {
         size_t len = 0;
-        const char* str = luaL_checklstring(ls_, pos_, &len);
+        char const* str = luaL_checklstring(ls_, pos_, &len);
         param_ = (uint64_t)strtoull(str, NULL, 10);
         return 0;
     }
@@ -540,7 +541,7 @@ template<>
 struct lua_op_t<string>
 {
 
-    static void push_stack(lua_State* ls_, const string& arg_)
+    static void push_stack(lua_State* ls_, string const& arg_)
     {
         lua_pushlstring(ls_, arg_.c_str(), arg_.length());
     }
@@ -554,7 +555,7 @@ struct lua_op_t<string>
 
         lua_pushvalue(ls_, pos_);
         size_t len  = 0;
-        const char* src = lua_tolstring(ls_, -1, &len);
+        char const* src = lua_tolstring(ls_, -1, &len);
         param_.assign(src, len);
         lua_pop(ls_, 1);
 
@@ -563,16 +564,16 @@ struct lua_op_t<string>
     static int lua_to_value(lua_State* ls_, int pos_, string& param_)
     {
         size_t len = 0;
-        const char* str = luaL_checklstring(ls_, pos_, &len);
+        char const* str = luaL_checklstring(ls_, pos_, &len);
         param_.assign(str, len);
         return 0;
     }
 };
 
 template<>
-struct lua_op_t<const string&>
+struct lua_op_t<string const&>
 {
-    static void push_stack(lua_State* ls_, const string& arg_)
+    static void push_stack(lua_State* ls_, string const& arg_)
     {
         lua_pushlstring(ls_, arg_.c_str(), arg_.length());
     }
@@ -586,7 +587,7 @@ struct lua_op_t<const string&>
 
         lua_pushvalue(ls_, pos_);
         size_t len  = 0;
-        const char* src = lua_tolstring(ls_, -1, &len);
+        char const* src = lua_tolstring(ls_, -1, &len);
         param_.assign(src, len);
         lua_pop(ls_, 1);
 
@@ -595,7 +596,7 @@ struct lua_op_t<const string&>
     static int lua_to_value(lua_State* ls_, int pos_, string& param_)
     {
         size_t len = 0;
-        const char* str = luaL_checklstring(ls_, pos_, &len);
+        char const* str = luaL_checklstring(ls_, pos_, &len);
         param_.assign(str, len);
         return 0;
     }
@@ -807,9 +808,9 @@ struct lua_op_t<T*>
 };
 
 template<typename T>
-struct lua_op_t<const T*>
+struct lua_op_t<T const*>
 {
-    static void push_stack(lua_State* ls_, const T* arg_)
+    static void push_stack(lua_State* ls_, T const* arg_)
     {
         lua_op_t<T*>::push_stack(ls_, (T*)arg_);
     }
@@ -828,7 +829,7 @@ struct lua_op_t<const T*>
 template<typename T>
 struct lua_op_t<vector<T> >
 {
-    static void push_stack(lua_State* ls_, const vector<T>& arg_)
+    static void push_stack(lua_State* ls_, vector<T> const& arg_)
     {
     	lua_newtable(ls_);
     	typename vector<T>::const_iterator it = arg_.begin();
@@ -885,7 +886,7 @@ struct lua_op_t<vector<T> >
 template<typename T>
 struct lua_op_t<list<T> >
 {
-    static void push_stack(lua_State* ls_, const list<T>& arg_)
+    static void push_stack(lua_State* ls_, list<T> const& arg_)
     {
     	lua_newtable(ls_);
     	typename list<T>::const_iterator it = arg_.begin();
@@ -942,7 +943,7 @@ struct lua_op_t<list<T> >
 template<typename T>
 struct lua_op_t<set<T> >
 {
-    static void push_stack(lua_State* ls_, const set<T>& arg_)
+    static void push_stack(lua_State* ls_, set<T> const& arg_)
     {
     	lua_newtable(ls_);
     	typename set<T>::const_iterator it = arg_.begin();
@@ -1000,7 +1001,7 @@ struct lua_op_t<set<T> >
 template<typename K, typename V>
 struct lua_op_t<map<K, V> >
 {
-    static void push_stack(lua_State* ls_, const map<K, V>& arg_)
+    static void push_stack(lua_State* ls_, map<K, V> const& arg_)
     {
     	lua_newtable(ls_);
     	typename map<K, V>::const_iterator it = arg_.begin();
