@@ -102,6 +102,22 @@ bool Token::niuXThanCommonUser()
     return !( ( _identity.to_ulong() ) & (USER_IMPORT_AUTH) );
 }
 
+bool Token::canImportOrNot()
+{
+    if( _identity.to_ulong() != USER_QUERY_AUTH )
+        return true;
+    else
+        return false;
+}
+
+bool Token::canQueryOrNot()
+{
+    if( _identity.to_ulong() != USER_IMPORT_AUTH )
+        return true;
+    else
+        return false;
+}
+
 bool Token::operator==(Token const& rhs)
 {
     return ( (_username == rhs.getUserName()) && (_identity.to_string() == rhs.getIdentity()) &&

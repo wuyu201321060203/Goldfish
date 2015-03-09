@@ -160,6 +160,56 @@ TEST(TokenTest , niuXThanUserTest)
     EXPECT_TRUE(false == token4.niuXThanCommonUser());
 }
 
+TEST(TokenTest , canQueryTest)
+{
+    STDSTR username("ddcnmb");
+    STDSTR belong2Domain("domain1");
+    STDSTR belong2Group("group1");
+    unsigned int identity = 0b00000000;
+    Token token(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(true == token.canQueryOrNot());
+    identity = 0b00000010;
+    Token token1(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(true == token1.canQueryOrNot());
+    identity = 0b00000100;
+    Token token2(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(true == token2.canQueryOrNot());
+    identity = 0b00001000;
+    Token token3(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(false == token3.canQueryOrNot());
+    identity = 0b00001001;
+    Token token4(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(true == token4.canQueryOrNot());
+    identity = 0b00001010;
+    Token token5(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(true == token4.canQueryOrNot());
+}
+
+TEST(TokenTest , canImportTest)
+{
+    STDSTR username("ddcnmb");
+    STDSTR belong2Domain("domain1");
+    STDSTR belong2Group("group1");
+    unsigned int identity = 0b00000000;
+    Token token(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(true == token.canImportOrNot());
+    identity = 0b00000010;
+    Token token1(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(true == token1.canImportOrNot());
+    identity = 0b00000100;
+    Token token2(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(true == token2.canImportOrNot());
+    identity = 0b00001000;
+    Token token3(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(true == token3.canImportOrNot());
+    identity = 0b00001001;
+    Token token4(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(false == token4.canImportOrNot());
+    identity = 0b00001010;
+    Token token5(username , identity , belong2Domain , belong2Group);
+    EXPECT_TRUE(true == token4.canQueryOrNot());
+}
+
 TEST(TokenTest , equalTest)
 {
     STDSTR username1("ddcnmb");

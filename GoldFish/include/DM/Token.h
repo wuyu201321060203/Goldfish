@@ -12,6 +12,7 @@ static ulong const DOMAINADMIN_AUTH = 0b00000010;
 static ulong const GROUPADMIN_AUTH = 0b00000100;
 static ulong const USER_IMPORT_AUTH = 0b00001000;
 static ulong const USER_QUERY_AUTH = 0b00001001;
+static ulong const USER_IMPORT_QUERY_AHTH = 0b00001010;
 
 #define IDENTITY_WIDTH 8
 
@@ -30,6 +31,8 @@ public:
     bool niuXThanDomainAdmin();
     bool niuXThanGroupAdmin();
     bool niuXThanCommonUser();
+    bool canImportOrNot();
+    bool canQueryOrNot();
     bool operator==(Token const&);
 
 private:
