@@ -1,3 +1,7 @@
+/*
+ * The base class of encrypt/decode service
+ */
+
 #ifndef CRYPTOGRAPHICSERVICE_H
 #define CRYPTOGRAPHICSERVICE_H
 

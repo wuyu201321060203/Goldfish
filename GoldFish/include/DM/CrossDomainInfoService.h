@@ -1,3 +1,7 @@
+/*
+ *  The base class of DbInfoService and SysInfoService
+ */
+
 #ifndef CROSSDOMAININFOSERVICE_H
 #define CROSSDOMAININFOSERVICE_H
 

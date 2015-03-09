@@ -1,3 +1,7 @@
+/*
+ *  The Config Loader class
+ */
+
 #ifndef CONFIGLOADER_H
 #define CONFIGLOADER_H
 

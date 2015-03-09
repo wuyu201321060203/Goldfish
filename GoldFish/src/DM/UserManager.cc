@@ -47,6 +47,17 @@ void UserManager::onUserLogin(TcpConnectionPtr const& conn,
         this , conn , username , passwd));
 }
 
+/*
+ * name : onVerifyEncryptedToken
+ *
+ * description : this function is used to help DC verify an encrypted token
+ *               if is allocated by DM or not.
+ *
+ * @conn : the connection of DC
+ * @msg  : the query from DC
+ *
+ * @return : none
+ */
 void UserManager::onVerifyEncryptedToken(TcpConnectionPtr const& conn,
                                          MessagePtr const& msg,
                                          muduo::Timestamp)

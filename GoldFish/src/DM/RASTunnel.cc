@@ -22,7 +22,6 @@ using boost::any_cast;
 #define NORMAL 1
 #define ABNORMAL 0
 
-//typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 static HeartBeatInfo ping;
 
 RASTunnel::RASTunnel(EventLoop* loop , InetAddress const& serveAddr):
@@ -216,8 +215,6 @@ void RASTunnel::onConnectionCallbackFromRC(TcpConnectionPtr const& conn)
 {
     if(conn->connected())
     {
-        //MutexLockPtr lock(new MutexLock);
-        //conn->setContext(lock);
         register2RAS(conn);
     }
     else

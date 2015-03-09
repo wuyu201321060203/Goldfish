@@ -7,7 +7,7 @@
 #include <DM/Initializer.h>
 #include <DM/UserInfoService.h>
 #include <DM/GroupInfoService.h>
-#include <DM/GenericInfoService.h>//TODO
+#include <DM/GenericInfoService.h>
 #include <DM/RASTunnel.h>
 #include <DM/DbAcceptor.h>
 #include <DM/ResourceManager.h>
@@ -84,5 +84,5 @@ void DMServer::onHeartBeat(muduo::net::TcpConnectionPtr const& conn,
 
 void DMServer::onTimeout(TcpConnectionPtr const& conn)
 {
-    conn->forceClose();
+    conn->forceClose();//Oops!
 }

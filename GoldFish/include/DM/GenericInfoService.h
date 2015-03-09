@@ -1,3 +1,8 @@
+/*
+ * The base class of GroupInfoService, UserInfoService and
+ * RemoteDomainInfoService
+ */
+
 #ifndef GENERICINFOSERVICE_H
 #define GENERICINFOSERVICE_H
 

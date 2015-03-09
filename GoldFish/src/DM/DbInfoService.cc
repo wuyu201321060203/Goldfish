@@ -68,7 +68,13 @@ void DbInfoService::onCrossDomainInfoQuery(TcpConnectionPtr const& conn,
             Timestamp now = Timestamp::now();
             TcpConnectionWeakPtr cliConn(conn);
             muduo::string time( now.toString() );
-            _cliMap.insert(Time2ConnMap::value_type(time , cliConn));
+            _cliMap.insert(Time2ConnMap::value_type(time , cliConn));//because
+            //cross-domain information acquirement is a distributed task, so we
+            //need to take measures to identify a reply from DC belong to which
+            //client. We attach a timestamp with a client connection and relay
+            //the cross-domain information query with the same timestamp, so
+            //when a reply from DC arrives DM, through checking the timestamp in
+            //the reply, DM will know this reply belongs to which client.
             DomainDbInfoGetMsg relayMsg;
             std::string tmp( MuduoStr2StdStr(time) );
 #ifdef TEST
@@ -76,7 +82,8 @@ void DbInfoService::onCrossDomainInfoQuery(TcpConnectionPtr const& conn,
 #endif
             relayMsg.set_timestamp(tmp);
             _dcVec.erase( remove_if( _dcVec.begin() , _dcVec.end() , HelperFunctor() ),
-                                    _dcVec.end() );
+                                    _dcVec.end() );//erase the DC connections which
+            //are disconnected to DM , a garbage collection method.
             for(TcpConnectionWeakPtr dcConn : _dcVec)
             {
 #ifndef TEST
@@ -109,7 +116,8 @@ void DbInfoService::onCrossDomainInfoReplyFromDC(TcpConnectionPtr const& conn,
             _cliMap.erase(iter++);
         else
             ++iter;
-    }
+    }//erase client connections which are disconnected to DM at the time in order
+    //to prevent _cliMap increasing all the time
     STDSTR time = dcACK->timestamp();
     muduo::string tmp( StdStr2MuduoStr(time) );
     Time2ConnMap::iterator iter = _cliMap.find(tmp);
@@ -132,6 +140,7 @@ void DbInfoService::onCrossDomainInfoReplyFromDC(TcpConnectionPtr const& conn,
 #endif
     }
 }
+
 #ifdef TEST
 typedef std::map<muduo::string , TcpConnectionWeakPtr> Time2ConnMap;
 Time2ConnMap& DbInfoService::getCliMap()

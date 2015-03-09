@@ -88,7 +88,7 @@ TEST(DbAcceptorTest , PreserveFailTest)
     DbAcceptor acceptor;
     acceptor.onPreserve(conn , message , time);
     sleep(3);
-    EXPECT_EQ(CONFIG_PRESERVE_FAIL , tPreserveACK.statuscode());
+    EXPECT_EQ(UNEXISTED_DOMAIN , tPreserveACK.statuscode());
 }
 
 TEST(DbAcceptorTest , LoadSuccessTest)

@@ -1,3 +1,7 @@
+/*
+ *  The asynchronous log class
+ */
+
 #ifndef ASYNCLOGGING_H
 #define ASYNCLOGGING_H
 

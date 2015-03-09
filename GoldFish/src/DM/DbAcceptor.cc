@@ -82,13 +82,9 @@ void DbAcceptor::doPreserve(TcpConnectionPtr const& conn,
     std::string domain = message->domainname();
     ConnectionPtr dbConn = ( Initializer::getDbPool() ).getConnection<MysqlConnection>();
     ConfigPersistenceACK reply;
-    reply.set_statuscode(CONFIG_PRESERVE_FAIL);
+    reply.set_statuscode(UNEXISTED_DOMAIN);
     try
     {
-        //ResultSetPtr result;
-        //{
-        //MutexLockPtr* lock = any_cast<MutexLockPtr>( conn->getMutableContext() );
-        //MutexLockGuard guard(**lock);
         ResultSetPtr result = dbConn->executeQuery(
             " select id from DOMAIN_INFO where name = '%s' " , domain.c_str() );
         if(result->next())
@@ -104,12 +100,12 @@ void DbAcceptor::doPreserve(TcpConnectionPtr const& conn,
             }
             reply.set_statuscode(SUCCESS);
         }
-        //}
     }
     catch(SQLException& e)
     {
 #ifdef DMDEBUG
-            LOG_INFO << e.getReason();
+        LOG_INFO << e.getReason();
+        reply.set_statuscode(CONFIG_PRESERVE_FAIL);
 #endif
     }
 #ifndef TEST
@@ -131,13 +127,9 @@ void DbAcceptor::doLoad(TcpConnectionPtr const& conn,
     reply.set_statuscode(DOMAIN_NO_CONFIG);
     try
     {
-        //ResultSetPtr result;
-        //{
-        //MutexLockPtr* lock = any_cast<MutexLockPtr>( conn->getMutableContext() );
-        //MutexLockGuard guard(**lock);
         ResultSetPtr result = dbConn->executeQuery("select raIP from \
             IMCONFIG_INFO where domainName = '%s' ", domain.c_str());
-        //}
+
         std::string ip;
         while(result->next())
         {
@@ -149,7 +141,7 @@ void DbAcceptor::doLoad(TcpConnectionPtr const& conn,
     catch(SQLException& e)
     {
 #ifdef DMDEBUG
-            LOG_INFO << e.getReason();
+        LOG_INFO << e.getReason();
 #endif
         reply.set_statuscode(CONFIG_QUERY_FAIL);
     }
@@ -172,10 +164,6 @@ void DbAcceptor::doDelete(TcpConnectionPtr const& conn,
     reply.set_statuscode(DOMAIN_NO_CONFIG);
     try
     {
-        //ResultSetPtr result;
-        //{
-        //MutexLockPtr* lock = any_cast<MutexLockPtr>( conn->getMutableContext() );
-        //MutexLockGuard guard(**lock);
         ResultSetPtr result = dbConn->executeQuery("select id from \
             IMCONFIG_INFO where domainName = '%s' ", domain.c_str());
         if(result->next())
@@ -184,12 +172,11 @@ void DbAcceptor::doDelete(TcpConnectionPtr const& conn,
                 domain.c_str());
             reply.set_statuscode(SUCCESS);
         }
-        //}
     }
     catch(SQLException& e)
     {
 #ifdef DMDEBUG
-            LOG_INFO << e.getReason();
+        LOG_INFO << e.getReason();
         reply.set_statuscode(CONFIG_DELETE_FAIL);
 #endif
     }

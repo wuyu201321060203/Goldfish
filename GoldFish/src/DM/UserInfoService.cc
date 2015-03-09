@@ -63,7 +63,9 @@ void UserInfoService::onCreateInfo(TcpConnectionPtr const& conn,
 {
     UserCreateMsgPtr query = muduo::down_pointer_cast<UserCreateMsg>(msg);
     STDSTR tmp = query->token();
+#ifndef TEST
     ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+#endif
     Token token(tmp);
     if(token.niuXThanCommonUser())
     {
@@ -85,7 +87,9 @@ void UserInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
 {
     UserDestroyMsgPtr query = muduo::down_pointer_cast<UserDestroyMsg>(msg);
     STDSTR tmp = query->token();
+#ifndef TEST
     ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+#endif
     Token token(tmp);
     if(token.niuXThanCommonUser())
     {
@@ -103,7 +107,9 @@ void UserInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
 {
     UserInfoUpdateMsgPtr query = muduo::down_pointer_cast<UserInfoUpdateMsg>(msg);
     STDSTR tmp = query->token();
+#ifndef TEST
     ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+#endif
     Token token(tmp);
     STDSTR userName = token.getUserName();
     STDSTR passwd = query->password();
@@ -117,7 +123,9 @@ void UserInfoService::onGetInfo(TcpConnectionPtr const& conn,
 {
     UserInfoGetMsgPtr query = muduo::down_pointer_cast<UserInfoGetMsg>(msg);
     STDSTR tmp = query->token();
+#ifndef TEST
     ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+#endif
     Token token(tmp);
     (Initializer::getThreadPool()).run(boost::bind(&UserInfoService::doGetUserInfo,
                                         this , conn , token));
@@ -135,9 +143,6 @@ void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , STDSTR domainN
     int executeFlag = 1;
     try
     {
-        //{
-        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-        //MutexLockGuard guard(**lock);
         if("*" != domainName)
         {
             result = dbConn->executeQuery("select id from DOMAIN_INFO \
@@ -173,7 +178,6 @@ void UserInfoService::doCreateUser(TcpConnectionPtr const& conn , STDSTR domainN
 
             reply.set_statuscode(SUCCESS);
         }
-        //}
     }
     catch(SQLException const& e)
     {

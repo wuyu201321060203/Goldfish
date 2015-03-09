@@ -1,3 +1,8 @@
+/*
+ * The template version of CrossDomainInfoService class and
+ * now it is not used.
+ */
+
 #ifndef CROSSINFOSERVICE_H
 #define CROSSINFOSERVICE_H
 

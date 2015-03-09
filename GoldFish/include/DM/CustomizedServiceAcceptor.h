@@ -1,3 +1,8 @@
+/*
+ * The base class of DbAcceptor which is used to deal with some
+ * customized request.
+ */
+
 #ifndef CUSTOMIZEDSERVICE_H
 #define CUSTOMIZEDSERVICE_H
 

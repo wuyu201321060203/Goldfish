@@ -12,7 +12,6 @@
 #include <muduo/base/Logging.h>
 #endif
 #include <muduo/base/Types.h>
-//#include <muduo/base/Mutex.h>
 #include <muduo/base/ThreadPool.h>
 
 #include <DM/GroupInfoService.h>
@@ -27,8 +26,6 @@ using namespace muduo;
 using namespace muduo::net;
 using namespace OOzdb;
 using boost::any_cast;
-
-//typedef boost::shared_ptr<MutexLock> MutexLockPtr;
 
 #ifdef TEST
 typedef MSG_DM_CLIENT_GROUP_DESCRIPTION_GET_ACK_GROUP_INFO GroupInfoType;
@@ -64,7 +61,9 @@ void GroupInfoService::onCreateInfo(TcpConnectionPtr const& conn,
 {
     GroupCreateMsgPtr query = muduo::down_pointer_cast<GroupCreateMsg>(msg);
     std::string tmp = query->token();
+#ifndef TEST
     ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+#endif
     Token token(tmp);
     if(token.niuXThanGroupAdmin())
     {
@@ -84,7 +83,9 @@ void GroupInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
 {
     GroupDestroyMsgPtr query = muduo::down_pointer_cast<GroupDestroyMsg>(msg);
     std::string tmp = query->token();
+#ifndef TEST
     ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+#endif
     Token token(tmp);
     if(token.niuXThanGroupAdmin())
     {
@@ -102,7 +103,9 @@ void GroupInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
 {
     GroupInfoUpdateMsgPtr query = muduo::down_pointer_cast<GroupInfoUpdateMsg>(msg);
     std::string tmp = query->token();
+#ifndef TEST
     ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+#endif
     Token token(tmp);
     if(token.niuXThanGroupAdmin())
     {
@@ -121,24 +124,34 @@ void GroupInfoService::onGetInfo(TcpConnectionPtr const& conn,
 {
     GroupInfoGetMsgPtr query = muduo::down_pointer_cast<GroupInfoGetMsg>(msg);
     std::string tmp = query->token();
+#ifndef TEST
     ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+#endif
     Token token(tmp);
     std::string groupName = token.getGroup();
     (Initializer::getThreadPool()).run(boost::bind(&GroupInfoService::doGetGroup,
         this , conn , groupName));
 }
 
+/*
+ * name : doCreateGroup
+ *
+ * description : the execute function which real create group
+ *
+ * @conn : the connection of client
+ * @groupName : the name of group which is going to be created
+ * @domain : the domain which the group belongs to
+ * @description : the description of the group which is going to be created
+ *
+ * @return : none
+ */
 void GroupInfoService::doCreateGroup(TcpConnectionPtr const& conn , std::string groupName,
                                      std::string domain , std::string description)
 {
     ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
-    //ResultSetPtr result;
     GroupCreateACK reply;
     try
     {
-        //{
-        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-        //MutexLockGuard guard(**lock);
         ResultSetPtr result = dbConn->executeQuery("select id from DOMAIN_INFO\
             where name = '%s' " , domain.c_str());
         if( result->next() )
@@ -159,7 +172,6 @@ void GroupInfoService::doCreateGroup(TcpConnectionPtr const& conn , std::string 
         }
         else
             reply.set_statuscode(UNEXISTED_DOMAIN);
-        //}
     }
     catch(SQLException const& e)
     {
@@ -179,12 +191,8 @@ void GroupInfoService::doDeleteGroup(TcpConnectionPtr const& conn , std::string 
 {
     ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
     GroupDestroyACK reply;
-    //ResultSetPtr result;
     try
     {
-        //{
-        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-        //MutexLockGuard guard(**lock);
         ResultSetPtr result = dbConn->executeQuery("select id from GROUP_INFO\
             where name = '%s' " , groupName.c_str());
         if(result->next())
@@ -195,7 +203,6 @@ void GroupInfoService::doDeleteGroup(TcpConnectionPtr const& conn , std::string 
         }
         else
             reply.set_statuscode(UNEXISTED_GROUP);
-        //}
     }
     catch(SQLException const& e)
     {
@@ -216,12 +223,8 @@ void GroupInfoService::doUpdateGroup(TcpConnectionPtr const& conn , std::string 
 {
     ConnectionPtr dbConn = Initializer::getDbPool().getConnection<MysqlConnection>();
     GroupInfoUpdateACK reply;
-    //ResultSetPtr result;
     try
     {
-        //{
-        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-        //MutexLockGuard guard(**lock);
         ResultSetPtr result = dbConn->executeQuery("select id from GROUP_INFO\
             where name = '%s' " , groupName.c_str());
         if(result->next())
@@ -233,7 +236,6 @@ void GroupInfoService::doUpdateGroup(TcpConnectionPtr const& conn , std::string 
         }
         else
             reply.set_statuscode(UNEXISTED_GROUP);
-        //}
     }
     catch(SQLException const& e)
     {
@@ -254,7 +256,6 @@ void GroupInfoService::doGetGroup(TcpConnectionPtr const& conn , std::string gro
     ConnectionPtr dbConn = (Initializer::getDbPool()).getConnection<MysqlConnection>();
     GroupInfoGetACK reply;
     reply.set_statuscode(UNEXISTED_GROUP);
-    //ResultSetPtr result;
     std::string sqlQuery;
     std::string groupDescription;
     std::string groupNameAlias;
@@ -267,11 +268,7 @@ void GroupInfoService::doGetGroup(TcpConnectionPtr const& conn , std::string gro
         sqlQuery = "select name , description from GROUP_INFO";
     try
     {
-        //{
-        //MutexLockPtr* lock = any_cast<MutexLockPtr>(conn->getMutableContext());
-        //MutexLockGuard guard(**lock);
         ResultSetPtr result = dbConn->executeQuery(sqlQuery.c_str());
-        //}
         while(result->next())
         {
             groupNameAlias = result->getString(1);

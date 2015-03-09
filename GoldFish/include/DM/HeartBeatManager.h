@@ -134,7 +134,7 @@ public:
 
     void delegateTimerTask(uint startTime,  //seconds
                            uint timeInterval, //seconds
-                           uint ttl,
+                           uint ttl,//the number of timeInterval
                            TimeoutCallback const& cb,
                            muduo::net::TcpConnectionPtr const& conn)
     {

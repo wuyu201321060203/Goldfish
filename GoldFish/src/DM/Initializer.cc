@@ -155,6 +155,7 @@ void Initializer::onUnknownMessage(TcpConnectionPtr const& conn , MessagePtr con
 #endif
 }
 
+/*the function is not used now but it is a good solution*/
 bool Initializer::parseCommandLine(int argc , char* argv[])
 {
     _path = "./DMConfig.lua";

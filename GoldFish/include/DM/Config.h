@@ -44,9 +44,13 @@ typedef boost::shared_ptr<google::protobuf::Message> MessagePtr;
 /*log roll size*/
 #define ROLL_SIZE 500000000
 
+/*The domain id which root belongs to*/
 #define ROOT_DOMAIN 88
+
+/*The group which root and domain-admin belong to*/
 #define ROOT_DOMAINADMIN_GROUP 88
 
+/*DM config file path*/
 #define CONFIG_FILE_PATH "/home/wuyu/Goldfish/GoldFish/src/DM/DMConfig.lua"
 
 /* The macro for most used return value */

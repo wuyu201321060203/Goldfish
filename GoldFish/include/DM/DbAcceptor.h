@@ -1,3 +1,7 @@
+/*
+ * The class is responsible for preserving/loading/deleting RA config for DC
+ */
+
 #ifndef DBACCEPTOR_H
 #define DBACCEPTOR_H
 

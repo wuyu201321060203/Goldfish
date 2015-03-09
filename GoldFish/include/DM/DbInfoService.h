@@ -1,3 +1,7 @@
+/*
+ * DbInfoService is used to manage the cross-domain information about database
+ */
+
 #ifndef DBINFO_SERVICE_H
 #define DBINFO_SERVICE_H
 
