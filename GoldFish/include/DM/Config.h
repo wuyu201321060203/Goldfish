@@ -76,6 +76,8 @@ typedef enum Role
     Slave
 }Role;
 
+#define EMPTYSTR ""
+
 //encode/decode service macros
 #define DES_KEY "01234567899876543210"//must shorter than 24
 #define LEN_OF_KEY 24
