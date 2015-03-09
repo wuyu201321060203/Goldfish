@@ -8,7 +8,7 @@
 #include <muduo/net/protorpc/google-inl.h>
 
 #include <DM/ProtobufRASCodec.h>
-#include <DM/Initializer.h>
+#include <DM/Config.h>
 
 using namespace muduo;
 using namespace muduo::net;
