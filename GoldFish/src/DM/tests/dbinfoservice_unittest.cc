@@ -36,7 +36,7 @@ TEST(DbInfoServiceTest , InfoQuerySuccessTest)
         "conn2" , socketfd2 , localAddr , remoteAddr) );
     TcpConnectionPtr conn3(new TcpConnection(&Initializer::getEventLoop(),
                             "conn3" , socketfd3 , localAddr , remoteAddr));
-    DMServer dm(&Initializer::getEventLoop() , Initializer::getOptions());
+    DMServer dm(Initializer::getOptions());
     DbInfoService waiter(&dm);
     waiter.addDCConn(dbconn1);
     waiter.addDCConn(dbconn2);
@@ -72,7 +72,7 @@ TEST(DbInfoServiceTest , InfoReplySuccessTest)
                             "cliConn1" , socketfd3 , localAddr , remoteAddr));
     TcpConnectionPtr conn4(new TcpConnection(&Initializer::getEventLoop(),
                             "cliConn2" , socketfd4 , localAddr , remoteAddr));
-    DMServer dm(&Initializer::getEventLoop() , Initializer::getOptions());
+    DMServer dm(Initializer::getOptions());
     DbInfoService waiter(&dm);
     waiter.addDCConn(dbconn1);
     waiter.addDCConn(dbconn2);

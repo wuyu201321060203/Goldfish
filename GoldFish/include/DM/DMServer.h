@@ -28,7 +28,7 @@ public:
     friend class DbInfoService;
     friend class SysInfoService;
 
-    DMServer(muduo::net::EventLoop* , Options const&);
+    DMServer(Options const&);
     void start();
     void onCliConnection(muduo::net::TcpConnectionPtr const&);
     void onDCConnection(muduo::net::TcpConnectionPtr const&);

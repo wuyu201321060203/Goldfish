@@ -17,7 +17,7 @@ message ResourceInfo
     required double cpu_num = 1;
     required uint32 cpu_mem_size = 2;
     optional uint32 gpu_num = 3;
-	repeated GpuResourceInfo gpu_resource_info = 4;
+    repeated GpuResourceInfo gpu_resource_info = 4;
 }
 
 message EachModuleRequestOrReturnResourceInfo
@@ -46,9 +46,10 @@ message RegisterAck // cmd2
 
 message EachModuleResourceInfo
 {
-    required string ip = 1;
-    optional ResourceInfo resource_info = 2;
-	optional uint32 listen_port_num = 3;
+    required string start_module_name = 1;
+    required string ip = 2;
+    optional ResourceInfo resource_info = 3;
+    optional uint32 listen_port_num = 4;
 }
 
 message RequestStartSlave //cmd3
@@ -56,13 +57,13 @@ message RequestStartSlave //cmd3
     required FrameworkInstanceInfo framework_instance_info = 1;
     required uint32 self_module_id = 2;
     repeated EachModuleResourceInfo start_module_resource_info = 3;
-	optional NetAddress FWM_net_address = 4;
+    optional NetAddress FWM_net_address = 4;
 }
 
 message RequestStartSlaveAck //cmd4
 {
     required int32 statuscode = 1;
-	repeated uint32 module_id = 2;
+    repeated uint32 module_id = 2;
 }
 
 message RequestTaskResource
@@ -75,7 +76,7 @@ message RequestTaskResource
 message RequestTaskResourceAck
 {
     required int32 statuscode = 1;
-	repeated uint32 exceed_module_id = 2;
+    repeated uint32 exceed_module_id = 2;
 }
 
 message ReturnTaskResource
@@ -100,7 +101,7 @@ message StopModule //cmd5
 message StopModuleAck //cmd6
 {
     required int32 statuscode = 1;
-	repeated uint32 stop_module_id = 2;
+    repeated uint32 stop_module_id = 2;
 }
 
 message HeartBeatInfo //cmd7

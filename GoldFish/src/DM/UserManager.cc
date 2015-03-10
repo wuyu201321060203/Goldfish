@@ -126,7 +126,7 @@ void UserManager::verifyIdentity(TcpConnectionPtr const& conn , STDSTR name,
 #ifndef TEST
                     Token rawToken(username , authority , domainName , groupName);
                     STDSTR tokenStr(rawToken.toString());
-                    STDSTR tokenStr =
+                    tokenStr =
                         ( Initializer::getDesEcbAcceptor() )->encrypt(tokenStr);
                     _tokenList.push_back(tokenStr);
 #else

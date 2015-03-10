@@ -97,6 +97,7 @@ void RASTunnel::applyResource(STDSTR domainName , STDSTR domainDescription,
         apply.set_self_module_id(Initializer::getSelfModuleID());
 
         EachModuleResourceInfo* moduleResourceInfo = apply.add_start_module_resource_info();
+        moduleResourceInfo->set_start_module_name("/Goldfish/DC");
         moduleResourceInfo->set_ip("*");
         ResourceInfo* resourceInfo = moduleResourceInfo->mutable_resource_info();
         double coreNum = cpuNum;

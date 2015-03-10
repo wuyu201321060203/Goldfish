@@ -787,10 +787,21 @@ class EachModuleResourceInfo : public ::google::protobuf::Message {
   
   // accessors -------------------------------------------------------
   
-  // required string ip = 1;
+  // required string start_module_name = 1;
+  inline bool has_start_module_name() const;
+  inline void clear_start_module_name();
+  static const int kStartModuleNameFieldNumber = 1;
+  inline const ::std::string& start_module_name() const;
+  inline void set_start_module_name(const ::std::string& value);
+  inline void set_start_module_name(const char* value);
+  inline void set_start_module_name(const char* value, size_t size);
+  inline ::std::string* mutable_start_module_name();
+  inline ::std::string* release_start_module_name();
+  
+  // required string ip = 2;
   inline bool has_ip() const;
   inline void clear_ip();
-  static const int kIpFieldNumber = 1;
+  static const int kIpFieldNumber = 2;
   inline const ::std::string& ip() const;
   inline void set_ip(const ::std::string& value);
   inline void set_ip(const char* value);
@@ -798,23 +809,25 @@ class EachModuleResourceInfo : public ::google::protobuf::Message {
   inline ::std::string* mutable_ip();
   inline ::std::string* release_ip();
   
-  // optional .FwmRcProto.ResourceInfo resource_info = 2;
+  // optional .FwmRcProto.ResourceInfo resource_info = 3;
   inline bool has_resource_info() const;
   inline void clear_resource_info();
-  static const int kResourceInfoFieldNumber = 2;
+  static const int kResourceInfoFieldNumber = 3;
   inline const ::FwmRcProto::ResourceInfo& resource_info() const;
   inline ::FwmRcProto::ResourceInfo* mutable_resource_info();
   inline ::FwmRcProto::ResourceInfo* release_resource_info();
   
-  // optional uint32 listen_port_num = 3;
+  // optional uint32 listen_port_num = 4;
   inline bool has_listen_port_num() const;
   inline void clear_listen_port_num();
-  static const int kListenPortNumFieldNumber = 3;
+  static const int kListenPortNumFieldNumber = 4;
   inline ::google::protobuf::uint32 listen_port_num() const;
   inline void set_listen_port_num(::google::protobuf::uint32 value);
   
   // @@protoc_insertion_point(class_scope:FwmRcProto.EachModuleResourceInfo)
  private:
+  inline void set_has_start_module_name();
+  inline void clear_has_start_module_name();
   inline void set_has_ip();
   inline void clear_has_ip();
   inline void set_has_resource_info();
@@ -824,12 +837,13 @@ class EachModuleResourceInfo : public ::google::protobuf::Message {
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
+  ::std::string* start_module_name_;
   ::std::string* ip_;
   ::FwmRcProto::ResourceInfo* resource_info_;
   ::google::protobuf::uint32 listen_port_num_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
   
   friend void  protobuf_AddDesc_FwmRcProtocol_2eproto();
   friend void protobuf_AssignDesc_FwmRcProtocol_2eproto();
@@ -2473,15 +2487,73 @@ inline void RegisterAck::set_statuscode(::google::protobuf::int32 value) {
 
 // EachModuleResourceInfo
 
-// required string ip = 1;
-inline bool EachModuleResourceInfo::has_ip() const {
+// required string start_module_name = 1;
+inline bool EachModuleResourceInfo::has_start_module_name() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void EachModuleResourceInfo::set_has_ip() {
+inline void EachModuleResourceInfo::set_has_start_module_name() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void EachModuleResourceInfo::clear_has_ip() {
+inline void EachModuleResourceInfo::clear_has_start_module_name() {
   _has_bits_[0] &= ~0x00000001u;
+}
+inline void EachModuleResourceInfo::clear_start_module_name() {
+  if (start_module_name_ != &::google::protobuf::internal::kEmptyString) {
+    start_module_name_->clear();
+  }
+  clear_has_start_module_name();
+}
+inline const ::std::string& EachModuleResourceInfo::start_module_name() const {
+  return *start_module_name_;
+}
+inline void EachModuleResourceInfo::set_start_module_name(const ::std::string& value) {
+  set_has_start_module_name();
+  if (start_module_name_ == &::google::protobuf::internal::kEmptyString) {
+    start_module_name_ = new ::std::string;
+  }
+  start_module_name_->assign(value);
+}
+inline void EachModuleResourceInfo::set_start_module_name(const char* value) {
+  set_has_start_module_name();
+  if (start_module_name_ == &::google::protobuf::internal::kEmptyString) {
+    start_module_name_ = new ::std::string;
+  }
+  start_module_name_->assign(value);
+}
+inline void EachModuleResourceInfo::set_start_module_name(const char* value, size_t size) {
+  set_has_start_module_name();
+  if (start_module_name_ == &::google::protobuf::internal::kEmptyString) {
+    start_module_name_ = new ::std::string;
+  }
+  start_module_name_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* EachModuleResourceInfo::mutable_start_module_name() {
+  set_has_start_module_name();
+  if (start_module_name_ == &::google::protobuf::internal::kEmptyString) {
+    start_module_name_ = new ::std::string;
+  }
+  return start_module_name_;
+}
+inline ::std::string* EachModuleResourceInfo::release_start_module_name() {
+  clear_has_start_module_name();
+  if (start_module_name_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = start_module_name_;
+    start_module_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+
+// required string ip = 2;
+inline bool EachModuleResourceInfo::has_ip() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void EachModuleResourceInfo::set_has_ip() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void EachModuleResourceInfo::clear_has_ip() {
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void EachModuleResourceInfo::clear_ip() {
   if (ip_ != &::google::protobuf::internal::kEmptyString) {
@@ -2531,15 +2603,15 @@ inline ::std::string* EachModuleResourceInfo::release_ip() {
   }
 }
 
-// optional .FwmRcProto.ResourceInfo resource_info = 2;
+// optional .FwmRcProto.ResourceInfo resource_info = 3;
 inline bool EachModuleResourceInfo::has_resource_info() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void EachModuleResourceInfo::set_has_resource_info() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
 }
 inline void EachModuleResourceInfo::clear_has_resource_info() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void EachModuleResourceInfo::clear_resource_info() {
   if (resource_info_ != NULL) resource_info_->::FwmRcProto::ResourceInfo::Clear();
@@ -2560,15 +2632,15 @@ inline ::FwmRcProto::ResourceInfo* EachModuleResourceInfo::release_resource_info
   return temp;
 }
 
-// optional uint32 listen_port_num = 3;
+// optional uint32 listen_port_num = 4;
 inline bool EachModuleResourceInfo::has_listen_port_num() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void EachModuleResourceInfo::set_has_listen_port_num() {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
 }
 inline void EachModuleResourceInfo::clear_has_listen_port_num() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void EachModuleResourceInfo::clear_listen_port_num() {
   listen_port_num_ = 0u;

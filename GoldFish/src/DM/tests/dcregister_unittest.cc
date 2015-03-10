@@ -33,7 +33,7 @@ TEST(DCRegisterTest , RegisterTest)
     tmp->set_port(12345);
     MessagePtr msg(tmp);
     Timestamp time;
-    DMServer dm(&Initializer::getEventLoop() , Initializer::getOptions());
+    DMServer dm( Initializer::getOptions());
     DCRegister waiter(&dm);
     waiter.onMessage(conn , msg , time);
     sleep(3);

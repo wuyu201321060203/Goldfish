@@ -202,7 +202,8 @@ void protobuf_AssignDesc_FwmRcProtocol_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(RegisterAck));
   EachModuleResourceInfo_descriptor_ = file->message_type(7);
-  static const int EachModuleResourceInfo_offsets_[3] = {
+  static const int EachModuleResourceInfo_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleResourceInfo, start_module_name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleResourceInfo, ip_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleResourceInfo, resource_info_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EachModuleResourceInfo, listen_port_num_),
@@ -534,43 +535,44 @@ void protobuf_AddDesc_FwmRcProtocol_2eproto() {
     " \002(\0132!.FwmRcProto.FrameworkInstanceInfo\022"
     "\026\n\016self_module_id\030\002 \002(\r\0221\n\021data_search_e"
     "ntry\030\003 \001(\0132\026.FwmRcProto.NetAddress\"!\n\013Re"
-    "gisterAck\022\022\n\nstatuscode\030\001 \002(\005\"n\n\026EachMod"
-    "uleResourceInfo\022\n\n\002ip\030\001 \002(\t\022/\n\rresource_"
-    "info\030\002 \001(\0132\030.FwmRcProto.ResourceInfo\022\027\n\017"
-    "listen_port_num\030\003 \001(\r\"\350\001\n\021RequestStartSl"
-    "ave\022B\n\027framework_instance_info\030\001 \002(\0132!.F"
-    "wmRcProto.FrameworkInstanceInfo\022\026\n\016self_"
-    "module_id\030\002 \002(\r\022F\n\032start_module_resource"
-    "_info\030\003 \003(\0132\".FwmRcProto.EachModuleResou"
-    "rceInfo\022/\n\017FWM_net_address\030\004 \001(\0132\026.FwmRc"
-    "Proto.NetAddress\"=\n\024RequestStartSlaveAck"
-    "\022\022\n\nstatuscode\030\001 \002(\005\022\021\n\tmodule_id\030\002 \003(\r\""
-    "\306\001\n\023RequestTaskResource\022B\n\027framework_ins"
-    "tance_info\030\001 \002(\0132!.FwmRcProto.FrameworkI"
-    "nstanceInfo\022\026\n\016self_module_id\030\002 \002(\r\022S\n\030m"
-    "odule_add_resource_info\030\003 \003(\01321.FwmRcPro"
-    "to.EachModuleRequestOrReturnResourceInfo"
-    "\"F\n\026RequestTaskResourceAck\022\022\n\nstatuscode"
-    "\030\001 \002(\005\022\030\n\020exceed_module_id\030\002 \003(\r\"\310\001\n\022Ret"
-    "urnTaskResource\022B\n\027framework_instance_in"
-    "fo\030\001 \002(\0132!.FwmRcProto.FrameworkInstanceI"
-    "nfo\022\026\n\016self_module_id\030\002 \002(\r\022V\n\033module_re"
-    "turn_resource_info\030\003 \003(\01321.FwmRcProto.Ea"
-    "chModuleRequestOrReturnResourceInfo\"+\n\025R"
-    "eturnTaskResourceAck\022\022\n\nstatuscode\030\001 \002(\005"
-    "\"\200\001\n\nStopModule\022B\n\027framework_instance_in"
-    "fo\030\001 \002(\0132!.FwmRcProto.FrameworkInstanceI"
-    "nfo\022\026\n\016self_module_id\030\002 \002(\r\022\026\n\016stop_modu"
-    "le_id\030\003 \003(\r\";\n\rStopModuleAck\022\022\n\nstatusco"
-    "de\030\001 \002(\005\022\026\n\016stop_module_id\030\002 \003(\r\"k\n\rHear"
-    "tBeatInfo\022B\n\027framework_instance_info\030\001 \002"
-    "(\0132!.FwmRcProto.FrameworkInstanceInfo\022\026\n"
-    "\016self_module_id\030\002 \002(\r\"&\n\020HeartBeatInfoAc"
-    "k\022\022\n\nstatuscode\030\001 \002(\005\"x\n\032CloseFrameworkI"
-    "nstanceInfo\022B\n\027framework_instance_info\030\001"
+    "gisterAck\022\022\n\nstatuscode\030\001 \002(\005\"\211\001\n\026EachMo"
+    "duleResourceInfo\022\031\n\021start_module_name\030\001 "
+    "\002(\t\022\n\n\002ip\030\002 \002(\t\022/\n\rresource_info\030\003 \001(\0132\030"
+    ".FwmRcProto.ResourceInfo\022\027\n\017listen_port_"
+    "num\030\004 \001(\r\"\350\001\n\021RequestStartSlave\022B\n\027frame"
+    "work_instance_info\030\001 \002(\0132!.FwmRcProto.Fr"
+    "ameworkInstanceInfo\022\026\n\016self_module_id\030\002 "
+    "\002(\r\022F\n\032start_module_resource_info\030\003 \003(\0132"
+    "\".FwmRcProto.EachModuleResourceInfo\022/\n\017F"
+    "WM_net_address\030\004 \001(\0132\026.FwmRcProto.NetAdd"
+    "ress\"=\n\024RequestStartSlaveAck\022\022\n\nstatusco"
+    "de\030\001 \002(\005\022\021\n\tmodule_id\030\002 \003(\r\"\306\001\n\023RequestT"
+    "askResource\022B\n\027framework_instance_info\030\001"
     " \002(\0132!.FwmRcProto.FrameworkInstanceInfo\022"
-    "\026\n\016self_module_id\030\002 \002(\r\"3\n\035CloseFramewor"
-    "kInstanceInfoAck\022\022\n\nstatuscode\030\001 \002(\005", 2116);
+    "\026\n\016self_module_id\030\002 \002(\r\022S\n\030module_add_re"
+    "source_info\030\003 \003(\01321.FwmRcProto.EachModul"
+    "eRequestOrReturnResourceInfo\"F\n\026RequestT"
+    "askResourceAck\022\022\n\nstatuscode\030\001 \002(\005\022\030\n\020ex"
+    "ceed_module_id\030\002 \003(\r\"\310\001\n\022ReturnTaskResou"
+    "rce\022B\n\027framework_instance_info\030\001 \002(\0132!.F"
+    "wmRcProto.FrameworkInstanceInfo\022\026\n\016self_"
+    "module_id\030\002 \002(\r\022V\n\033module_return_resourc"
+    "e_info\030\003 \003(\01321.FwmRcProto.EachModuleRequ"
+    "estOrReturnResourceInfo\"+\n\025ReturnTaskRes"
+    "ourceAck\022\022\n\nstatuscode\030\001 \002(\005\"\200\001\n\nStopMod"
+    "ule\022B\n\027framework_instance_info\030\001 \002(\0132!.F"
+    "wmRcProto.FrameworkInstanceInfo\022\026\n\016self_"
+    "module_id\030\002 \002(\r\022\026\n\016stop_module_id\030\003 \003(\r\""
+    ";\n\rStopModuleAck\022\022\n\nstatuscode\030\001 \002(\005\022\026\n\016"
+    "stop_module_id\030\002 \003(\r\"k\n\rHeartBeatInfo\022B\n"
+    "\027framework_instance_info\030\001 \002(\0132!.FwmRcPr"
+    "oto.FrameworkInstanceInfo\022\026\n\016self_module"
+    "_id\030\002 \002(\r\"&\n\020HeartBeatInfoAck\022\022\n\nstatusc"
+    "ode\030\001 \002(\005\"x\n\032CloseFrameworkInstanceInfo\022"
+    "B\n\027framework_instance_info\030\001 \002(\0132!.FwmRc"
+    "Proto.FrameworkInstanceInfo\022\026\n\016self_modu"
+    "le_id\030\002 \002(\r\"3\n\035CloseFrameworkInstanceInf"
+    "oAck\022\022\n\nstatuscode\030\001 \002(\005", 2144);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "FwmRcProtocol.proto", &protobuf_RegisterTypes);
   FrameworkInstanceInfo::default_instance_ = new FrameworkInstanceInfo();
@@ -2502,6 +2504,7 @@ void RegisterAck::Swap(RegisterAck* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int EachModuleResourceInfo::kStartModuleNameFieldNumber;
 const int EachModuleResourceInfo::kIpFieldNumber;
 const int EachModuleResourceInfo::kResourceInfoFieldNumber;
 const int EachModuleResourceInfo::kListenPortNumFieldNumber;
@@ -2524,6 +2527,7 @@ EachModuleResourceInfo::EachModuleResourceInfo(const EachModuleResourceInfo& fro
 
 void EachModuleResourceInfo::SharedCtor() {
   _cached_size_ = 0;
+  start_module_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   resource_info_ = NULL;
   listen_port_num_ = 0u;
@@ -2535,6 +2539,9 @@ EachModuleResourceInfo::~EachModuleResourceInfo() {
 }
 
 void EachModuleResourceInfo::SharedDtor() {
+  if (start_module_name_ != &::google::protobuf::internal::kEmptyString) {
+    delete start_module_name_;
+  }
   if (ip_ != &::google::protobuf::internal::kEmptyString) {
     delete ip_;
   }
@@ -2565,6 +2572,11 @@ EachModuleResourceInfo* EachModuleResourceInfo::New() const {
 
 void EachModuleResourceInfo::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (has_start_module_name()) {
+      if (start_module_name_ != &::google::protobuf::internal::kEmptyString) {
+        start_module_name_->clear();
+      }
+    }
     if (has_ip()) {
       if (ip_ != &::google::protobuf::internal::kEmptyString) {
         ip_->clear();
@@ -2585,10 +2597,27 @@ bool EachModuleResourceInfo::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required string ip = 1;
+      // required string start_module_name = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_start_module_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->start_module_name().data(), this->start_module_name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_ip;
+        break;
+      }
+      
+      // required string ip = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_ip:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_ip()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8String(
@@ -2597,12 +2626,12 @@ bool EachModuleResourceInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_resource_info;
+        if (input->ExpectTag(26)) goto parse_resource_info;
         break;
       }
       
-      // optional .FwmRcProto.ResourceInfo resource_info = 2;
-      case 2: {
+      // optional .FwmRcProto.ResourceInfo resource_info = 3;
+      case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_resource_info:
@@ -2611,12 +2640,12 @@ bool EachModuleResourceInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(24)) goto parse_listen_port_num;
+        if (input->ExpectTag(32)) goto parse_listen_port_num;
         break;
       }
       
-      // optional uint32 listen_port_num = 3;
-      case 3: {
+      // optional uint32 listen_port_num = 4;
+      case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_listen_port_num:
@@ -2649,24 +2678,33 @@ bool EachModuleResourceInfo::MergePartialFromCodedStream(
 
 void EachModuleResourceInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required string ip = 1;
+  // required string start_module_name = 1;
+  if (has_start_module_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->start_module_name().data(), this->start_module_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      1, this->start_module_name(), output);
+  }
+  
+  // required string ip = 2;
   if (has_ip()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->ip().data(), this->ip().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      1, this->ip(), output);
+      2, this->ip(), output);
   }
   
-  // optional .FwmRcProto.ResourceInfo resource_info = 2;
+  // optional .FwmRcProto.ResourceInfo resource_info = 3;
   if (has_resource_info()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->resource_info(), output);
+      3, this->resource_info(), output);
   }
   
-  // optional uint32 listen_port_num = 3;
+  // optional uint32 listen_port_num = 4;
   if (has_listen_port_num()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->listen_port_num(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->listen_port_num(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -2677,26 +2715,36 @@ void EachModuleResourceInfo::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* EachModuleResourceInfo::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required string ip = 1;
+  // required string start_module_name = 1;
+  if (has_start_module_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->start_module_name().data(), this->start_module_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->start_module_name(), target);
+  }
+  
+  // required string ip = 2;
   if (has_ip()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->ip().data(), this->ip().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->ip(), target);
+        2, this->ip(), target);
   }
   
-  // optional .FwmRcProto.ResourceInfo resource_info = 2;
+  // optional .FwmRcProto.ResourceInfo resource_info = 3;
   if (has_resource_info()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        2, this->resource_info(), target);
+        3, this->resource_info(), target);
   }
   
-  // optional uint32 listen_port_num = 3;
+  // optional uint32 listen_port_num = 4;
   if (has_listen_port_num()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->listen_port_num(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->listen_port_num(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -2710,21 +2758,28 @@ int EachModuleResourceInfo::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required string ip = 1;
+    // required string start_module_name = 1;
+    if (has_start_module_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->start_module_name());
+    }
+    
+    // required string ip = 2;
     if (has_ip()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->ip());
     }
     
-    // optional .FwmRcProto.ResourceInfo resource_info = 2;
+    // optional .FwmRcProto.ResourceInfo resource_info = 3;
     if (has_resource_info()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->resource_info());
     }
     
-    // optional uint32 listen_port_num = 3;
+    // optional uint32 listen_port_num = 4;
     if (has_listen_port_num()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -2758,6 +2813,9 @@ void EachModuleResourceInfo::MergeFrom(const ::google::protobuf::Message& from) 
 void EachModuleResourceInfo::MergeFrom(const EachModuleResourceInfo& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_start_module_name()) {
+      set_start_module_name(from.start_module_name());
+    }
     if (from.has_ip()) {
       set_ip(from.ip());
     }
@@ -2784,7 +2842,7 @@ void EachModuleResourceInfo::CopyFrom(const EachModuleResourceInfo& from) {
 }
 
 bool EachModuleResourceInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   
   if (has_resource_info()) {
     if (!this->resource_info().IsInitialized()) return false;
@@ -2794,6 +2852,7 @@ bool EachModuleResourceInfo::IsInitialized() const {
 
 void EachModuleResourceInfo::Swap(EachModuleResourceInfo* other) {
   if (other != this) {
+    std::swap(start_module_name_, other->start_module_name_);
     std::swap(ip_, other->ip_);
     std::swap(resource_info_, other->resource_info_);
     std::swap(listen_port_num_, other->listen_port_num_);

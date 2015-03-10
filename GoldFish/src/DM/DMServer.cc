@@ -19,7 +19,7 @@ static PongMsg pong;
 using namespace muduo;
 using namespace muduo::net;
 
-DMServer::DMServer(EventLoop* loop , Options const& options)
+DMServer::DMServer(Options const& options)
     :_userInfoHandler(new UserInfoService),
      _groupInfoHandler(new GroupInfoService),
      _importConfigHandler(new DbAcceptor),

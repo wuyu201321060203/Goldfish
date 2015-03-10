@@ -22,7 +22,7 @@ int main(int argc , char** argv)
 #ifdef TEST
     muduo::Logger::setOutput(asyncOutput);
 #endif
-    DMServer dmServer( &Initializer::getEventLoop() , Initializer::getOptions() );
+    DMServer dmServer( Initializer::getOptions() );
     dmServer.start();
     ( Initializer::getEventLoop() ).loop();
     //never get here
