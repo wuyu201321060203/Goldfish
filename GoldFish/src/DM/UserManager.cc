@@ -62,7 +62,6 @@ void UserManager::onVerifyEncryptedToken(TcpConnectionPtr const& conn,
                                          MessagePtr const& msg,
                                          muduo::Timestamp)
 {
-
     TokenIdentifyMsgPtr apply = muduo::down_pointer_cast<TokenIdentifyMsg>(msg);
     STDSTR token = apply->encryptedtoken();
     TokenVec::iterator ptr = std::find(_tokenList.begin() , _tokenList.end() , token);
