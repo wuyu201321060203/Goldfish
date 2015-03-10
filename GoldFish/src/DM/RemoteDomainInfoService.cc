@@ -67,7 +67,7 @@ void RemoteDomainInfoService::onCreateInfo(TcpConnectionPtr const& conn,
     DomainCreateMsgPtr query = muduo::down_pointer_cast<DomainCreateMsg>(msg);
     std::string tmp = query->token();
 #ifndef TEST
-    ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+    tmp = ( Initializer::getDesEcbAcceptor() )->decode(tmp);
 #endif
     Token token(tmp);
     if( token.niuXThanDomainAdmin() )
@@ -86,7 +86,7 @@ void RemoteDomainInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
     DomainDestroyMsgPtr query = muduo::down_pointer_cast<DomainDestroyMsg>(msg);
     std::string tmp = query->token();
 #ifndef TEST
-    ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+    tmp = ( Initializer::getDesEcbAcceptor() )->decode(tmp);
 #endif
     Token token(tmp);
     if( token.niuXThanDomainAdmin() )
@@ -105,7 +105,7 @@ void RemoteDomainInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
     DomainInfoUpdateMsgPtr query = muduo::down_pointer_cast<DomainInfoUpdateMsg>(msg);
     std::string tmp = query->token();
 #ifndef TEST
-    ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+    tmp = ( Initializer::getDesEcbAcceptor() )->decode(tmp);
 #endif
     Token token(tmp);
     if(token.niuXThanGroupAdmin())
@@ -127,7 +127,7 @@ void RemoteDomainInfoService::onGetInfo(TcpConnectionPtr const& conn,
     DomainInfoGetMsgPtr query = muduo::down_pointer_cast<DomainInfoGetMsg>(msg);
     std::string tmp = query->token();
 #ifndef TEST
-    ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+    tmp = ( Initializer::getDesEcbAcceptor() )->decode(tmp);
 #endif
     Token token(tmp);
     std::string domainName = token.getDomain();

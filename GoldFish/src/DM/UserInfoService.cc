@@ -64,7 +64,7 @@ void UserInfoService::onCreateInfo(TcpConnectionPtr const& conn,
     UserCreateMsgPtr query = muduo::down_pointer_cast<UserCreateMsg>(msg);
     STDSTR tmp = query->token();
 #ifndef TEST
-    ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+    tmp = ( Initializer::getDesEcbAcceptor() )->decode(tmp);
 #endif
     Token token(tmp);
     if(token.niuXThanCommonUser())
@@ -88,7 +88,7 @@ void UserInfoService::onDeleteInfo(TcpConnectionPtr const& conn,
     UserDestroyMsgPtr query = muduo::down_pointer_cast<UserDestroyMsg>(msg);
     STDSTR tmp = query->token();
 #ifndef TEST
-    ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+    tmp = ( Initializer::getDesEcbAcceptor() )->decode(tmp);
 #endif
     Token token(tmp);
     if(token.niuXThanCommonUser())
@@ -108,7 +108,7 @@ void UserInfoService::onUpdateInfo(TcpConnectionPtr const& conn,
     UserInfoUpdateMsgPtr query = muduo::down_pointer_cast<UserInfoUpdateMsg>(msg);
     STDSTR tmp = query->token();
 #ifndef TEST
-    ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+    tmp = ( Initializer::getDesEcbAcceptor() )->decode(tmp);
 #endif
     Token token(tmp);
     STDSTR userName = token.getUserName();
@@ -124,7 +124,7 @@ void UserInfoService::onGetInfo(TcpConnectionPtr const& conn,
     UserInfoGetMsgPtr query = muduo::down_pointer_cast<UserInfoGetMsg>(msg);
     STDSTR tmp = query->token();
 #ifndef TEST
-    ( Initializer::getDesEcbAcceptor() )->decode(tmp);
+    tmp = ( Initializer::getDesEcbAcceptor() )->decode(tmp);
 #endif
     Token token(tmp);
     (Initializer::getThreadPool()).run(boost::bind(&UserInfoService::doGetUserInfo,

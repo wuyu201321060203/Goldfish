@@ -8,7 +8,7 @@ using namespace muduo::net;
 
 int main(void)
 {
-    InetAddress addr("127.0.0.1" , 9877);
+    InetAddress addr("192.168.1.126" , 9877);
     RASServer server(&Initializer::getEventLoop() , addr);
     server.start();
     ( Initializer::getEventLoop() ).loop();

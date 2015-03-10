@@ -19,10 +19,11 @@ int main(int argc , char** argv)
     AsyncLogging log(::basename(name), ROLL_SIZE);
     log.start();
     g_asyncLog = &log;
+#ifdef TEST
     muduo::Logger::setOutput(asyncOutput);
+#endif
     DMServer dmServer( &Initializer::getEventLoop() , Initializer::getOptions() );
     dmServer.start();
-    LOG_INFO << "test success";
     ( Initializer::getEventLoop() ).loop();
     //never get here
     return 0;

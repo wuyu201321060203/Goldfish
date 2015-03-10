@@ -62,6 +62,7 @@ void UserManager::onVerifyEncryptedToken(TcpConnectionPtr const& conn,
                                          MessagePtr const& msg,
                                          muduo::Timestamp)
 {
+
     TokenIdentifyMsgPtr apply = muduo::down_pointer_cast<TokenIdentifyMsg>(msg);
     STDSTR token = apply->encryptedtoken();
     TokenVec::iterator ptr = std::find(_tokenList.begin() , _tokenList.end() , token);
@@ -70,7 +71,7 @@ void UserManager::onVerifyEncryptedToken(TcpConnectionPtr const& conn,
     {
         reply.set_statuscode(SUCCESS);
 #ifndef TEST
-        ( Initializer::getDesEcbAcceptor() )->decode(token);
+        token = ( Initializer::getDesEcbAcceptor() )->decode(token);
 #endif
         reply.set_rawtoken(token);
         _tokenList.erase(ptr);
@@ -126,7 +127,8 @@ void UserManager::verifyIdentity(TcpConnectionPtr const& conn , STDSTR name,
 #ifndef TEST
                     Token rawToken(username , authority , domainName , groupName);
                     STDSTR tokenStr(rawToken.toString());
-                    ( Initializer::getDesEcbAcceptor() )->encrypt(tokenStr);
+                    STDSTR tokenStr =
+                        ( Initializer::getDesEcbAcceptor() )->encrypt(tokenStr);
                     _tokenList.push_back(tokenStr);
 #else
                     STDSTR tokenStr("helloworld");

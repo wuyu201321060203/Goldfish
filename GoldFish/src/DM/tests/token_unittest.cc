@@ -1,5 +1,7 @@
 #include <DM/Token.h>
 #include <DM/Initializer.h>
+#include <DM/DesEcbService.h>
+#include <DM/CryptographicService.h>
 #include <Db/ConnectionPool.h>
 #include <Db/ResultSet.h>
 #include <mysql/MysqlConnection.h>
@@ -9,6 +11,7 @@
 #include <boost/lexical_cast.hpp>
 
 #include <stdexcept>
+#include <iostream>
 
 #include "gtest/gtest.h"
 
@@ -225,4 +228,24 @@ TEST(TokenTest , equalTest)
     STDSTR username2("ddsb");
     Token token4(username2 , identity1 , belong2Domain1 , belong2Group1);
     EXPECT_TRUE(false == (token1 == token4));
+}
+
+TEST(TokenTest , tokenDesEcbTest)
+{
+    STDSTR username("ddcnmb");
+    STDSTR belong2Domain("domain1");
+    STDSTR belong2Group("group1");
+    unsigned int identity = 0b00000000;
+    Token token(username , identity , belong2Domain , belong2Group);
+    DesEcbService service;
+    STDSTR tokenStr = token.toString();
+    tokenStr = service.encrypt(tokenStr);
+    std::cout << "token test after encrypt: " << tokenStr << "\n";
+    tokenStr = service.decode(tokenStr);
+    std::cout << "token test after decode: " << tokenStr << "\n";
+    Token des(tokenStr);
+    EXPECT_TRUE("ddcnmb" == des.getUserName());
+    EXPECT_TRUE("domain1" == des.getDomain());
+    EXPECT_TRUE("group1" == des.getGroup());
+    EXPECT_TRUE("00000000" == des.getIdentity());
 }
