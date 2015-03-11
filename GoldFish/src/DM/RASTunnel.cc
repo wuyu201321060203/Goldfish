@@ -234,6 +234,9 @@ void RASTunnel::register2RAS(TcpConnectionPtr const& conn)
     instanceInfo->set_framework_id(Initializer::getFrameworkID());
     instanceInfo->set_framework_instance_id(Initializer::getFrameworkInstanceID());
     msg.set_self_module_id(Initializer::getSelfModuleID());
+    NetAddress* addr = msg.mutable_data_search_entry();
+    addr->set_ip(Initializer::getSelfIP());
+    addr->set_port(Initializer::getCliPort());
     _rasCodec.send(conn , msg);
 }
 
