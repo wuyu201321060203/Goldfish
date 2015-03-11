@@ -42,14 +42,24 @@ void DCRegister::doRegister(muduo::net::TcpConnectionPtr const& conn,
     reply.set_statuscode(SUCCESS);
     try
     {
-        dbConn->execute("update DOMAIN_INFO set IP = '%s', Port = '%d' where \
-            id = '%d'" , ip.c_str() , port , moduleID);
         ResultSetPtr ret = dbConn->executeQuery("select name from DOMAIN_INFO \
             where id = '%d'" , moduleID);
+
         if(ret->next())
+        {
             reply.set_domainname(ret->getString(1));
+            dbConn->execute("update DOMAIN_INFO set IP = '%s', Port = '%d' where \
+                id = '%d'" , ip.c_str() , port , moduleID);
+#ifndef TEST
+            (_dm->_dbInfoHandler)->addDCConn(conn);
+            (_dm->_sysInfoHandler)->addDCConn(conn);
+            (_dm->_dcManager).delegateTimerTask(2 , 10 , 3,
+                boost::bind(&DMServer::onTimeout , _dm , _1) , conn);
+#endif
+        }
         else
-            reply.set_domainname("UNKONWN-DOMAIN");
+            reply.set_statuscode(UNEXISTED_DOMAIN);
+
     }
     catch(SQLException const& e)
     {
@@ -60,11 +70,6 @@ void DCRegister::doRegister(muduo::net::TcpConnectionPtr const& conn,
     }
     dbConn->close();
 #ifndef TEST
-    (_dm->_dbInfoHandler)->addDCConn(conn);
-    (_dm->_sysInfoHandler)->addDCConn(conn);
-    (_dm->_dcManager).delegateTimerTask(2 , 10 , 3,
-        boost::bind(&DMServer::onTimeout , _dm , _1) , conn);
-
     ( Initializer::getCodec()  ).send(conn , reply);
 #endif
 }

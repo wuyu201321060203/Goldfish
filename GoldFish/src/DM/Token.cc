@@ -1,9 +1,7 @@
 #include <DM/Token.h>
 #include <DM/Config.h>
 
-#ifdef DMDEBUG
 #include <muduo/base/Logging.h>
-#endif
 
 #include <boost/lexical_cast.hpp>
 #include <boost/tokenizer.hpp>
@@ -49,12 +47,19 @@ Token::Token(STDSTR token):_token(token)
         temp.pop_back();
     if( ( temp.size() > TOKEN_ITEM_NUM) ) throw out_of_range("unknown token style");
     int pos = 0;
-    _username = temp.at(pos++);
-    std::bitset<IDENTITY_WIDTH> muddy( temp.at(pos++) );
-    _identity = muddy;
-    _belong2Domain = temp.at(pos++);
-    _belong2Group = temp.at(pos++);
-    _checkSum = temp.at(pos++);
+    try
+    {
+        _username = temp.at(pos++);
+        std::bitset<IDENTITY_WIDTH> muddy( temp.at(pos++) );
+        _identity = muddy;
+        _belong2Domain = temp.at(pos++);
+        _belong2Group = temp.at(pos++);
+        _checkSum = temp.at(pos++);
+    }
+    catch(std::out_of_range const& e)
+    {
+        LOG_INFO << "unknown token: " << _token;
+    }
 }
 
 STDSTR Token::toString()

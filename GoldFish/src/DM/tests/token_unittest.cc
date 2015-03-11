@@ -55,11 +55,18 @@ TEST(TokenTest , SecConstructTest)
     EXPECT_EQ("domain1" , sample.getDomain());
     EXPECT_EQ("group1" , sample.getGroup());
     STDSTR fake2("a\r\nb\r\nc\r\nd\r\ne\r\nf\r\ng\r\n");
+    STDSTR fake3("a\r\n");
     EXPECT_THROW(
     {
         Token wrongToken(fake2);
     } , out_of_range
     );
+    EXPECT_NO_THROW(
+    {
+        Token wrongToken(fake3);
+    }
+    );
+
 }
 
 TEST(TokenTest , AnotherSecConstructTest)
