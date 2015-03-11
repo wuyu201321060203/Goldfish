@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <cassert>
+#include <iostream>
+#include <string>
 
 #include <boost/bind.hpp>
 #include <boost/program_options.hpp>
@@ -18,6 +20,7 @@
 #include <DM/ProtobufDispatcher.h>
 #include <DM/Token.h>
 #include <DM/Initializer.h>
+#include <DM/DesEcbService.h>
 
 using namespace muduo;
 using namespace muduo::net;
@@ -37,7 +40,7 @@ public:
             &dispatcher_, _1 , _2 , _3))
     {
         dispatcher_.registerMessageCallback(
-            DomainCreateACK::descriptor(),
+            DomainDbInfoGetACK::descriptor(),
             boost::bind(&DMClient::onMessage , this , _1 , _2 , _3));
 
         client_.setConnectionCallback(
@@ -62,16 +65,16 @@ private:
 
         if (conn->connected())
         {
-            GroupCreateMsg apply;
+            CrossDbInfoGetMsg apply;
             STDSTR username("ddcnmb");
             STDSTR userBelong2Domain("*");
             STDSTR userBelong2Group("*");
             unsigned int identity = 0b00000000;
             Token token(username , identity , userBelong2Domain , userBelong2Group);
+            DesEcbService service;
+            //STDSTR tokenStr = service.encrypt(token.toString());
+            std::string x = token.toString();
             apply.set_token(token.toString());
-            apply.set_groupname("net");
-            apply.set_groupdescription("net");
-            apply.set_belong2domain("domain1");
             codec_.send(conn , apply);
         }
     }
@@ -79,8 +82,16 @@ private:
     void onMessage(TcpConnectionPtr const& conn, MessagePtr const& msg, Timestamp time)
     {
         LOG_TRACE << conn->name() << " recv " << msg->ByteSize() << " bytes at " << time.toString();
-        GroupCreateACKPtr respond = muduo::down_pointer_cast<GroupCreateACK>(msg);
-        assert(respond->statuscode() == 0);
+        DomainDbInfoGetACKPtr respond = muduo::down_pointer_cast<DomainDbInfoGetACK>(msg);
+        std::cout << "#########################\n";
+        std::cout << "domainname: " << (respond->domaindbinfo()).domainname() << "\n";
+        std::cout << "groupname: " << (respond->domaindbinfo()).ddbinfo(0).groupname() << "\n";
+        std::cout << "dbnamename: " << (respond->domaindbinfo()).ddbinfo(0).gdbinfo(0).dbname() << "\n";
+        std::cout << "rownum: " << (respond->domaindbinfo()).ddbinfo(0).gdbinfo(0).tbinfo(0).rownum() << "\n";
+        std::cout << "tbsize: " << (respond->domaindbinfo()).ddbinfo(0).gdbinfo(0).tbinfo(0).tbsize() << "\n";
+        std::cout << "columnname: " << (respond->domaindbinfo()).ddbinfo(0).gdbinfo(0).tbinfo(0).columninfo(0).columnname() << "\n";
+        std::cout << "columntype: " << (respond->domaindbinfo()).ddbinfo(0).gdbinfo(0).tbinfo(0).columninfo(0).columnname() << "\n";
+        std::cout << "#########################\n";
     }
 
     void onUnknownMessage(TcpConnectionPtr const& conn,

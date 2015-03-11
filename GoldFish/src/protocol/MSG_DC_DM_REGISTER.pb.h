@@ -202,17 +202,31 @@ class MSG_DM_DC_REGISTER_ACK : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 statuscode() const;
   inline void set_statuscode(::google::protobuf::int32 value);
   
+  // optional string domainName = 2;
+  inline bool has_domainname() const;
+  inline void clear_domainname();
+  static const int kDomainNameFieldNumber = 2;
+  inline const ::std::string& domainname() const;
+  inline void set_domainname(const ::std::string& value);
+  inline void set_domainname(const char* value);
+  inline void set_domainname(const char* value, size_t size);
+  inline ::std::string* mutable_domainname();
+  inline ::std::string* release_domainname();
+  
   // @@protoc_insertion_point(class_scope:MSG_DM_DC_REGISTER_ACK)
  private:
   inline void set_has_statuscode();
   inline void clear_has_statuscode();
+  inline void set_has_domainname();
+  inline void clear_has_domainname();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
+  ::std::string* domainname_;
   ::google::protobuf::int32 statuscode_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
   
   friend void  protobuf_AddDesc_MSG_5fDC_5fDM_5fREGISTER_2eproto();
   friend void protobuf_AssignDesc_MSG_5fDC_5fDM_5fREGISTER_2eproto();
@@ -354,6 +368,64 @@ inline ::google::protobuf::int32 MSG_DM_DC_REGISTER_ACK::statuscode() const {
 inline void MSG_DM_DC_REGISTER_ACK::set_statuscode(::google::protobuf::int32 value) {
   set_has_statuscode();
   statuscode_ = value;
+}
+
+// optional string domainName = 2;
+inline bool MSG_DM_DC_REGISTER_ACK::has_domainname() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void MSG_DM_DC_REGISTER_ACK::set_has_domainname() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void MSG_DM_DC_REGISTER_ACK::clear_has_domainname() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void MSG_DM_DC_REGISTER_ACK::clear_domainname() {
+  if (domainname_ != &::google::protobuf::internal::kEmptyString) {
+    domainname_->clear();
+  }
+  clear_has_domainname();
+}
+inline const ::std::string& MSG_DM_DC_REGISTER_ACK::domainname() const {
+  return *domainname_;
+}
+inline void MSG_DM_DC_REGISTER_ACK::set_domainname(const ::std::string& value) {
+  set_has_domainname();
+  if (domainname_ == &::google::protobuf::internal::kEmptyString) {
+    domainname_ = new ::std::string;
+  }
+  domainname_->assign(value);
+}
+inline void MSG_DM_DC_REGISTER_ACK::set_domainname(const char* value) {
+  set_has_domainname();
+  if (domainname_ == &::google::protobuf::internal::kEmptyString) {
+    domainname_ = new ::std::string;
+  }
+  domainname_->assign(value);
+}
+inline void MSG_DM_DC_REGISTER_ACK::set_domainname(const char* value, size_t size) {
+  set_has_domainname();
+  if (domainname_ == &::google::protobuf::internal::kEmptyString) {
+    domainname_ = new ::std::string;
+  }
+  domainname_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* MSG_DM_DC_REGISTER_ACK::mutable_domainname() {
+  set_has_domainname();
+  if (domainname_ == &::google::protobuf::internal::kEmptyString) {
+    domainname_ = new ::std::string;
+  }
+  return domainname_;
+}
+inline ::std::string* MSG_DM_DC_REGISTER_ACK::release_domainname() {
+  clear_has_domainname();
+  if (domainname_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = domainname_;
+    domainname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
 }
 
 

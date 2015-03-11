@@ -49,8 +49,9 @@ void protobuf_AssignDesc_MSG_5fDC_5fDM_5fREGISTER_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(MSG_DC_DM_REGISTER));
   MSG_DM_DC_REGISTER_ACK_descriptor_ = file->message_type(1);
-  static const int MSG_DM_DC_REGISTER_ACK_offsets_[1] = {
+  static const int MSG_DM_DC_REGISTER_ACK_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_DC_REGISTER_ACK, statuscode_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MSG_DM_DC_REGISTER_ACK, domainname_),
   };
   MSG_DM_DC_REGISTER_ACK_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -99,8 +100,8 @@ void protobuf_AddDesc_MSG_5fDC_5fDM_5fREGISTER_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\030MSG_DC_DM_REGISTER.proto\"@\n\022MSG_DC_DM_"
     "REGISTER\022\020\n\010moduleID\030\001 \001(\r\022\n\n\002IP\030\002 \001(\t\022\014"
-    "\n\004port\030\003 \001(\r\",\n\026MSG_DM_DC_REGISTER_ACK\022\022"
-    "\n\nstatusCode\030\001 \001(\005", 138);
+    "\n\004port\030\003 \001(\r\"@\n\026MSG_DM_DC_REGISTER_ACK\022\022"
+    "\n\nstatusCode\030\001 \001(\005\022\022\n\ndomainName\030\002 \001(\t", 158);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MSG_DC_DM_REGISTER.proto", &protobuf_RegisterTypes);
   MSG_DC_DM_REGISTER::default_instance_ = new MSG_DC_DM_REGISTER();
@@ -426,6 +427,7 @@ void MSG_DC_DM_REGISTER::Swap(MSG_DC_DM_REGISTER* other) {
 
 #ifndef _MSC_VER
 const int MSG_DM_DC_REGISTER_ACK::kStatusCodeFieldNumber;
+const int MSG_DM_DC_REGISTER_ACK::kDomainNameFieldNumber;
 #endif  // !_MSC_VER
 
 MSG_DM_DC_REGISTER_ACK::MSG_DM_DC_REGISTER_ACK()
@@ -445,6 +447,7 @@ MSG_DM_DC_REGISTER_ACK::MSG_DM_DC_REGISTER_ACK(const MSG_DM_DC_REGISTER_ACK& fro
 void MSG_DM_DC_REGISTER_ACK::SharedCtor() {
   _cached_size_ = 0;
   statuscode_ = 0;
+  domainname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -453,6 +456,9 @@ MSG_DM_DC_REGISTER_ACK::~MSG_DM_DC_REGISTER_ACK() {
 }
 
 void MSG_DM_DC_REGISTER_ACK::SharedDtor() {
+  if (domainname_ != &::google::protobuf::internal::kEmptyString) {
+    delete domainname_;
+  }
   if (this != default_instance_) {
   }
 }
@@ -480,6 +486,11 @@ MSG_DM_DC_REGISTER_ACK* MSG_DM_DC_REGISTER_ACK::New() const {
 void MSG_DM_DC_REGISTER_ACK::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     statuscode_ = 0;
+    if (has_domainname()) {
+      if (domainname_ != &::google::protobuf::internal::kEmptyString) {
+        domainname_->clear();
+      }
+    }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -499,6 +510,23 @@ bool MSG_DM_DC_REGISTER_ACK::MergePartialFromCodedStream(
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &statuscode_)));
           set_has_statuscode();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_domainName;
+        break;
+      }
+      
+      // optional string domainName = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_domainName:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_domainname()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->domainname().data(), this->domainname().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
         }
@@ -529,6 +557,15 @@ void MSG_DM_DC_REGISTER_ACK::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->statuscode(), output);
   }
   
+  // optional string domainName = 2;
+  if (has_domainname()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->domainname().data(), this->domainname().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->domainname(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -540,6 +577,16 @@ void MSG_DM_DC_REGISTER_ACK::SerializeWithCachedSizes(
   // optional int32 statusCode = 1;
   if (has_statuscode()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->statuscode(), target);
+  }
+  
+  // optional string domainName = 2;
+  if (has_domainname()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->domainname().data(), this->domainname().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->domainname(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -558,6 +605,13 @@ int MSG_DM_DC_REGISTER_ACK::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->statuscode());
+    }
+    
+    // optional string domainName = 2;
+    if (has_domainname()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->domainname());
     }
     
   }
@@ -590,6 +644,9 @@ void MSG_DM_DC_REGISTER_ACK::MergeFrom(const MSG_DM_DC_REGISTER_ACK& from) {
     if (from.has_statuscode()) {
       set_statuscode(from.statuscode());
     }
+    if (from.has_domainname()) {
+      set_domainname(from.domainname());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -614,6 +671,7 @@ bool MSG_DM_DC_REGISTER_ACK::IsInitialized() const {
 void MSG_DM_DC_REGISTER_ACK::Swap(MSG_DM_DC_REGISTER_ACK* other) {
   if (other != this) {
     std::swap(statuscode_, other->statuscode_);
+    std::swap(domainname_, other->domainname_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

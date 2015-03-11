@@ -19,9 +19,7 @@ int main(int argc , char** argv)
     AsyncLogging log(::basename(name), ROLL_SIZE);
     log.start();
     g_asyncLog = &log;
-#ifdef TEST
     muduo::Logger::setOutput(asyncOutput);
-#endif
     DMServer dmServer( Initializer::getOptions() );
     dmServer.start();
     ( Initializer::getEventLoop() ).loop();

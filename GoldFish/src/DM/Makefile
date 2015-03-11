@@ -42,6 +42,7 @@ all : $(TESTS)
 clean :
 	rm -f $(TESTS)
 	rm *.o
+	rm *.log
 
 # Builds gtest.a and gtest_main.a.
 

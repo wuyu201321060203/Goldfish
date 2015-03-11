@@ -44,6 +44,12 @@ void DCRegister::doRegister(muduo::net::TcpConnectionPtr const& conn,
     {
         dbConn->execute("update DOMAIN_INFO set IP = '%s', Port = '%d' where \
             id = '%d'" , ip.c_str() , port , moduleID);
+        ResultSetPtr ret = dbConn->executeQuery("select name from DOMAIN_INFO \
+            where id = '%d'" , moduleID);
+        if(ret->next())
+            reply.set_domainname(ret->getString(1));
+        else
+            reply.set_domainname("UNKONWN-DOMAIN");
     }
     catch(SQLException const& e)
     {

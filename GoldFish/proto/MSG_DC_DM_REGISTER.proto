@@ -8,4 +8,5 @@ message MSG_DC_DM_REGISTER
 message MSG_DM_DC_REGISTER_ACK
 {
     optional int32 statusCode = 1;
+    optional string domainName = 2;
 }
