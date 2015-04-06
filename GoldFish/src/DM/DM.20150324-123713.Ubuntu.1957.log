@@ -1,0 +1,327 @@
+20150324 12:37:13.497903Z  1957 INFO  TcpClient::TcpClient[rasMasterClient] - connector 0x8698B58 - TcpClient.cc:71
+20150324 12:37:13.499200Z  1957 INFO  TcpClient::connect[rasMasterClient] - connecting to 127.0.0.1:9877 - TcpClient.cc:102
+20150324 12:37:13.499586Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:37:13.499603Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:37:13.499720Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 500 milliseconds.  - Connector.cc:217
+20150324 12:37:14.003071Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:37:14.003161Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:37:14.003204Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 1000 milliseconds.  - Connector.cc:217
+20150324 12:37:15.004993Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:37:15.005024Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:37:15.005070Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 2000 milliseconds.  - Connector.cc:217
+20150324 12:37:17.007948Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:37:17.007968Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:37:17.008002Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 4000 milliseconds.  - Connector.cc:217
+20150324 12:37:21.009861Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:37:21.009881Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:37:21.009914Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 8000 milliseconds.  - Connector.cc:217
+20150324 12:37:29.014523Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:37:29.014543Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:37:29.014574Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 16000 milliseconds.  - Connector.cc:217
+20150324 12:37:45.015097Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:37:45.015117Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:37:45.015150Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:38:10.585854Z  1957 INFO  TcpServer::newConnection [server4Client] - new connection [server4Client:127.0.0.1:9878#1] from 127.0.0.1:47618 - TcpServer.cc:84
+20150324 12:38:15.016915Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:38:15.016935Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:38:15.016975Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:38:36.354673Z  1957 INFO  TcpServer::removeConnectionInLoop [server4Client] - connection server4Client:127.0.0.1:9878#1 - TcpServer.cc:113
+20150324 12:38:43.993872Z  1957 INFO  TcpServer::newConnection [server4Client] - new connection [server4Client:127.0.0.1:9878#2] from 127.0.0.1:47620 - TcpServer.cc:84
+20150324 12:38:45.017605Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:38:45.017628Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:38:45.017680Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:39:15.018469Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:39:15.018488Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:39:15.018520Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:39:28.524995Z  1957 INFO  TcpServer::removeConnectionInLoop [server4Client] - connection server4Client:127.0.0.1:9878#2 - TcpServer.cc:113
+20150324 12:39:33.740270Z  1957 INFO  TcpServer::newConnection [server4Client] - new connection [server4Client:127.0.0.1:9878#3] from 127.0.0.1:47623 - TcpServer.cc:84
+20150324 12:39:45.022119Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:39:45.022139Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:39:45.022173Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:39:46.105895Z  1957 INFO  TcpServer::removeConnectionInLoop [server4Client] - connection server4Client:127.0.0.1:9878#3 - TcpServer.cc:113
+20150324 12:39:48.841412Z  1957 INFO  TcpServer::newConnection [server4Client] - new connection [server4Client:127.0.0.1:9878#4] from 127.0.0.1:47625 - TcpServer.cc:84
+20150324 12:40:00.155997Z  1957 INFO  TcpServer::removeConnectionInLoop [server4Client] - connection server4Client:127.0.0.1:9878#4 - TcpServer.cc:113
+20150324 12:40:02.216410Z  1957 INFO  TcpServer::newConnection [server4Client] - new connection [server4Client:127.0.0.1:9878#5] from 127.0.0.1:47626 - TcpServer.cc:84
+20150324 12:40:15.024151Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:40:15.024171Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:40:15.024204Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:40:16.179732Z  1957 INFO  TcpServer::removeConnectionInLoop [server4Client] - connection server4Client:127.0.0.1:9878#5 - TcpServer.cc:113
+20150324 12:40:45.026545Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:40:45.026702Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:40:45.026746Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:41:15.027510Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:41:15.027535Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:41:15.027595Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:41:34.834510Z  1957 INFO  TcpServer::newConnection [server4Client] - new connection [server4Client:127.0.0.1:9878#6] from 127.0.0.1:47631 - TcpServer.cc:84
+20150324 12:41:45.030789Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:41:45.030869Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:41:45.030904Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:42:15.033980Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:42:15.034059Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:42:15.034202Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:42:27.680102Z  1957 INFO  TcpServer::removeConnectionInLoop [server4Client] - connection server4Client:127.0.0.1:9878#6 - TcpServer.cc:113
+20150324 12:42:38.233646Z  1957 INFO  TcpServer::newConnection [server4Client] - new connection [server4Client:127.0.0.1:9878#7] from 127.0.0.1:47635 - TcpServer.cc:84
+20150324 12:42:45.037236Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:42:45.037282Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:42:45.037348Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:43:15.039602Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:43:15.039702Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:43:15.039737Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:43:45.042015Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:43:45.042081Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:43:45.042217Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:43:47.328106Z  1957 INFO  TcpServer::removeConnectionInLoop [server4Client] - connection server4Client:127.0.0.1:9878#7 - TcpServer.cc:113
+20150324 12:43:54.970013Z  1957 INFO  TcpServer::newConnection [server4Client] - new connection [server4Client:127.0.0.1:9878#8] from 127.0.0.1:47640 - TcpServer.cc:84
+20150324 12:44:15.043998Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:44:15.044079Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:44:15.044152Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:44:45.045121Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:44:45.045144Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:44:45.045181Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:45:15.047374Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:45:15.047395Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:45:15.047427Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:45:45.051158Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:45:45.051178Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:45:45.051211Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:46:15.053332Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:46:15.053354Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:46:15.053354Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:46:45.054789Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:46:45.054821Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:46:45.054889Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:47:15.055613Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:47:15.055638Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:47:15.055722Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:47:45.056415Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:47:45.056475Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:47:45.056525Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:48:15.057496Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:48:15.057524Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:48:15.057574Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:48:45.060561Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:48:45.060586Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:48:45.060633Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:49:15.061759Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:49:15.061780Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:49:15.061996Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:49:45.064776Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:49:45.064992Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:49:45.065037Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:50:15.067176Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:50:15.067197Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:50:15.067236Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:50:45.069558Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:50:45.069582Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:50:45.069622Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:51:15.070235Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:51:15.070273Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:51:15.070331Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:51:45.072964Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:51:45.072985Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:51:45.073021Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:52:15.075103Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:52:15.075123Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:52:15.075155Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:52:45.076113Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:52:45.076135Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:52:45.076175Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:53:15.078515Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:53:15.078656Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:53:15.078747Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:53:45.081477Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:53:45.081503Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:53:45.081553Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:54:15.083184Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:54:15.083210Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:54:15.083259Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:54:45.084413Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:54:45.084436Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:54:45.084476Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:55:15.085350Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:55:15.085371Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:55:15.085415Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:55:45.085994Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:55:45.086022Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:55:45.086109Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:56:15.087959Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:56:15.087984Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:56:15.088013Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:56:45.088532Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:56:45.088557Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:56:45.088604Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:57:15.089038Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:57:15.089057Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:57:15.089090Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:57:45.090794Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:57:45.090819Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:57:45.090904Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:58:15.092438Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:58:15.092458Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:58:15.092491Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:58:45.093164Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:58:45.093183Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:58:45.093219Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:59:15.095270Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:59:15.095295Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:59:15.095364Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 12:59:45.096010Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 12:59:45.096035Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 12:59:45.096119Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:00:15.096684Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:00:15.096748Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:00:15.096801Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:00:45.098385Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:00:45.098444Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:00:45.098495Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:01:15.099233Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:01:15.099261Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:01:15.099314Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:01:45.100761Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:01:45.100839Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:01:45.100893Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:02:15.101581Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:02:15.101606Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:02:15.101709Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:02:45.103534Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:02:45.103597Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:02:45.103648Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:03:15.105210Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:03:15.105236Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:03:15.105325Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:03:45.106018Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:03:45.106043Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:03:45.106135Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:04:15.107070Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:04:15.107097Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:04:15.107210Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:04:45.107939Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:04:45.107964Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:04:45.108014Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:05:15.117210Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:05:15.117273Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:05:15.117327Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:05:45.118104Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:05:45.118130Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:05:45.118176Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:06:15.118887Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:06:15.118907Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:06:15.118939Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:06:45.120874Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:06:45.120921Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:06:45.120995Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:07:15.121863Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:07:15.121926Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:07:15.121976Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:07:45.123940Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:07:45.123963Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:07:45.123998Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:08:15.124863Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:08:15.124889Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:08:15.124978Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:08:45.126887Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:08:45.126908Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:08:45.126942Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:09:15.129628Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:09:15.129654Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:09:15.129701Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:09:45.131340Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:09:45.131362Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:09:45.131400Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:10:15.132374Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:10:15.132402Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:10:15.132452Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:10:45.133029Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:10:45.133048Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:10:45.133080Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:11:15.134790Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:11:15.134812Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:11:15.134850Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:11:45.137116Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:11:45.137179Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:11:45.137231Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:12:15.138070Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:12:15.138098Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:12:15.138187Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:12:45.139128Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:12:45.139153Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:12:45.139235Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:13:15.140151Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:13:15.140171Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:13:15.140203Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:13:45.142340Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:13:45.142365Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:13:45.142411Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:14:15.144601Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:14:15.144626Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:14:15.144672Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:14:45.145629Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:14:45.145650Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:14:45.145683Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:15:15.146787Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:15:15.146883Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:15:15.146933Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:15:45.147942Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:15:45.147967Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:15:45.148013Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:16:15.148998Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:16:15.149022Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:16:15.149068Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:16:45.150178Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:16:45.150203Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:16:45.150288Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:17:15.151473Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:17:15.151507Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:17:15.151556Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:17:45.152547Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:17:45.152568Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:17:45.152604Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:18:15.153674Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:18:15.153674Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:18:15.153674Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:18:45.154431Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:18:45.154451Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:18:45.154484Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:19:15.155303Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:19:15.155323Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:19:15.155357Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:19:45.157179Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:19:45.157206Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:19:45.157251Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:20:15.158712Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:20:15.158733Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:20:15.158773Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:20:45.160859Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:20:45.160884Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:20:45.160932Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:21:15.162120Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:21:15.162180Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:21:15.162229Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:21:45.163392Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:21:45.163418Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:21:45.163466Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:22:15.164640Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:22:15.164665Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:22:15.164712Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:22:45.166644Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:22:45.166669Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:22:45.166720Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:23:15.168766Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:23:15.168792Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:23:15.168840Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:23:45.171018Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:23:45.171044Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:23:45.171127Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:24:15.172075Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:24:15.172102Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:24:15.172151Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:24:45.172936Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:24:45.172962Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:24:45.173009Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:25:15.173664Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:25:15.173689Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:25:15.173737Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:25:45.175165Z  1957 WARN  Channel::handle_event() POLLHUP - Channel.cc:83
+20150324 13:25:45.175192Z  1957 ERROR Connector::handleError state=1 - Connector.cc:201
+20150324 13:25:45.175207Z  1957 INFO  Connector::retry - Retry connecting to 127.0.0.1:9877 in 30000 milliseconds.  - Connector.cc:217
+20150324 13:26:08.969831Z  1957 INFO  TcpServer::removeConnectionInLoop [server4Client] - connection server4Client:127.0.0.1:9878#8 - TcpServer.cc:113
